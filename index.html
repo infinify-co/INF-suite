@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechFlow - Advanced Automation Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">
+                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="#" class="nav-signin">Launch App</a>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Log In</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+                <p>Don't have an account? <a href="#" id="showSignup">Sign up</a></p>
+            </form>
+            
+            <form id="signupForm" style="display: none;">
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <p>Already have an account? <a href="#" id="showLogin">Log in</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        
+        <div class="hero-container">
+            <h1 class="hero-title">
+                Scale and manage<br>
+                <span class="gradient-text">Everything in one place.</span>
+            </h1>
+            <p class="hero-description">
+                We help companies streamline operations, reduce costs, and scale efficiently 
+                through cutting-edge automation solutions powered by AI and machine learning.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Join us</button>
+                <button class="btn btn-secondary">Learn more</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Marketing Section -->
+    <section class="ai-marketing">
+        <div class="container">
+            <div class="ai-marketing-content">
+                <div class="ai-marketing-text">
+                    <h1 class="ai-marketing-title">
+                        <span class="gradient-text-purple">AI</span>
+                        <span class="gradient-text-blue">Marketing</span>
+                    </h1>
+                    <h2 class="ai-marketing-subtitle">Optimized Reach</h2>
+                    <p class="ai-marketing-description">
+                        DOML is a digital media agency powered by AI technology providing real time, 
+                        <strong class="highlight-blue">data-driven insights</strong> on your business and audience. 
+                        The mission of DOML is to create the best experiences for companies through intelligent insights, 
+                        powerful analytics and <strong class="highlight-blue">strategic execution</strong>.
+                    </p>
+                    <div class="gradient-separator"></div>
+                    <button class="ai-marketing-btn">
+                        Learn more <span class="arrow">→</span>
+                    </button>
+                </div>
+                <div class="ai-marketing-visual">
+                    <div class="cube-3d"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Analytics Section -->
+    <section class="ai-analytics">
+        <div class="container">
+            <div class="ai-analytics-content">
+                <div class="ai-analytics-visual">
+                    <div class="sphere-3d"></div>
+                </div>
+                <div class="ai-analytics-text">
+                    <h1 class="ai-analytics-title">
+                        <span class="gradient-text-dark">AI</span>
+                        <span class="gradient-text-light">Analytics</span>
+                    </h1>
+                    <h2 class="ai-analytics-subtitle">Data Intelligence</h2>
+                    <p class="ai-analytics-description">
+                        Advanced analytics platform that transforms raw data into actionable insights. 
+                        Our AI-powered system delivers <strong class="highlight-dark">real-time intelligence</strong> 
+                        and <strong class="highlight-dark">predictive analytics</strong> to drive your business forward 
+                        with precision and accuracy.
+                    </p>
+                    <div class="gradient-separator-analytics"></div>
+                    <button class="ai-analytics-btn">
+                        Learn more <span class="arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Automation Solutions</h2>
+                <p class="section-description">
+                    Comprehensive automation services designed to transform your business operations
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="service-title">Process Automation</h3>
+                    <p class="service-description">
+                        Automate repetitive tasks and workflows to increase efficiency and reduce human error.
+                    </p>
+                    <ul class="service-features">
+                        <li>Workflow Optimization</li>
+                        <li>Task Automation</li>
+                        <li>Error Reduction</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="service-title">AI Integration</h3>
+                    <p class="service-description">
+                        Leverage artificial intelligence to make intelligent decisions and predictions.
+                    </p>
+                    <ul class="service-features">
+                        <li>Machine Learning</li>
+                        <li>Predictive Analytics</li>
+                        <li>Smart Decision Making</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="service-title">Data Processing</h3>
+                    <p class="service-description">
+                        Automate data collection, processing, and analysis for better insights.
+                    </p>
+                    <ul class="service-features">
+                        <li>Real-time Processing</li>
+                        <li>Data Validation</li>
+                        <li>Automated Reporting</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">Mobile Automation</h3>
+                    <p class="service-description">
+                        Extend automation capabilities to mobile devices and applications.
+                    </p>
+                    <ul class="service-features">
+                        <li>Mobile App Testing</li>
+                        <li>Cross-platform Automation</li>
+                        <li>Mobile Workflows</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="service-title">Cloud Integration</h3>
+                    <p class="service-description">
+                        Seamlessly integrate with cloud services and platforms for scalable automation.
+                    </p>
+                    <ul class="service-features">
+                        <li>Cloud Migration</li>
+                        <li>API Integration</li>
+                        <li>Scalable Infrastructure</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="service-title">Security Automation</h3>
+                    <p class="service-description">
+                        Automate security processes and threat detection for enhanced protection.
+                    </p>
+                    <ul class="service-features">
+                        <li>Threat Detection</li>
+                        <li>Automated Responses</li>
+                        <li>Compliance Monitoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Why Choose INF?</h2>
+                    <p class="about-description">
+                        With over a decade of experience in automation technology, we've helped 
+                        hundreds of companies transform their operations and achieve unprecedented 
+                        levels of efficiency.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-content">
+                                <h4>Proven Expertise</h4>
+                                <p>3+ years of experience</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-content">
+                                <h4>Custom Solutions</h4>
+                                <p>Tailored automation strategies for your specific needs</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <div class="feature-content">
+                                <h4>24/7 Support</h4>
+                                <p>Round-the-clock monitoring and support for your systems</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <i class="fab fa-python"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-node-js"></i>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-docker"></i>
+                            <span>Docker</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-aws"></i>
+                            <span>AWS</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fas fa-database"></i>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="tech-item">
+                            <i class="fab fa-react"></i>
+                            <span>React</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corporate Information Section -->
+    <section id="corporate-info" class="corporate-info">
+        <div class="container">
+            <div class="corporate-content">
+                <div class="corporate-overview">
+                    <div class="overview-text">
+                        <h3>Enterprise-Grade Innovation</h3>
+                        <p>INF Corporation stands at the forefront of enterprise automation technology, delivering mission-critical solutions to Fortune 500 companies worldwide. Our comprehensive suite of AI-powered platforms transforms complex business operations into streamlined, intelligent workflows.</p>
+                        
+                        <div class="corporate-highlights">
+                            <div class="highlight-item">
+                                <span class="highlight-number">50+</span>
+                                <span class="highlight-text">Fortune 500 Clients</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-number">$2B+</span>
+                                <span class="highlight-text">Cost Savings Delivered</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-number">99.9%</span>
+                                <span class="highlight-text">Uptime Guarantee</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="corporate-features">
+                        <div class="feature-row">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Enterprise Architecture</h4>
+                                    <p>Scalable, secure infrastructure designed for large-scale enterprise deployments</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Global Operations</h4>
+                                    <p>24/7 support across multiple time zones with dedicated regional teams</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-row">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Compliance & Security</h4>
+                                    <p>SOC 2, ISO 27001, and GDPR compliant with enterprise-grade security</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Expert Team</h4>
+                                    <p>500+ certified professionals with deep industry expertise</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="corporate-stats">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">15</div>
+                                <div class="stat-label">Industries Served</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">1000+</div>
+                                <div class="stat-label">Systems Deployed</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">25</div>
+                                <div class="stat-label">Industry Awards</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-number">200+</div>
+                                <div class="stat-label">Strategic Partners</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                    </div>
+                    <p>Transforming businesses through intelligent automation solutions.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Process Automation</a></li>
+                        <li><a href="#">AI Integration</a></li>
+                        <li><a href="#">Data Processing</a></li>
+                        <li><a href="#">Cloud Integration</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechFlow. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

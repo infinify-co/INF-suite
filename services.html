@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - INF Corporation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="services.html" class="nav-link active">Services</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="#" class="nav-signin">Log in</a>
+            <div class="nav-hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Services Hero Section -->
+    <section class="services-hero">
+        <div class="container">
+            <div class="services-hero-content">
+                <h1 class="services-hero-title">Our Services</h1>
+                <p class="services-hero-description">
+                    Pricing is custom built for your needs
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid Section -->
+    <section class="services-main">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="service-title">Digital Asset<br>Optimisation</h3>
+                    <p class="service-description">
+                        Improve and Analyse your Website's, App's, Social media's & many more.
+                    </p>
+                    <ul class="service-features">
+                        <li>Workflow optimization</li>
+                        <li>Task automation</li>
+                        <li>Error reduction</li>
+                        <li>Time savings</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="service-title">AI Integration</h3>
+                    <p class="service-description">
+                        Implement artificial intelligence solutions to enhance decision-making and operational intelligence.
+                    </p>
+                    <ul class="service-features">
+                        <li>Machine learning models</li>
+                        <li>Predictive analytics</li>
+                        <li>Intelligent automation</li>
+                        <li>Data insights</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">Data Analytics</h3>
+                    <p class="service-description">
+                        Transform raw data into actionable insights with our advanced analytics platform.
+                    </p>
+                    <ul class="service-features">
+                        <li>Real-time reporting</li>
+                        <li>Data visualization</li>
+                        <li>Performance metrics</li>
+                        <li>Trend analysis</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="service-title">Cloud Solutions</h3>
+                    <p class="service-description">
+                        Scalable cloud infrastructure and migration services for modern business needs.
+                    </p>
+                    <ul class="service-features">
+                        <li>Cloud migration</li>
+                        <li>Infrastructure scaling</li>
+                        <li>Security compliance</li>
+                        <li>Cost optimization</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="service-title">Security & Compliance</h3>
+                    <p class="service-description">
+                        Enterprise-grade security solutions to protect your data and ensure compliance.
+                    </p>
+                    <ul class="service-features">
+                        <li>Data protection</li>
+                        <li>Access control</li>
+                        <li>Compliance monitoring</li>
+                        <li>Risk assessment</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="service-title">24/7 Support</h3>
+                    <p class="service-description">
+                        Round-the-clock monitoring and support for your systems and operations.
+                    </p>
+                    <ul class="service-features">
+                        <li>Continuous monitoring</li>
+                        <li>Rapid response</li>
+                        <li>System maintenance</li>
+                        <li>Expert assistance</li>
+                    </ul>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h3 class="service-title">RPA (Bots)</h3>
+                    <p class="service-description">
+                        Deploy software robots to automate high-volume, rules-based processes across teams.
+                    </p>
+                    <ul class="service-features">
+                        <li>Back-office automation</li>
+                        <li>Human-in-the-loop reviews</li>
+                        <li>Audit trails</li>
+                        <li>Scalable bot orchestration</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3 class="service-title">DevOps Automation</h3>
+                    <p class="service-description">
+                        Accelerate releases with CI/CD pipelines, infrastructure as code, and automated testing.
+                    </p>
+                    <ul class="service-features">
+                        <li>CI/CD pipelines</li>
+                        <li>Infrastructure as Code</li>
+                        <li>Automated rollbacks</li>
+                        <li>Observability & alerts</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="service-title">Systems Integration</h3>
+                    <p class="service-description">
+                        Connect CRMs, ERPs, and data platforms with robust APIs and event-driven architectures.
+                    </p>
+                    <ul class="service-features">
+                        <li>REST/GraphQL APIs</li>
+                        <li>Event streaming</li>
+                        <li>Data synchronization</li>
+                        <li>Legacy system bridges</li>
+                    </ul>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <h3 class="service-title">QA Automation</h3>
+                    <p class="service-description">
+                        Improve reliability with automated unit, integration, and end‑to‑end testing suites.
+                    </p>
+                    <ul class="service-features">
+                        <li>E2E test frameworks</li>
+                        <li>Load & performance testing</li>
+                        <li>Coverage reporting</li>
+                        <li>Release gating</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="service-title">Training & Enablement</h3>
+                    <p class="service-description">
+                        Upskill your teams with hands-on workshops, documentation, and center-of-excellence playbooks.
+                    </p>
+                    <ul class="service-features">
+                        <li>Role-based workshops</li>
+                        <li>Runbooks & SOPs</li>
+                        <li>Change management</li>
+                        <li>Admin certification paths</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="service-title">Custom Development</h3>
+                    <p class="service-description">
+                        Bespoke applications and microservices tailored to your exact business requirements.
+                    </p>
+                    <ul class="service-features">
+                        <li>Domain-driven design</li>
+                        <li>Secure microservices</li>
+                        <li>Scalable architectures</li>
+                        <li>Ongoing maintenance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="services-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Transform Your Business?</h2>
+                <p class="cta-description">
+                    Get started with our automation solutions today and see the difference intelligent automation can make.
+                </p>
+                <div class="cta-buttons">
+                    <a href="index.html#contact" class="btn btn-primary">Get Started</a>
+                    <a href="index.html#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                    </div>
+                    <p>Empowering businesses through intelligent automation and data-driven solutions.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Process Automation</a></li>
+                        <li><a href="services.html">AI Integration</a></li>
+                        <li><a href="services.html">Data Analytics</a></li>
+                        <li><a href="services.html">Cloud Solutions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>hello@inf.com</li>
+                        <li>+1 (555) 123-4567</li>
+                        <li>123 Automation Street<br>Tech City, TC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 INF Corporation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="supabase-config.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "techflow-landing",
+  "version": "1.0.0",
+  "description": "Modern landing page for TechFlow - Advanced Automation Solutions",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server --port=3000 --open=/index.html",
+    "dev": "npx live-server --port=3000 --open=/index.html --watch=.",
+    "build": "echo 'No build process needed for static site'",
+    "serve": "npx http-server -p 8080 -o"
+  },
+  "keywords": [
+    "automation",
+    "tech",
+    "landing-page",
+    "responsive",
+    "modern"
+  ],
+  "author": "TechFlow Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techflow/landing-page.git"
+  },
+  "homepage": "https://techflow.com"
+}
