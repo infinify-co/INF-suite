@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library & Books - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="services.html" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-signin">Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Vertical Dock -->
+    <div class="vertical-dock">
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='users.html'">
+                <i data-lucide="users"></i>
+                <span class="dock-label">Users</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='food.html'">
+                <i data-lucide="utensils"></i>
+                <span class="dock-label">Food</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='apps.html'">
+                <i data-lucide="grid-3x3"></i>
+                <span class="dock-label">Apps</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='book.html'">
+                <i data-lucide="book-open"></i>
+                <span class="dock-label">Book</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='explore.html'">
+                <i data-lucide="compass"></i>
+                <span class="dock-label">Explore</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='analytics.html'">
+                <i data-lucide="bar-chart-3"></i>
+                <span class="dock-label">Analytics</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='video.html'">
+                <i data-lucide="video"></i>
+                <span class="dock-label">Video</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='documents.html'">
+                <i data-lucide="file-text"></i>
+                <span class="dock-label">Documents</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='settings.html'">
+                <i data-lucide="settings"></i>
+                <span class="dock-label">Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1 class="page-title">
+                    <i data-lucide="book-open" class="page-icon"></i>
+                    Library & Books
+                </h1>
+                <p class="page-description">Access your digital library, manage books, and track reading progress.</p>
+            </section>
+
+            <!-- Library Stats -->
+            <section class="quick-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-number">2,847</div>
+                            <div class="stat-label">Total Books</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-number">156</div>
+                            <div class="stat-label">Currently Reading</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-number">1,234</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">New This Week</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Library Actions -->
+            <section class="quick-actions">
+                <h2 class="section-title">Library Management</h2>
+                <div class="actions-grid">
+                    <button class="action-btn">
+                        <i data-lucide="search"></i>
+                        Search Books
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="book-plus"></i>
+                        Add Book
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="bookmark"></i>
+                        My Bookmarks
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="star"></i>
+                        Favorites
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recent Reading Activity -->
+            <section class="recent-activity">
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="book-check" class="success"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Finished reading "The Future of Work"</div>
+                            <div class="activity-time">1 hour ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="book-plus" class="info"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Added 3 new books to library</div>
+                            <div class="activity-time">3 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="bookmark" class="warning"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Bookmarked chapter 12</div>
+                            <div class="activity-time">5 hours ago</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="services.html" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-signin">Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Vertical Dock -->
+    <div class="vertical-dock">
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='users.html'">
+                <i data-lucide="users"></i>
+                <span class="dock-label">Users</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='food.html'">
+                <i data-lucide="utensils"></i>
+                <span class="dock-label">Food</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='apps.html'">
+                <i data-lucide="grid-3x3"></i>
+                <span class="dock-label">Apps</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='book.html'">
+                <i data-lucide="book-open"></i>
+                <span class="dock-label">Book</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='explore.html'">
+                <i data-lucide="compass"></i>
+                <span class="dock-label">Explore</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='analytics.html'">
+                <i data-lucide="bar-chart-3"></i>
+                <span class="dock-label">Analytics</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='video.html'">
+                <i data-lucide="video"></i>
+                <span class="dock-label">Video</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='documents.html'">
+                <i data-lucide="file-text"></i>
+                <span class="dock-label">Documents</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='settings.html'">
+                <i data-lucide="settings"></i>
+                <span class="dock-label">Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1 class="page-title">
+                    <i data-lucide="bar-chart-3" class="page-icon"></i>
+                    Analytics Dashboard
+                </h1>
+                <p class="page-description">Comprehensive analytics and insights into your platform performance and user behavior.</p>
+            </section>
+
+            <!-- Analytics Stats -->
+            <section class="quick-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-number">89.2%</div>
+                            <div class="stat-label">User Engagement</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-number">1.2M</div>
+                            <div class="stat-label">Page Views</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-content">
+                                <div class="stat-number">45.6K</div>
+                                <div class="stat-label">Active Sessions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <div class="stat-number">3.2s</div>
+                            <div class="stat-label">Avg Load Time</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Actions -->
+            <section class="quick-actions">
+                <h2 class="section-title">Analytics Tools</h2>
+                <div class="actions-grid">
+                    <button class="action-btn">
+                        <i data-lucide="download"></i>
+                        Export Data
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="calendar"></i>
+                        Date Range
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="filter"></i>
+                        Filter Reports
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="share"></i>
+                        Share Report
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recent Analytics -->
+            <section class="recent-activity">
+                <h2 class="section-title">Recent Insights</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="trending-up" class="success"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">User engagement increased by 15%</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="eye" class="info"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Peak traffic recorded at 2 PM</div>
+                            <div class="activity-time">4 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="alert-triangle" class="warning"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Bounce rate above threshold</div>
+                            <div class="activity-time">6 hours ago</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

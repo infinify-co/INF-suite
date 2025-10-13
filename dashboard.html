@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="index.html" class="nav-signin">Back to Site</a>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Vertical Dock -->
+    <div class="vertical-dock">
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='users.html'">
+                <i data-lucide="users"></i>
+                <span class="dock-label">Users</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='food.html'">
+                <i data-lucide="utensils"></i>
+                <span class="dock-label">Food</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='apps.html'">
+                <i data-lucide="grid-3x3"></i>
+                <span class="dock-label">Apps</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='book.html'">
+                <i data-lucide="book-open"></i>
+                <span class="dock-label">Book</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='explore.html'">
+                <i data-lucide="compass"></i>
+                <span class="dock-label">Explore</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='analytics.html'">
+                <i data-lucide="bar-chart-3"></i>
+                <span class="dock-label">Analytics</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='video.html'">
+                <i data-lucide="video"></i>
+                <span class="dock-label">Video</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='documents.html'">
+                <i data-lucide="file-text"></i>
+                <span class="dock-label">Documents</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='settings.html'">
+                <i data-lucide="settings"></i>
+                <span class="dock-label">Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <section class="dashboard-main">
+        <div class="container">
+            <div class="dashboard-grid">
+                <!-- Quick Stats -->
+                <div class="dashboard-card stats-card">
+                    <h3>Quick Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-content">
+                                <div class="stat-number">24.5%</div>
+                                <div class="stat-label">Efficiency Gain</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-content">
+                                <div class="stat-number">156h</div>
+                                <div class="stat-label">Time Saved</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-content">
+                                <div class="stat-number">$12.3K</div>
+                                <div class="stat-label">Cost Savings</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-content">
+                                <div class="stat-number">847</div>
+                                <div class="stat-label">Tasks Automated</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card activity-card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Process Automation Completed</div>
+                                <div class="activity-time">2 minutes ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">AI Integration Updated</div>
+                                <div class="activity-time">1 hour ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Analytics Report Generated</div>
+                                <div class="activity-time">3 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-title">Cloud Sync Completed</div>
+                                <div class="activity-time">5 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="dashboard-card actions-card">
+                    <h3>Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="action-btn">
+                            <i class="fas fa-plus"></i>
+                            <span>Create Automation</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-chart-line"></i>
+                            <span>View Analytics</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-download"></i>
+                            <span>Export Data</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="dashboard-card status-card">
+                    <h3>System Status</h3>
+                    <div class="status-list">
+                        <div class="status-item">
+                            <div class="status-indicator online"></div>
+                            <div class="status-content">
+                                <div class="status-title">Core Services</div>
+                                <div class="status-detail">All systems operational</div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator online"></div>
+                            <div class="status-content">
+                                <div class="status-title">AI Processing</div>
+                                <div class="status-detail">Running smoothly</div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator warning"></div>
+                            <div class="status-content">
+                                <div class="status-title">Backup System</div>
+                                <div class="status-detail">Scheduled maintenance</div>
+                            </div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-indicator online"></div>
+                            <div class="status-content">
+                                <div class="status-title">API Gateway</div>
+                                <div class="status-detail">Response time: 45ms</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>INF Corporation</h4>
+                    <p>Advanced automation solutions for modern businesses.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 INF Corporation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+
+            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
+
+            dockItems.forEach(item => {
+                // Improve keyboard accessibility
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        item.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

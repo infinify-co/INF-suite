@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="services.html" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-signin">Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Vertical Dock -->
+    <div class="vertical-dock">
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='users.html'">
+                <i data-lucide="users"></i>
+                <span class="dock-label">Users</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='food.html'">
+                <i data-lucide="utensils"></i>
+                <span class="dock-label">Food</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='apps.html'">
+                <i data-lucide="grid-3x3"></i>
+                <span class="dock-label">Apps</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='book.html'">
+                <i data-lucide="book-open"></i>
+                <span class="dock-label">Book</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='explore.html'">
+                <i data-lucide="compass"></i>
+                <span class="dock-label">Explore</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='analytics.html'">
+                <i data-lucide="bar-chart-3"></i>
+                <span class="dock-label">Analytics</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='video.html'">
+                <i data-lucide="video"></i>
+                <span class="dock-label">Video</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='documents.html'">
+                <i data-lucide="file-text"></i>
+                <span class="dock-label">Documents</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='settings.html'">
+                <i data-lucide="settings"></i>
+                <span class="dock-label">Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1 class="page-title">
+                    <i data-lucide="settings" class="page-icon"></i>
+                    Settings
+                </h1>
+                <p class="page-description">Configure your account preferences, security settings, and system options.</p>
+            </section>
+
+            <!-- Settings Categories -->
+            <section class="quick-actions">
+                <h2 class="section-title">Account Settings</h2>
+                <div class="actions-grid">
+                    <button class="action-btn">
+                        <i data-lucide="user"></i>
+                        Profile
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="shield"></i>
+                        Security
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="bell"></i>
+                        Notifications
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="globe"></i>
+                        Language
+                    </button>
+                </div>
+            </section>
+
+            <!-- System Settings -->
+            <section class="quick-actions">
+                <h2 class="section-title">System Settings</h2>
+                <div class="actions-grid">
+                    <button class="action-btn">
+                        <i data-lucide="palette"></i>
+                        Appearance
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="database"></i>
+                        Data & Storage
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="wifi"></i>
+                        Network
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="help-circle"></i>
+                        Help & Support
+                    </button>
+                </div>
+            </section>
+
+            <!-- Recent Settings Changes -->
+            <section class="recent-activity">
+                <h2 class="section-title">Recent Changes</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="palette" class="success"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Theme changed to dark mode</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="shield" class="info"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Two-factor authentication enabled</div>
+                            <div class="activity-time">1 day ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="bell" class="warning"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Email notifications disabled</div>
+                            <div class="activity-time">3 days ago</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
