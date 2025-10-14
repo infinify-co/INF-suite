@@ -9,21 +9,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
-<body>
+<body class="dashboard-page">
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="index.html">
+                <a href="#">
                     <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
+                <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
                 <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="index.html#about" class="nav-link">About</a></li>
-                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="dashboard.html#about" class="nav-link">About</a></li>
+                <li><a href="dashboard.html#contact" class="nav-link">Contact</a></li>
             </ul>
-            <a href="index.html" class="nav-signin">Back to Site</a>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -79,144 +79,99 @@
         </div>
     </div>
 
-    <!-- Dashboard Content -->
-    <section class="dashboard-main">
-        <div class="container">
-            <div class="dashboard-grid">
-                <!-- Quick Stats -->
-                <div class="dashboard-card stats-card">
-                    <h3>Quick Stats</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-content">
-                                <div class="stat-number">24.5%</div>
-                                <div class="stat-label">Efficiency Gain</div>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-content">
-                                <div class="stat-number">156h</div>
-                                <div class="stat-label">Time Saved</div>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-content">
-                                <div class="stat-number">$12.3K</div>
-                                <div class="stat-label">Cost Savings</div>
-                            </div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-content">
-                                <div class="stat-number">847</div>
-                                <div class="stat-label">Tasks Automated</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1 class="page-title">
+                    <i data-lucide="home" class="page-icon"></i>
+                    Dashboard
+                </h1>
+                <p class="page-description">Welcome to your INF dashboard. Monitor your system performance and access key features.</p>
+            </section>
 
-                <!-- Recent Activity -->
-                <div class="dashboard-card activity-card">
-                    <h3>Recent Activity</h3>
-                    <div class="activity-list">
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-title">Process Automation Completed</div>
-                                <div class="activity-time">2 minutes ago</div>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-title">AI Integration Updated</div>
-                                <div class="activity-time">1 hour ago</div>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-title">Analytics Report Generated</div>
-                                <div class="activity-time">3 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <i class="fas fa-cloud"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-title">Cloud Sync Completed</div>
-                                <div class="activity-time">5 hours ago</div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h2 class="section-title">Quick Actions</h2>
+                <div class="actions-grid">
+                    <button class="action-btn">
+                        <i data-lucide="plus"></i>
+                        Create Automation
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="chart-line"></i>
+                        View Analytics
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="settings"></i>
+                        Settings
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="download"></i>
+                        Export Data
+                    </button>
                 </div>
+            </section>
 
-                <!-- Quick Actions -->
-                <div class="dashboard-card actions-card">
-                    <h3>Quick Actions</h3>
-                    <div class="actions-grid">
-                        <button class="action-btn">
-                            <i class="fas fa-plus"></i>
-                            <span>Create Automation</span>
-                        </button>
-                        <button class="action-btn">
-                            <i class="fas fa-chart-line"></i>
-                            <span>View Analytics</span>
-                        </button>
-                        <button class="action-btn">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                        </button>
-                        <button class="action-btn">
-                            <i class="fas fa-download"></i>
-                            <span>Export Data</span>
-                        </button>
-                    </div>
+            <!-- System Overview -->
+            <section class="quick-actions">
+                <h2 class="section-title">System Overview</h2>
+                <div class="actions-grid">
+                    <button class="action-btn">
+                        <i data-lucide="activity"></i>
+                        Performance
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="database"></i>
+                        Data Management
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="shield"></i>
+                        Security
+                    </button>
+                    <button class="action-btn">
+                        <i data-lucide="help-circle"></i>
+                        Help & Support
+                    </button>
                 </div>
+            </section>
 
-                <!-- System Status -->
-                <div class="dashboard-card status-card">
-                    <h3>System Status</h3>
-                    <div class="status-list">
-                        <div class="status-item">
-                            <div class="status-indicator online"></div>
-                            <div class="status-content">
-                                <div class="status-title">Core Services</div>
-                                <div class="status-detail">All systems operational</div>
-                            </div>
+            <!-- Recent Activity -->
+            <section class="recent-activity">
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="check-circle" class="success"></i>
                         </div>
-                        <div class="status-item">
-                            <div class="status-indicator online"></div>
-                            <div class="status-content">
-                                <div class="status-title">AI Processing</div>
-                                <div class="status-detail">Running smoothly</div>
-                            </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Process Automation Completed</div>
+                            <div class="activity-time">2 minutes ago</div>
                         </div>
-                        <div class="status-item">
-                            <div class="status-indicator warning"></div>
-                            <div class="status-content">
-                                <div class="status-title">Backup System</div>
-                                <div class="status-detail">Scheduled maintenance</div>
-                            </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="robot" class="info"></i>
                         </div>
-                        <div class="status-item">
-                            <div class="status-indicator online"></div>
-                            <div class="status-content">
-                                <div class="status-title">API Gateway</div>
-                                <div class="status-detail">Response time: 45ms</div>
-                            </div>
+                        <div class="activity-content">
+                            <div class="activity-title">AI Integration Updated</div>
+                            <div class="activity-time">1 hour ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="bar-chart-3" class="warning"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Analytics Report Generated</div>
+                            <div class="activity-time">3 hours ago</div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
