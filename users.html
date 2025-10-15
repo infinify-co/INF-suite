@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users - INF Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="styles.css?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body class="dashboard-page">
@@ -19,9 +22,7 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="dashboard.html#about" class="nav-link">About</a></li>
-                <li><a href="dashboard.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="#" class="nav-link active">Suite</a></li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -34,29 +35,29 @@
     <!-- Vertical Dock -->
     <div class="vertical-dock">
         <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='home.html'">
+            <div class="dock-item" onclick="window.location.href='dashboard.html'">
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
             <div class="dock-item active" onclick="window.location.href='users.html'">
                 <i data-lucide="users"></i>
-                <span class="dock-label">Users</span>
+                <span class="dock-label">Team's</span>
             </div>
             <div class="dock-item" onclick="window.location.href='food.html'">
-                <i data-lucide="utensils"></i>
-                <span class="dock-label">Food</span>
+                <i data-lucide="monitor-cog"></i>
+                <span class="dock-label">Operations</span>
             </div>
             <div class="dock-item" onclick="window.location.href='apps.html'">
                 <i data-lucide="grid-3x3"></i>
                 <span class="dock-label">Apps</span>
             </div>
             <div class="dock-item" onclick="window.location.href='book.html'">
-                <i data-lucide="book-open"></i>
-                <span class="dock-label">Book</span>
+                <i data-lucide="focus"></i>
+                <span class="dock-label">Leads &amp; Marketing</span>
             </div>
             <div class="dock-item" onclick="window.location.href='explore.html'">
-                <i data-lucide="compass"></i>
-                <span class="dock-label">Explore</span>
+                <i data-lucide="hard-drive"></i>
+                <span class="dock-label">Data</span>
             </div>
             <div class="dock-item" onclick="window.location.href='analytics.html'">
                 <i data-lucide="bar-chart-3"></i>
