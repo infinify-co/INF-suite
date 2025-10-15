@@ -80,6 +80,43 @@ body {
     flex: 1;
 }
 
+/* Right-aligned header actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #374151;
+}
+
+.icon-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    border-color: #d1d5db;
+}
+
+.icon-btn i {
+    width: 14px;
+    height: 14px;
+}
+
 .nav-link {
     text-decoration: none;
     color: #2c3e50;
@@ -1658,7 +1695,7 @@ body {
 
 .dashboard-main {
     padding: 4rem 0;
-    background: #f8f9fa;
+    background: #ffffff;
     margin-left: 120px; /* Account for sidebar width and spacing */
 }
 
@@ -1905,6 +1942,9 @@ body {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+    }
+    .nav-actions {
+        margin-right: 12px; /* keep a bit of breathing room on mobile */
     }
     
     .nav-menu {
@@ -2429,7 +2469,7 @@ body {
     margin-left: 80px;
     margin-top: 64px;
     min-height: calc(100vh - 64px);
-    background: #f8f9fa;
+    background: #ffffff;
 }
 
 .dashboard-container {
