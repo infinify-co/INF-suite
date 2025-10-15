@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
@@ -20,9 +20,7 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="dashboard.html#about" class="nav-link">About</a></li>
-                <li><a href="dashboard.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="#" class="nav-link active">Suite</a></li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -36,29 +34,29 @@
     <!-- Vertical Dock -->
     <div class="vertical-dock">
         <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='home.html'">
+            <div class="dock-item active" onclick="window.location.href='dashboard.html'">
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
             <div class="dock-item" onclick="window.location.href='users.html'">
                 <i data-lucide="users"></i>
-                <span class="dock-label">Users</span>
+                <span class="dock-label">Team's</span>
             </div>
             <div class="dock-item" onclick="window.location.href='food.html'">
-                <i data-lucide="utensils"></i>
-                <span class="dock-label">Food</span>
+                <i data-lucide="monitor-cog"></i>
+                <span class="dock-label">Operations</span>
             </div>
             <div class="dock-item" onclick="window.location.href='apps.html'">
                 <i data-lucide="grid-3x3"></i>
                 <span class="dock-label">Apps</span>
             </div>
             <div class="dock-item" onclick="window.location.href='book.html'">
-                <i data-lucide="book-open"></i>
-                <span class="dock-label">Book</span>
+                <i data-lucide="focus"></i>
+                <span class="dock-label">Leads &amp; Marketing</span>
             </div>
             <div class="dock-item" onclick="window.location.href='explore.html'">
-                <i data-lucide="compass"></i>
-                <span class="dock-label">Explore</span>
+                <i data-lucide="hard-drive"></i>
+                <span class="dock-label">Data</span>
             </div>
             <div class="dock-item" onclick="window.location.href='analytics.html'">
                 <i data-lucide="bar-chart-3"></i>
@@ -72,137 +70,80 @@
                 <i data-lucide="file-text"></i>
                 <span class="dock-label">Documents</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='settings.html'">
+            <div class="dock-item" onclick="window.location.href='settings.html'">
                 <i data-lucide="settings"></i>
                 <span class="dock-label">Settings</span>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main class="dashboard-main">
-        <div class="dashboard-container">
-            <!-- Page Header -->
-            <section class="page-header">
-                <h1 class="page-title">
-                    <i data-lucide="home" class="page-icon"></i>
-                    Dashboard
-                </h1>
-                <p class="page-description">Welcome to your INF dashboard. Monitor your system performance and access key features.</p>
-            </section>
 
-            <!-- Quick Actions -->
-            <section class="quick-actions">
-                <h2 class="section-title">Quick Actions</h2>
-                <div class="actions-grid">
-                    <button class="action-btn">
-                        <i data-lucide="plus"></i>
-                        Create Automation
-                    </button>
-                    <button class="action-btn">
-                        <i data-lucide="chart-line"></i>
-                        View Analytics
-                    </button>
-                    <button class="action-btn">
-                        <i data-lucide="settings"></i>
-                        Settings
-                    </button>
-                    <button class="action-btn">
-                        <i data-lucide="download"></i>
-                        Export Data
-                    </button>
-                </div>
-            </section>
-
-            <!-- System Overview -->
-            <section class="quick-actions">
-                <h2 class="section-title">System Overview</h2>
-                <div class="actions-grid">
-                    <button class="action-btn">
-                        <i data-lucide="activity"></i>
-                        Performance
-                    </button>
-                    <button class="action-btn">
-                        <i data-lucide="database"></i>
-                        Data Management
-                    </button>
-                    <button class="action-btn">
-                        <i data-lucide="shield"></i>
-                        Security
-                    </button>
-                    <button class="action-btn">
-                        <i data-lucide="help-circle"></i>
-                        Help & Support
-                    </button>
-                </div>
-            </section>
-
-            <!-- Recent Activity -->
-            <section class="recent-activity">
-                <h2 class="section-title">Recent Activity</h2>
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i data-lucide="check-circle" class="success"></i>
-                        </div>
-                        <div class="activity-content">
-                            <div class="activity-title">Process Automation Completed</div>
-                            <div class="activity-time">2 minutes ago</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i data-lucide="robot" class="info"></i>
-                        </div>
-                        <div class="activity-content">
-                            <div class="activity-title">AI Integration Updated</div>
-                            <div class="activity-time">1 hour ago</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <i data-lucide="bar-chart-3" class="warning"></i>
-                        </div>
-                        <div class="activity-content">
-                            <div class="activity-title">Analytics Report Generated</div>
-                            <div class="activity-time">3 hours ago</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- Productivity Panel: Todos & Notes -->
+    <aside id="productivityPanel" class="productivity-panel fullscreen" aria-label="Todos and Notes">
+        <div class="panel-header">
+            <h3 class="panel-title">Workspace</h3>
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>INF Corporation</h4>
-                    <p>Advanced automation solutions for modern businesses.</p>
+        <section class="sidebar-section" aria-labelledby="todosHeading">
+            <div class="section-header">
+                <h4 id="todosHeading" class="section-title">Todos</h4>
+                <button class="add-btn" title="Add todo">
+                    <i data-lucide="plus"></i>
+                </button>
+            </div>
+            <div class="todo-list">
+                <div class="todo-item">
+                    <input type="checkbox" />
+                    <div class="todo-text">Donate $500 to the charity</div>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="index.html#about">About</a></li>
-                    </ul>
+                <div class="todo-item">
+                    <input type="checkbox" />
+                    <div class="todo-text">Do 500 pushups</div>
                 </div>
-                <div class="footer-section">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Support</a></li>
-                    </ul>
+                <div class="todo-item">
+                    <input type="checkbox" checked />
+                    <div class="todo-text">Buy new headset</div>
+                </div>
+                <div class="todo-item">
+                    <input type="checkbox" />
+                    <div class="todo-text">Clean the room</div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 INF Corporation. All rights reserved.</p>
+        </section>
+
+        <section class="sidebar-section" aria-labelledby="notesHeading">
+            <div class="section-header">
+                <h4 id="notesHeading" class="section-title">Notes</h4>
+                <button class="add-btn" title="Add note">
+                    <i data-lucide="plus"></i>
+                </button>
             </div>
-        </div>
-    </footer>
+
+            <div class="notes-list">
+                <article class="note-card">
+                    <div class="note-date">Today</div>
+                    <h5 class="note-title">UI: Sidebar divider hidden</h5>
+                    <p class="note-content">The vertical divider between the left sidebar and the productivity panel is intentionally hidden (border-left set to transparent) per design request. Adjust in styles.css under .productivity-panel if needed.</p>
+                </article>
+                <article class="note-card">
+                    <div class="note-date">Apr 2, 2023</div>
+                    <h5 class="note-title">ChatGPT Tricks for business marketing</h5>
+                    <p class="note-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut id dui mi.</p>
+                </article>
+                <article class="note-card">
+                    <div class="note-date">Apr 3, 2023</div>
+                    <h5 class="note-title">How to plan football without breaking bones</h5>
+                    <p class="note-content">Fusce varius bibendum ante, non lacinia. Nullam vitae mi ac nunc varius.</p>
+                </article>
+                <article class="note-card">
+                    <div class="note-date">Apr 4, 2023</div>
+                    <h5 class="note-title">What are my life goals and progress</h5>
+                    <p class="note-content">Suspendisse potenti. Etiam nec nunc sed urna fermentum tincidunt.</p>
+                </article>
+            </div>
+        </section>
+    </aside>
+
 
     <script src="script.js"></script>
     <script>
@@ -221,6 +162,8 @@
                     }
                 });
             });
+
+            // Fullscreen by default; no toggle
         });
     </script>
 </body>

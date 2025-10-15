@@ -77,6 +77,33 @@
         </div>
     </div>
 
+    <!-- User Profile Banner -->
+    <div id="usersBanner" class="users-banner">
+        <div class="banner-content">
+            <div class="banner-left">
+                <div class="banner-avatar">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face" alt="User Avatar" class="avatar-img">
+                </div>
+                <div class="banner-text">
+                    <h3>Welcome back, John Doe</h3>
+                    <p>You have 3 pending tasks and 2 new notifications</p>
+                </div>
+            </div>
+            <div class="banner-right">
+                <div class="banner-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">24</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">156</span>
+                        <span class="stat-label">Team</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
@@ -179,10 +206,31 @@
     </main>
 
     <script>
+        // Ensure banner is always visible
+        function ensureBannerVisible() {
+            const banner = document.getElementById('usersBanner');
+            if (banner) {
+                banner.style.display = 'block';
+                banner.style.opacity = '1';
+                banner.style.transform = 'translateY(0)';
+                banner.style.visibility = 'visible';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
+
+            // Ensure banner is visible on load
+            ensureBannerVisible();
         });
+
+        // Ensure banner stays visible on page show/focus
+        window.addEventListener('pageshow', ensureBannerVisible);
+        window.addEventListener('focus', ensureBannerVisible);
+        
+        // Check banner visibility periodically
+        setInterval(ensureBannerVisible, 1000);
     </script>
 </body>
 </html>
