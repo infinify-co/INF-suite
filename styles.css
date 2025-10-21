@@ -3254,3 +3254,195 @@ body {
         font-size: 0.8rem;
     }
 }
+
+/* App Icons Styles - Handbag-inspired design */
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff !important;
+    background-image: none !important;
+}
+
+.app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.app-icon:hover {
+    transform: translateY(-2px);
+}
+
+.app-icon-body {
+    position: relative;
+    width: 80px;
+    height: 60px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.app-icon-flap {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 4px 4px 0 0;
+}
+
+.app-icon-strap {
+    position: absolute;
+    width: 2px;
+    height: 12px;
+    background: #d4af37; /* Gold color */
+    border-radius: 1px;
+    box-shadow: 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+.app-icon-strap:first-of-type {
+    left: 12px;
+    top: 2px;
+}
+
+.app-icon-strap:last-of-type {
+    right: 12px;
+    top: 2px;
+}
+
+.app-icon-handle {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 3px;
+}
+
+.app-icon-ring {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #d4af37; /* Gold color */
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 3px rgba(212, 175, 55, 0.4);
+}
+
+.app-icon-ring:first-of-type {
+    top: -2px;
+    left: 8px;
+}
+
+.app-icon-ring:last-of-type {
+    top: -2px;
+    right: 8px;
+}
+
+.app-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* App Icon Thumbnails */
+.app-icon-thumbnail {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border-radius: 4px;
+    opacity: 0.9;
+    z-index: 1;
+}
+
+/* Gradient Thumbnails for each app */
+.analytics-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.crm-gradient {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.finance-gradient {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.hr-gradient {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.marketing-gradient {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.sales-gradient {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.support-gradient {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+}
+
+.inventory-gradient {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+/* Responsive adjustments for app icons */
+@media (max-width: 768px) {
+    .apps-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+    }
+    
+    .app-icon-body {
+        width: 70px;
+        height: 52px;
+    }
+    
+    .app-name {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .apps-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+    
+    .app-icon-body {
+        width: 60px;
+        height: 45px;
+    }
+    
+    .app-icon-handle {
+        width: 16px;
+        height: 5px;
+    }
+    
+    .app-icon-ring {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .app-name {
+        font-size: 0.75rem;
+    }
+}
