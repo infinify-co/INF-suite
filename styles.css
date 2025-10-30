@@ -87,7 +87,7 @@ body {
     gap: 0.5rem;
     margin-left: auto;
     position: absolute;
-    right: 12px;
+    right: -96px; /* push a bit more past container edge */
     top: 50%;
     transform: translateY(-50%);
 }
@@ -145,6 +145,23 @@ body {
 
 .nav-link:hover::after {
     width: 100%;
+}
+
+/* Center title inside navbar (per-page) */
+.nav-center-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.nav-center-title i {
+    width: 16px;
+    height: 16px;
 }
 
 /* Dashboard: remove underline under "Suite" (and any nav links) */
