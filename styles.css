@@ -53,6 +53,7 @@ body {
     display: flex;
     align-items: center;
     margin-right: 2rem;
+    margin-left: -112px; /* move further left */
     position: relative;
 }
 
@@ -90,6 +91,55 @@ body {
     right: -96px; /* push a bit more past container edge */
     top: 50%;
     transform: translateY(-50%);
+}
+
+/* Header Search */
+.nav-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.nav-search form {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    padding: 6px 8px 6px 14px;
+    min-width: 280px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.search-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #1d9bf0;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;            /* prevent extra vertical space */
+    line-height: 0;        /* avoid text line-height affecting height */
+    aspect-ratio: 1 / 1;   /* force perfect circle */
+}
+
+.search-btn i { width: 12px; height: 12px; }
+
+@media (max-width: 768px) {
+    .nav-search { display: none; }
 }
 
 .icon-btn {
@@ -773,6 +823,33 @@ body {
     50% { transform: rotateX(90deg) rotateY(90deg) rotateZ(0deg); }
     75% { transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg); }
     100% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+}
+
+/* 3D Globe variant */
+.globe-3d {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0.15) 35%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.12) 100%),
+        repeating-linear-gradient( to right, rgba(0,0,0,0.18) 0 2px, transparent 2px 8px );
+    box-shadow: inset -10px -20px 30px rgba(0,0,0,0.15), 0 20px 40px rgba(0,0,0,0.12);
+    animation: spinGlobe 10s linear infinite;
+}
+
+.globe-3d::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15), transparent 50%);
+    pointer-events: none;
+}
+
+@keyframes spinGlobe {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 0 0, 400px 0; }
 }
 
 /* Services Section */
@@ -2512,6 +2589,21 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+}
+
+/* Marketplace large header */
+.marketplace-title {
+    font-size: 3.75rem; /* larger size */
+    font-weight: 800;   /* bold */
+    line-height: 1.1;
+    margin: 1rem 0 1.5rem 0;
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, #f1e7b5, #9bd4e0, #4aa3e2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: left; /* align left */
+    margin-left: 64px; /* move header further right */
 }
 
 .dashboard-icon {

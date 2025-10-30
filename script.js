@@ -399,3 +399,67 @@ window.addEventListener('scroll', () => {
     const scrollPercent = (scrollTop / docHeight) * 100;
     progressBar.style.width = scrollPercent + '%';
 });
+
+// Header search functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const searchForm = document.getElementById('navSearchForm');
+    if (!searchForm) return;
+
+    const input = searchForm.querySelector('.search-input');
+    const routes = [
+        { label: 'Dashboard', keywords: ['suite','home','dashboard'], url: 'dashboard.html' },
+        { label: 'Teams', keywords: ['team','users','members'], url: 'users.html' },
+        { label: 'Financials', keywords: ['finance','financials','budgets'], url: 'video.html' },
+        { label: 'Operations', keywords: ['ops','operations'], url: 'operations.html' },
+        { label: 'Apps', keywords: ['apps','applications'], url: 'apps.html' },
+        { label: 'Explore', keywords: ['explore','discover','search'], url: 'explore.html' },
+        { label: 'Analytics', keywords: ['analytics','insights','metrics'], url: 'analytics.html' },
+        { label: 'Organise', keywords: ['organise','organize','docs','documents','files'], url: 'organise.html' },
+        { label: 'Marketplace', keywords: ['marketplace','store','settings','shop'], url: 'settings.html' }
+    ];
+
+    function normalize(text){ return (text||'').toLowerCase().trim(); }
+
+    function findRoute(query){
+        const q = normalize(query);
+        if (!q) return null;
+        // Exact label match
+        let best = routes.find(r => normalize(r.label) === q);
+        if (best) return best;
+        // Keyword includes
+        best = routes.find(r => r.keywords.some(k => q.includes(k)));
+        if (best) return best;
+        // Fuzzy startsWith on label
+        return routes.find(r => normalize(r.label).startsWith(q)) || null;
+    }
+
+    function handleSearch(e){
+        e.preventDefault();
+        const val = input.value;
+        const target = findRoute(val);
+        if (target){
+            window.location.href = target.url;
+        } else {
+            showNotification('No matching page found for "' + val + '"', 'error');
+        }
+    }
+
+    searchForm.addEventListener('submit', handleSearch);
+});
+
+// Simple client helper to call the Netlify function
+window.askOpenAI = async function(promptOrMessages, model) {
+    const isMessages = Array.isArray(promptOrMessages);
+    const payload = isMessages
+        ? { messages: promptOrMessages, model }
+        : { prompt: String(promptOrMessages), model };
+    const res = await fetch('/.netlify/functions/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'OpenAI request failed');
+    // return assistant message text
+    return data.choices?.[0]?.message?.content || '';
+};
