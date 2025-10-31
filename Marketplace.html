@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users - INF Dashboard</title>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" href="styles.css?v=1">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Settings - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body class="dashboard-page">
@@ -16,22 +13,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="dashboard.html">
+                <a href="#">
                     <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="dashboard.html" class="nav-link active">Suite</a></li>
+                <li><a href="Marketplace.html" class="nav-link active">Marketplace</a></li>
             </ul>
-            <div class="nav-search">
-                <form id="navSearchForm">
-                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
-                    <button class="search-btn" type="submit" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                </form>
-            </div>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
                     <i data-lucide="message-circle"></i>
@@ -45,10 +34,6 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            <div class="nav-center-title">
-                <i data-lucide="users"></i>
-                <span>Teams</span>
-            </div>
         </div>
     </nav>
 
@@ -59,7 +44,7 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='users.html'">
+            <div class="dock-item" onclick="window.location.href='users.html'">
                 <i data-lucide="users"></i>
                 <span class="dock-label">Team's</span>
             </div>
@@ -67,7 +52,7 @@
                 <i data-lucide="monitor-cog"></i>
                 <span class="dock-label">Operations</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Marketplace.html'">
+            <div class="dock-item active" onclick="window.location.href='Marketplace.html'">
                 <i data-lucide="store"></i>
                 <span class="dock-label">Marketplace</span>
             </div>
@@ -87,6 +72,10 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Social assets</span>
             </div>
+            <div class="dock-item" onclick="window.location.href='video.html'">
+                <i data-lucide="landmark"></i>
+                <span class="dock-label">Financials</span>
+            </div>
             <div class="dock-item" onclick="window.location.href='organise.html'">
                 <i data-lucide="folder"></i>
                 <span class="dock-label">Organise</span>
@@ -95,17 +84,41 @@
                 <i data-lucide="message-circle-plus"></i>
                 <span class="dock-label">Chats</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='video.html'">
-                <i data-lucide="landmark"></i>
-                <span class="dock-label">Financials</span>
-            </div>
         </div>
     </div>
 
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
-            <!-- Page Header removed per request -->
+            <section class="page-header marketplace-center">
+                <h1 class="marketplace-title">Marketplace</h1>
+            </section>
+
+            <section class="ask-group ask-group--sm ask-group--xs">
+                <div class="ask-wrap">
+                    <div class="ask-card">
+                        <textarea class="ask-input" rows="2" placeholder="How can I help you today?"></textarea>
+                        <div class="ask-footer">
+                            <div class="ask-left">
+                                <button class="ask-icon" title="Add"><i data-lucide="plus"></i></button>
+                                <button class="ask-icon" title="Settings"><i data-lucide="sliders"></i></button>
+                            </div>
+                            <div class="ask-right">
+                                <button class="ask-model" type="button">Sonnet 4.5 <i data-lucide="chevron-down"></i></button>
+                                <button class="ask-send" title="Send"><i data-lucide="arrow-up"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ask-bar">
+                        <button class="ask-bar-btn left">button 1</button>
+                        <button class="ask-bar-btn">button 1</button>
+                        <button class="ask-bar-btn">button 1</button>
+                        <button class="ask-bar-btn right">button 1</button>
+                    </div>
+                </div>
+            </section>
+            
+            
         </div>
     </main>
 
