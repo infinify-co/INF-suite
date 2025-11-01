@@ -19,6 +19,7 @@ body {
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #f5f5f5;
 }
 
 .container {
@@ -29,6 +30,7 @@ body {
 
 /* Navigation */
 .navbar {
+    display: none; /* Hidden on all pages */
     position: fixed;
     top: 0;
     width: 100%;
@@ -1650,21 +1652,49 @@ body {
 /* Vertical Dock Styles - Enhanced Version */
 .vertical-dock {
     position: fixed;
-    left: 20px;                  /* back to original position */
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 999;
-    background: #ffffff;
-    border-radius: 20px;         /* smaller radius like before */
-    padding: 12px;               /* tighter padding like before */
-    box-shadow: 0 30px 80px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.04);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 997; /* Behind the content tile (998) */
+    background: #ffffff; /* White background like the old sidebar */
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .dock-items {
     display: flex;
     flex-direction: column;
-    gap: 8px;                    /* back to original gap */
+    gap: 8px;
+    width: 100%;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* INF Logo at Top */
+.dock-logo {
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dock-logo-img {
+    width: 55px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* User Account Circle - Last Item */
+.dock-item:last-child {
+    border-radius: 50%;
+    margin-top: auto;
 }
 
 .dock-item {
@@ -1703,23 +1733,24 @@ body {
 
 /* Enhanced Hover Labels */
 .dock-label {
-    position: absolute;
-    left: 60px;                  /* closer to 48px item */
-    top: 50%;
-    transform: translateY(-50%);
+    display: none !important; /* Hide all nametags */
+    position: fixed; /* Fixed position to escape sidebar stacking context */
+    left: 65px;     /* 25px further left: 90px - 25px */
     background: rgba(0,0,0,0.92);
     color: #fff;
     padding: 6px 8px;            /* slightly smaller tooltip */
     border-radius: 8px;
     font-size: 11px;
     font-weight: 600;
+    z-index: 999; /* Above the content tile (998) so it's visible when hovering */
     letter-spacing: 0;
     white-space: nowrap;
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    transition: opacity 0.18s ease, visibility 0.18s;
     box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+    transform: translateY(-50%);
 }
 
 .dock-label::before {
@@ -1776,9 +1807,161 @@ body {
 }
 
 .dashboard-main {
-    padding: 4rem 0;
+    padding: 4rem 2rem;
     background: #ffffff;
-    margin-left: 120px; /* Account for sidebar width and spacing */
+    margin: 10px 10px 10px 80px; /* 10px from top, right, bottom, and 80px from left (content tile aligned with sidebar) */
+    border-radius: 20px; /* Curved corners on all sides */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04); /* Subtle shadow for depth */
+    min-height: calc(100vh - 20px); /* Account for top and bottom margins (10px each) */
+    position: relative;
+    z-index: 998; /* In front of sidebar, below hover labels (999) */
+    max-width: calc(100% - 90px); /* Account for left margin (80px) and right margin (10px) */
+}
+
+/* Ensure dashboard-main is always visible */
+.dashboard-main {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Front Tile - New tile in front of dashboard-main */
+.front-tile {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    left: 210px; /* Adjusted relative to dashboard-main (80px margin + 10px gap + 290px - 90px = 210px from left of dashboard-main) */
+    bottom: 0;
+    background: #f0f0f0; /* Light gray/off-white background */
+    border-radius: 20px; /* Rounded corners matching the image */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04); /* Subtle shadow */
+    z-index: 999; /* In front of dashboard-main (998) */
+    padding: 4rem 2rem;
+    overflow-y: auto;
+}
+
+.front-tile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+/* New Nametags for chats.html sidebar */
+.new-nametag {
+    position: fixed !important;
+    left: 65px !important;
+    background: rgba(0,0,0,0.92) !important;
+    color: #fff !important;
+    padding: 6px 8px !important;
+    border-radius: 8px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    z-index: 1000 !important; /* Above front tile (999) and content tile (998) */
+    letter-spacing: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    display: block !important;
+    transition: opacity 0.18s ease, visibility 0.18s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.22) !important;
+    transform: translateY(-50%);
+}
+
+.dock-item:hover .new-nametag {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* Debug: Make nametags visible when dock-item is hovered - ensure this works */
+.dock-item {
+    position: relative;
+}
+
+/* Home page specific: 10px from right, top, and bottom */
+body.home-page .dashboard-main {
+    margin: 10px 10px 10px 80px !important; /* 10px from top, right, bottom */
+    max-width: calc(100% - 90px) !important; /* Account for left margin (80px) and right margin (10px) */
+}
+
+/* Chats title - same style as marketplace but dark grey */
+.chats-title {
+    font-size: 1.75rem !important; /* smaller size */
+    font-weight: 800 !important;   /* bold */
+    line-height: 1.1;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-left: -55px !important; /* moved another 5px to the right */
+    margin-top: -75px !important; /* moved down 10px */
+    letter-spacing: -0.02em;
+    color: #4a4a4a !important; /* dark grey */
+    text-align: left !important;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+}
+
+/* Rectangular button below Chats text */
+.chats-button {
+    margin-left: -80px !important; /* align with text, moved 5px left (75px + 5px) */
+    margin-top: 33px !important; /* moved up 2px */
+    padding: 14px 54px; /* increased right padding by 30px (24px + 30px) */
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.chats-button:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.chats-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Second button below the first */
+.chats-button-second {
+    margin-top: 10px !important; /* 10px below the first button */
+    position: relative; /* For absolute positioning of tick */
+    text-align: center; /* Center the text */
+    padding: 14px 29px !important; /* Reduced by 5px (34px - 5px) */
+    width: fit-content; /* Size to content */
+}
+
+/* Tick icon in bottom right corner of button */
+.chats-button .button-tick {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+/* Sparkles icon in button - treated like another letter */
+.chats-button .button-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: baseline;
+    margin-right: 0.25em; /* spacing like between letters, on the right side since icon is before text */
+    position: relative;
+    top: 0.1em; /* slight adjustment for alignment */
 }
 
 .dashboard-grid {
@@ -2353,6 +2536,12 @@ body {
     z-index: 900;
 }
 
+/* Hide productivity panel on home.html */
+body[class*="dashboard-page"]:not(:has([data-page="dashboard"])) .productivity-panel,
+.home-page .productivity-panel {
+    display: none !important;
+}
+
 .panel-header {
     display: flex;
     align-items: center;
@@ -2546,13 +2735,7 @@ body {
     margin-left: 0;
 }
 
-/* Modern Dashboard Styles */
-.dashboard-main {
-    margin-left: 80px;
-    margin-top: 64px;
-    min-height: calc(100vh - 64px);
-    background: #ffffff;
-}
+/* Modern Dashboard Styles - Removed old margin-top rule to allow negative margins */
 
 .dashboard-container {
     padding: 2rem;
