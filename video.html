@@ -47,6 +47,9 @@
 
     <!-- Vertical Dock -->
     <div class="vertical-dock">
+        <div class="dock-logo">
+            <img src="INF.logo2.png" alt="INF Logo" class="dock-logo-img">
+        </div>
         <div class="dock-items">
             <div class="dock-item" onclick="window.location.href='dashboard.html'">
                 <i data-lucide="home"></i>
@@ -80,10 +83,6 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Social assets</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='video.html'">
-                <i data-lucide="landmark"></i>
-                <span class="dock-label">Financials</span>
-            </div>
             <div class="dock-item" onclick="window.location.href='organise.html'">
                 <i data-lucide="folder"></i>
                 <span class="dock-label">Organise</span>
@@ -91,6 +90,14 @@
             <div class="dock-item" onclick="window.location.href='chats.html'">
                 <i data-lucide="message-circle-plus"></i>
                 <span class="dock-label">Chats</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='video.html'">
+                <i data-lucide="landmark"></i>
+                <span class="dock-label">Financials</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='#'">
+                <i data-lucide="user"></i>
+                <span class="dock-label">Account</span>
             </div>
         </div>
     </div>
@@ -106,6 +113,17 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
+
+            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
+            dockItems.forEach(item => {
+                const label = item.querySelector('.dock-label');
+                if (label) {
+                    item.addEventListener('mouseenter', () => {
+                        const rect = item.getBoundingClientRect();
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
+                    });
+                }
+            });
         });
     </script>
 </body>

@@ -43,121 +43,62 @@
 
     <!-- Vertical Dock -->
     <div class="vertical-dock">
+        <div class="dock-logo">
+            <img src="INF.logo2.png" alt="INF Logo" class="dock-logo-img">
+        </div>
         <div class="dock-items">
             <div class="dock-item active" onclick="window.location.href='home.html'">
                 <i data-lucide="home"></i>
-                <span class="dock-label">Home</span>
             </div>
             <div class="dock-item" onclick="window.location.href='users.html'">
                 <i data-lucide="users"></i>
-                <span class="dock-label">Users</span>
             </div>
             <div class="dock-item" onclick="window.location.href='operations.html'">
                 <i data-lucide="monitor-cog"></i>
-                <span class="dock-label">Operations</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Marketplace.html'">
                 <i data-lucide="store"></i>
-                <span class="dock-label">Marketplace</span>
             </div>
             <div class="dock-item" onclick="window.location.href='my-apps.html'">
                 <i data-lucide="grid-3x3"></i>
-                <span class="dock-label">My apps</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Leads-marketing.html'">
                 <i data-lucide="book-open"></i>
-                <span class="dock-label">Leads &amp; Marketing</span>
             </div>
             <div class="dock-item" onclick="window.location.href='explore.html'">
                 <i data-lucide="compass"></i>
-                <span class="dock-label">Explore</span>
             </div>
             <div class="dock-item" onclick="window.location.href='analytics.html'">
                 <i data-lucide="bar-chart-3"></i>
-                <span class="dock-label">Analytics</span>
             </div>
             <div class="dock-item" onclick="window.location.href='organise.html'">
                 <i data-lucide="folder"></i>
-                <span class="dock-label">Organise</span>
             </div>
             <div class="dock-item" onclick="window.location.href='chats.html'">
                 <i data-lucide="message-circle-plus"></i>
-                <span class="dock-label">Chats</span>
             </div>
             <div class="dock-item" onclick="window.location.href='video.html'">
                 <i data-lucide="video"></i>
-                <span class="dock-label">Video</span>
             </div>
-        </div>
-    </div>
-
-    <!-- User Profile Banner -->
-    <div id="usersBanner" class="users-banner">
-        <div class="banner-content">
-            <div class="banner-left">
-                <div class="banner-avatar">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face" alt="User Avatar" class="avatar-img">
-                </div>
-                <div class="banner-text">
-                    <h3>Welcome back, John Doe</h3>
-                    <p>You have 3 pending tasks and 2 new notifications</p>
-                </div>
-            </div>
-            <div class="banner-right">
-                <div class="banner-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">24</span>
-                        <span class="stat-label">Projects</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">156</span>
-                        <span class="stat-label">Team</span>
-                    </div>
-                </div>
+            <div class="dock-item" onclick="window.location.href='#'">
+                <i data-lucide="user"></i>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <main class="dashboard-main">
+    <main class="dashboard-main" style="display: block !important; visibility: visible !important; opacity: 1 !important; background: #ffffff !important; min-height: calc(100vh - 20px) !important; margin: 10px 10px 10px 80px !important; border-radius: 20px !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04) !important; position: relative !important; z-index: 998 !important; max-width: calc(100% - 90px) !important; padding: 4rem 2rem !important;">
         <div class="dashboard-container">
-            <!-- Page Header -->
-            <section class="page-header">
-                <h1 class="page-title">
-                    <i data-lucide="home" class="page-icon"></i>
-                    Home Dashboard
-                </h1>
-                <p class="page-description">Welcome back! Here's your overview and quick access to key features.</p>
-            </section>
+            <!-- Page Header removed per request -->
         </div>
     </main>
 
     <script>
-        // Ensure banner is always visible
-        function ensureBannerVisible() {
-            const banner = document.getElementById('usersBanner');
-            if (banner) {
-                banner.style.display = 'block';
-                banner.style.opacity = '1';
-                banner.style.transform = 'translateY(0)';
-                banner.style.visibility = 'visible';
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
 
-            // Ensure banner is visible on load
-            ensureBannerVisible();
         });
-
-        // Ensure banner stays visible on page show/focus
-        window.addEventListener('pageshow', ensureBannerVisible);
-        window.addEventListener('focus', ensureBannerVisible);
-        
-        // Check banner visibility periodically
-        setInterval(ensureBannerVisible, 1000);
     </script>
 </body>
 </html>
