@@ -408,12 +408,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = searchForm.querySelector('.search-input');
     const routes = [
         { label: 'Dashboard', keywords: ['suite','home','dashboard'], url: 'dashboard.html' },
-        { label: 'Teams', keywords: ['team','users','members'], url: 'users.html' },
+        { label: 'Teams', keywords: ['team','users','members'], url: 'teams.html' },
         { label: 'Financials', keywords: ['finance','financials','budgets'], url: 'video.html' },
         { label: 'Operations', keywords: ['ops','operations'], url: 'operations.html' },
         { label: 'Apps', keywords: ['apps','applications'], url: 'apps.html' },
-        { label: 'Explore', keywords: ['explore','discover','search'], url: 'explore.html' },
-        { label: 'Analytics', keywords: ['analytics','insights','metrics'], url: 'analytics.html' },
+        { label: 'Database', keywords: ['database','data','explore','discover','search'], url: 'Database.html' },
+        { label: 'Social Assets', keywords: ['social','assets','media','analytics'], url: 'social-assets.html' },
         { label: 'Organise', keywords: ['organise','organize','docs','documents','files'], url: 'organise.html' },
         { label: 'Marketplace', keywords: ['marketplace','store','settings','shop'], url: 'settings.html' }
     ];

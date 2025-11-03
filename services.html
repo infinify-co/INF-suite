@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -25,6 +26,14 @@
                 <li><a href="index.html#contact" class="nav-link">Contact</a></li>
             </ul>
             <a href="#" class="nav-signin">Log in</a>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
             <div class="nav-hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -313,5 +322,11 @@
 
     <script src="script.js"></script>
     <script src="supabase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
 </body>
 </html>

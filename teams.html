@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams - INF Dashboard</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="styles.css?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="dashboard.html">
+                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+                <div class="nav-logo-line"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link active">Suite</a></li>
+            </ul>
+            <div class="nav-search">
+                <form id="navSearchForm">
+                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
+                    <button class="search-btn" type="submit" title="Search">
+                        <i data-lucide="search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class="nav-center-title">
+                <i data-lucide="users"></i>
+                <span>My Team's</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Vertical Dock -->
+    <div class="vertical-dock">
+        <div class="dock-logo">
+            <img src="INF.logo2.png" alt="INF Logo" class="dock-logo-img">
+        </div>
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='dashboard.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='operations.html'">
+                <i data-lucide="monitor-cog"></i>
+                <span class="dock-label">Operations</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='teams.html'">
+                <i data-lucide="users"></i>
+                <span class="dock-label">Teams</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='chats.html'">
+                <i data-lucide="message-circle-plus"></i>
+                <span class="dock-label">Chats</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Marketplace.html'">
+                <i data-lucide="store"></i>
+                <span class="dock-label">Marketplace</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='my-apps.html'">
+                <i data-lucide="grid-3x3"></i>
+                <span class="dock-label">My apps</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Leads-marketing.html'">
+                <i data-lucide="focus"></i>
+                <span class="dock-label">Leads &amp; Marketing</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Database.html'">
+                <i data-lucide="hard-drive"></i>
+                <span class="dock-label">Data</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='social-assets.html'">
+                <i data-lucide="container"></i>
+                <span class="dock-label">Social assets</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='organise.html'">
+                <i data-lucide="folder"></i>
+                <span class="dock-label">Organise</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='video.html'">
+                <i data-lucide="landmark"></i>
+                <span class="dock-label">Financials</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='#'">
+                <i data-lucide="user"></i>
+                <span class="dock-label">Account</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Top Right Bar INSIDE TILE -->
+            <div class="top-right-bar inside-tile">
+                <div class="top-bar-search">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="search" placeholder="Search" class="top-bar-search-input" />
+                </div>
+                <div class="top-bar-icons">
+                    <button class="top-bar-icon-btn" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                </div>
+                <div class="top-bar-profile">
+                    <img src="https://ui-avatars.com/api/?name=User&background=9f7aea&color=fff" alt="Profile" class="profile-picture">
+                </div>
+            </div>
+            <!-- Matching top-left text on same row as the bar -->
+            <div class="top-left-heading">Team's</div>
+            <!-- Teams content tile -->
+            <section class="tiles-grid">
+                <div class="tiles-row row-1">
+                <!-- Team Performance (line chart) -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Team Performance</h3>
+                        <div class="card-meta">2025 <i data-lucide="chevron-down"></i></div>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="teamPerformanceChart" height="160"></canvas>
+                    </div>
+                </div>
+
+                <!-- Teams list tile -->
+                <div class="card teams-card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Team's</h3>
+                        <a class="link-view-all" href="#">View All</a>
+                    </div>
+                    <ul class="team-list">
+                        <li class="team-item">
+                            <div class="avatar avatar-pink">LC</div>
+                            <div class="member-meta">
+                                <div class="member-name">Liam Carter</div>
+                                <div class="member-role">Creative Interface Specialist</div>
+                            </div>
+                            <button class="icon-kebab" title="More">
+                                <i data-lucide="more-vertical"></i>
+                            </button>
+                        </li>
+                        <li class="team-item">
+                            <div class="avatar avatar-purple">MT</div>
+                            <div class="member-meta">
+                                <div class="member-name">Mia Thompson</div>
+                                <div class="member-role">User Experience Architect</div>
+                            </div>
+                            <button class="icon-kebab" title="More">
+                                <i data-lucide="more-vertical"></i>
+                            </button>
+                        </li>
+                        <li class="team-item">
+                            <div class="avatar avatar-blue">NJ</div>
+                            <div class="member-meta">
+                                <div class="member-name">Noah Johnson</div>
+                                <div class="member-role">Visual Design Expert</div>
+                            </div>
+                            <button class="icon-kebab" title="More">
+                                <i data-lucide="more-vertical"></i>
+                            </button>
+                        </li>
+                        <li class="team-item">
+                            <div class="avatar avatar-yellow">EW</div>
+                            <div class="member-meta">
+                                <div class="member-name">Emma Wilson</div>
+                                <div class="member-role">Interaction Designer</div>
+                            </div>
+                            <button class="icon-kebab" title="More">
+                                <i data-lucide="more-vertical"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+
+                <div class="tiles-row row-2">
+                <!-- Latest Projects (left small) -->
+                <div class="card projects-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Latest Projects</h3>
+                        <a class="link-view-all" href="#">View All</a>
+                    </div>
+                    <div class="project-list">
+                        <article class="project-item">
+                            <div class="project-top">
+                                <div class="project-left">
+                                    <div class="project-meta">
+                                        <div class="project-title">Quantum Leap Redesign</div>
+                                        <div class="project-client">Client: John Doe</div>
+                                    </div>
+                                </div>
+                                <div class="project-right">
+                                    <button class="icon-kebab" title="More"><i data-lucide="more-vertical"></i></button>
+                                    <div class="progress-label">60%</div>
+                                </div>
+                            </div>
+                            <div class="project-footer">
+                                <div class="progress-bar progress-wide"><span style="width:60%"></span></div>
+                            </div>
+                        </article>
+                        <article class="project-item">
+                            <div class="project-top">
+                                <div class="project-left">
+                                    <div class="project-meta">
+                                        <div class="project-title">Phoenix App</div>
+                                        <div class="project-client">Client: Sarah Summers</div>
+                                    </div>
+                                </div>
+                                <div class="project-right">
+                                    <button class="icon-kebab" title="More"><i data-lucide="more-vertical"></i></button>
+                                    <div class="progress-label">60%</div>
+                                </div>
+                            </div>
+                            <div class="project-footer">
+                                <div class="progress-bar progress-wide"><span style="width:60%"></span></div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Monthly Goal Stats (right big) -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Monthly Goal Stats</h3>
+                        <div class="card-meta">June <i data-lucide="chevron-down"></i></div>
+                    </div>
+                    <div class="goal-grid">
+                        <ul class="goal-legend">
+                            <li><span class="dot" style="--c:#60a5fa"></span> Quantum Leap</li>
+                            <li><span class="dot" style="--c:#9ca3af"></span> Nebula Nexus</li>
+                            <li><span class="dot" style="--c:#93c5fd"></span> Echo System</li>
+                            <li><span class="dot" style="--c:#3b82f6"></span> Phoenix App</li>
+                        </ul>
+                        <div class="chart-wrap"><canvas id="goalPieChart" height="200"></canvas></div>
+                    </div>
+                </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+
+            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
+            dockItems.forEach(item => {
+                const label = item.querySelector('.dock-label');
+                if (label) {
+                    item.addEventListener('mouseenter', () => {
+                        const rect = item.getBoundingClientRect();
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
+                    });
+                }
+            });
+
+            // Charts
+            if (window.Chart) {
+                const perfCtx = document.getElementById('teamPerformanceChart');
+                if (perfCtx) {
+                    new Chart(perfCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+                            datasets: [
+                                {
+                                    label: 'Progress',
+                                    data: [6,9,11,12,19,10],
+                                    borderColor: '#60a5fa',
+                                    backgroundColor: 'rgba(96,165,250,0.15)',
+                                    fill: true,
+                                    tension: 0.35,
+                                    borderWidth: 2
+                                },
+                                {
+                                    label: 'Time Spent',
+                                    data: [6,7,12,14,6,10],
+                                    borderColor: '#facc15',
+                                    backgroundColor: 'rgba(250,204,21,0.15)',
+                                    fill: true,
+                                    tension: 0.35,
+                                    borderWidth: 2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'top' } },
+                            scales: {
+                                y: { grid: { color: 'rgba(0,0,0,0.05)' } },
+                                x: { grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+
+                const pieCtx = document.getElementById('goalPieChart');
+                if (pieCtx) {
+                    new Chart(pieCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Quantum Leap','Nebula Nexus','Echo System','Phoenix App'],
+                            datasets: [{
+                                data: [55,25,10,10],
+                                backgroundColor: ['#60a5fa','#9ca3af','#93c5fd','#3b82f6'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: { plugins: { legend: { display: false } } }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

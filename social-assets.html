@@ -50,7 +50,7 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='users.html'">
+            <div class="dock-item" onclick="window.location.href='teams.html'">
                 <i data-lucide="users"></i>
                 <span class="dock-label">Team's</span>
             </div>
@@ -70,11 +70,11 @@
                 <i data-lucide="focus"></i>
                 <span class="dock-label">Leads &amp; Marketing</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='explore.html'">
+            <div class="dock-item" onclick="window.location.href='Database.html'">
                 <i data-lucide="hard-drive"></i>
                 <span class="dock-label">Data</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='analytics.html'">
+            <div class="dock-item active" onclick="window.location.href='social-assets.html'">
                 <i data-lucide="container"></i>
                 <span class="dock-label">Social assets</span>
             </div>
@@ -100,25 +100,65 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
+            <section class="tiles-grid">
+                <div class="tiles-row row-1">
+                    <!-- Sites management placeholder -->
+                    <div class="card projects-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Manage Websites</h3>
+                            <a href="#" class="link-view-all">Open</a>
+                        </div>
+                        <div class="project-list">
+                            <article class="project-item">
+                                <div class="project-top">
+                                    <div class="project-left">
+                                        <div class="project-meta">
+                                            <div class="project-title">yourdomain.com</div>
+                                            <div class="project-client">Status: Connected</div>
+                                        </div>
+                                    </div>
+                                    <div class="project-right">
+                                        <button class="icon-kebab" title="Manage"><i data-lucide="more-vertical"></i></button>
+                                        <div class="progress-label">Site</div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Social accounts placeholder -->
+                    <div class="card projects-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Manage Social Media</h3>
+                            <a href="#" class="link-view-all">Connect</a>
+                        </div>
+                        <div class="project-list">
+                            <article class="project-item">
+                                <div class="project-top">
+                                    <div class="project-left">
+                                        <div class="project-meta">
+                                            <div class="project-title">Instagram</div>
+                                            <div class="project-client">Not connected</div>
+                                        </div>
+                                    </div>
+                                    <div class="project-right">
+                                        <button class="icon-kebab" title="Manage"><i data-lucide="more-vertical"></i></button>
+                                        <div class="progress-label">Social</div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
-
-            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
-            dockItems.forEach(item => {
-                const label = item.querySelector('.dock-label');
-                if (label) {
-                    item.addEventListener('mouseenter', () => {
-                        const rect = item.getBoundingClientRect();
-                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
-                    });
-                }
-            });
         });
     </script>
 </body>
 </html>
+

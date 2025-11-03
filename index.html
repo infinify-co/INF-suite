@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -21,12 +22,20 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="users.html" class="nav-link">Teams</a></li>
+                <li><a href="teams.html" class="nav-link">Teams</a></li>
                 <li><a href="video.html" class="nav-link">Financials</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <a href="dashboard.html" class="nav-signin">Launch App</a>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -502,5 +511,11 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
 </body>
 </html>
