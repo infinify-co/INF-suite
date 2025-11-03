@@ -9,12 +9,29 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body class="dashboard-page">
+    <!-- Top Right Bar -->
+    <div class="top-right-bar">
+        <div class="top-bar-search">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="search" placeholder="Search" class="top-bar-search-input" />
+        </div>
+        <div class="top-bar-icons">
+            <button class="top-bar-icon-btn" title="Notifications">
+                <i data-lucide="bell"></i>
+            </button>
+        </div>
+        <div class="top-bar-profile">
+            <img src="https://ui-avatars.com/api/?name=User&background=9f7aea&color=fff" alt="Profile" class="profile-picture">
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#">
                     <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                    <span class="notification-dot" id="messageNotification" style="display: none;"></span>
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
@@ -106,8 +123,85 @@
     <main class="dashboard-main">
         <div class="dashboard-container" style="padding-top: 2rem; padding-left: 2rem;">
             <h1 class="chats-title" style="position: relative; top: 0; left: 0;">Chats</h1>
-            <button class="chats-button"><i data-lucide="sparkles" class="button-icon"></i>Sorif</button>
-            <button class="chats-button chats-button-second">Repersentitive<i data-lucide="check" class="button-tick"></i></button>
+            
+            <!-- Chat List Section -->
+            <div class="chat-list">
+                <div class="chat-item" data-timestamp="2">
+                    <div class="chat-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Alex+Linderson&background=2563eb&color=fff" alt="Alex Linderson" class="avatar-img">
+                        <span class="status-indicator status-online"></span>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <span class="chat-name">Alex Linderson</span>
+                            <span class="chat-time" data-minutes="2">2 min ago</span>
+                        </div>
+                        <div class="chat-message">How are you today?</div>
+                    </div>
+                    <div class="chat-unread">
+                        <span class="unread-badge">3</span>
+                    </div>
+                </div>
+                
+                <div class="chat-item" data-timestamp="3">
+                    <div class="chat-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Team+Align&background=667eea&color=fff" alt="Team Align" class="avatar-img">
+                        <span class="status-indicator status-online"></span>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <span class="chat-name">Team Align</span>
+                            <span class="chat-time" data-minutes="3">3 min ago</span>
+                        </div>
+                        <div class="chat-message">Don't miss to attend the meeting.</div>
+                    </div>
+                    <div class="chat-unread">
+                        <span class="unread-badge">4</span>
+                    </div>
+                </div>
+                
+                <div class="chat-item" data-timestamp="15">
+                    <div class="chat-avatar">
+                        <img src="https://ui-avatars.com/api/?name=John+Ahraham&background=fbbf24&color=000" alt="John Ahraham" class="avatar-img">
+                        <span class="status-indicator status-offline"></span>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <span class="chat-name">John Ahraham</span>
+                            <span class="chat-time" data-minutes="15">15 min ago</span>
+                        </div>
+                        <div class="chat-message">Hey! Can you join the meeting?</div>
+                    </div>
+                </div>
+                
+                <div class="chat-item" data-timestamp="45">
+                    <div class="chat-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Sabila+Sayma&background=f472b6&color=fff" alt="Sabila Sayma" class="avatar-img">
+                        <span class="status-indicator status-offline"></span>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <span class="chat-name">Sabila Sayma</span>
+                            <span class="chat-time" data-minutes="45">45 min ago</span>
+                        </div>
+                        <div class="chat-message">How are you today?</div>
+                    </div>
+                </div>
+                
+                <div class="chat-item" data-timestamp="120">
+                    <div class="chat-avatar">
+                        <img src="https://ui-avatars.com/api/?name=John+Borino&background=8b5cf6&color=fff" alt="John Borino" class="avatar-img">
+                        <span class="status-indicator status-online"></span>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <span class="chat-name">John Borino</span>
+                            <span class="chat-time" data-minutes="120">2 hours ago</span>
+                        </div>
+                        <div class="chat-message">Have a good day 🌸</div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- New Front Tile -->
@@ -145,6 +239,114 @@
                     });
                 }
             });
+
+            // Function to format time ago
+            function formatTimeAgo(minutes) {
+                if (minutes < 1) {
+                    return 'just now';
+                } else if (minutes < 60) {
+                    return minutes === 1 ? '1 min ago' : `${minutes} min ago`;
+                } else if (minutes < 1440) {
+                    const hours = Math.floor(minutes / 60);
+                    return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+                } else {
+                    const days = Math.floor(minutes / 1440);
+                    return days === 1 ? '1 day ago' : `${days} days ago`;
+                }
+            }
+
+            // Function to update chat timestamps based on their data-minutes attribute
+            function updateChatTimestamps() {
+                const chatTimes = document.querySelectorAll('.chat-time[data-minutes]');
+                chatTimes.forEach(timeElement => {
+                    const minutes = parseInt(timeElement.getAttribute('data-minutes'));
+                    timeElement.textContent = formatTimeAgo(minutes);
+                });
+            }
+
+            // Update timestamps immediately and then every minute
+            updateChatTimestamps();
+            setInterval(() => {
+                // Increment all timestamps by 1 minute
+                const chatTimes = document.querySelectorAll('.chat-time[data-minutes]');
+                chatTimes.forEach(timeElement => {
+                    let minutes = parseInt(timeElement.getAttribute('data-minutes'));
+                    minutes += 1;
+                    timeElement.setAttribute('data-minutes', minutes);
+                    timeElement.textContent = formatTimeAgo(minutes);
+                });
+            }, 60000); // Update every minute
+
+            // Function to show notification dot when new message arrives
+            function showMessageNotification() {
+                const notificationDot = document.getElementById('messageNotification');
+                if (notificationDot) {
+                    notificationDot.style.display = 'block';
+                    notificationDot.style.visibility = 'visible';
+                    notificationDot.style.opacity = '1';
+                }
+            }
+
+            // Function to hide notification dot (e.g., when user opens messages)
+            function hideMessageNotification() {
+                const notificationDot = document.getElementById('messageNotification');
+                if (notificationDot) {
+                    notificationDot.style.display = 'none';
+                }
+            }
+
+            // Make functions available globally for message handlers
+            window.showMessageNotification = showMessageNotification;
+            window.hideMessageNotification = hideMessageNotification;
+
+            // Simulate a message from John Borino
+            function simulateJohnBorinoMessage() {
+                // Show the notification dot
+                showMessageNotification();
+                
+                // Find John Borino's chat item
+                const chatItems = Array.from(document.querySelectorAll('.chat-item'));
+                const johnBorinoItem = chatItems.find(item => {
+                    const nameElement = item.querySelector('.chat-name');
+                    return nameElement && nameElement.textContent.trim() === 'John Borino';
+                });
+                
+                if (johnBorinoItem) {
+                    // Update the message
+                    const messageElement = johnBorinoItem.querySelector('.chat-message');
+                    if (messageElement) {
+                        messageElement.textContent = 'Hey! Can we schedule a meeting?';
+                    }
+                    
+                    // Update the timestamp to "just now" (0 minutes)
+                    const timeElement = johnBorinoItem.querySelector('.chat-time');
+                    if (timeElement) {
+                        timeElement.setAttribute('data-minutes', '0');
+                        timeElement.textContent = 'just now';
+                    }
+                    
+                    // Update the chat item timestamp
+                    johnBorinoItem.setAttribute('data-timestamp', '0');
+                    
+                    // Move to top of chat list (simulate new message)
+                    const chatList = document.querySelector('.chat-list');
+                    if (chatList && johnBorinoItem.parentNode === chatList) {
+                        chatList.insertBefore(johnBorinoItem, chatList.firstChild);
+                    }
+                    
+                    // Add a subtle highlight animation
+                    johnBorinoItem.style.animation = 'none';
+                    setTimeout(() => {
+                        johnBorinoItem.style.animation = 'pulse 0.5s ease-in-out';
+                    }, 10);
+                }
+            }
+
+            // Trigger the message simulation - show notification immediately for testing
+            setTimeout(() => simulateJohnBorinoMessage(), 2000);
+            
+            // Also show notification dot immediately on load for testing (remove this in production)
+            setTimeout(() => showMessageNotification(), 1000);
         });
     </script>
 </body>

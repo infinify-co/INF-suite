@@ -29,6 +29,91 @@ body {
 }
 
 /* Navigation */
+/* Top Right Bar */
+.top-right-bar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;
+    padding: 6px 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+}
+
+.top-bar-search {
+    display: flex;
+    align-items: center;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 5px 8px;
+    gap: 6px;
+}
+
+.top-bar-search .search-icon {
+    width: 14px;
+    height: 14px;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.top-bar-search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 12px;
+    color: #1f2937;
+    width: 120px;
+}
+
+.top-bar-search-input::placeholder {
+    color: #6b7280;
+}
+
+.top-bar-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-bar-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: color 0.2s ease;
+}
+
+.top-bar-icon-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+.top-bar-icon-btn:hover {
+    color: #1f2937;
+}
+
+.top-bar-profile {
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #9f7aea;
+}
+
 .navbar {
     display: none; /* Hidden on all pages */
     position: fixed;
@@ -65,6 +150,35 @@ body {
     text-decoration: none;
     display: flex;
     align-items: center;
+    position: relative;
+}
+
+.nav-logo a img {
+    position: relative;
+}
+
+.notification-dot {
+    position: absolute !important;
+    top: -6px !important;
+    left: calc(50% - 6px) !important;
+    width: 12px !important;
+    height: 12px !important;
+    background-color: #ef4444 !important; /* Red */
+    border-radius: 50% !important;
+    border: 2px solid #ffffff !important;
+    z-index: 10000 !important;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4) !important;
+    display: block !important;
+}
+
+/* Pulse animation for new messages */
+@keyframes pulse {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: rgba(59, 130, 246, 0.1);
+    }
 }
 
 .nav-logo::after {
@@ -1829,8 +1943,8 @@ body {
 .front-tile {
     position: absolute;
     top: 0;
-    right: 10px;
-    left: 210px; /* Adjusted relative to dashboard-main (80px margin + 10px gap + 290px - 90px = 210px from left of dashboard-main) */
+    right: 0px; /* Extended another 5px on the right side (was 5px) */
+    left: 260px; /* Removed another 20px from left side (was 240px) */
     bottom: 0;
     background: #f0f0f0; /* Light gray/off-white background */
     border-radius: 20px; /* Rounded corners matching the image */
@@ -1892,8 +2006,8 @@ body.home-page .dashboard-main {
     line-height: 1.1;
     margin: 0 !important;
     padding: 0 !important;
-    margin-left: -55px !important; /* moved another 5px to the right */
-    margin-top: -75px !important; /* moved down 10px */
+    margin-left: -35px !important; /* moved 20px to the right (was -55px) */
+    margin-top: -70px !important; /* moved down 5px more (was -75px) */
     letter-spacing: -0.02em;
     color: #4a4a4a !important; /* dark grey */
     text-align: left !important;
@@ -1939,18 +2053,160 @@ body.home-page .dashboard-main {
     margin-top: 10px !important; /* 10px below the first button */
     position: relative; /* For absolute positioning of tick */
     text-align: center; /* Center the text */
-    padding: 14px 29px !important; /* Reduced by 5px (34px - 5px) */
+    padding: 9px 44px 19px 14px !important; /* Left padding reduced by 10px more to move text left */
     width: fit-content; /* Size to content */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 /* Tick icon in bottom right corner of button */
 .chats-button .button-tick {
     position: absolute;
-    bottom: 8px;
+    bottom: 38px; /* Moved up another 10px (was 28px) */
     right: 12px;
     width: 16px;
     height: 16px;
     display: block;
+}
+
+/* Text lines in Repersentitive button */
+.button-text-line {
+    display: block;
+    line-height: 1.2;
+}
+
+.button-text-line-secondary {
+    display: block;
+    font-size: 0.75rem; /* Smaller text */
+    color: #6b7280; /* Grey color */
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+/* Chat List Styles */
+.chat-list {
+    margin-top: 30px;
+    margin-left: -95px; /* Moved 50px more to the left (was -45px) */
+    margin-right: calc(100% - 140px); /* Move right edge 20px more to the left (was 160px, now 140px) */
+    background: #f9fafb; /* Light gray background */
+    border-radius: 6px;
+    padding: 6px;
+    padding-bottom: 256px; /* Extend box down 150px more (was 106px, now 256px total) */
+    max-width: none;
+}
+
+.chat-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 4px 6px;
+    margin-bottom: 15px; /* 15px spacing between chats */
+    border-radius: 4px;
+    border-bottom: 1px solid #e5e7eb; /* Grey line between chats */
+    padding-bottom: 15px; /* Space above the border */
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.chat-item:hover {
+    background-color: #f3f4f6;
+}
+
+.chat-item:last-child {
+    margin-bottom: 0;
+    border-bottom: none; /* Remove border from last chat item */
+}
+
+.chat-avatar {
+    position: relative;
+    flex-shrink: 0;
+    margin-right: 10px;
+    margin-top: 5px; /* Move icons down 5px */
+}
+
+.chat-avatar .avatar-img {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chat-avatar .status-indicator {
+    display: none !important; /* Hide status indicator dot */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.status-indicator.status-online {
+    background-color: #10b981; /* Green for online */
+}
+
+.status-indicator.status-offline {
+    background-color: #9ca3af; /* Gray for offline */
+}
+
+.chat-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.chat-name {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #1f2937; /* Dark gray */
+    line-height: 1.2;
+}
+
+.chat-time {
+    font-size: 0.6rem;
+    color: #9ca3af; /* Light gray */
+    white-space: nowrap;
+    margin-left: 5px;
+}
+
+.chat-message {
+    font-size: 0.65rem;
+    color: #6b7280; /* Medium gray */
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-unread {
+    flex-shrink: 0;
+    margin-left: 5px;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 1px;
+}
+
+.unread-badge {
+    display: none !important; /* Hide unread badges from all chats */
+    background-color: #ef4444; /* Red */
+    color: #fff;
+    font-size: 0.55rem;
+    font-weight: 600;
+    min-width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 9px;
+    padding: 0 2.5px;
 }
 
 /* Sparkles icon in button - treated like another letter */
@@ -3818,6 +4074,7 @@ body[class*="dashboard-page"]:not(:has([data-page="dashboard"])) .productivity-p
     align-items: center;
     justify-content: center;
     min-height: 25vh; /* reverted */
+    margin-top: -100px; /* Move marketplace text up */
 }
 .marketplace-center .marketplace-title {
     text-align: center;
