@@ -12,6 +12,61 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
+    <!-- Landing Page Header -->
+    <header class="landing-header">
+        <div class="landing-header-container">
+            <div class="landing-header-logo">
+                <a href="#home" class="landing-logo-text">INFINIFY</a>
+            </div>
+            <nav class="landing-header-nav">
+                <a href="services.html" class="landing-nav-link">
+                    Features
+                    <i data-lucide="chevron-down" class="nav-chevron"></i>
+                </a>
+                <a href="services.html" class="landing-nav-link">
+                    Solutions
+                    <i data-lucide="chevron-down" class="nav-chevron"></i>
+                </a>
+                <a href="#about" class="landing-nav-link">
+                    Resources
+                    <i data-lucide="chevron-down" class="nav-chevron"></i>
+                </a>
+                <a href="teams.html" class="landing-nav-link">
+                    For business
+                    <i data-lucide="chevron-down" class="nav-chevron"></i>
+                </a>
+                <a href="sorif.html" class="landing-nav-link">
+                    Sorif
+                    <span class="new-badge">New</span>
+                </a>
+            </nav>
+            <div class="landing-header-actions">
+                <div class="chat-button-wrapper">
+                    <button class="landing-chat-btn" id="chatBtn" title="Ask a question">
+                        <i data-lucide="message-circle"></i>
+                    </button>
+                    <div class="chat-dropdown" id="chatDropdown">
+                        <div class="chat-dropdown-header">
+                            <h4>Ask a question</h4>
+                        </div>
+                        <div class="chat-dropdown-content">
+                            <form id="chatQuestionForm">
+                                <textarea 
+                                    id="chatQuestionInput" 
+                                    placeholder="Type your question here..." 
+                                    rows="3"
+                                    class="chat-input"
+                                ></textarea>
+                                <button type="submit" class="chat-submit-btn">Send</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <a href="dashboard.html" class="landing-signup">Launch App</a>
+            </div>
+        </div>
+    </header>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -515,6 +570,43 @@
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
+            
+            // Chat dropdown toggle
+            const chatBtn = document.getElementById('chatBtn');
+            const chatDropdown = document.getElementById('chatDropdown');
+            
+            if (chatBtn && chatDropdown) {
+                chatBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    chatDropdown.classList.toggle('active');
+                    // Reinitialize icons after toggle
+                    if (window.lucide) lucide.createIcons();
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!chatBtn.contains(e.target) && !chatDropdown.contains(e.target)) {
+                        chatDropdown.classList.remove('active');
+                    }
+                });
+                
+                // Handle form submission
+                const chatForm = document.getElementById('chatQuestionForm');
+                if (chatForm) {
+                    chatForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const question = document.getElementById('chatQuestionInput').value;
+                        if (question.trim()) {
+                            // Handle the question submission here
+                            console.log('Question submitted:', question);
+                            // You can add your API call or navigation here
+                            alert('Question submitted: ' + question);
+                            document.getElementById('chatQuestionInput').value = '';
+                            chatDropdown.classList.remove('active');
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>

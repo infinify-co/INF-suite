@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorif - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="sorif-page">
+    <div class="sorif-layout">
+        <!-- Left Sidebar -->
+        <aside class="sorif-sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-logo">Sorif</a>
+                <div class="sidebar-icon"></div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="sorif.html" class="sidebar-nav-link active">Home</a>
+                <a href="#" class="sidebar-nav-link">Research</a>
+                <a href="#" class="sidebar-nav-link">Safety</a>
+                <a href="#" class="sidebar-nav-link">For Business</a>
+                <a href="#" class="sidebar-nav-link">For Developers</a>
+                <a href="#" class="sidebar-nav-link">ChatGPT</a>
+                <a href="#" class="sidebar-nav-link">Connect</a>
+                <a href="#" class="sidebar-nav-link">Company</a>
+                <a href="#" class="sidebar-nav-link">News</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="sidebar-refresh" title="Refresh">
+                    <i data-lucide="refresh-cw"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="sorif-main">
+            <!-- Top Right Actions -->
+            <div class="sorif-top-actions">
+                <button class="sorif-search-btn" title="Search">
+                    <i data-lucide="search"></i>
+                </button>
+                <a href="dashboard.html" class="sorif-login-btn">Log in</a>
+            </div>
+
+            <!-- Centered Content -->
+            <div class="sorif-content">
+                <h1 class="sorif-heading">What can I help with?</h1>
+                
+                <!-- Input Field -->
+                <form class="sorif-input-form">
+                    <div class="sorif-input-wrapper">
+                        <input 
+                            type="text" 
+                            class="sorif-input" 
+                            placeholder="Travel pillow that actually works"
+                            autocomplete="off"
+                        />
+                        <button type="submit" class="sorif-submit-btn" title="Send">
+                            <i data-lucide="arrow-up"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Suggestion Buttons -->
+                <div class="sorif-suggestions">
+                    <div class="sorif-suggestions-row">
+                        <button class="sorif-suggestion-btn">Learn about ChatGPT Business</button>
+                        <button class="sorif-suggestion-btn">Search with ChatGPT</button>
+                    </div>
+                    <div class="sorif-suggestions-row">
+                        <button class="sorif-suggestion-btn">Talk with ChatGPT</button>
+                        <button class="sorif-suggestion-btn">Research</button>
+                        <button class="sorif-suggestion-btn">More</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Cards (Gradient) -->
+            <div class="sorif-bottom-cards">
+                <div class="sorif-card sorif-card-1"></div>
+                <div class="sorif-card sorif-card-2"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
