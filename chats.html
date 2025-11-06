@@ -126,6 +126,23 @@
             
             <!-- Chat List Section -->
             <div class="chat-list">
+                <!-- Pinned Sorif Chat -->
+                <div class="chat-item pinned" data-timestamp="0" data-pinned="true">
+                    <div class="chat-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Sorif&background=1a1a1a&color=fff" alt="Sorif" class="avatar-img">
+                        <span class="status-indicator status-online"></span>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-header">
+                            <span class="chat-name">Sorif</span>
+                            <span class="chat-time pin-indicator-header" title="Pinned">
+                                <i data-lucide="pin"></i>
+                            </span>
+                        </div>
+                        <div class="chat-message">AI Business Consultant</div>
+                    </div>
+                </div>
+                
                 <div class="chat-item" data-timestamp="2">
                     <div class="chat-avatar">
                         <img src="https://ui-avatars.com/api/?name=Alex+Linderson&background=2563eb&color=fff" alt="Alex Linderson" class="avatar-img">
@@ -214,7 +231,24 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.lucide) lucide.createIcons();
+            if (window.lucide) {
+                lucide.createIcons();
+                // Reinitialize icons after pinned item is rendered
+                setTimeout(() => {
+                    lucide.createIcons();
+                    // Force icon size after creation
+                    const pinIcon = document.querySelector('.pin-indicator-header [data-lucide="pin"]');
+                    if (pinIcon) {
+                        const svg = pinIcon.querySelector('svg') || pinIcon;
+                        if (svg) {
+                            svg.setAttribute('width', '10');
+                            svg.setAttribute('height', '10');
+                            svg.style.width = '10px';
+                            svg.style.height = '10px';
+                        }
+                    }
+                }, 100);
+            }
 
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
             dockItems.forEach(item => {
@@ -260,22 +294,55 @@
                 const chatTimes = document.querySelectorAll('.chat-time[data-minutes]');
                 chatTimes.forEach(timeElement => {
                     const minutes = parseInt(timeElement.getAttribute('data-minutes'));
-                    timeElement.textContent = formatTimeAgo(minutes);
+                    // Skip pinned items (they show "Online" instead)
+                    if (!timeElement.closest('.chat-item.pinned')) {
+                        timeElement.textContent = formatTimeAgo(minutes);
+                    }
                 });
+            }
+
+            // Function to keep pinned items at the top
+            function maintainPinnedOrder() {
+                const chatList = document.querySelector('.chat-list');
+                if (!chatList) return;
+
+                const pinnedItems = Array.from(chatList.querySelectorAll('.chat-item.pinned'));
+                const regularItems = Array.from(chatList.querySelectorAll('.chat-item:not(.pinned)'));
+
+                // Clear the list
+                chatList.innerHTML = '';
+
+                // Add pinned items first
+                pinnedItems.forEach(item => chatList.appendChild(item));
+
+                // Sort regular items by timestamp and add them
+                regularItems.sort((a, b) => {
+                    const aTime = parseInt(a.getAttribute('data-timestamp') || '999999');
+                    const bTime = parseInt(b.getAttribute('data-timestamp') || '999999');
+                    return aTime - bTime;
+                });
+
+                regularItems.forEach(item => chatList.appendChild(item));
             }
 
             // Update timestamps immediately and then every minute
             updateChatTimestamps();
             setInterval(() => {
-                // Increment all timestamps by 1 minute
+                // Increment all timestamps by 1 minute (skip pinned items)
                 const chatTimes = document.querySelectorAll('.chat-time[data-minutes]');
                 chatTimes.forEach(timeElement => {
+                    // Skip pinned items
+                    if (timeElement.closest('.chat-item.pinned')) return;
+                    
                     let minutes = parseInt(timeElement.getAttribute('data-minutes'));
                     minutes += 1;
                     timeElement.setAttribute('data-minutes', minutes);
                     timeElement.textContent = formatTimeAgo(minutes);
                 });
             }, 60000); // Update every minute
+
+            // Maintain pinned order on load
+            maintainPinnedOrder();
 
             // Function to show notification dot when new message arrives
             function showMessageNotification() {
@@ -328,10 +395,16 @@
                     // Update the chat item timestamp
                     johnBorinoItem.setAttribute('data-timestamp', '0');
                     
-                    // Move to top of chat list (simulate new message)
+                    // Move to top of chat list (but keep pinned items at top)
                     const chatList = document.querySelector('.chat-list');
                     if (chatList && johnBorinoItem.parentNode === chatList) {
-                        chatList.insertBefore(johnBorinoItem, chatList.firstChild);
+                        const pinnedItems = chatList.querySelectorAll('.chat-item.pinned');
+                        if (pinnedItems.length > 0) {
+                            // Insert after the last pinned item
+                            chatList.insertBefore(johnBorinoItem, pinnedItems[pinnedItems.length - 1].nextSibling);
+                        } else {
+                            chatList.insertBefore(johnBorinoItem, chatList.firstChild);
+                        }
                     }
                     
                     // Add a subtle highlight animation

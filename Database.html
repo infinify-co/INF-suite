@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database - INF Dashboard</title>
+    <title>Database Builder - INF Dashboard</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -99,180 +99,269 @@
     </div>
 
     <!-- Main Content -->
-    <main class="dashboard-main">
-        <div class="dashboard-container">
-            <!-- App slots (row above all tiles) -->
-            <section class="apps-grid">
-                <div class="card app-card">
-                    <div class="app-card-inner">
-                        <div class="app-icon"></div>
-                        <div class="app-meta">
-                            <div class="app-name">App Slot 1</div>
-                            <div class="app-sub">Add details</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card app-card">
-                    <div class="app-card-inner">
-                        <div class="app-icon"></div>
-                        <div class="app-meta">
-                            <div class="app-name">App Slot 2</div>
-                            <div class="app-sub">Add details</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card app-card">
-                    <div class="app-card-inner">
-                        <div class="app-icon"></div>
-                        <div class="app-meta">
-                            <div class="app-name">App Slot 3</div>
-                            <div class="app-sub">Add details</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card app-card">
-                    <div class="app-card-inner">
-                        <div class="app-icon"></div>
-                        <div class="app-meta">
-                            <div class="app-name">App Slot 4</div>
-                            <div class="app-sub">Add details</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <main class="dashboard-main database-main">
+        <div class="database-container">
+            <!-- Left Sidebar: Database List -->
+            <aside class="database-sidebar-container" id="database-sidebar">
+                <!-- Populated by database-list-sidebar.js -->
+            </aside>
 
-            <!-- Teams layout copy -->
-            <section class="tiles-grid">
-                <div class="tiles-row row-1">
-                <div class="card chart-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Team Performance</h3>
-                        <div class="card-meta">2025 <i data-lucide="chevron-down"></i></div>
-                    </div>
-                    <div class="chart-wrap">
-                        <canvas id="teamPerformanceChart" height="160"></canvas>
+            <!-- Center: Main Content Area -->
+            <div class="database-content">
+                <!-- View Toggle -->
+                <div class="view-toggle" id="view-toggle">
+                    <button class="toggle-btn active" data-view="table" onclick="databaseManager.setView('table')">
+                        📊 Table View
+                    </button>
+                    <button class="toggle-btn" data-view="form" onclick="databaseManager.setView('form')">
+                        📝 Form View
+                    </button>
+                    <div class="view-actions">
+                        <button class="btn-secondary btn-small" onclick="databaseManager.showFilters()" id="filter-btn">
+                            🔍 Filter
+                        </button>
+                        <button class="btn-secondary btn-small" onclick="databaseManager.showImport()" id="import-btn">
+                            📥 Import
+                        </button>
+                        <button class="btn-secondary btn-small" onclick="databaseManager.showReports()" id="report-btn">
+                            📊 Reports
+                        </button>
+                        <button class="btn-secondary btn-small" onclick="databaseManager.showSharing()" id="share-btn">
+                            🔗 Share
+                        </button>
                     </div>
                 </div>
 
-                <div class="card teams-card">
-                    <div class="card-header">
-                        <h3 class="card-title">My Team's</h3>
-                        <a class="link-view-all" href="#">View All</a>
-                    </div>
-                    <ul class="team-list">
-                        <li class="team-item">
-                            <div class="avatar avatar-pink">LC</div>
-                            <div class="member-meta">
-                                <div class="member-name">Liam Carter</div>
-                                <div class="member-role">Creative Interface Specialist</div>
-                            </div>
-                            <button class="icon-kebab" title="More">
-                                <i data-lucide="more-vertical"></i>
-                            </button>
-                        </li>
-                        <li class="team-item">
-                            <div class="avatar avatar-purple">MT</div>
-                            <div class="member-meta">
-                                <div class="member-name">Mia Thompson</div>
-                                <div class="member-role">User Experience Architect</div>
-                            </div>
-                            <button class="icon-kebab" title="More">
-                                <i data-lucide="more-vertical"></i>
-                            </button>
-                        </li>
-                        <li class="team-item">
-                            <div class="avatar avatar-blue">NJ</div>
-                            <div class="member-meta">
-                                <div class="member-name">Noah Johnson</div>
-                                <div class="member-role">Visual Design Expert</div>
-                            </div>
-                            <button class="icon-kebab" title="More">
-                                <i data-lucide="more-vertical"></i>
-                            </button>
-                        </li>
-                        <li class="team-item">
-                            <div class="avatar avatar-yellow">EW</div>
-                            <div class="member-meta">
-                                <div class="member-name">Emma Wilson</div>
-                                <div class="member-role">Interaction Designer</div>
-                            </div>
-                            <button class="icon-kebab" title="More">
-                                <i data-lucide="more-vertical"></i>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                </div>
-
-                <div class="tiles-row row-2">
-                <div class="card projects-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Latest Projects</h3>
-                        <a class="link-view-all" href="#">View All</a>
-                    </div>
-                    <div class="project-list">
-                        <article class="project-item">
-                            <div class="project-top">
-                                <div class="project-left">
-                                    <div class="project-meta">
-                                        <div class="project-title">Quantum Leap Redesign</div>
-                                        <div class="project-client">Client: John Doe</div>
-                                    </div>
-                                </div>
-                                <div class="project-right">
-                                    <button class="icon-kebab" title="More"><i data-lucide="more-vertical"></i></button>
-                                    <div class="progress-label">60%</div>
-                                </div>
-                            </div>
-                            <div class="project-footer">
-                                <div class="progress-bar progress-wide"><span style="width:60%"></span></div>
-                            </div>
-                        </article>
-                        <article class="project-item">
-                            <div class="project-top">
-                                <div class="project-left">
-                                    <div class="project-meta">
-                                        <div class="project-title">Phoenix App</div>
-                                        <div class="project-client">Client: Sarah Summers</div>
-                                    </div>
-                                </div>
-                                <div class="project-right">
-                                    <button class="icon-kebab" title="More"><i data-lucide="more-vertical"></i></button>
-                                    <div class="progress-label">60%</div>
-                                </div>
-                            </div>
-                            <div class="project-footer">
-                                <div class="progress-bar progress-wide"><span style="width:60%"></span></div>
-                            </div>
-                        </article>
+                <!-- Empty State -->
+                <div class="database-empty-state" id="database-empty-state">
+                    <div class="empty-state-content">
+                        <h2>Welcome to Database Builder</h2>
+                        <p>Create simple databases for your data. Perfect for contacts, inventory, recipes, and more.</p>
+                        <button class="btn-primary btn-large" onclick="databaseBuilder.openWizard()">
+                            ➕ Create Your First Database
+                        </button>
                     </div>
                 </div>
 
-                <div class="card chart-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Monthly Goal Stats</h3>
-                        <div class="card-meta">June <i data-lucide="chevron-down"></i></div>
-                    </div>
-                    <div class="goal-grid">
-                        <ul class="goal-legend">
-                            <li><span class="dot" style="--c:#60a5fa"></span> Quantum Leap</li>
-                            <li><span class="dot" style="--c:#9ca3af"></span> Nebula Nexus</li>
-                            <li><span class="dot" style="--c:#93c5fd"></span> Echo System</li>
-                            <li><span class="dot" style="--c:#3b82f6"></span> Phoenix App</li>
-                        </ul>
-                        <div class="chart-wrap"><canvas id="goalPieChart" height="200"></canvas></div>
-                    </div>
+                <!-- Table View -->
+                <div class="table-view-container" id="table-view" style="display: none;">
+                    <!-- Populated by table-view.js -->
                 </div>
-                </div>
-            </section>
 
-            
+                <!-- Form View -->
+                <div class="form-view-container" id="form-view" style="display: none;">
+                    <!-- Populated by form-view.js -->
+                </div>
+            </div>
         </div>
     </main>
 
+    <!-- Database Builder Wizard Modal -->
+    <div class="wizard-modal" id="database-wizard" style="display: none;">
+        <div class="wizard-modal-content">
+            <div class="wizard-close" onclick="databaseBuilder.closeWizard()">×</div>
+            <div id="wizard-container">
+                <!-- Populated by database-builder.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="supabase-config.js"></script>
+    <script src="templates.js"></script>
+    <script src="client-database-service.js"></script>
+    <script src="database-list-sidebar.js"></script>
+    <script src="database-builder.js"></script>
+    <script src="table-view.js"></script>
+    <script src="form-view.js"></script>
+    <script src="import-service.js"></script>
+    <script src="view-builder.js"></script>
+    <script src="report-generator.js"></script>
+    <script src="sharing-service.js"></script>
+    <script src="storage-service.js"></script>
+    <script src="realtime-service.js"></script>
+    
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        // Database Manager - Coordinates all components
+        class DatabaseManager {
+            constructor() {
+                this.currentView = 'table';
+                this.currentTableName = null;
+                this.currentTableSchema = null;
+            }
+
+            async init() {
+                // Initialize sidebar
+                if (window.databaseListSidebar) {
+                    await window.databaseListSidebar.init('database-sidebar');
+                }
+
+                // Initialize wizard
+                if (window.databaseBuilder) {
+                    window.databaseBuilder.init('wizard-container');
+                }
+
+                // Show empty state initially
+                this.showEmptyState();
+            }
+
+            setView(view) {
+                this.currentView = view;
+                
+                // Update toggle buttons
+                document.querySelectorAll('.toggle-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.view === view) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                // Show/hide views
+                const tableView = document.getElementById('table-view');
+                const formView = document.getElementById('form-view');
+                const emptyState = document.getElementById('database-empty-state');
+
+                if (this.currentTableName && this.currentTableSchema) {
+                    tableView.style.display = view === 'table' ? 'block' : 'none';
+                    formView.style.display = view === 'form' ? 'block' : 'none';
+                    emptyState.style.display = 'none';
+
+                    // Initialize the selected view
+                    if (view === 'table' && window.tableView) {
+                        window.tableView.init(this.currentTableName, this.currentTableSchema, 'table-view');
+                    } else if (view === 'form' && window.formView) {
+                        window.formView.init(this.currentTableName, this.currentTableSchema, 'form-view');
+                    }
+                } else {
+                    this.showEmptyState();
+                }
+            }
+
+            async loadDatabase(database) {
+                if (!database) {
+                    this.showEmptyState();
+                    return;
+                }
+
+                // Show empty state until a table is selected
+                this.showEmptyState();
+            }
+
+            async loadTable(tableName, tableSchema) {
+                if (!tableName || !tableSchema) {
+                    this.showEmptyState();
+                    return;
+                }
+
+                this.currentTableName = tableName;
+                this.currentTableSchema = tableSchema;
+
+                // Hide empty state
+                document.getElementById('database-empty-state').style.display = 'none';
+
+                // Show view toggle
+                document.getElementById('view-toggle').style.display = 'flex';
+
+                // Load the current view
+                this.setView(this.currentView);
+            }
+
+            showFilters() {
+                if (this.currentTableSchema && window.viewBuilder) {
+                    window.viewBuilder.showFilterBuilder(this.currentTableSchema, (filters) => {
+                        if (window.tableView) {
+                            window.tableView.setFilters(filters);
+                        }
+                    });
+                }
+            }
+
+            showImport() {
+                if (!this.currentTableName || !this.currentTableSchema) {
+                    alert('Please select a table first');
+                    return;
+                }
+
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.csv,.xlsx,.xls';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file && window.importService) {
+                        window.importService.handleFileSelect(
+                            file,
+                            this.currentTableSchema,
+                            null,
+                            () => {
+                                // Reload table data after import
+                                if (window.tableView) {
+                                    window.tableView.loadData().then(() => {
+                                        window.tableView.render();
+                                    });
+                                }
+                            }
+                        );
+                    }
+                };
+                input.click();
+            }
+
+            showReports() {
+                if (!this.currentTableName || !this.currentTableSchema) {
+                    alert('Please select a table first');
+                    return;
+                }
+
+                if (window.tableView && window.reportGenerator) {
+                    const data = window.tableView.data || [];
+                    window.reportGenerator.showReportModal(data, this.currentTableSchema);
+                }
+            }
+
+            showSharing() {
+                if (!this.currentDatabase) {
+                    alert('Please select a database first');
+                    return;
+                }
+
+                if (window.sharingService) {
+                    window.sharingService.showSharingModal(
+                        this.currentDatabase.id,
+                        this.currentDatabase.name
+                    );
+                }
+            }
+
+            async loadDatabase(database) {
+                this.currentDatabase = database;
+                if (!database) {
+                    this.showEmptyState();
+                    return;
+                }
+                // Show empty state until a table is selected
+                this.showEmptyState();
+            }
+
+            showEmptyState() {
+                document.getElementById('database-empty-state').style.display = 'flex';
+                document.getElementById('table-view').style.display = 'none';
+                document.getElementById('form-view').style.display = 'none';
+                document.getElementById('view-toggle').style.display = 'none';
+                this.currentTableName = null;
+                this.currentTableSchema = null;
+            }
+
+            clearContent() {
+                this.showEmptyState();
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
+
+            // Initialize dock labels
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
             dockItems.forEach(item => {
                 const label = item.querySelector('.dock-label');
@@ -284,49 +373,16 @@
                 }
             });
 
-            if (window.Chart) {
-                const perf = document.getElementById('dbPerfChart');
-                if (perf) {
-                    new Chart(perf, {
-                        type: 'line',
-                        data: {
-                            labels: ['Jan','Feb','Mar','Apr','May','Jun'],
-                            datasets: [
-                                { label: 'Avg Query (ms)', data: [28,24,22,26,18,20], borderColor: '#60a5fa', backgroundColor: 'rgba(96,165,250,0.15)', fill: true, tension: 0.35, borderWidth: 2 },
-                                { label: 'P95 (ms)', data: [120,110,105,130,95,100], borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.15)', fill: true, tension: 0.35, borderWidth: 2 }
-                            ]
-                        },
-                        options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } } }
-                    });
-                }
+            // Initialize database manager
+            const databaseManager = new DatabaseManager();
+            window.databaseManager = databaseManager;
+            await databaseManager.init();
 
-                const storage = document.getElementById('dbStorageChart');
-                if (storage) {
-                    new Chart(storage, {
-                        type: 'pie',
-                        data: { labels: ['Tables','Indexes','Backups','Logs'], datasets: [{ data: [58,22,12,8], backgroundColor: ['#60a5fa','#9ca3af','#93c5fd','#3b82f6'], borderWidth: 0 }] },
-                        options: { plugins: { legend: { display: false } } }
-                    });
-                }
-            }
-            // Charts (reuse Teams defaults)
-            if (window.Chart) {
-                const perfCtx = document.getElementById('teamPerformanceChart');
-                if (perfCtx) {
-                    new Chart(perfCtx, {
-                        type: 'line',
-                        data: { labels: ['Jan','Feb','Mar','Apr','May','Jun'], datasets: [ { label: 'Progress', data: [6,9,11,12,19,10], borderColor: '#60a5fa', backgroundColor: 'rgba(96,165,250,0.15)', fill: true, tension: 0.35, borderWidth: 2 }, { label: 'Time Spent', data: [6,7,12,14,6,10], borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.15)', fill: true, tension: 0.35, borderWidth: 2 } ] },
-                        options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { grid: { color: 'rgba(0,0,0,0.05)' } }, x: { grid: { display: false } } } }
-                    });
-                }
-
-                const pieCtx = document.getElementById('goalPieChart');
-                if (pieCtx) {
-                    new Chart(pieCtx, { type: 'pie', data: { labels: ['Quantum Leap','Nebula Nexus','Echo System','Phoenix App'], datasets: [{ data: [55,25,10,10], backgroundColor: ['#60a5fa','#9ca3af','#93c5fd','#3b82f6'], borderWidth: 0 }] }, options: { plugins: { legend: { display: false } } } });
-                }
+            // Initialize share access if accessed via share link
+            if (window.sharingService) {
+                await window.sharingService.initShareAccess();
             }
         });
     </script>
 </body>
 </html>
-

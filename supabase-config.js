@@ -71,6 +71,111 @@ class AuthManager {
         }
     }
 
+    async resetPassword(email) {
+        try {
+            const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                redirectTo: `${window.location.origin}/reset-password.html`
+            });
+            
+            if (error) throw error;
+            
+            showNotification('Password reset email sent! Check your inbox.', 'success');
+            return { error: null };
+        } catch (error) {
+            showNotification(error.message, 'error');
+            return { error };
+        }
+    }
+
+    async updatePassword(newPassword) {
+        try {
+            const { error } = await supabase.auth.updateUser({
+                password: newPassword
+            });
+            
+            if (error) throw error;
+            
+            showNotification('Password updated successfully!', 'success');
+            return { error: null };
+        } catch (error) {
+            showNotification(error.message, 'error');
+            return { error };
+        }
+    }
+
+    async updateProfile(updates) {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error('User not authenticated');
+
+            // Update user metadata
+            const { error } = await supabase.auth.updateUser({
+                data: updates
+            });
+            
+            if (error) throw error;
+            
+            // Also update profile in database if it exists
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .upsert({
+                    id: user.id,
+                    ...updates,
+                    updated_at: new Date().toISOString()
+                }, {
+                    onConflict: 'id'
+                });
+
+            if (profileError) {
+                console.warn('Profile update error:', profileError);
+                // Don't throw, metadata update succeeded
+            }
+
+            this.user = { ...this.user, user_metadata: { ...this.user?.user_metadata, ...updates } };
+            showNotification('Profile updated successfully!', 'success');
+            return { error: null };
+        } catch (error) {
+            showNotification(error.message, 'error');
+            return { error };
+        }
+    }
+
+    async updateEmail(newEmail) {
+        try {
+            const { error } = await supabase.auth.updateUser({
+                email: newEmail
+            });
+            
+            if (error) throw error;
+            
+            showNotification('Verification email sent to new address!', 'success');
+            return { error: null };
+        } catch (error) {
+            showNotification(error.message, 'error');
+            return { error };
+        }
+    }
+
+    async resendVerificationEmail() {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error('User not authenticated');
+
+            const { error } = await supabase.auth.resend({
+                type: 'signup',
+                email: user.email
+            });
+            
+            if (error) throw error;
+            
+            showNotification('Verification email sent!', 'success');
+            return { error: null };
+        } catch (error) {
+            showNotification(error.message, 'error');
+            return { error };
+        }
+    }
+
     updateUI() {
         const loginBtn = document.querySelector('.nav-signin');
         const modal = document.getElementById('loginModal');
