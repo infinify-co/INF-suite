@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="accounts-page">
+    <div class="accounts-shell">
+        <aside class="accounts-sidebar">
+            <div class="accounts-sidebar-top">
+                <div class="accounts-sidebar-brand">INFINIFY ACCOUNT</div>
+                <nav class="accounts-sidebar-nav">
+                    <a href="dashboard.html" class="accounts-sidebar-link active">Home</a>
+                    <a href="#" class="accounts-sidebar-link">Research</a>
+                    <a href="#" class="accounts-sidebar-link">Security</a>
+                    <a href="#" class="accounts-sidebar-link">Suite</a>
+                    <a href="#" class="accounts-sidebar-link">For Developers</a>
+                    <a href="#" class="accounts-sidebar-link">Business Profile</a>
+                    <a href="#" class="accounts-sidebar-link">Sorif</a>
+                    <a href="#" class="accounts-sidebar-link">Bondi Pay</a>
+                    <a href="#" class="accounts-sidebar-link">Locke</a>
+                    <a href="#" class="accounts-sidebar-link">Rewards</a>
+                    <a href="#" class="accounts-sidebar-link">News</a>
+                </nav>
+            </div>
+            <button class="accounts-sidebar-refresh" title="Refresh">
+                <i data-lucide="rotate-ccw"></i>
+            </button>
+        </aside>
+
+        <div class="accounts-main">
+            <header class="accounts-header">
+                <div class="accounts-header-left">
+                </div>
+                <div class="accounts-header-actions">
+                    <div class="accounts-header-icons">
+                        <button class="accounts-icon-btn" title="Apps Grid">
+                            <i data-lucide="grid"></i>
+                        </button>
+                        <button class="accounts-icon-btn" title="Notifications">
+                            <i data-lucide="bell"></i>
+                        </button>
+                        <button class="accounts-icon-btn" title="User Profile">
+                            <i data-lucide="user-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="accounts-content">
+                <section class="accounts-summary">
+                    <div class="summary-card">
+                        <span class="summary-label">Total Accounts</span>
+                        <h3>18</h3>
+                        <p class="summary-meta">3 pending activation</p>
+                    </div>
+                    <div class="summary-card">
+                        <span class="summary-label">Active Regions</span>
+                        <h3>6</h3>
+                        <p class="summary-meta">NA · EMEA · APAC · LATAM · ANZ · India</p>
+                    </div>
+                    <div class="summary-card">
+                        <span class="summary-label">Last Update</span>
+                        <h3>7 minutes ago</h3>
+                        <p class="summary-meta">Automated sync from identity provider</p>
+                    </div>
+                </section>
+
+                <section class="accounts-table-section">
+                    <header class="accounts-table-header">
+                        <h2>Account Directory</h2>
+                        <div class="accounts-table-controls">
+                            <input type="search" placeholder="Search accounts..." class="accounts-search">
+                            <button class="marketplace-btn ghost">Filters</button>
+                        </div>
+                    </header>
+                    <table class="accounts-table">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Primary Contact</th>
+                                <th>Region</th>
+                                <th>Status</th>
+                                <th>Last Activity</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="account-name">Lumina Labs</span>
+                                    <span class="account-meta">Enterprise · 4 workspaces</span>
+                                </td>
+                                <td>
+                                    <span class="account-name">Jordan Lee</span>
+                                    <span class="account-meta">Global Admin</span>
+                                </td>
+                                <td>North America</td>
+                                <td><span class="status-chip success">Active</span></td>
+                                <td>14 minutes ago</td>
+                                <td><button class="marketplace-btn ghost">Manage</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="account-name">Orbit Networks</span>
+                                    <span class="account-meta">Enterprise · 3 workspaces</span>
+                                </td>
+                                <td>
+                                    <span class="account-name">Sophia Nguyen</span>
+                                    <span class="account-meta">Billing Owner</span>
+                                </td>
+                                <td>APAC</td>
+                                <td><span class="status-chip success">Active</span></td>
+                                <td>42 minutes ago</td>
+                                <td><button class="marketplace-btn ghost">Manage</button></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="account-name">Cobalt Systems</span>
+                                    <span class="account-meta">Mid-Market · 2 workspaces</span>
+                                </td>
+                                <td>
+                                    <span class="account-name">Diego Martinez</span>
+                                    <span class="account-meta">Security Admin</span>
+                                </td>
+                                <td>Europe</td>
+                                <td><span class="status-chip warning">Pending</span></td>
+                                <td>Yesterday</td>
+                                <td><button class="marketplace-btn ghost">Approve</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="accounts-activity">
+                    <header class="accounts-activity-header">
+                        <h2>Recent Activity</h2>
+                        <button class="marketplace-btn ghost">Open Audit Log</button>
+                    </header>
+                    <ul class="accounts-activity-list">
+                        <li>
+                            <span class="activity-time">11:28 AM</span>
+                            <div>
+                                <p class="activity-title">Lumina Labs promoted new regional admin</p>
+                                <p class="activity-meta">Jordan Lee · Identity Provider Sync</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="activity-time">9:02 AM</span>
+                            <div>
+                                <p class="activity-title">Orbit Networks enabled SSO enforcement</p>
+                                <p class="activity-meta">Sophia Nguyen · Policy Controls</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="activity-time">Yesterday</span>
+                            <div>
+                                <p class="activity-title">Cobalt Systems ran security posture report</p>
+                                <p class="activity-meta">Diego Martinez · Security Center</p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
+

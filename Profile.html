@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="dashboard.html">
+                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+                <div class="nav-logo-line"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Suite</a></li>
+            </ul>
+            <div class="nav-center-title">
+                <i data-lucide="user"></i>
+                <span>Profile</span>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Vertical Dock -->
+    <div class="vertical-dock">
+        <div class="dock-logo">
+            <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
+        </div>
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='dashboard.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='operations.html'">
+                <i data-lucide="monitor-cog"></i>
+                <span class="dock-label">Operations</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='teams.html'">
+                <i data-lucide="users"></i>
+                <span class="dock-label">Teams</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='chats.html'">
+                <i data-lucide="message-circle-plus"></i>
+                <span class="dock-label">Chats</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Marketplace.html'">
+                <i data-lucide="store"></i>
+                <span class="dock-label">Marketplace</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='my-apps.html'">
+                <i data-lucide="grid-3x3"></i>
+                <span class="dock-label">My apps</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Leads-marketing.html'">
+                <i data-lucide="focus"></i>
+                <span class="dock-label">Leads & Marketing</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Database.html'">
+                <i data-lucide="hard-drive"></i>
+                <span class="dock-label">Data</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='social-assets.html'">
+                <i data-lucide="container"></i>
+                <span class="dock-label">Social assets</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='organise.html'">
+                <i data-lucide="folder"></i>
+                <span class="dock-label">Organise</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='video.html'">
+                <i data-lucide="landmark"></i>
+                <span class="dock-label">Financials</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='Profile.html'">
+                <i data-lucide="user"></i>
+                <span class="dock-label">Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <div class="top-left-heading">Profile</div>
+
+            <section class="accounts-grid">
+                <article class="account-card">
+                    <header class="account-card-header">
+                        <div class="account-card-title">
+                            <div class="account-avatar">JL</div>
+                            <div>
+                                <h3>Jordan Lee</h3>
+                                <p>Global Admin</p>
+                            </div>
+                        </div>
+                        <button class="marketplace-btn primary">Manage</button>
+                    </header>
+                    <div class="account-card-body">
+                        <div class="account-meta">
+                            <span class="account-label">Status</span>
+                            <span class="account-value active">Active</span>
+                        </div>
+                        <div class="account-meta">
+                            <span class="account-label">Last login</span>
+                            <span class="account-value">2 hours ago</span>
+                        </div>
+                        <div class="account-meta">
+                            <span class="account-label">Region</span>
+                            <span class="account-value">North America</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="account-card">
+                    <header class="account-card-header">
+                        <div class="account-card-title">
+                            <div class="account-avatar">SN</div>
+                            <div>
+                                <h3>Sophia Nguyen</h3>
+                                <p>Billing Owner</p>
+                            </div>
+                        </div>
+                        <button class="marketplace-btn primary">Manage</button>
+                    </header>
+                    <div class="account-card-body">
+                        <div class="account-meta">
+                            <span class="account-label">Status</span>
+                            <span class="account-value active">Active</span>
+                        </div>
+                        <div class="account-meta">
+                            <span class="account-label">Last login</span>
+                            <span class="account-value">Yesterday</span>
+                        </div>
+                        <div class="account-meta">
+                            <span class="account-label">Region</span>
+                            <span class="account-value">APAC</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="account-card">
+                    <header class="account-card-header">
+                        <div class="account-card-title">
+                            <div class="account-avatar">DM</div>
+                            <div>
+                                <h3>Diego Martinez</h3>
+                                <p>Security Admin</p>
+                            </div>
+                        </div>
+                        <button class="marketplace-btn primary">Manage</button>
+                    </header>
+                    <div class="account-card-body">
+                        <div class="account-meta">
+                            <span class="account-label">Status</span>
+                            <span class="account-value pending">Pending</span>
+                        </div>
+                        <div class="account-meta">
+                            <span class="account-label">Last login</span>
+                            <span class="account-value">5 days ago</span>
+                        </div>
+                        <div class="account-meta">
+                            <span class="account-label">Region</span>
+                            <span class="account-value">Europe</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="accounts-detail">
+                <header class="accounts-detail-header">
+                    <h2>Account Activity</h2>
+                    <button class="marketplace-btn ghost">View Audit Log</button>
+                </header>
+                <ul class="accounts-activity-list">
+                    <li>
+                        <span class="activity-time">12:15 PM</span>
+                        <div>
+                            <p class="activity-title">Jordan Lee updated MFA policy</p>
+                            <p class="activity-meta">Security · Policy center</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="activity-time">10:03 AM</span>
+                        <div>
+                            <p class="activity-title">Sophia Nguyen added new payment method</p>
+                            <p class="activity-meta">Billing · Corporate card ending 9931</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="activity-time">Yesterday</span>
+                        <div>
+                            <p class="activity-title">Diego Martinez requested access review</p>
+                            <p class="activity-meta">Security · Access controls</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
+
