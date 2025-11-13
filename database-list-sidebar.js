@@ -107,30 +107,29 @@ class DatabaseListSidebar {
       return `
         <div class="empty-state">
           <p>No databases yet.</p>
-          <button class="btn-primary btn-small" onclick="databaseListSidebar.handleNewDatabase()">
-            Create Your First Database
-          </button>
         </div>
       `;
     }
 
-    return this.databases.map(db => {
-      const isSelected = this.selectedDatabase?.id === db.id;
-      return `
-        <div class="database-item ${isSelected ? 'selected' : ''}">
-          <div class="database-item-header" onclick="databaseListSidebar.selectDatabase('${db.id}')">
-            <span class="database-icon">📊</span>
-            <span class="database-name">${db.name}</span>
-            <button class="btn-icon-small" 
-                    onclick="event.stopPropagation(); databaseListSidebar.handleDeleteDatabase('${db.id}')"
-                    title="Delete">
-              🗑️
-            </button>
+    return this.databases
+      .filter(db => !db.is_backup) // Explicitly filter out backup databases
+      .map(db => {
+        const isSelected = this.selectedDatabase?.id === db.id;
+        return `
+          <div class="database-item ${isSelected ? 'selected' : ''}">
+            <div class="database-item-header" onclick="databaseListSidebar.selectDatabase('${db.id}')">
+              <span class="database-icon">📊</span>
+              <span class="database-name">${db.name}</span>
+              <button class="btn-icon-small" 
+                      onclick="event.stopPropagation(); databaseListSidebar.handleDeleteDatabase('${db.id}')"
+                      title="Delete">
+                🗑️
+              </button>
+            </div>
+            ${isSelected ? this.renderTablesList(db) : ''}
           </div>
-          ${isSelected ? this.renderTablesList(db) : ''}
-        </div>
-      `;
-    }).join('');
+        `;
+      }).join('');
   }
 
   /**

@@ -29,6 +29,19 @@ class AuthManager {
             if (error) throw error;
             
             if (data.user) {
+                // Initialize backup database for new user
+                if (window.backupService) {
+                    // Wait a bit for user to be fully created, then initialize backup
+                    setTimeout(async () => {
+                        try {
+                            await window.backupService.initializeBackupDatabase();
+                            console.log('Backup database initialized for new user');
+                        } catch (err) {
+                            console.error('Error initializing backup database:', err);
+                        }
+                    }, 1000);
+                }
+                
                 showNotification('Check your email for verification link!', 'success');
                 return data;
             }
@@ -205,10 +218,22 @@ class AuthManager {
 const authManager = new AuthManager();
 
 // Listen for auth state changes
-supabase.auth.onAuthStateChange((event, session) => {
+supabase.auth.onAuthStateChange(async (event, session) => {
     if (event === 'SIGNED_IN') {
         authManager.user = session.user;
         authManager.updateUI();
+        
+        // Initialize backup database if it doesn't exist
+        if (window.backupService) {
+            try {
+                const backupDb = await window.backupService.getBackupDatabase();
+                if (!backupDb) {
+                    await window.backupService.initializeBackupDatabase();
+                }
+            } catch (err) {
+                console.error('Error checking/initializing backup database:', err);
+            }
+        }
     } else if (event === 'SIGNED_OUT') {
         authManager.user = null;
         authManager.updateUI();

@@ -47,7 +47,7 @@
             <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
         </div>
         <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='dashboard.html'">
+            <div class="dock-item" onclick="window.location.href='home.html'">
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
@@ -108,6 +108,53 @@
 
             <!-- Center: Main Content Area -->
             <div class="database-content">
+                <!-- Highlight Tile -->
+                <section class="database-highlight">
+                    <div class="database-highlight-left">
+                        <h2>Database Builder</h2>
+                        <p>Spin up collaborative tables, design forms, and automate workflows across your teams in minutes.</p>
+                    </div>
+                    <div class="database-highlight-actions">
+                        <button class="btn-primary" onclick="databaseBuilder.openWizard()">Create Database</button>
+                        <button class="btn-secondary" onclick="databaseManager.showImport()">Import Data</button>
+                    </div>
+                </section>
+
+                <section class="database-quick-tiles">
+                    <div class="database-tile">
+                        <div class="database-tile-icon">
+                            <i data-lucide="sparkles"></i>
+                        </div>
+                        <div class="database-tile-body">
+                            <h3>AI Templates</h3>
+                            <p>Jump-start with curated table layouts for CRM, finance, and operations.</p>
+                        </div>
+                        <button class="btn-secondary btn-pill" onclick="databaseBuilder.openWizard()">Browse Templates</button>
+                    </div>
+
+                    <div class="database-tile">
+                        <div class="database-tile-icon alt">
+                            <i data-lucide="layers"></i>
+                        </div>
+                        <div class="database-tile-body">
+                            <h3>Sync Sources</h3>
+                            <p>Connect spreadsheets, APIs, or Supabase tables for live data sync.</p>
+                        </div>
+                        <button class="btn-secondary btn-pill" onclick="databaseManager.showImport()">Set up Sync</button>
+                    </div>
+
+                    <div class="database-tile">
+                        <div class="database-tile-icon highlight">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div class="database-tile-body">
+                            <h3>Collaborate</h3>
+                            <p>Invite teams, manage permissions, and automate reviews with guardrails.</p>
+                        </div>
+                        <button class="btn-secondary btn-pill" onclick="databaseManager.showSharing()">Share Access</button>
+                    </div>
+                </section>
+
                 <!-- View Toggle -->
                 <div class="view-toggle" id="view-toggle">
                     <button class="toggle-btn active" data-view="table" onclick="databaseManager.setView('table')">
@@ -154,6 +201,13 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Content Tile -->
+        <div class="front-tile">
+            <div class="front-tile-container">
+                <!-- Content for the front tile -->
+            </div>
+        </div>
     </main>
 
     <!-- Database Builder Wizard Modal -->
@@ -170,6 +224,7 @@
     <script src="supabase-config.js"></script>
     <script src="templates.js"></script>
     <script src="client-database-service.js"></script>
+    <script src="backup-service.js"></script>
     <script src="database-list-sidebar.js"></script>
     <script src="database-builder.js"></script>
     <script src="table-view.js"></script>

@@ -13,17 +13,24 @@ class ClientDatabaseService {
 
   /**
    * Get all databases for the current user
+   * @param {boolean} includeBackup - Whether to include backup databases (default: false)
    */
-  async getDatabases() {
+  async getDatabases(includeBackup = false) {
     try {
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
 
-      const { data, error } = await this.supabase
+      let query = this.supabase
         .from('client_databases')
         .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+        .eq('user_id', user.id);
+
+      // Filter out backup databases unless explicitly requested
+      if (!includeBackup) {
+        query = query.or('is_backup.is.null,is_backup.eq.false');
+      }
+
+      const { data, error } = await query.order('created_at', { ascending: false });
 
       if (error) throw error;
       return { data, error: null };
@@ -59,7 +66,7 @@ class ClientDatabaseService {
   /**
    * Create a new database
    */
-  async createDatabase(name, description = '', templateId = null) {
+  async createDatabase(name, description = '', templateId = null, isBackup = false) {
     try {
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
@@ -71,13 +78,23 @@ class ClientDatabaseService {
             user_id: user.id,
             name: name,
             description: description,
-            template_id: templateId
+            template_id: templateId,
+            is_backup: isBackup,
+            backup_metadata: isBackup ? { created_at: new Date().toISOString(), backup_history: [] } : null
           }
         ])
         .select()
         .single();
 
       if (error) throw error;
+
+      // Trigger backup if this is not the backup database itself
+      if (!isBackup && window.backupService) {
+        window.backupService.backupDatabase(data.id).catch(err => {
+          console.warn('Error backing up new database:', err);
+        });
+      }
+
       return { data, error: null };
     } catch (error) {
       console.error('Error creating database:', error);
@@ -93,6 +110,10 @@ class ClientDatabaseService {
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
 
+      // Get database to check if it's a backup database
+      const { data: database } = await this.getDatabase(databaseId);
+      const isBackupDb = database?.is_backup || false;
+
       const { data, error } = await this.supabase
         .from('client_databases')
         .update(updates)
@@ -102,6 +123,14 @@ class ClientDatabaseService {
         .single();
 
       if (error) throw error;
+
+      // Trigger backup if this is not the backup database itself
+      if (!isBackupDb && window.backupService) {
+        window.backupService.backupDatabase(databaseId).catch(err => {
+          console.warn('Error backing up database update:', err);
+        });
+      }
+
       return { data, error: null };
     } catch (error) {
       console.error('Error updating database:', error);
@@ -230,6 +259,16 @@ class ClientDatabaseService {
         throw createError;
       }
 
+      // Trigger backup (but not for backup database itself)
+      const { data: database } = await this.getDatabase(databaseId);
+      const isBackupDb = database?.is_backup || false;
+      
+      if (!isBackupDb && window.backupService) {
+        window.backupService.backupDatabase(databaseId).catch(err => {
+          console.warn('Error backing up table creation:', err);
+        });
+      }
+
       return { data: tableRecord, error: null, tableName: tableName_db };
     } catch (error) {
       console.error('Error creating table:', error);
@@ -351,6 +390,20 @@ class ClientDatabaseService {
       // Update row count in metadata
       await this.updateTableRowCount(tableName);
 
+      // Trigger backup
+      if (window.backupService) {
+        window.backupService.autoSaveChange('row', {
+          change_type: 'create',
+          backup_data: {
+            table_name: tableName,
+            row: data,
+            backup_timestamp: new Date().toISOString()
+          }
+        }).catch(err => {
+          console.warn('Error backing up row insertion:', err);
+        });
+      }
+
       return { data, error: null };
     } catch (error) {
       console.error('Error inserting row:', error);
@@ -377,6 +430,21 @@ class ClientDatabaseService {
       // Update last modified in metadata
       await this.updateTableMetadata(tableName);
 
+      // Trigger backup
+      if (window.backupService) {
+        window.backupService.autoSaveChange('row', {
+          change_type: 'update',
+          original_id: rowId,
+          backup_data: {
+            table_name: tableName,
+            row: data,
+            backup_timestamp: new Date().toISOString()
+          }
+        }).catch(err => {
+          console.warn('Error backing up row update:', err);
+        });
+      }
+
       return { data, error: null };
     } catch (error) {
       console.error('Error updating row:', error);
@@ -399,6 +467,21 @@ class ClientDatabaseService {
       // Update row count in metadata
       await this.updateTableRowCount(tableName);
 
+      // Trigger backup
+      if (window.backupService) {
+        window.backupService.autoSaveChange('row', {
+          change_type: 'delete',
+          original_id: rowId,
+          backup_data: {
+            table_name: tableName,
+            row_id: rowId,
+            backup_timestamp: new Date().toISOString()
+          }
+        }).catch(err => {
+          console.warn('Error backing up row deletion:', err);
+        });
+      }
+
       return { error: null };
     } catch (error) {
       console.error('Error deleting row:', error);
@@ -420,6 +503,20 @@ class ClientDatabaseService {
 
       // Update row count in metadata
       await this.updateTableRowCount(tableName);
+
+      // Trigger backup
+      if (window.backupService) {
+        window.backupService.autoSaveChange('table', {
+          change_type: 'update',
+          backup_data: {
+            table_name: tableName,
+            rows: data || [],
+            backup_timestamp: new Date().toISOString()
+          }
+        }).catch(err => {
+          console.warn('Error backing up bulk row insertion:', err);
+        });
+      }
 
       return { data, error: null };
     } catch (error) {

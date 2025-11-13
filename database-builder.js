@@ -10,6 +10,7 @@ class DatabaseBuilder {
     this.databaseName = '';
     this.databaseDescription = '';
     this.wizardContainer = null;
+    this._nameUpdateTimer = null;
   }
 
   /**
@@ -48,6 +49,8 @@ class DatabaseBuilder {
         this.renderStep5_Create();
         break;
     }
+
+    this.ensureLucideIcons();
   }
 
   /**
@@ -62,12 +65,12 @@ class DatabaseBuilder {
         </div>
         <div class="wizard-options">
           <button class="wizard-option-btn" onclick="databaseBuilder.selectMethod('template')">
-            <div class="option-icon">📋</div>
+            <div class="option-icon"><i data-lucide="book-dashed"></i></div>
             <div class="option-title">Use a Template</div>
             <div class="option-description">Start with a pre-made template for common databases</div>
           </button>
           <button class="wizard-option-btn" onclick="databaseBuilder.selectMethod('custom')">
-            <div class="option-icon">➕</div>
+            <div class="option-icon"><i data-lucide="circle-fading-plus"></i></div>
             <div class="option-title">Create Custom</div>
             <div class="option-description">Build your own database from scratch</div>
           </button>
@@ -146,32 +149,33 @@ class DatabaseBuilder {
    */
   renderStep2_CustomFields() {
     let fieldsHTML = '';
-    
+    const confirmedCount = this.getConfirmedCustomFields().length;
+    const helperMessage = this.customFields.length === 0
+      ? '<p class="empty-state">No datasets added yet. Click "Add Dataset" to get started.</p>'
+      : (confirmedCount === 0
+          ? '<p class="empty-state subtle">Confirm each dataset with the checkmark to include it in your database.</p>'
+          : '');
+
     this.customFields.forEach((field, index) => {
+      const confirmed = !!field.confirmed && !!(field.name && field.name.trim());
       fieldsHTML += `
-        <div class="custom-field-row">
-          <input type="text" 
-                 class="field-name-input" 
-                 placeholder="Field name (e.g., Name, Email)"
-                 value="${field.name || ''}"
-                 onchange="databaseBuilder.updateCustomField(${index}, 'name', this.value)">
-          <select class="field-type-select" 
-                  onchange="databaseBuilder.updateCustomField(${index}, 'type', this.value)">
-            <option value="text" ${field.type === 'text' ? 'selected' : ''}>Text</option>
-            <option value="number" ${field.type === 'number' ? 'selected' : ''}>Number</option>
-            <option value="date" ${field.type === 'date' ? 'selected' : ''}>Date</option>
-            <option value="boolean" ${field.type === 'boolean' ? 'selected' : ''}>Yes/No</option>
-            <option value="email" ${field.type === 'email' ? 'selected' : ''}>Email</option>
-            <option value="phone" ${field.type === 'phone' ? 'selected' : ''}>Phone</option>
-          </select>
-          <label class="checkbox-label">
-            <input type="checkbox" 
-                   ${field.required ? 'checked' : ''}
-                   onchange="databaseBuilder.updateCustomField(${index}, 'required', this.checked)">
-            Required
-          </label>
-          <button class="btn-icon" onclick="databaseBuilder.removeCustomField(${index})" title="Remove field">
-            🗑️
+        <div class="custom-field-row${confirmed ? ' field-confirmed' : ''}">
+          <div class="field-name-wrap">
+            <input type="text" 
+                   class="field-name-input" 
+                   placeholder="Dataset name (e.g., Customers, Inventory)"
+                   value="${field.name || ''}"
+                   onchange="databaseBuilder.updateCustomField(${index}, 'name', this.value)">
+            <button class="field-confirm-btn${confirmed ? ' active' : ''}" 
+                    type="button" 
+                    onclick="databaseBuilder.toggleCustomFieldConfirmation(${index})" 
+                    title="${confirmed ? 'Dataset confirmed' : 'Confirm dataset'}"
+                    aria-pressed="${confirmed}">
+              <i data-lucide="${confirmed ? 'check-circle-2' : 'check'}"></i>
+            </button>
+          </div>
+          <button class="btn-icon" onclick="databaseBuilder.removeCustomField(${index})" title="Remove dataset">
+            <i data-lucide="trash-2"></i>
           </button>
         </div>
       `;
@@ -181,26 +185,29 @@ class DatabaseBuilder {
       <div class="wizard-step">
         <div class="wizard-header">
           <h2>Add Fields</h2>
-          <p>Create the fields for your database. You can add more fields later.</p>
+          <p>Create the datasets for your database. Confirm each entry to include it.</p>
         </div>
         <div class="custom-fields-list">
-          ${fieldsHTML || '<p class="empty-state">No fields added yet. Click "Add Field" to get started.</p>'}
+          ${fieldsHTML || ''}
+          ${helperMessage}
         </div>
         <div class="wizard-actions">
           <button class="btn-secondary" onclick="databaseBuilder.addCustomField()">
-            ➕ Add Field
+            ➕ Add Dataset
           </button>
         </div>
         <div class="wizard-actions">
           <button class="btn-secondary" onclick="databaseBuilder.renderStep(1)">← Back</button>
           <button class="btn-primary" 
                   onclick="databaseBuilder.renderStep(3)"
-                  ${this.customFields.length === 0 ? 'disabled' : ''}>
+                  ${confirmedCount === 0 ? 'disabled' : ''}>
             Next →
           </button>
         </div>
       </div>
     `;
+
+    this.ensureLucideIcons();
   }
 
   /**
@@ -215,7 +222,7 @@ class DatabaseBuilder {
         fields = template.fields;
       }
     } else {
-      fields = this.customFields;
+      fields = this.getConfirmedCustomFields();
     }
 
     let fieldsHTML = fields.map(field => `
@@ -326,7 +333,7 @@ class DatabaseBuilder {
           fields = template.fields;
         }
       } else {
-        fields = this.customFields.map(f => ({
+        fields = this.getConfirmedCustomFields().map(f => ({
           name: f.name,
           type: f.type,
           required: f.required || false,
@@ -423,7 +430,8 @@ class DatabaseBuilder {
       name: '',
       type: 'text',
       required: false,
-      default: null
+      default: null,
+      confirmed: false
     });
     this.renderStep2_CustomFields();
   }
@@ -432,9 +440,43 @@ class DatabaseBuilder {
    * Update custom field
    */
   updateCustomField(index, property, value) {
-    if (this.customFields[index]) {
-      this.customFields[index][property] = value;
+    if (!this.customFields[index]) return;
+
+    this.customFields[index][property] = value;
+    if (property === 'name') {
+      const trimmed = value ? value.trim() : '';
+      if (!trimmed) {
+        this.customFields[index].confirmed = false;
+      }
+      if (this._nameUpdateTimer) {
+        clearTimeout(this._nameUpdateTimer);
+      }
+      this._nameUpdateTimer = setTimeout(() => {
+        this._nameUpdateTimer = null;
+        this.renderStep2_CustomFields();
+      }, 0);
     }
+  }
+
+  toggleCustomFieldConfirmation(index) {
+    const field = this.customFields[index];
+    if (!field) return;
+
+    const rows = this.wizardContainer?.querySelectorAll('.custom-field-row');
+    const row = rows ? rows[index] : null;
+    const input = row ? row.querySelector('.field-name-input') : null;
+    if (input) {
+      field.name = input.value;
+    }
+
+    const trimmedName = field.name ? field.name.trim() : '';
+    if (!trimmedName) {
+      alert('Please give this dataset a name before confirming it.');
+      return;
+    }
+
+    field.confirmed = !field.confirmed;
+    this.renderStep2_CustomFields();
   }
 
   /**
@@ -443,6 +485,13 @@ class DatabaseBuilder {
   removeCustomField(index) {
     this.customFields.splice(index, 1);
     this.renderStep2_CustomFields();
+  }
+
+  getConfirmedCustomFields() {
+    return this.customFields.filter(field => {
+      const trimmedName = field.name ? field.name.trim() : '';
+      return !!field.confirmed && !!trimmedName;
+    });
   }
 
 
@@ -472,6 +521,18 @@ class DatabaseBuilder {
     this.databaseName = '';
     this.databaseDescription = '';
     this.method = null;
+  }
+
+  /**
+   * Ensure lucide icons render inside wizard
+   */
+  ensureLucideIcons(attempt = 0) {
+    const MAX_ATTEMPTS = 10;
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      requestAnimationFrame(() => window.lucide.createIcons());
+    } else if (attempt < MAX_ATTEMPTS) {
+      setTimeout(() => this.ensureLucideIcons(attempt + 1), 120);
+    }
   }
 }
 

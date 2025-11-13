@@ -34,6 +34,17 @@ class StorageService {
         .from(bucket)
         .getPublicUrl(filePath);
 
+      // Trigger backup
+      if (window.backupService) {
+        window.backupService.backupFile(file, {
+          originalLocation: bucket,
+          storagePath: filePath,
+          publicUrl: urlData.publicUrl
+        }).catch(err => {
+          console.warn('Error backing up file:', err);
+        });
+      }
+
       return {
         data: {
           path: filePath,
