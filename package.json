@@ -23,7 +23,8 @@
     "live-server": "^1.2.2"
   },
   "dependencies": {
-    "openai": "^6.7.0"
+    "openai": "^6.7.0",
+    "@supabase/supabase-js": "^2.39.0"
   },
   "repository": {
     "type": "git",

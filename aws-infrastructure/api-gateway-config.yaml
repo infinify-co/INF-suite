@@ -1,0 +1,263 @@
+# API Gateway REST API Configuration
+# Use this with AWS SAM, Serverless Framework, or Terraform
+
+openapi: "3.0.1"
+info:
+  title: "Infinify API"
+  version: "1.0.0"
+  description: "Infinify Backend API - AWS-based database system"
+
+servers:
+  - url: "https://{apiId}.execute-api.{region}.amazonaws.com/{stage}"
+    variables:
+      apiId:
+        default: "YOUR_API_ID"
+      region:
+        default: "us-east-1"
+      stage:
+        default: "prod"
+
+paths:
+  # Authentication Endpoints
+  /auth/signup:
+    post:
+      summary: "User registration"
+      operationId: "signup"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{signupFunctionArn}/invocations"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                phone:
+                  type: string
+      responses:
+        "200":
+          description: "Success"
+        "400":
+          description: "Bad request"
+
+  /auth/signin:
+    post:
+      summary: "User login"
+      operationId: "signin"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{signinFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  /auth/send-otp:
+    post:
+      summary: "Send OTP code"
+      operationId: "sendOtp"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{sendOtpFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  /auth/verify-otp:
+    post:
+      summary: "Verify OTP code"
+      operationId: "verifyOtp"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{verifyOtpFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  /auth/refresh:
+    post:
+      summary: "Refresh JWT token"
+      operationId: "refreshToken"
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{refreshTokenFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  /auth/signout:
+    post:
+      summary: "Sign out user"
+      operationId: "signout"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{signoutFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  # Database Endpoints
+  /db/{databaseId}/tables:
+    get:
+      summary: "List tables in database"
+      operationId: "listTables"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: databaseId
+          in: path
+          required: true
+          schema:
+            type: string
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{listTablesFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+    post:
+      summary: "Create new table"
+      operationId: "createTable"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{createTableFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  /db/{databaseId}/tables/{tableId}/rows:
+    get:
+      summary: "Query rows from table"
+      operationId: "queryRows"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{queryRowsFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+    post:
+      summary: "Insert row into table"
+      operationId: "insertRow"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{insertRowFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  /db/{databaseId}/tables/{tableId}/rows/{rowId}:
+    patch:
+      summary: "Update row"
+      operationId: "updateRow"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{updateRowFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+    delete:
+      summary: "Delete row"
+      operationId: "deleteRow"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{deleteRowFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  # Storage Endpoints
+  /storage/upload:
+    post:
+      summary: "Upload file"
+      operationId: "uploadFile"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{uploadFileFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+  /storage/{fileId}:
+    get:
+      summary: "Get file URL"
+      operationId: "getFileUrl"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{getFileUrlFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+    delete:
+      summary: "Delete file"
+      operationId: "deleteFile"
+      security:
+        - bearerAuth: []
+      x-amazon-apigateway-integration:
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:{region}:lambda:path/2015-03-31/functions/{deleteFileFunctionArn}/invocations"
+      responses:
+        "200":
+          description: "Success"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+x-amazon-apigateway-cors:
+  allowOrigins:
+    - "*"
+  allowMethods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+  allowHeaders:
+    - Content-Type
+    - Authorization
+    - X-API-Key
+  maxAge: 3000
+

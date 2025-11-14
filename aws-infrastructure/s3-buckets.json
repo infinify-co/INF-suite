@@ -1,0 +1,114 @@
+{
+  "buckets": [
+    {
+      "name": "infinify-user-files",
+      "purpose": "User uploaded files",
+      "configuration": {
+        "versioning": true,
+        "encryption": {
+          "algorithm": "AES256"
+        },
+        "lifecycle": {
+          "rules": [
+            {
+              "id": "delete-old-versions",
+              "status": "Enabled",
+              "noncurrentVersionExpiration": {
+                "days": 30
+              }
+            },
+            {
+              "id": "transition-to-glacier",
+              "status": "Enabled",
+              "transitions": [
+                {
+                  "days": 90,
+                  "storageClass": "GLACIER"
+                }
+              ]
+            }
+          ]
+        },
+        "cors": {
+          "allowedOrigins": ["*"],
+          "allowedMethods": ["GET", "PUT", "POST", "DELETE"],
+          "allowedHeaders": ["*"],
+          "maxAgeSeconds": 3000
+        },
+        "publicAccessBlock": {
+          "blockPublicAcls": true,
+          "blockPublicPolicy": true,
+          "ignorePublicAcls": true,
+          "restrictPublicBuckets": true
+        }
+      }
+    },
+    {
+      "name": "infinify-backups",
+      "purpose": "Database backups and snapshots",
+      "configuration": {
+        "versioning": true,
+        "encryption": {
+          "algorithm": "AES256"
+        },
+        "lifecycle": {
+          "rules": [
+            {
+              "id": "delete-old-backups",
+              "status": "Enabled",
+              "expiration": {
+                "days": 90
+              }
+            }
+          ]
+        },
+        "publicAccessBlock": {
+          "blockPublicAcls": true,
+          "blockPublicPolicy": true,
+          "ignorePublicAcls": true,
+          "restrictPublicBuckets": true
+        }
+      }
+    },
+    {
+      "name": "infinify-static",
+      "purpose": "Static assets and CDN files",
+      "configuration": {
+        "versioning": false,
+        "encryption": {
+          "algorithm": "AES256"
+        },
+        "website": {
+          "indexDocument": "index.html",
+          "errorDocument": "error.html"
+        },
+        "publicAccessBlock": {
+          "blockPublicAcls": false,
+          "blockPublicPolicy": false,
+          "ignorePublicAcls": false,
+          "restrictPublicBuckets": false
+        }
+      }
+    }
+  ],
+  "policies": {
+    "userFilesPolicy": {
+      "description": "Policy for user file uploads",
+      "statements": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "arn:aws:iam::ACCOUNT_ID:role/LambdaExecutionRole"
+          },
+          "Action": [
+            "s3:PutObject",
+            "s3:GetObject",
+            "s3:DeleteObject"
+          ],
+          "Resource": "arn:aws:s3:::infinify-user-files/*"
+        }
+      ]
+    }
+  }
+}
+

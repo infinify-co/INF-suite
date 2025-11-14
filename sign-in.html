@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in - Infinify</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signin-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .signin-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .signin-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .signin-description {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15px;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .infinify-button {
+            width: 100%;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .infinify-button:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        .infinify-logo {
+            width: 20px;
+            height: 20px;
+            background-image: url('INF.Asset1.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider span {
+            padding: 0 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 3px;
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            font-size: 15px;
+            color: #1f2937;
+            outline: none;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #ef4444;
+            justify-content: flex-end;
+            position: absolute;
+            top: 12px;
+            right: 0;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-icon {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 50%;
+            background: #ef4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .error-icon::before {
+            content: '!';
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .continue-button {
+            width: 100%;
+            padding: 14px 16px;
+            background: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .continue-button:hover {
+            background: #1f2937;
+        }
+
+        .signin-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .signin-footer a {
+            color: #1f2937;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signin-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="signin-card">
+            <h1 class="signin-title">Sign in</h1>
+            <p class="signin-description">Welcome back! Sign in to continue to your account.</p>
+            
+            <button class="infinify-button" type="button">
+                <div class="infinify-logo"></div>
+                <span>Continue with Infinify</span>
+            </button>
+            
+            <div class="divider">
+                <span>OR</span>
+            </div>
+            
+            <form id="signinForm" novalidate>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="error-message" id="email-error">
+                        <div class="error-icon"></div>
+                        <span>Email is required.</span>
+                    </div>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="Email address"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="error-message" id="password-error">
+                        <div class="error-icon"></div>
+                        <span>Password is required.</span>
+                    </div>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="Enter your password"
+                    >
+                </div>
+                
+                <button type="submit" class="continue-button">Sign in</button>
+            </form>
+            
+            <div class="signin-footer">
+                Don't have an account? <a href="sign-up.html">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Custom validation
+        function validateField(input, errorElement, errorMessage) {
+            const value = input.value.trim();
+            const errorText = errorElement.querySelector('span');
+            
+            if (!value) {
+                input.classList.add('error');
+                if (errorText) {
+                    errorText.textContent = errorMessage;
+                }
+                errorElement.classList.add('show');
+                return false;
+            } else {
+                input.classList.remove('error');
+                errorElement.classList.remove('show');
+                return true;
+            }
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Get form elements
+        const form = document.getElementById('signinForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+
+        // Real-time validation
+        emailInput.addEventListener('blur', function() {
+            const value = this.value.trim();
+            const errorText = emailError.querySelector('span');
+            if (!value) {
+                validateField(this, emailError, 'Email is required.');
+            } else if (!validateEmail(value)) {
+                this.classList.add('error');
+                if (errorText) {
+                    errorText.textContent = 'Please enter a valid email address.';
+                }
+                emailError.classList.add('show');
+            } else {
+                this.classList.remove('error');
+                emailError.classList.remove('show');
+            }
+        });
+
+        passwordInput.addEventListener('blur', function() {
+            validateField(this, passwordError, 'Password is required.');
+        });
+
+        // Clear errors on input
+        emailInput.addEventListener('input', function() {
+            if (this.classList.contains('error') && this.value.trim()) {
+                this.classList.remove('error');
+                emailError.classList.remove('show');
+            }
+        });
+
+        passwordInput.addEventListener('input', function() {
+            if (this.classList.contains('error') && this.value.trim()) {
+                this.classList.remove('error');
+                passwordError.classList.remove('show');
+            }
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Validate email
+            const emailValue = emailInput.value.trim();
+            const emailErrorText = emailError.querySelector('span');
+            if (!emailValue) {
+                validateField(emailInput, emailError, 'Email is required.');
+                isValid = false;
+            } else if (!validateEmail(emailValue)) {
+                emailInput.classList.add('error');
+                if (emailErrorText) {
+                    emailErrorText.textContent = 'Please enter a valid email address.';
+                }
+                emailError.classList.add('show');
+                isValid = false;
+            } else {
+                emailInput.classList.remove('error');
+                emailError.classList.remove('show');
+            }
+            
+            // Validate password
+            if (!validateField(passwordInput, passwordError, 'Password is required.')) {
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show loading state
+                const submitButton = form.querySelector('.continue-button');
+                const originalButtonText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Signing in...';
+                
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+                
+                // Wait for authManager to be available
+                const processSignin = async () => {
+                    try {
+                        if (!window.authManager) {
+                            // Wait a bit for scripts to load
+                            await new Promise(resolve => setTimeout(resolve, 500));
+                            if (!window.authManager) {
+                                throw new Error('Authentication service not available. Please refresh the page.');
+                            }
+                        }
+                        
+                        // Sign in
+                        await window.authManager.signIn(email, password);
+                        
+                        // Update last login timestamp
+                        if (window.authManager.user) {
+                            await window.authManager.updateLastLogin(window.authManager.user.id);
+                        }
+                        
+                        // Redirect to home.html
+                        window.location.href = 'home.html';
+                        
+                    } catch (error) {
+                        console.error('Sign in error:', error);
+                        
+                        // Show error message
+                        const errorMessage = error.message || 'Invalid email or password. Please try again.';
+                        const emailErrorText = emailError.querySelector('span');
+                        emailInput.classList.add('error');
+                        if (emailErrorText) {
+                            emailErrorText.textContent = errorMessage;
+                        }
+                        emailError.classList.add('show');
+                        
+                        // Reset button
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
+                };
+                
+                processSignin();
+            }
+        });
+
+        // Handle Infinify button click
+        document.querySelector('.infinify-button').addEventListener('click', function() {
+            // Add your OAuth/SSO logic here
+            console.log('Continue with Infinify clicked');
+        });
+    </script>
+</body>
+</html>
+

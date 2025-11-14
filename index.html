@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
@@ -62,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="home.html" class="landing-signup">Launch App</a>
+                <a href="#" class="landing-signup" id="launchAppHeader">Launch App</a>
             </div>
         </div>
     </header>
@@ -82,7 +83,7 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <a href="home.html" class="nav-signin">Launch App</a>
+            <a href="#" class="nav-signin" id="launchAppNav">Launch App</a>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
                     <i data-lucide="message-circle"></i>
@@ -606,6 +607,49 @@
                         }
                     });
                 }
+            }
+
+            // Handle Launch App button clicks
+            const launchAppHeader = document.getElementById('launchAppHeader');
+            const launchAppNav = document.getElementById('launchAppNav');
+
+            const handleLaunchApp = async (e) => {
+                e.preventDefault();
+                
+                // Wait for authManager to be available
+                if (!window.authManager) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    if (!window.authManager) {
+                        // If auth service not available, go to sign-in
+                        window.location.href = 'sign-in.html';
+                        return;
+                    }
+                }
+
+                try {
+                    // Check if user has logged in within last 3 days
+                    const hasRecent = await window.authManager.hasRecentLogin(3);
+                    
+                    if (hasRecent) {
+                        // User logged in recently, go directly to home
+                        window.location.href = 'home.html';
+                    } else {
+                        // User hasn't logged in recently or not logged in, show sign-in
+                        window.location.href = 'sign-in.html';
+                    }
+                } catch (error) {
+                    console.error('Launch App check error:', error);
+                    // On error, redirect to sign-in for safety
+                    window.location.href = 'sign-in.html';
+                }
+            };
+
+            if (launchAppHeader) {
+                launchAppHeader.addEventListener('click', handleLaunchApp);
+            }
+
+            if (launchAppNav) {
+                launchAppNav.addEventListener('click', handleLaunchApp);
             }
         });
     </script>

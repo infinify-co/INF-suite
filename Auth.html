@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email - Infinify</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .auth-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .auth-description {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15px;
+            color: #6b7280;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .email-display {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .email-display strong {
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 3px;
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+
+        .otp-input-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .otp-input {
+            width: 48px;
+            height: 48px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .otp-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .otp-input.error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #ef4444;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-icon {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 50%;
+            background: #ef4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .error-icon::before {
+            content: '!';
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .verify-button {
+            width: 100%;
+            padding: 14px 16px;
+            background: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .verify-button:hover:not(:disabled) {
+            background: #1f2937;
+        }
+
+        .verify-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .resend-section {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .resend-text {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .resend-button {
+            background: none;
+            border: none;
+            color: #1f2937;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 0;
+        }
+
+        .resend-button:hover {
+            color: #3b82f6;
+        }
+
+        .resend-button:disabled {
+            color: #9ca3af;
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+
+        .loading-message {
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1 class="auth-title">Verify your email</h1>
+            <p class="auth-description">We've sent a verification code to your email address. Please enter it below.</p>
+            
+            <div class="email-display">
+                Verifying: <strong id="email-display">Loading...</strong>
+            </div>
+            
+            <form id="otpForm" novalidate>
+                <div class="form-group">
+                    <label class="form-label">Enter verification code</label>
+                    <div class="otp-input-container" id="otp-container">
+                        <input type="text" class="otp-input" maxlength="1" data-index="0" autocomplete="off" />
+                        <input type="text" class="otp-input" maxlength="1" data-index="1" autocomplete="off" />
+                        <input type="text" class="otp-input" maxlength="1" data-index="2" autocomplete="off" />
+                        <input type="text" class="otp-input" maxlength="1" data-index="3" autocomplete="off" />
+                        <input type="text" class="otp-input" maxlength="1" data-index="4" autocomplete="off" />
+                        <input type="text" class="otp-input" maxlength="1" data-index="5" autocomplete="off" />
+                    </div>
+                    <div class="error-message" id="otp-error">
+                        <div class="error-icon"></div>
+                        <span>Invalid verification code.</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="verify-button" id="verify-button">Verify</button>
+            </form>
+            
+            <div class="resend-section">
+                <p class="resend-text">Didn't receive the code?</p>
+                <button type="button" class="resend-button" id="resend-button">Resend code</button>
+            </div>
+            
+            <div class="loading-message" id="loading-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        let sessionToken = urlParams.get('token');
+        let email = urlParams.get('email');
+        const type = urlParams.get('type') || 'signup';
+        
+        // Check for Supabase magic link token in URL hash
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const magicLinkToken = hashParams.get('access_token') || hashParams.get('token');
+        const magicLinkType = hashParams.get('type');
+        
+        // If magic link token exists, handle it
+        if (magicLinkToken && !sessionToken) {
+            // Supabase magic link - verify it
+            document.addEventListener('DOMContentLoaded', async () => {
+                const emailDisplay = document.getElementById('email-display');
+                const otpForm = document.getElementById('otpForm');
+                const loadingMessage = document.getElementById('loading-message');
+                
+                emailDisplay.textContent = 'Verifying...';
+                otpForm.style.display = 'none';
+                loadingMessage.textContent = 'Verifying your email...';
+                loadingMessage.style.display = 'block';
+                
+                // Wait for Supabase to process the magic link
+                // The onAuthStateChange in supabase-config.js will handle the session
+                setTimeout(async () => {
+                    if (window.supabase) {
+                        const { data: { user } } = await window.supabase.auth.getUser();
+                        if (user) {
+                            loadingMessage.textContent = 'Verification successful! Redirecting...';
+                            loadingMessage.style.color = '#10b981';
+                            setTimeout(() => {
+                                window.location.href = 'home.html';
+                            }, 1000);
+                        } else {
+                            loadingMessage.textContent = 'Verification failed. Please try again.';
+                            loadingMessage.style.color = '#ef4444';
+                        }
+                    }
+                }, 1500);
+            });
+            return; // Exit early, don't process OTP form
+        }
+
+        // Validate session token and email on load
+        document.addEventListener('DOMContentLoaded', async () => {
+            const emailDisplay = document.getElementById('email-display');
+            const otpForm = document.getElementById('otpForm');
+            const verifyButton = document.getElementById('verify-button');
+            const resendButton = document.getElementById('resend-button');
+            const loadingMessage = document.getElementById('loading-message');
+            const otpError = document.getElementById('otp-error');
+            
+            // Check if token and email are present
+            if (!sessionToken || !email) {
+                emailDisplay.textContent = 'Invalid session';
+                otpForm.style.display = 'none';
+                loadingMessage.textContent = 'Invalid or missing verification session. Please try signing up again.';
+                loadingMessage.style.display = 'block';
+                loadingMessage.style.color = '#ef4444';
+                return;
+            }
+
+            // Display email
+            emailDisplay.textContent = email;
+
+            // Validate session token
+            if (window.authManager) {
+                const validation = window.authManager.validateSessionToken(sessionToken);
+                if (!validation.valid) {
+                    emailDisplay.textContent = 'Session expired';
+                    otpForm.style.display = 'none';
+                    loadingMessage.textContent = validation.error + ' Please try signing up again.';
+                    loadingMessage.style.display = 'block';
+                    loadingMessage.style.color = '#ef4444';
+                    return;
+                }
+            } else {
+                // Wait for authManager to load
+                let attempts = 0;
+                const checkAuthManager = setInterval(() => {
+                    attempts++;
+                    if (window.authManager) {
+                        clearInterval(checkAuthManager);
+                        const validation = window.authManager.validateSessionToken(sessionToken);
+                        if (!validation.valid) {
+                            emailDisplay.textContent = 'Session expired';
+                            otpForm.style.display = 'none';
+                            loadingMessage.textContent = validation.error + ' Please try signing up again.';
+                            loadingMessage.style.display = 'block';
+                            loadingMessage.style.color = '#ef4444';
+                            return;
+                        }
+                    } else if (attempts > 20) {
+                        clearInterval(checkAuthManager);
+                        emailDisplay.textContent = 'Service unavailable';
+                        otpForm.style.display = 'none';
+                        loadingMessage.textContent = 'Authentication service not available. Please refresh the page.';
+                        loadingMessage.style.display = 'block';
+                        loadingMessage.style.color = '#ef4444';
+                    }
+                }, 250);
+            }
+
+            // OTP input handling
+            const otpInputs = document.querySelectorAll('.otp-input');
+            
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value.replace(/[^0-9]/g, '');
+                    e.target.value = value;
+                    
+                    // Clear error on input
+                    otpError.classList.remove('show');
+                    otpInputs.forEach(inp => inp.classList.remove('error'));
+                    
+                    // Move to next input if value entered
+                    if (value && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    // Handle backspace
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+                
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+                    pastedData.split('').forEach((char, i) => {
+                        if (otpInputs[index + i]) {
+                            otpInputs[index + i].value = char;
+                        }
+                    });
+                    // Focus last filled input
+                    const lastFilled = Math.min(index + pastedData.length - 1, otpInputs.length - 1);
+                    otpInputs[lastFilled].focus();
+                });
+            });
+
+            // Form submission
+            otpForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Get OTP code
+                const otpCode = Array.from(otpInputs).map(input => input.value).join('');
+                
+                if (otpCode.length !== 6) {
+                    otpError.querySelector('span').textContent = 'Please enter the complete 6-digit code.';
+                    otpError.classList.add('show');
+                    otpInputs.forEach(inp => inp.classList.add('error'));
+                    return;
+                }
+                
+                // Disable form
+                verifyButton.disabled = true;
+                verifyButton.textContent = 'Verifying...';
+                otpError.classList.remove('show');
+                otpInputs.forEach(inp => inp.classList.remove('error'));
+                
+                try {
+                    if (!window.authManager) {
+                        throw new Error('Authentication service not available');
+                    }
+                    
+                    // Verify OTP
+                    const result = await window.authManager.verifyOTP(email, sessionToken, otpCode);
+                    
+                    if (result.success) {
+                        // Success - redirect to home.html
+                        loadingMessage.textContent = 'Verification successful! Redirecting...';
+                        loadingMessage.style.display = 'block';
+                        loadingMessage.style.color = '#10b981';
+                        
+                        setTimeout(() => {
+                            window.location.href = 'home.html';
+                        }, 1000);
+                    } else {
+                        throw new Error('Verification failed');
+                    }
+                } catch (error) {
+                    console.error('OTP verification error:', error);
+                    
+                    // Show error
+                    const errorText = error.message || 'Invalid verification code. Please try again.';
+                    otpError.querySelector('span').textContent = errorText;
+                    otpError.classList.add('show');
+                    otpInputs.forEach(inp => inp.classList.add('error'));
+                    
+                    // Reset button
+                    verifyButton.disabled = false;
+                    verifyButton.textContent = 'Verify';
+                    
+                    // Clear OTP inputs
+                    otpInputs.forEach(inp => inp.value = '');
+                    otpInputs[0].focus();
+                }
+            });
+
+            // Resend OTP
+            let resendCooldown = 0;
+            resendButton.addEventListener('click', async () => {
+                if (resendCooldown > 0 || resendButton.disabled) return;
+                
+                resendButton.disabled = true;
+                resendButton.textContent = 'Sending...';
+                loadingMessage.textContent = 'Sending new verification code...';
+                loadingMessage.style.display = 'block';
+                loadingMessage.style.color = '#6b7280';
+                
+                try {
+                    if (!window.authManager) {
+                        throw new Error('Authentication service not available');
+                    }
+                    
+                    await window.authManager.sendOTP(email);
+                    
+                    loadingMessage.textContent = 'New verification code sent! Check your email.';
+                    loadingMessage.style.color = '#10b981';
+                    
+                    // Set cooldown (60 seconds)
+                    resendCooldown = 60;
+                    const cooldownInterval = setInterval(() => {
+                        resendCooldown--;
+                        if (resendCooldown > 0) {
+                            resendButton.textContent = `Resend code (${resendCooldown}s)`;
+                        } else {
+                            clearInterval(cooldownInterval);
+                            resendButton.disabled = false;
+                            resendButton.textContent = 'Resend code';
+                        }
+                    }, 1000);
+                    
+                } catch (error) {
+                    console.error('Resend OTP error:', error);
+                    loadingMessage.textContent = 'Failed to send code. Please try again.';
+                    loadingMessage.style.color = '#ef4444';
+                    resendButton.disabled = false;
+                    resendButton.textContent = 'Resend code';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
