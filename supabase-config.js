@@ -1,9 +1,189 @@
-// Supabase Configuration
+// Configuration: Cloud Mode Toggle
+// Set to false to use local storage instead of cloud services
+const CLOUD_MODE_ENABLED = false; // Set to false to turn off cloud mode
+
+// Supabase Configuration (only used if CLOUD_MODE_ENABLED is true)
 const SUPABASE_URL = 'https://dzxlcontltcfsxizjeew.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6eGxjb250bHRjZnN4aXpqZWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4OTQ1MzYsImV4cCI6MjA3NDQ3MDUzNn0.9eqEkL_kxuzhQyIrIFzTs9GBxq_CQCzk1cHqw2Q5Pgs';
 
-// Initialize Supabase client
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Initialize Supabase client (only if cloud mode is enabled)
+let supabase = null;
+let actualCloudMode = CLOUD_MODE_ENABLED;
+
+// Check if Supabase library is available (it might be loaded from CDN)
+if (CLOUD_MODE_ENABLED) {
+    // Check for Supabase in different possible locations
+    const SupabaseClient = (typeof window !== 'undefined' && window.supabase && window.supabase.createClient) 
+        ? window.supabase 
+        : (typeof supabase !== 'undefined' && supabase.createClient) 
+            ? supabase 
+            : null;
+    
+    if (SupabaseClient && SupabaseClient.createClient) {
+        try {
+            supabase = SupabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('☁️ Cloud mode enabled - using Supabase');
+        } catch (e) {
+            console.warn('Failed to initialize Supabase, falling back to local mode:', e);
+            actualCloudMode = false;
+        }
+    } else {
+        console.warn('Supabase library not found, falling back to local mode');
+        actualCloudMode = false;
+    }
+}
+
+if (!actualCloudMode) {
+    // Create a mock Supabase client for local mode
+    supabase = {
+        auth: {
+            getUser: async () => {
+                const userStr = localStorage.getItem('local_user');
+                return { 
+                    data: { user: userStr ? JSON.parse(userStr) : null }, 
+                    error: null 
+                };
+            },
+            signUp: async (credentials) => {
+                // Store user locally
+                const user = {
+                    id: 'local_' + Date.now(),
+                    email: credentials.email,
+                    created_at: new Date().toISOString()
+                };
+                localStorage.setItem('local_user', JSON.stringify(user));
+                return { data: { user }, error: null };
+            },
+            signInWithPassword: async (credentials) => {
+                // Check local storage for user
+                const userStr = localStorage.getItem('local_user');
+                if (userStr) {
+                    const user = JSON.parse(userStr);
+                    // Simple password check (stored in localStorage)
+                    const storedPassword = localStorage.getItem('local_password_' + user.email);
+                    if (storedPassword === credentials.password || !storedPassword) {
+                        localStorage.setItem('local_user', JSON.stringify(user));
+                        return { data: { user }, error: null };
+                    }
+                }
+                return { data: { user: null }, error: { message: 'Invalid credentials' } };
+            },
+            signOut: async () => {
+                localStorage.removeItem('local_user');
+                return { error: null };
+            },
+            updateUser: async (updates) => {
+                const userStr = localStorage.getItem('local_user');
+                if (userStr) {
+                    const user = JSON.parse(userStr);
+                    Object.assign(user, updates.data || {});
+                    localStorage.setItem('local_user', JSON.stringify(user));
+                }
+                return { error: null };
+            },
+            resetPasswordForEmail: async () => ({ error: null }),
+            resend: async () => ({ error: null }),
+            onAuthStateChange: (callback) => {
+                // Mock auth state change listener
+                const userStr = localStorage.getItem('local_user');
+                const user = userStr ? JSON.parse(userStr) : null;
+                if (callback) callback(user ? 'SIGNED_IN' : 'SIGNED_OUT', user ? { user } : null);
+                return { data: { subscription: null } };
+            }
+        },
+        from: (table) => {
+            // Local storage-based table operations
+            const getTableData = () => {
+                const data = localStorage.getItem('local_db_' + table);
+                return data ? JSON.parse(data) : [];
+            };
+            const saveTableData = (data) => {
+                localStorage.setItem('local_db_' + table, JSON.stringify(data));
+            };
+            
+            return {
+                select: (columns = '*') => ({
+                    eq: (col, val) => ({
+                        order: (col, opts) => {
+                            const data = getTableData();
+                            const filtered = val ? data.filter(row => row[col] === val) : data;
+                            return { data: filtered, error: null };
+                        },
+                        single: () => {
+                            const data = getTableData();
+                            const found = val ? data.find(row => row[col] === val) : data[0];
+                            return { data: found || null, error: found ? null : { message: 'Not found' } };
+                        },
+                        data: val ? getTableData().filter(row => row[col] === val) : getTableData(),
+                        error: null
+                    }),
+                    order: (col, opts) => ({
+                        data: getTableData(),
+                        error: null
+                    }),
+                    data: getTableData(),
+                    error: null
+                }),
+                insert: (rows) => ({
+                    select: (columns) => ({
+                        single: () => {
+                            const data = getTableData();
+                            const newRow = { ...rows[0], id: 'local_' + Date.now(), created_at: new Date().toISOString() };
+                            data.push(newRow);
+                            saveTableData(data);
+                            return { data: newRow, error: null };
+                        },
+                        data: rows.map(r => ({ ...r, id: 'local_' + Date.now(), created_at: new Date().toISOString() })),
+                        error: null
+                    })
+                }),
+                update: (updates) => ({
+                    eq: (col, val) => ({
+                        select: (columns) => ({
+                            single: () => {
+                                const data = getTableData();
+                                const index = data.findIndex(row => row[col] === val);
+                                if (index >= 0) {
+                                    data[index] = { ...data[index], ...updates };
+                                    saveTableData(data);
+                                    return { data: data[index], error: null };
+                                }
+                                return { data: null, error: { message: 'Not found' } };
+                            }
+                        })
+                    })
+                }),
+                delete: () => ({
+                    eq: (col, val) => {
+                        const data = getTableData();
+                        const filtered = data.filter(row => row[col] !== val);
+                        saveTableData(filtered);
+                        return { error: null };
+                    }
+                }),
+                upsert: (rows, opts) => ({
+                    onConflict: (conflict) => ({
+                        select: (columns) => ({
+                            single: () => {
+                                const data = getTableData();
+                                const row = rows[0];
+                                const index = data.findIndex(r => r.id === row.id);
+                                if (index >= 0) {
+                                    data[index] = { ...data[index], ...row };
+                                } else {
+                                    data.push({ ...row, id: row.id || 'local_' + Date.now(), created_at: new Date().toISOString() });
+                                }
+                                saveTableData(data);
+                                return { data: data[index >= 0 ? index : data.length - 1], error: null };
+                            }
+                        })
+                    })
+                })
+            };
+        }
+    };
+    console.log('🔒 Cloud mode disabled - using local storage');
+}
 
 // Authentication functions
 class AuthManager {
@@ -21,6 +201,21 @@ class AuthManager {
 
     async signUp(email, password) {
         try {
+            if (!actualCloudMode) {
+                // Local mode: store user and password in localStorage
+                const user = {
+                    id: 'local_' + Date.now(),
+                    email: email,
+                    created_at: new Date().toISOString()
+                };
+                localStorage.setItem('local_user', JSON.stringify(user));
+                localStorage.setItem('local_password_' + email, password);
+                this.user = user;
+                this.updateUI();
+                showNotification('Account created successfully! (Local mode)', 'success');
+                return { user, error: null };
+            }
+            
             const { data, error } = await supabase.auth.signUp({
                 email: email,
                 password: password
@@ -53,6 +248,23 @@ class AuthManager {
 
     async signIn(email, password) {
         try {
+            if (!actualCloudMode) {
+                // Local mode: check localStorage for user
+                const userStr = localStorage.getItem('local_user');
+                if (userStr) {
+                    const user = JSON.parse(userStr);
+                    const storedPassword = localStorage.getItem('local_password_' + email);
+                    if (user.email === email && (storedPassword === password || !storedPassword)) {
+                        this.user = user;
+                        this.updateUI();
+                        await this.updateLastLogin(user.id);
+                        showNotification('Successfully logged in! (Local mode)', 'success');
+                        return { user, error: null };
+                    }
+                }
+                throw new Error('Invalid email or password');
+            }
+            
             const { data, error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: password
@@ -137,6 +349,15 @@ class AuthManager {
 
     async signOut() {
         try {
+            if (!actualCloudMode) {
+                // Local mode: just clear local user
+                localStorage.removeItem('local_user');
+                this.user = null;
+                this.updateUI();
+                showNotification('Successfully logged out! (Local mode)', 'success');
+                return;
+            }
+            
             const { error } = await supabase.auth.signOut();
             if (error) throw error;
             
