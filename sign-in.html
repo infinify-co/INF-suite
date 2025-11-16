@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+    <!-- AWS Cognito -->
+    <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
+    <script src="cognito-config.js"></script>
+    <script src="cognito-auth.js"></script>
     <style>
         * {
             margin: 0;
@@ -394,20 +395,23 @@
                 // Wait for authManager to be available
                 const processSignin = async () => {
                     try {
-                        if (!window.authManager) {
+                        if (!window.authManager && !window.cognitoAuthManager) {
                             // Wait a bit for scripts to load
-                            await new Promise(resolve => setTimeout(resolve, 500));
-                            if (!window.authManager) {
+                            await new Promise(resolve => setTimeout(resolve, 1000));
+                            if (!window.authManager && !window.cognitoAuthManager) {
                                 throw new Error('Authentication service not available. Please refresh the page.');
                             }
                         }
                         
+                        // Use Cognito auth manager
+                        const authMgr = window.cognitoAuthManager || window.authManager;
+                        
                         // Sign in
-                        await window.authManager.signIn(email, password);
+                        await authMgr.signIn(email, password);
                         
                         // Update last login timestamp
-                        if (window.authManager.user) {
-                            await window.authManager.updateLastLogin(window.authManager.user.id);
+                        if (authMgr.user) {
+                            await authMgr.updateLastLogin(authMgr.user.id);
                         }
                         
                         // Redirect to home.html

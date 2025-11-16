@@ -1,11 +1,14 @@
-// Lambda function: User Signin
+// Lambda function: User Signin Sync
+// NOTE: With Cognito, authentication is handled in the frontend.
+// This Lambda function syncs user data and updates last login in Aurora.
+// It should be called after a user successfully signs in with Cognito.
+
 const pool = require('../../config/database-config');
-const { verifyPassword } = require('../../utils/encryption');
 const { isValidEmail } = require('../../utils/validation');
-const { generateAccessToken, generateRefreshToken } = require('../../utils/jwt');
 
 /**
- * Lambda handler for user signin
+ * Lambda handler for syncing Cognito user session to Aurora database
+ * Called after Cognito signin to update last login and sync data
  */
 exports.handler = async (event) => {
   const headers = {
@@ -24,14 +27,15 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body || '{}');
-    const { email, password } = body;
+    // Cognito user ID (sub) from authenticated session
+    const { cognitoUserId, email } = body;
 
-    if (!email || !password) {
+    if (!cognitoUserId || !email) {
       return {
         statusCode: 400,
         headers,
         body: JSON.stringify({
-          error: 'Email and password are required'
+          error: 'Cognito user ID and email are required'
         })
       };
     }
@@ -46,67 +50,31 @@ exports.handler = async (event) => {
       };
     }
 
-    // Get user
-    const userResult = await pool.query(
-      'SELECT id, email, password_hash, phone, email_verified, last_login FROM users WHERE email = $1',
-      [email.toLowerCase()]
+    // Get or create user in Aurora
+    let userResult = await pool.query(
+      'SELECT id, email, phone, email_verified, last_login FROM users WHERE cognito_user_id = $1 OR email = $2',
+      [cognitoUserId, email.toLowerCase()]
     );
 
+    let user;
     if (userResult.rows.length === 0) {
-      return {
-        statusCode: 401,
-        headers,
-        body: JSON.stringify({
-          error: 'Invalid email or password'
-        })
-      };
+      // User doesn't exist in Aurora, create it
+      const createResult = await pool.query(
+        `INSERT INTO users (cognito_user_id, email, email_verified, last_login)
+         VALUES ($1, $2, $3, NOW())
+         RETURNING id, email, phone, email_verified, last_login`,
+        [cognitoUserId, email.toLowerCase(), true]
+      );
+      user = createResult.rows[0];
+    } else {
+      // Update last login
+      await pool.query(
+        'UPDATE users SET last_login = NOW() WHERE cognito_user_id = $1',
+        [cognitoUserId]
+      );
+      user = userResult.rows[0];
+      user.last_login = new Date();
     }
-
-    const user = userResult.rows[0];
-
-    // Verify password
-    const passwordValid = await verifyPassword(password, user.password_hash);
-    if (!passwordValid) {
-      return {
-        statusCode: 401,
-        headers,
-        body: JSON.stringify({
-          error: 'Invalid email or password'
-        })
-      };
-    }
-
-    // Update last login
-    await pool.query(
-      'UPDATE users SET last_login = NOW() WHERE id = $1',
-      [user.id]
-    );
-
-    // Generate tokens
-    const accessToken = generateAccessToken({
-      userId: user.id,
-      email: user.email
-    });
-
-    const refreshToken = generateRefreshToken({
-      userId: user.id,
-      email: user.email
-    });
-
-    // Store session
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
-    await pool.query(
-      `INSERT INTO user_sessions (user_id, access_token, refresh_token, expires_at, ip_address, user_agent)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [
-        user.id,
-        accessToken,
-        refreshToken,
-        expiresAt,
-        event.requestContext?.identity?.sourceIp || null,
-        event.headers?.['user-agent'] || null
-      ]
-    );
 
     return {
       statusCode: 200,
@@ -117,12 +85,10 @@ exports.handler = async (event) => {
           id: user.id,
           email: user.email,
           phone: user.phone,
-          email_verified: user.email_verified
+          email_verified: user.email_verified,
+          last_login: user.last_login
         },
-        tokens: {
-          access_token: accessToken,
-          refresh_token: refreshToken
-        }
+        message: 'User session synced to Aurora'
       })
     };
 

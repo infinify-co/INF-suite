@@ -2627,7 +2627,6 @@ body {
 
 /* User Account Circle - Last Item */
 .dock-item:last-child {
-    border-radius: 50%;
     margin-top: auto;
 }
 

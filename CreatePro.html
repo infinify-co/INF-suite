@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financials - INF Dashboard</title>
+    <title>Create Pro - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -19,7 +19,7 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="video.html" class="nav-link active">Financials</a></li>
+                <li><a href="CreatePro.html" class="nav-link active">Create Pro</a></li>
             </ul>
             <div class="nav-search">
                 <form id="navSearchForm">
@@ -80,7 +80,7 @@
                 <span class="dock-label">Leads &amp; Marketing</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Database.html'">
-                <i data-lucide="hard-drive"></i>
+                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
             <div class="dock-item" onclick="window.location.href='social-assets.html'">
@@ -91,12 +91,12 @@
                 <i data-lucide="folder"></i>
                 <span class="dock-label">Organise</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='video.html'">
+            <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='#'">
-                <i data-lucide="user"></i>
+            <div class="dock-item active" onclick="window.location.href='CreatePro.html'">
+                <i data-lucide="image-upscale"></i>
                 <span class="dock-label">Account</span>
             </div>
         </div>
@@ -105,7 +105,40 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
-            <!-- Page Header removed per request -->
+            <!-- Top Right Bar INSIDE TILE -->
+            <div class="top-right-bar inside-tile">
+                <div class="top-right-actions">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                        <i data-lucide="grid"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                        <i data-lucide="user-circle"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Matching top-left text on same row as the bar -->
+            <div class="top-left-heading">Create Pro</div>
+            <!-- Create Pro content tile -->
+            <section class="tiles-grid">
+                <div class="tiles-row row-1">
+                    <div class="card teams-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Create Pro</h3>
+                            <a class="link-view-all" href="#">View All</a>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: center; padding: 40px; min-height: 200px;">
+                            <i data-lucide="image-upscale" style="width: 64px; height: 64px; color: #60a5fa;"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Circle in bottom right corner -->
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
 
@@ -128,3 +161,4 @@
     </script>
 </body>
 </html>
+

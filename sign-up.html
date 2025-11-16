@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
+    <!-- AWS Cognito -->
+    <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
+    <script src="cognito-config.js"></script>
+    <script src="cognito-auth.js"></script>
     <style>
         * {
             margin: 0;
@@ -435,28 +436,29 @@
                 // Wait for authManager to be available
                 const processSignup = async () => {
                     try {
-                        if (!window.authManager) {
+                        if (!window.authManager && !window.cognitoAuthManager) {
                             // Wait a bit for scripts to load
-                            await new Promise(resolve => setTimeout(resolve, 500));
-                            if (!window.authManager) {
+                            await new Promise(resolve => setTimeout(resolve, 1000));
+                            if (!window.authManager && !window.cognitoAuthManager) {
                                 throw new Error('Authentication service not available. Please refresh the page.');
                             }
                         }
                         
-                        // Sign up or sign in
-                        const result = await window.authManager.signUpOrSignIn(email, password, phone);
+                        // Use Cognito auth manager
+                        const authMgr = window.cognitoAuthManager || window.authManager;
                         
-                        // Create verification session
-                        const sessionToken = window.authManager.createVerificationSession(
+                        // Sign up with Cognito
+                        const result = await authMgr.signUp(email, password, phone);
+                        
+                        // Create verification session for OTP flow
+                        const sessionToken = authMgr.createVerificationSession(
                             email, 
-                            result.type
+                            'signup'
                         );
                         
-                        // Send OTP email
-                        await window.authManager.sendOTP(email);
-                        
-                        // Redirect to Auth.html with session token
-                        window.location.href = `Auth.html?token=${sessionToken}&email=${encodeURIComponent(email)}&type=${result.type}`;
+                        // Cognito automatically sends verification code, but we'll also use our OTP flow
+                        // Redirect to Auth.html with session token for OTP verification
+                        window.location.href = `Auth.html?token=${sessionToken}&email=${encodeURIComponent(email)}&type=signup`;
                         
                     } catch (error) {
                         console.error('Sign up error:', error);

@@ -1,14 +1,10 @@
-// Load Supabase configuration
+// Load Cognito configuration
 document.addEventListener('DOMContentLoaded', () => {
-    // Load Supabase config
-    const script = document.createElement('script');
-    script.src = 'supabase-config.js';
-    document.head.appendChild(script);
-    
-    // Wait for Supabase to load, then initialize auth
-    script.onload = () => {
+    // Cognito scripts are loaded in HTML, just initialize auth
+    // Wait a bit for Cognito SDK to load
+    setTimeout(() => {
         initializeAuth();
-    };
+    }, 500);
 });
 
 // Initialize authentication
@@ -53,11 +49,17 @@ function initializeAuth() {
         const password = document.getElementById('password').value;
         
         try {
-            await authManager.signIn(email, password);
-            modal.style.display = 'none';
-            loginForm.reset();
+            const authMgr = window.cognitoAuthManager || window.authManager;
+            if (authMgr) {
+                await authMgr.signIn(email, password);
+                modal.style.display = 'none';
+                loginForm.reset();
+            } else {
+                showNotification('Authentication service not available. Please refresh the page.', 'error');
+            }
         } catch (error) {
             console.error('Login error:', error);
+            showNotification(error.message || 'Login failed. Please try again.', 'error');
         }
     });
 
@@ -68,11 +70,19 @@ function initializeAuth() {
         const password = document.getElementById('signupPassword').value;
         
         try {
-            await authManager.signUp(email, password);
-            modal.style.display = 'none';
-            signupForm.reset();
+            const authMgr = window.cognitoAuthManager || window.authManager;
+            if (authMgr) {
+                await authMgr.signUp(email, password);
+                modal.style.display = 'none';
+                signupForm.reset();
+                // Redirect to verification page
+                window.location.href = `Auth.html?email=${encodeURIComponent(email)}&type=signup`;
+            } else {
+                showNotification('Authentication service not available. Please refresh the page.', 'error');
+            }
         } catch (error) {
             console.error('Signup error:', error);
+            showNotification(error.message || 'Signup failed. Please try again.', 'error');
         }
     });
 }
@@ -409,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const routes = [
         { label: 'Dashboard', keywords: ['suite','home','dashboard'], url: 'dashboard.html' },
         { label: 'Teams', keywords: ['team','users','members'], url: 'teams.html' },
-        { label: 'Financials', keywords: ['finance','financials','budgets'], url: 'video.html' },
+        { label: 'Financials', keywords: ['finance','financials','budgets'], url: 'financial.html' },
         { label: 'Operations', keywords: ['ops','operations'], url: 'operations.html' },
         { label: 'Apps', keywords: ['apps','applications'], url: 'apps.html' },
         { label: 'Database', keywords: ['database','data','explore','discover','search'], url: 'Database.html' },

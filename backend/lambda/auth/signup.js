@@ -1,11 +1,14 @@
-// Lambda function: User Signup
+// Lambda function: User Signup Sync
+// NOTE: With Cognito, authentication is handled in the frontend.
+// This Lambda function syncs user data from Cognito to Aurora database.
+// It should be called after a user successfully signs up in Cognito.
+
 const pool = require('../../config/database-config');
-const { hashPassword, generateRandomString } = require('../../utils/encryption');
-const { isValidEmail, validatePassword, isValidPhone } = require('../../utils/validation');
-const { generateAccessToken, generateRefreshToken } = require('../../utils/jwt');
+const { isValidEmail, isValidPhone } = require('../../utils/validation');
 
 /**
- * Lambda handler for user signup
+ * Lambda handler for syncing Cognito user to Aurora database
+ * Called after Cognito signup to store additional user data
  */
 exports.handler = async (event) => {
   // CORS headers
@@ -26,15 +29,16 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body || '{}');
-    const { email, password, phone } = body;
+    // Cognito user ID (sub) and email from Cognito
+    const { cognitoUserId, email, phone, emailVerified } = body;
 
     // Validation
-    if (!email || !password) {
+    if (!cognitoUserId || !email) {
       return {
         statusCode: 400,
         headers,
         body: JSON.stringify({
-          error: 'Email and password are required'
+          error: 'Cognito user ID and email are required'
         })
       };
     }
@@ -49,18 +53,6 @@ exports.handler = async (event) => {
       };
     }
 
-    const passwordValidation = validatePassword(password);
-    if (!passwordValidation.valid) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({
-          error: 'Password validation failed',
-          details: passwordValidation.errors
-        })
-      };
-    }
-
     if (phone && !isValidPhone(phone)) {
       return {
         statusCode: 400,
@@ -71,76 +63,50 @@ exports.handler = async (event) => {
       };
     }
 
-    // Check if user already exists
+    // Check if user already exists in Aurora
     const existingUser = await pool.query(
-      'SELECT id FROM users WHERE email = $1',
-      [email.toLowerCase()]
+      'SELECT id FROM users WHERE cognito_user_id = $1 OR email = $2',
+      [cognitoUserId, email.toLowerCase()]
     );
 
     if (existingUser.rows.length > 0) {
+      // Update existing user
+      const result = await pool.query(
+        `UPDATE users 
+         SET email = $1, phone = $2, email_verified = $3, updated_at = NOW()
+         WHERE cognito_user_id = $4 OR email = $1
+         RETURNING id, email, phone, email_verified, created_at`,
+        [email.toLowerCase(), phone || null, emailVerified || false, cognitoUserId]
+      );
+
       return {
-        statusCode: 409,
+        statusCode: 200,
         headers,
         body: JSON.stringify({
-          error: 'User with this email already exists'
+          success: true,
+          user: result.rows[0],
+          message: 'User synced successfully'
         })
       };
     }
 
-    // Hash password
-    const passwordHash = await hashPassword(password);
-
-    // Create user
+    // Create new user in Aurora (sync from Cognito)
     const result = await pool.query(
-      `INSERT INTO users (email, password_hash, phone, email_verified)
+      `INSERT INTO users (cognito_user_id, email, phone, email_verified)
        VALUES ($1, $2, $3, $4)
-       RETURNING id, email, phone, created_at`,
-      [email.toLowerCase(), passwordHash, phone || null, false]
+       RETURNING id, email, phone, email_verified, created_at`,
+      [cognitoUserId, email.toLowerCase(), phone || null, emailVerified || false]
     );
 
     const user = result.rows[0];
-
-    // Generate tokens
-    const accessToken = generateAccessToken({
-      userId: user.id,
-      email: user.email
-    });
-
-    const refreshToken = generateRefreshToken({
-      userId: user.id,
-      email: user.email
-    });
-
-    // Store session
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
-    await pool.query(
-      `INSERT INTO user_sessions (user_id, access_token, refresh_token, expires_at, ip_address, user_agent)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [
-        user.id,
-        accessToken,
-        refreshToken,
-        expiresAt,
-        event.requestContext?.identity?.sourceIp || null,
-        event.headers?.['user-agent'] || null
-      ]
-    );
 
     return {
       statusCode: 201,
       headers,
       body: JSON.stringify({
         success: true,
-        user: {
-          id: user.id,
-          email: user.email,
-          phone: user.phone,
-          email_verified: false
-        },
-        tokens: {
-          access_token: accessToken,
-          refresh_token: refreshToken
-        }
+        user: user,
+        message: 'User synced from Cognito to Aurora'
       })
     };
 

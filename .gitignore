@@ -1,0 +1,41 @@
+# Environment variables - NEVER commit these!
+.env
+.env.local
+.env.*.local
+
+# AWS credentials
+*.pem
+*.key
+credentials
+aws-credentials.json
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build files
+dist/
+build/
+*.zip
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+

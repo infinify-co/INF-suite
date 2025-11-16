@@ -5,19 +5,24 @@ const awsConfig = {
   // AWS Region
   region: process.env.AWS_REGION || 'us-east-1',
   
-  // RDS Database Configuration
+  // AWS Aurora PostgreSQL Configuration
+  // Aurora is compatible with PostgreSQL but has better performance and failover
   database: {
     host: process.env.RDS_HOST || '',
     port: process.env.RDS_PORT || 5432,
     database: process.env.RDS_DATABASE || 'infinify',
     user: process.env.RDS_USER || '',
     password: process.env.RDS_PASSWORD || '',
+    // Aurora cluster endpoint (for writes) or reader endpoint (for reads)
+    // Use cluster endpoint for primary connections
+    clusterEndpoint: process.env.RDS_CLUSTER_ENDPOINT || process.env.RDS_HOST || '',
+    readerEndpoint: process.env.RDS_READER_ENDPOINT || '',
     ssl: {
-      rejectUnauthorized: false // For RDS, SSL is required
+      rejectUnauthorized: false // For Aurora, SSL is required
     },
     pool: {
       min: 2,
-      max: 10,
+      max: 20, // Aurora can handle more connections efficiently
       idleTimeoutMillis: 30000
     }
   },

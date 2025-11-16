@@ -1,8 +1,9 @@
 // Database Connection Pool Configuration
+// Optimized for AWS Aurora PostgreSQL
 const { Pool } = require('pg');
 const awsConfig = require('./aws-config');
 
-// Create connection pool
+// Create connection pool optimized for Aurora
 const pool = new Pool({
   host: awsConfig.database.host,
   port: awsConfig.database.port,
@@ -10,10 +11,17 @@ const pool = new Pool({
   user: awsConfig.database.user,
   password: awsConfig.database.password,
   ssl: awsConfig.database.ssl,
+  // Aurora-optimized pool settings
   max: awsConfig.database.pool.max,
   min: awsConfig.database.pool.min,
   idleTimeoutMillis: awsConfig.database.pool.idleTimeoutMillis,
-  connectionTimeoutMillis: 2000
+  connectionTimeoutMillis: 5000, // Increased for Aurora
+  // Aurora-specific optimizations
+  statement_timeout: 30000, // 30 seconds
+  query_timeout: 30000,
+  // Keep connections alive for Aurora's fast failover
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 10000
 });
 
 // Handle pool errors

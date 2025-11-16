@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
@@ -321,7 +320,10 @@
     </footer>
 
     <script src="script.js"></script>
-    <script src="supabase-config.js"></script>
+    <!-- AWS Cognito -->
+    <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
+    <script src="cognito-config.js"></script>
+    <script src="cognito-auth.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide icons

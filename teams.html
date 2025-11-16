@@ -11,6 +11,154 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="navigation-handler.js"></script>
+    <style>
+        /* Back Tile Styles */
+        .back-tile {
+            position: absolute;
+            top: 0;
+            left: 260px;
+            bottom: 0;
+            width: 230px; /* Reduced by 150px (380px - 150px) */
+            background: #ffffff;
+            z-index: 998; /* Behind front tile (999) */
+            border-radius: 20px 0 0 20px; /* Rounded left corners only */
+            overflow: visible; /* Changed from hidden to visible */
+        }
+
+        /* Secondary Sidebar Styles */
+        .secondary-sidebar {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            transform: translateX(-250px);
+        }
+
+        .secondary-sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .secondary-sidebar-brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: #000000;
+            letter-spacing: -0.02em;
+        }
+
+        .secondary-sidebar-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-sidebar-icon svg {
+            color: #6b7280;
+        }
+
+        .secondary-sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .secondary-nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-back:hover {
+            color: #000000;
+            background-color: #f9fafb;
+        }
+
+        .secondary-nav-back i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .secondary-nav-list {
+            margin-top: 8px;
+        }
+
+        .secondary-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-radius 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-item:hover {
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-item.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-item i {
+            width: 14px;
+            height: 14px;
+            color: #6b7280;
+        }
+
+        .secondary-sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-sidebar-footer svg {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .secondary-sidebar-footer svg:hover {
+            color: #000000;
+        }
+
+        /* Adjust front tile to account for back tile */
+        .front-tile {
+            left: 270px; /* Extended 220px to the left (490px - 220px) */
+        }
+
+        /* Scale down content proportionally */
+        .front-tile-container {
+            transform: scale(0.85);
+            transform-origin: top left;
+            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
+        }
+    </style>
 </head>
 <body class="dashboard-page">
     <!-- Navigation -->
@@ -88,7 +236,7 @@
                 <span class="dock-label">Leads &amp; Marketing</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Database.html'">
-                <i data-lucide="hard-drive"></i>
+                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
             <div class="dock-item" onclick="window.location.href='social-assets.html'">
@@ -99,12 +247,12 @@
                 <i data-lucide="folder"></i>
                 <span class="dock-label">Organise</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='video.html'">
+            <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='#'">
-                <i data-lucide="user"></i>
+            <div class="dock-item" onclick="window.location.href='CreatePro.html'">
+                <i data-lucide="image-upscale"></i>
                 <span class="dock-label">Account</span>
             </div>
         </div>
@@ -113,24 +261,71 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
-            <!-- Top Right Bar INSIDE TILE -->
-            <div class="top-right-bar inside-tile">
-                <div class="top-right-actions">
-                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
-                        <i data-lucide="grid"></i>
-                    </button>
-                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
-                        <i data-lucide="bell"></i>
-                    </button>
-                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
-                        <i data-lucide="user-circle"></i>
-                    </button>
+        </div>
+        
+        <!-- Back Tile (Secondary Sidebar) -->
+        <div class="back-tile">
+            <div class="secondary-sidebar">
+                <div class="secondary-sidebar-header">
+                    <div class="secondary-sidebar-brand">Teams</div>
+                    <div class="secondary-sidebar-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-nav">
+                    <div class="secondary-nav-list">
+                        <div class="secondary-nav-back" data-nav="home">
+                            <span>Home</span>
+                        </div>
+                        <div class="secondary-nav-item active" data-nav="api-platform">
+                            <span>API Platform</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="api-pricing">
+                            <span>API Pricing</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="agents">
+                            <span>Agents</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="codex">
+                            <span>Codex</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="open-models">
+                            <span>Open Models</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="community">
+                            <span>Community</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-footer">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
             </div>
-            <!-- Matching top-left text on same row as the bar -->
-            <div class="top-left-heading">Team's</div>
-            <!-- Teams content tile -->
-            <section class="tiles-grid">
+        </div>
+        
+        <!-- Front Tile -->
+        <div class="front-tile">
+            <div class="front-tile-container">
+                <!-- Top Right Bar INSIDE TILE -->
+                <div class="top-right-bar inside-tile">
+                    <div class="top-right-actions">
+                        <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                            <i data-lucide="grid"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                            <i data-lucide="bell"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                            <i data-lucide="user-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Teams content tile -->
+                <section class="tiles-grid">
                 <div class="tiles-row row-1">
                 <!-- Team Performance (line chart) -->
                 <div class="card chart-card">
@@ -257,6 +452,11 @@
                 </div>
                 </div>
             </section>
+            </div>
+        </div>
+        <!-- Circle in bottom right corner -->
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
 
@@ -276,10 +476,10 @@
                 }
             });
 
-            // Charts
-            if (window.Chart) {
+            // Initialize charts
+            function initializeCharts() {
                 const perfCtx = document.getElementById('teamPerformanceChart');
-                if (perfCtx) {
+                if (perfCtx && window.Chart) {
                     new Chart(perfCtx, {
                         type: 'line',
                         data: {
@@ -317,7 +517,7 @@
                 }
 
                 const pieCtx = document.getElementById('goalPieChart');
-                if (pieCtx) {
+                if (pieCtx && window.Chart) {
                     new Chart(pieCtx, {
                         type: 'pie',
                         data: {
@@ -332,6 +532,13 @@
                     });
                 }
             }
+            
+            initializeCharts();
+            
+            // Listen for content loaded events to reinitialize charts
+            window.addEventListener('contentLoaded', () => {
+                setTimeout(initializeCharts, 100);
+            });
         });
     </script>
 </body>

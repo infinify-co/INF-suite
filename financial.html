@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leads & Marketing - INF Dashboard</title>
+    <title>Financials - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Back Tile Styles */
         .back-tile {
@@ -62,6 +63,12 @@
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .secondary-sidebar-nav::-webkit-scrollbar {
+            display: none;
         }
 
         .secondary-nav-back {
@@ -146,6 +153,37 @@
         .front-tile {
             left: 270px; /* Extended 220px to the left (490px - 220px) */
         }
+
+        /* Scale down content proportionally */
+        .front-tile-container {
+            transform: scale(0.85);
+            transform-origin: top left;
+            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
+        }
+
+        /* Hide all scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        main::-webkit-scrollbar,
+        .dashboard-main::-webkit-scrollbar,
+        .front-tile::-webkit-scrollbar,
+        .front-tile-container::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body class="dashboard-page">
@@ -159,10 +197,15 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="dashboard.html" class="nav-link active">Suite</a></li>
+                <li><a href="financial.html" class="nav-link active">Financials</a></li>
             </ul>
-            <div class="nav-center-title">
-                <span>Leads &amp; Marketing</span>
+            <div class="nav-search">
+                <form id="navSearchForm">
+                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
+                    <button class="search-btn" type="submit" title="Search">
+                        <i data-lucide="search"></i>
+                    </button>
+                </form>
             </div>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
@@ -210,7 +253,7 @@
                 <i data-lucide="grid-3x3"></i>
                 <span class="dock-label">My apps</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='Leads-marketing.html'">
+            <div class="dock-item" onclick="window.location.href='Leads-marketing.html'">
                 <i data-lucide="focus"></i>
                 <span class="dock-label">Leads &amp; Marketing</span>
             </div>
@@ -226,7 +269,7 @@
                 <i data-lucide="folder"></i>
                 <span class="dock-label">Organise</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
+            <div class="dock-item active" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
             </div>
@@ -246,7 +289,7 @@
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Leads & Marketing</div>
+                    <div class="secondary-sidebar-brand">Financials</div>
                     <div class="secondary-sidebar-icon">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
@@ -289,7 +332,34 @@
         <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
-                <!-- Content for the front tile -->
+                <!-- Top Right Bar INSIDE TILE -->
+                <div class="top-right-bar inside-tile">
+                    <div class="top-right-actions">
+                        <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                            <i data-lucide="grid"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                            <i data-lucide="bell"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                            <i data-lucide="user-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Financials content tile -->
+                <section class="tiles-grid">
+                    <div class="tiles-row row-1">
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Financial Overview</h3>
+                                <div class="card-meta">2025 <i data-lucide="chevron-down"></i></div>
+                            </div>
+                            <div class="chart-wrap">
+                                <canvas id="financialChart" height="160"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
         <!-- Circle in bottom right corner -->
@@ -300,6 +370,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
 
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
@@ -312,9 +383,49 @@
                     });
                 }
             });
+
+            // Financial Chart
+            if (window.Chart) {
+                const financialCtx = document.getElementById('financialChart');
+                if (financialCtx) {
+                    new Chart(financialCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+                            datasets: [
+                                {
+                                    label: 'Revenue',
+                                    data: [12000, 19000, 15000, 25000, 22000, 30000],
+                                    borderColor: '#60a5fa',
+                                    backgroundColor: 'rgba(96,165,250,0.15)',
+                                    fill: true,
+                                    tension: 0.35,
+                                    borderWidth: 2
+                                },
+                                {
+                                    label: 'Expenses',
+                                    data: [8000, 12000, 10000, 15000, 14000, 18000],
+                                    borderColor: '#f87171',
+                                    backgroundColor: 'rgba(248,113,113,0.15)',
+                                    fill: true,
+                                    tension: 0.35,
+                                    borderWidth: 2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'top' } },
+                            scales: {
+                                y: { grid: { color: 'rgba(0,0,0,0.05)' } },
+                                x: { grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>
 </html>
-
 
