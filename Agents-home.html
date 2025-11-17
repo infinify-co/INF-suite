@@ -1,0 +1,197 @@
+<!-- Agents Home Page Content -->
+<div style="padding: 40px; max-width: 1200px; margin: 0 auto;">
+    <!-- Welcome Header -->
+    <div style="margin-bottom: 48px;">
+        <h1 style="font-size: 32px; font-weight: 700; color: #0f172a; margin: 0 0 12px 0; letter-spacing: -0.02em;">
+            Welcome to AI Agents
+        </h1>
+        <p style="font-size: 16px; color: #64748b; margin: 0; line-height: 1.6; max-width: 600px;">
+            Create, deploy, and manage intelligent AI agents powered by OpenAI. Automate tasks, enhance workflows, and unlock the power of AI for your business.
+        </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 48px;">
+        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; background: #f0f9ff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="cpu" style="width: 20px; height: 20px; color: #0ea5e9;"></i>
+                </div>
+                <div>
+                    <div style="font-size: 24px; font-weight: 700; color: #0f172a; line-height: 1;" id="total-agents">0</div>
+                    <div style="font-size: 13px; color: #64748b; margin-top: 4px;">Total Agents</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; background: #f0fdf4; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="play-circle" style="width: 20px; height: 20px; color: #22c55e;"></i>
+                </div>
+                <div>
+                    <div style="font-size: 24px; font-weight: 700; color: #0f172a; line-height: 1;" id="deployed-agents">0</div>
+                    <div style="font-size: 13px; color: #64748b; margin-top: 4px;">Deployed</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; background: #fef3c7; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="file-edit" style="width: 20px; height: 20px; color: #f59e0b;"></i>
+                </div>
+                <div>
+                    <div style="font-size: 24px; font-weight: 700; color: #0f172a; line-height: 1;" id="draft-agents">0</div>
+                    <div style="font-size: 13px; color: #64748b; margin-top: 4px;">Draft</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <div style="width: 40px; height: 40px; background: #f3e8ff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="activity" style="width: 20px; height: 20px; color: #a855f7;"></i>
+                </div>
+                <div>
+                    <div style="font-size: 24px; font-weight: 700; color: #0f172a; line-height: 1;" id="active-agents">0</div>
+                    <div style="font-size: 13px; color: #64748b; margin-top: 4px;">Active</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div style="margin-bottom: 48px;">
+        <h2 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 20px 0;">Quick Actions</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+            <button onclick="if(window.agentsService) window.agentsService.showCreateModal()" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 16px;" onmouseover="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.05)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                <div style="width: 48px; height: 48px; background: #f0f9ff; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="plus" style="width: 24px; height: 24px; color: #0ea5e9;"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600; color: #0f172a; margin-bottom: 4px;">Create Agent</div>
+                    <div style="font-size: 13px; color: #64748b;">Build a new AI agent</div>
+                </div>
+            </button>
+
+            <button onclick="if(window.agentsService) window.agentsService.loadAgents()" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 16px;" onmouseover="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.05)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                <div style="width: 48px; height: 48px; background: #f0fdf4; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="list" style="width: 24px; height: 24px; color: #22c55e;"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600; color: #0f172a; margin-bottom: 4px;">View All Agents</div>
+                    <div style="font-size: 13px; color: #64748b;">See all your agents</div>
+                </div>
+            </button>
+
+            <button onclick="if(window.agentsService) window.agentsService.loadAgents('deployed')" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 16px;" onmouseover="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.05)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                <div style="width: 48px; height: 48px; background: #fef3c7; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <i data-lucide="play-circle" style="width: 24px; height: 24px; color: #f59e0b;"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600; color: #0f172a; margin-bottom: 4px;">Deployed Agents</div>
+                    <div style="font-size: 13px; color: #64748b;">View active deployments</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Recent Agents -->
+    <div>
+        <h2 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 20px 0;">Recent Agents</h2>
+        <div id="recent-agents-container" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px;">
+            <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+                <i data-lucide="cpu" style="width: 48px; height: 48px; margin: 0 auto 16px; display: block; opacity: 0.5;"></i>
+                <p style="margin: 0; font-size: 14px;">No agents yet</p>
+                <p style="margin: 8px 0 0 0; font-size: 13px; color: #94a3b8;">Create your first AI agent to get started</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize Lucide icons when content loads
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+
+    // Load and display stats
+    async function loadAgentStats() {
+        if (!window.agentsService || !window.agentsService.isConfigured) {
+            return;
+        }
+
+        try {
+            const allAgents = await window.agentsService.listAgents();
+            const agents = allAgents.agents || [];
+            
+            const total = agents.length;
+            const deployed = agents.filter(a => a.status === 'deployed').length;
+            const draft = agents.filter(a => a.status === 'draft').length;
+            const active = agents.filter(a => a.status === 'deployed' || a.status === 'paused').length;
+
+            // Update stats
+            const totalEl = document.getElementById('total-agents');
+            const deployedEl = document.getElementById('deployed-agents');
+            const draftEl = document.getElementById('draft-agents');
+            const activeEl = document.getElementById('active-agents');
+
+            if (totalEl) totalEl.textContent = total;
+            if (deployedEl) deployedEl.textContent = deployed;
+            if (draftEl) draftEl.textContent = draft;
+            if (activeEl) activeEl.textContent = active;
+
+            // Show recent agents (last 3)
+            const recentAgents = agents
+                .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
+                .slice(0, 3);
+
+            const container = document.getElementById('recent-agents-container');
+            if (container && recentAgents.length > 0) {
+                container.innerHTML = recentAgents.map(agent => `
+                    <div style="padding: 16px; border-bottom: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; transition: background 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 40px; height: 40px; background: #f0f9ff; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                <i data-lucide="cpu" style="width: 20px; height: 20px; color: #0ea5e9;"></i>
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; color: #0f172a; margin-bottom: 4px;">${agent.name || 'Unnamed Agent'}</div>
+                                <div style="font-size: 13px; color: #64748b;">${agent.model || 'gpt-5.1'} • ${agent.status || 'draft'}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <span style="padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; background: ${agent.status === 'deployed' ? '#f0fdf4' : '#fef3c7'}; color: ${agent.status === 'deployed' ? '#22c55e' : '#f59e0b'};">
+                                ${agent.status || 'draft'}
+                            </span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                if (window.lucide) lucide.createIcons();
+            } else if (container) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+                        <i data-lucide="cpu" style="width: 48px; height: 48px; margin: 0 auto 16px; display: block; opacity: 0.5;"></i>
+                        <p style="margin: 0; font-size: 14px;">No agents yet</p>
+                        <p style="margin: 8px 0 0 0; font-size: 13px; color: #94a3b8;">Create your first AI agent to get started</p>
+                    </div>
+                `;
+                if (window.lucide) lucide.createIcons();
+            }
+        } catch (error) {
+            console.error('Error loading agent stats:', error);
+        }
+    }
+
+    // Load stats when content is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadAgentStats);
+    } else {
+        loadAgentStats();
+    }
+
+    // Also listen for content loaded event from navigation handler
+    window.addEventListener('contentLoaded', loadAgentStats);
+</script>
+

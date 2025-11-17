@@ -11,6 +11,178 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Back Tile Styles */
+        .back-tile {
+            position: absolute;
+            top: 0;
+            left: 260px;
+            bottom: 0;
+            width: 230px;
+            background: #ffffff;
+            z-index: 998;
+            border-radius: 20px 0 0 20px;
+            overflow: visible;
+        }
+
+        /* Secondary Sidebar Styles */
+        .secondary-sidebar {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            transform: translateX(-250px);
+        }
+
+        .secondary-sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .secondary-sidebar-brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: #000000;
+            letter-spacing: -0.02em;
+        }
+
+        .secondary-sidebar-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-sidebar-icon svg {
+            color: #6b7280;
+        }
+
+        .secondary-sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .secondary-nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-back:hover {
+            color: #000000;
+            background-color: #f9fafb;
+        }
+
+        .secondary-nav-list {
+            margin-top: 8px;
+        }
+
+        .secondary-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-radius 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-item:hover {
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-item.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+
+        /* Adjust front tile to account for back tile */
+        .front-tile {
+            left: 270px;
+        }
+
+        .front-tile-container {
+            transform: scale(0.85);
+            width: 117.65%;
+            height: 117.65%;
+            transform-origin: top left;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .front-tile-container::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        /* Change database highlight from blue to white */
+        .database-highlight {
+            background: #ffffff !important;
+            border: 1px solid #e5e7eb !important;
+        }
+
+        .database-highlight::after {
+            display: none !important;
+        }
+
+        .database-highlight .btn-secondary {
+            border-color: #d1d5db !important;
+        }
+
+        .database-highlight .btn-secondary:hover {
+            border-color: #9ca3af !important;
+            color: #1f2937 !important;
+        }
+
+        .database-highlight .btn-primary {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Change database tiles from blue to white */
+        .database-tile {
+            background: #ffffff !important;
+            border: 1px solid #e5e7eb !important;
+        }
+
+        .database-tile::after {
+            display: none !important;
+        }
+
+        .database-tile-icon {
+            background: #f3f4f6 !important;
+            color: #1f2937 !important;
+        }
+
+        .database-tile-icon.alt {
+            background: #f3f4f6 !important;
+            color: #1f2937 !important;
+        }
+
+        .database-tile-icon.highlight {
+            background: #f3f4f6 !important;
+            color: #1f2937 !important;
+        }
+    </style>
 </head>
 <body class="dashboard-page database-page">
     <!-- Navigation -->
@@ -51,9 +223,9 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='operations.html'">
-                <i data-lucide="monitor-cog"></i>
-                <span class="dock-label">Operations</span>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <i data-lucide="cpu"></i>
+                <span class="dock-label">Agents</span>
             </div>
             <div class="dock-item" onclick="window.location.href='teams.html'">
                 <i data-lucide="users"></i>
@@ -83,9 +255,9 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Social assets</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='organise.html'">
-                <i data-lucide="folder"></i>
-                <span class="dock-label">Organise</span>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <i data-lucide="files"></i>
+                <span class="dock-label">Filebase</span>
             </div>
             <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
@@ -100,116 +272,145 @@
 
     <!-- Main Content -->
     <main class="dashboard-main database-main">
-        <div class="database-container">
-            <!-- Left Sidebar: Database List -->
-            <aside class="database-sidebar-container" id="database-sidebar">
-                <!-- Populated by database-list-sidebar.js -->
-            </aside>
-
-            <!-- Center: Main Content Area -->
-            <div class="database-content">
-                <!-- Highlight Tile -->
-                <section class="database-highlight">
-                    <div class="database-highlight-left">
-                        <h2>Database Builder</h2>
-                        <p>Spin up collaborative tables, design forms, and automate workflows across your teams in minutes.</p>
-                    </div>
-                    <div class="database-highlight-actions">
-                        <button class="btn-primary" onclick="databaseBuilder.openWizard()">Create Database</button>
-                        <button class="btn-secondary" onclick="databaseManager.showImport()">Import Data</button>
-                    </div>
-                </section>
-
-                <section class="database-quick-tiles">
-                    <div class="database-tile">
-                        <div class="database-tile-icon">
-                            <i data-lucide="sparkles"></i>
-                        </div>
-                        <div class="database-tile-body">
-                            <h3>AI Templates</h3>
-                            <p>Jump-start with curated table layouts for CRM, finance, and operations.</p>
-                        </div>
-                        <button class="btn-secondary btn-pill" onclick="databaseBuilder.openWizard()">Browse Templates</button>
-                    </div>
-
-                    <div class="database-tile">
-                        <div class="database-tile-icon alt">
-                            <i data-lucide="layers"></i>
-                        </div>
-                        <div class="database-tile-body">
-                            <h3>Sync Sources</h3>
-                            <p>Connect spreadsheets, APIs, or Supabase tables for live data sync.</p>
-                        </div>
-                        <button class="btn-secondary btn-pill" onclick="databaseManager.showImport()">Set up Sync</button>
-                    </div>
-
-                    <div class="database-tile">
-                        <div class="database-tile-icon highlight">
-                            <i data-lucide="users"></i>
-                        </div>
-                        <div class="database-tile-body">
-                            <h3>Collaborate</h3>
-                            <p>Invite teams, manage permissions, and automate reviews with guardrails.</p>
-                        </div>
-                        <button class="btn-secondary btn-pill" onclick="databaseManager.showSharing()">Share Access</button>
-                    </div>
-                </section>
-
-                <!-- View Toggle -->
-                <div class="view-toggle" id="view-toggle">
-                    <button class="toggle-btn active" data-view="table" onclick="databaseManager.setView('table')">
-                        📊 Table View
-                    </button>
-                    <button class="toggle-btn" data-view="form" onclick="databaseManager.setView('form')">
-                        📝 Form View
-                    </button>
-                    <div class="view-actions">
-                        <button class="btn-secondary btn-small" onclick="databaseManager.showFilters()" id="filter-btn">
-                            🔍 Filter
-                        </button>
-                        <button class="btn-secondary btn-small" onclick="databaseManager.showImport()" id="import-btn">
-                            📥 Import
-                        </button>
-                        <button class="btn-secondary btn-small" onclick="databaseManager.showReports()" id="report-btn">
-                            📊 Reports
-                        </button>
-                        <button class="btn-secondary btn-small" onclick="databaseManager.showSharing()" id="share-btn">
-                            🔗 Share
-                        </button>
+        <!-- Back Tile (Secondary Sidebar) -->
+        <div class="back-tile">
+            <div class="secondary-sidebar">
+                <div class="secondary-sidebar-header">
+                    <div class="secondary-sidebar-brand">Database</div>
+                    <div class="secondary-sidebar-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
                     </div>
                 </div>
-
-                <!-- Empty State -->
-                <div class="database-empty-state" id="database-empty-state">
-                    <div class="empty-state-content">
-                        <h2>Welcome to Database Builder</h2>
-                        <p>Create simple databases for your data. Perfect for contacts, inventory, recipes, and more.</p>
-                        <button class="btn-primary btn-large" onclick="databaseBuilder.openWizard()">
-                            ➕ Create Your First Database
-                        </button>
+                <div class="secondary-sidebar-nav">
+                    <div class="secondary-nav-list">
+                        <div class="secondary-nav-back" data-nav="home">
+                            <span>Home</span>
+                        </div>
+                        <div class="secondary-nav-item active" data-nav="tables">
+                            <span>Tables</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="queries">
+                            <span>Queries</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="reports">
+                            <span>Reports</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="connections">
+                            <span>Connections</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="settings">
+                            <span>Settings</span>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Table View -->
-                <div class="table-view-container" id="table-view" style="display: none;">
-                    <!-- Populated by table-view.js -->
-                </div>
-
-                <!-- Form View -->
-                <div class="form-view-container" id="form-view" style="display: none;">
-                    <!-- Populated by form-view.js -->
                 </div>
             </div>
         </div>
         
-        <!-- Content Tile -->
+        <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
-                <!-- Content for the front tile -->
+                <div class="database-container">
+                    <!-- Main Content Area -->
+                    <div class="database-content" style="width: 100%;">
+                        <!-- Highlight Tile -->
+                        <section class="database-highlight">
+                            <div class="database-highlight-left">
+                                <h2>Database Builder</h2>
+                                <p>Spin up collaborative tables, design forms, and automate workflows across your teams in minutes.</p>
+                            </div>
+                            <div class="database-highlight-actions">
+                                <button class="btn-primary" onclick="databaseBuilder.openWizard()">Create Database</button>
+                                <button class="btn-secondary" onclick="databaseManager.showImport()">Import Data</button>
+                            </div>
+                        </section>
+
+                        <section class="database-quick-tiles">
+                            <div class="database-tile">
+                                <div class="database-tile-icon">
+                                    <i data-lucide="sparkles"></i>
+                                </div>
+                                <div class="database-tile-body">
+                                    <h3>AI Templates</h3>
+                                    <p>Jump-start with curated table layouts for CRM, finance, and operations.</p>
+                                </div>
+                                <button class="btn-secondary btn-pill" onclick="databaseBuilder.openWizard()">Browse Templates</button>
+                            </div>
+
+                            <div class="database-tile">
+                                <div class="database-tile-icon alt">
+                                    <i data-lucide="layers"></i>
+                                </div>
+                                <div class="database-tile-body">
+                                    <h3>Sync Sources</h3>
+                                    <p>Connect spreadsheets, APIs, or Supabase tables for live data sync.</p>
+                                </div>
+                                <button class="btn-secondary btn-pill" onclick="databaseManager.showImport()">Set up Sync</button>
+                            </div>
+
+                            <div class="database-tile">
+                                <div class="database-tile-icon highlight">
+                                    <i data-lucide="users"></i>
+                                </div>
+                                <div class="database-tile-body">
+                                    <h3>Collaborate</h3>
+                                    <p>Invite teams, manage permissions, and automate reviews with guardrails.</p>
+                                </div>
+                                <button class="btn-secondary btn-pill" onclick="databaseManager.showSharing()">Share Access</button>
+                            </div>
+                        </section>
+
+                        <!-- View Toggle -->
+                        <div class="view-toggle" id="view-toggle">
+                            <button class="toggle-btn active" data-view="table" onclick="databaseManager.setView('table')">
+                                📊 Table View
+                            </button>
+                            <button class="toggle-btn" data-view="form" onclick="databaseManager.setView('form')">
+                                📝 Form View
+                            </button>
+                            <div class="view-actions">
+                                <button class="btn-secondary btn-small" onclick="databaseManager.showFilters()" id="filter-btn">
+                                    🔍 Filter
+                                </button>
+                                <button class="btn-secondary btn-small" onclick="databaseManager.showImport()" id="import-btn">
+                                    📥 Import
+                                </button>
+                                <button class="btn-secondary btn-small" onclick="databaseManager.showReports()" id="report-btn">
+                                    📊 Reports
+                                </button>
+                                <button class="btn-secondary btn-small" onclick="databaseManager.showSharing()" id="share-btn">
+                                    🔗 Share
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="database-empty-state" id="database-empty-state">
+                            <div class="empty-state-content">
+                                <h2>Welcome to Database Builder</h2>
+                                <p>Create simple databases for your data. Perfect for contacts, inventory, recipes, and more.</p>
+                                <button class="btn-primary btn-large" onclick="databaseBuilder.openWizard()">
+                                    ➕ Create Your First Database
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Table View -->
+                        <div class="table-view-container" id="table-view" style="display: none;">
+                            <!-- Populated by table-view.js -->
+                        </div>
+
+                        <!-- Form View -->
+                        <div class="form-view-container" id="form-view" style="display: none;">
+                            <!-- Populated by form-view.js -->
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Circle in bottom right corner -->
-        <div style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
             <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
@@ -229,10 +430,10 @@
     <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
     <script src="cognito-config.js"></script>
     <script src="cognito-auth.js"></script>
+    <script src="navigation-handler.js"></script>
     <script src="templates.js"></script>
     <script src="client-database-service.js"></script>
     <script src="backup-service.js"></script>
-    <script src="database-list-sidebar.js"></script>
     <script src="database-builder.js"></script>
     <script src="table-view.js"></script>
     <script src="form-view.js"></script>
@@ -253,11 +454,6 @@
             }
 
             async init() {
-                // Initialize sidebar
-                if (window.databaseListSidebar) {
-                    await window.databaseListSidebar.init('database-sidebar');
-                }
-
                 // Initialize wizard
                 if (window.databaseBuilder) {
                     window.databaseBuilder.init('wizard-container');
@@ -422,6 +618,11 @@
         document.addEventListener('DOMContentLoaded', async () => {
             // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
+
+            // Initialize navigation
+            if (typeof initNavigation === 'function') {
+                initNavigation();
+            }
 
             // Initialize dock labels
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));

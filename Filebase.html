@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operations - INF Dashboard</title>
+    <title>Filebase - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -62,12 +62,6 @@
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .secondary-sidebar-nav::-webkit-scrollbar {
-            display: none;
         }
 
         .secondary-nav-back {
@@ -152,37 +146,6 @@
         .front-tile {
             left: 270px; /* Extended 220px to the left (490px - 220px) */
         }
-
-        /* Scale down content proportionally */
-        .front-tile-container {
-            transform: scale(0.85);
-            transform-origin: top left;
-            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
-        }
-
-        /* Hide all scrollbars */
-        * {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        *::-webkit-scrollbar {
-            display: none;
-        }
-
-        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        body::-webkit-scrollbar,
-        html::-webkit-scrollbar,
-        main::-webkit-scrollbar,
-        .dashboard-main::-webkit-scrollbar,
-        .front-tile::-webkit-scrollbar,
-        .front-tile-container::-webkit-scrollbar {
-            display: none;
-        }
     </style>
 </head>
 <body class="dashboard-page">
@@ -190,14 +153,22 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#">
+                <a href="dashboard.html">
                     <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="operations.html" class="nav-link active">Operations</a></li>
+                <li><a href="dashboard.html" class="nav-link active">Suite</a></li>
             </ul>
+            <div class="nav-search">
+                <form id="navSearchForm">
+                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
+                    <button class="search-btn" type="submit" title="Search">
+                        <i data-lucide="search"></i>
+                    </button>
+                </form>
+            </div>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
                     <i data-lucide="message-circle"></i>
@@ -224,9 +195,9 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='operations.html'">
-                <i data-lucide="monitor-cog"></i>
-                <span class="dock-label">Operations</span>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <i data-lucide="cpu"></i>
+                <span class="dock-label">Agents</span>
             </div>
             <div class="dock-item" onclick="window.location.href='teams.html'">
                 <i data-lucide="users"></i>
@@ -256,9 +227,9 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Social assets</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='organise.html'">
-                <i data-lucide="folder"></i>
-                <span class="dock-label">Organise</span>
+            <div class="dock-item active" onclick="window.location.href='Filebase.html'">
+                <i data-lucide="files"></i>
+                <span class="dock-label">Filebase</span>
             </div>
             <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
@@ -280,34 +251,32 @@
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Operations</div>
+                    <div class="secondary-sidebar-brand">Filebase</div>
                     <div class="secondary-sidebar-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
-                        </svg>
+                        <i data-lucide="files"></i>
                     </div>
                 </div>
                 <div class="secondary-sidebar-nav">
                     <div class="secondary-nav-list">
-                        <div class="secondary-nav-back">
+                        <div class="secondary-nav-back active" data-nav="home">
                             <span>Home</span>
                         </div>
-                        <div class="secondary-nav-item active">
+                        <div class="secondary-nav-item" data-nav="api-platform">
                             <span>API Platform</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="api-pricing">
                             <span>API Pricing</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="agents">
                             <span>Agents</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="codex">
                             <span>Codex</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="open-models">
                             <span>Open Models</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="community">
                             <span>Community</span>
                         </div>
                     </div>
@@ -327,15 +296,31 @@
             </div>
         </div>
         <!-- Circle in bottom right corner -->
-        <div style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
             <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
 
+    <script src="navigation-handler.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
+
+            // Initialize navigation (will default to 'home' if no hash)
+            // Use setTimeout to ensure DOM is fully ready
+            setTimeout(() => {
+                if (typeof initNavigation === 'function') {
+                    initNavigation();
+                } else {
+                    // Fallback: manually set home as active if navigation handler isn't available
+                    const homeItem = document.querySelector('[data-nav="home"]');
+                    const allNavItems = document.querySelectorAll('.secondary-nav-item, .secondary-nav-back');
+                    if (homeItem && allNavItems.length > 0) {
+                        allNavItems.forEach(item => item.classList.remove('active'));
+                        homeItem.classList.add('active');
+                    }
+                }
+            }, 100);
 
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
             dockItems.forEach(item => {
@@ -351,4 +336,5 @@
     </script>
 </body>
 </html>
+
 

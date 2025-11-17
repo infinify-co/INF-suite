@@ -1,7 +1,14 @@
 // Navigation Handler - Follows naming convention: pagename-navigation-name.html
 // This script makes navigation items clickable and loads content dynamically
 
+let navigationInitialized = false;
+
 function initNavigation() {
+    // Prevent double initialization
+    if (navigationInitialized) {
+        return;
+    }
+    navigationInitialized = true;
     const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
     const navItems = document.querySelectorAll('.secondary-nav-item, .secondary-nav-back');
     const frontTileContainer = document.querySelector('.front-tile-container');
@@ -15,7 +22,7 @@ function initNavigation() {
         // Follow naming convention: pagename-navigation-name.html
         const contentFile = `${currentPage}-${navName}.html`;
         
-        // Update active state
+        // Update active state FIRST (before any async operations)
         navItems.forEach(item => {
             item.classList.remove('active');
             if (item.getAttribute('data-nav') === navName) {
@@ -55,7 +62,9 @@ function initNavigation() {
             })
             .catch(error => {
                 console.warn(`Content file ${contentFile} not found. Using default content.`);
-                // Keep current content if file doesn't exist
+                // Active state is already set above, so it will remain active even if content fails to load
+                // Update URL hash anyway
+                window.location.hash = navName;
             });
     }
     
@@ -71,10 +80,19 @@ function initNavigation() {
         });
     });
     
-    // Load content from URL hash on page load
+    // Load content from URL hash on page load, or default to 'home'
     const hash = window.location.hash.replace('#', '');
     if (hash) {
         loadContent(hash);
+    } else {
+        // Default to 'home' if no hash is present
+        // Use a small delay to ensure DOM is ready
+        setTimeout(() => {
+            const homeItem = document.querySelector('[data-nav="home"]');
+            if (homeItem) {
+                loadContent('home');
+            }
+        }, 50);
     }
 }
 

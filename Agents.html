@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organise - INF Dashboard</title>
+    <title>Agents - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -62,6 +62,12 @@
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .secondary-sidebar-nav::-webkit-scrollbar {
+            display: none;
         }
 
         .secondary-nav-back {
@@ -146,6 +152,37 @@
         .front-tile {
             left: 270px; /* Extended 220px to the left (490px - 220px) */
         }
+
+        /* Scale down content proportionally */
+        .front-tile-container {
+            transform: scale(0.85);
+            transform-origin: top left;
+            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
+        }
+
+        /* Hide all scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        main::-webkit-scrollbar,
+        .dashboard-main::-webkit-scrollbar,
+        .front-tile::-webkit-scrollbar,
+        .front-tile-container::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body class="dashboard-page">
@@ -153,22 +190,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="dashboard.html">
+                <a href="#">
                     <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="dashboard.html" class="nav-link active">Suite</a></li>
+                <li><a href="Agents.html" class="nav-link active">Agents</a></li>
             </ul>
-            <div class="nav-search">
-                <form id="navSearchForm">
-                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
-                    <button class="search-btn" type="submit" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                </form>
-            </div>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
                     <i data-lucide="message-circle"></i>
@@ -195,9 +224,9 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='operations.html'">
-                <i data-lucide="monitor-cog"></i>
-                <span class="dock-label">Operations</span>
+            <div class="dock-item active" onclick="window.location.href='Agents.html'">
+                <i data-lucide="cpu"></i>
+                <span class="dock-label">Agents</span>
             </div>
             <div class="dock-item" onclick="window.location.href='teams.html'">
                 <i data-lucide="users"></i>
@@ -227,9 +256,9 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Social assets</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='organise.html'">
-                <i data-lucide="folder"></i>
-                <span class="dock-label">Organise</span>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <i data-lucide="files"></i>
+                <span class="dock-label">Filebase</span>
             </div>
             <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
@@ -251,35 +280,27 @@
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Organise</div>
+                    <div class="secondary-sidebar-brand">Agents</div>
                     <div class="secondary-sidebar-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
-                        </svg>
+                        <i data-lucide="cpu"></i>
                     </div>
                 </div>
                 <div class="secondary-sidebar-nav">
                     <div class="secondary-nav-list">
-                        <div class="secondary-nav-back">
+                        <div class="secondary-nav-back" onclick="window.location.href='Agents/home.html'" style="cursor: pointer;">
                             <span>Home</span>
                         </div>
-                        <div class="secondary-nav-item active">
-                            <span>API Platform</span>
+                        <div class="secondary-nav-item active" data-nav="all-agents">
+                            <span>All Agents</span>
                         </div>
-                        <div class="secondary-nav-item">
-                            <span>API Pricing</span>
+                        <div class="secondary-nav-item" data-nav="create">
+                            <span>Create Agent</span>
                         </div>
-                        <div class="secondary-nav-item">
-                            <span>Agents</span>
+                        <div class="secondary-nav-item" data-nav="deployed">
+                            <span>Deployed</span>
                         </div>
-                        <div class="secondary-nav-item">
-                            <span>Codex</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Open Models</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Community</span>
+                        <div class="secondary-nav-item" data-nav="monitor">
+                            <span>Monitor</span>
                         </div>
                     </div>
                 </div>
@@ -294,17 +315,58 @@
         <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
-                <!-- Content for the front tile -->
+                <!-- Agents Management Content -->
+                <div style="padding: 40px; max-width: 1400px; margin: 0 auto;">
+                    <!-- Header with Create Button -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                        <div>
+                            <h1 style="font-size: 32px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0; letter-spacing: -0.02em;">
+                                AI Agents
+                            </h1>
+                            <p style="font-size: 16px; color: #64748b; margin: 0;">
+                                Create and manage AI agents powered by OpenAI
+                            </p>
+                        </div>
+                        <button id="create-agent-btn" style="background: #0ea5e9; color: #ffffff; border: none; border-radius: 8px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s;" onmouseover="this.style.background='#0284c7'" onmouseout="this.style.background='#0ea5e9'">
+                            <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                            Create Agent
+                        </button>
+                    </div>
+
+                    <!-- Agents List -->
+                    <div id="agents-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
+                        <!-- Agents will be loaded here -->
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="empty-state" style="text-align: center; padding: 80px 20px; display: none;">
+                        <div style="width: 64px; height: 64px; background: #f0f9ff; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                            <i data-lucide="bot" style="width: 32px; height: 32px; color: #0ea5e9;"></i>
+                        </div>
+                        <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">No agents yet</h3>
+                        <p style="font-size: 14px; color: #64748b; margin: 0 0 24px 0;">Create your first AI agent to get started</p>
+                        <button onclick="document.getElementById('create-agent-btn').click()" style="background: #0ea5e9; color: #ffffff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer;">
+                            Create Agent
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Circle in bottom right corner -->
-        <div style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
             <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
 
+    <!-- AWS Cognito -->
+    <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
+    <script src="cognito-config.js"></script>
+    <script src="cognito-auth.js"></script>
+    <script src="agents-config.js"></script>
+    <script src="agents-service.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
 
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
@@ -313,9 +375,19 @@
                 if (label) {
                     item.addEventListener('mouseenter', () => {
                         const rect = item.getBoundingClientRect();
-                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`;
                     });
                 }
+            });
+
+            // Initialize agents
+            if (window.agentsService) {
+                await window.agentsService.loadAgents();
+            }
+
+            // Create agent button handler
+            document.getElementById('create-agent-btn')?.addEventListener('click', () => {
+                window.agentsService?.showCreateModal();
             });
         });
     </script>
