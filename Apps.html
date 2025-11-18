@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Pro - INF Dashboard</title>
+    <title>Apps - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -19,16 +19,8 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="CreatePro.html" class="nav-link active">Create Pro</a></li>
+                <li><a href="Apps.html" class="nav-link active">Apps</a></li>
             </ul>
-            <div class="nav-search">
-                <form id="navSearchForm">
-                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
-                    <button class="search-btn" type="submit" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                </form>
-            </div>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
                     <i data-lucide="message-circle"></i>
@@ -55,37 +47,41 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
+            <div class="dock-item" onclick="window.location.href='Operation.html'">
+                <i data-lucide="hard-hat"></i>
+                <span class="dock-label">Operation</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Team's</span>
+            </div>
             <div class="dock-item" onclick="window.location.href='Agents.html'">
                 <i data-lucide="cpu"></i>
                 <span class="dock-label">Agents</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='teams.html'">
-                <i data-lucide="users"></i>
-                <span class="dock-label">Team's</span>
+            <div class="dock-item" onclick="window.location.href='Kreative.html'">
+                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Account</span>
             </div>
             <div class="dock-item" onclick="window.location.href='chats.html'">
                 <i data-lucide="message-circle-plus"></i>
                 <span class="dock-label">Chats</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Marketplace.html'">
-                <i data-lucide="store"></i>
-                <span class="dock-label">Marketplace</span>
+            <div class="dock-item active" onclick="window.location.href='Apps.html'">
+                <i data-lucide="squares-exclude"></i>
+                <span class="dock-label">Apps</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='my-apps.html'">
-                <i data-lucide="grid-3x3"></i>
-                <span class="dock-label">My apps</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Leads-marketing.html'">
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
                 <i data-lucide="focus"></i>
-                <span class="dock-label">Leads &amp; Marketing</span>
+                <span class="dock-label">Campaigns</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Database.html'">
                 <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='social-assets.html'">
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
                 <i data-lucide="container"></i>
-                <span class="dock-label">Social assets</span>
+                <span class="dock-label">Online assets</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Filebase.html'">
                 <i data-lucide="files"></i>
@@ -95,46 +91,63 @@
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='CreatePro.html'">
-                <i data-lucide="image-upscale"></i>
-                <span class="dock-label">Account</span>
-            </div>
         </div>
     </div>
 
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
-            <!-- Top Right Bar INSIDE TILE -->
-            <div class="top-right-bar inside-tile">
-                <div class="top-right-actions">
-                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
-                        <i data-lucide="grid"></i>
-                    </button>
-                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
-                        <i data-lucide="bell"></i>
-                    </button>
-                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
-                        <i data-lucide="user-circle"></i>
-                    </button>
-                </div>
-            </div>
-            <!-- Matching top-left text on same row as the bar -->
-            <div class="top-left-heading">Create Pro</div>
-            <!-- Create Pro content tile -->
-            <section class="tiles-grid">
-                <div class="tiles-row row-1">
-                    <div class="card teams-card">
-                        <div class="card-header">
-                            <h3 class="card-title">Create Pro</h3>
-                            <a class="link-view-all" href="#">View All</a>
+            <section class="page-header marketplace-center">
+                <h1 class="marketplace-title">Apps</h1>
+            </section>
+
+            <section class="marketplace-grid">
+                <header class="marketplace-section-header">
+                    <div class="marketplace-section-title">
+                        <span class="section-label">Popular</span>
+                    </div>
+                    <a href="#" class="marketplace-view-all">View All</a>
+                </header>
+                
+                <div class="marketplace-logos-grid">
+                    <div class="marketplace-logo-square">
+                        <div class="marketplace-logo-icon is-analytics">
+                            <i data-lucide="squares-exclude"></i>
                         </div>
-                        <div style="display: flex; align-items: center; justify-content: center; padding: 40px; min-height: 200px;">
-                            <i data-lucide="image-upscale" style="width: 64px; height: 64px; color: #60a5fa;"></i>
+                    </div>
+
+                    <div class="marketplace-logo-square">
+                        <div class="marketplace-logo-icon is-prompt">
+                            <i data-lucide="squares-exclude"></i>
+                        </div>
+                    </div>
+
+                    <div class="marketplace-logo-square">
+                        <div class="marketplace-logo-icon is-forecast">
+                            <i data-lucide="squares-exclude"></i>
+                        </div>
+                    </div>
+
+                    <div class="marketplace-logo-square">
+                        <div class="marketplace-logo-icon is-support">
+                            <i data-lucide="squares-exclude"></i>
+                        </div>
+                    </div>
+
+                    <div class="marketplace-logo-square">
+                        <div class="marketplace-logo-icon is-compliance">
+                            <i data-lucide="squares-exclude"></i>
+                        </div>
+                    </div>
+
+                    <div class="marketplace-logo-square">
+                        <div class="marketplace-logo-icon is-automation">
+                            <i data-lucide="squares-exclude"></i>
                         </div>
                     </div>
                 </div>
             </section>
+            
         </div>
         <!-- Circle in bottom right corner -->
         <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">

@@ -80,16 +80,20 @@ function initNavigation() {
         });
     });
     
-    // Load content from URL hash on page load, or default to 'home'
+    // Load content from URL hash on page load, or default to appropriate page
     const hash = window.location.hash.replace('#', '');
     if (hash) {
         loadContent(hash);
     } else {
-        // Default to 'home' if no hash is present
+        // Default to 'my-agents' for Agents page, otherwise 'home'
         // Use a small delay to ensure DOM is ready
         setTimeout(() => {
+            const myAgentsItem = document.querySelector('[data-nav="my-agents"]');
             const homeItem = document.querySelector('[data-nav="home"]');
-            if (homeItem) {
+            
+            if (myAgentsItem) {
+                loadContent('my-agents');
+            } else if (homeItem) {
                 loadContent('home');
             }
         }, 50);

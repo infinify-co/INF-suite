@@ -1,0 +1,6 @@
+{
+  "allowShell": true,
+  "allowRead": ["**/*.py", "**/*.js", "**/*.ts", "**/*.json"],
+  "allowWrite": ["**/*"]
+}
+

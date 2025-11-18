@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passkeys - Online Assets</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="passkeys-config.js"></script>
+    <script src="passkeys-service.js"></script>
+    <style>
+        .passkeys-container {
+            padding: 32px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .passkeys-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .passkeys-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        .passkeys-header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .project-selector {
+            padding: 10px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #ffffff;
+            color: #0f172a;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #0ea5e9;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #0284c7;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .passkeys-table-container {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .passkeys-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .passkeys-table thead {
+            background: #f8fafc;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .passkeys-table th {
+            padding: 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .passkeys-table td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            color: #0f172a;
+        }
+
+        .passkeys-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .passkeys-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .key-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .key-prefix {
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 13px;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 1;
+        }
+
+        .status-chip {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-chip.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-chip.revoked {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-chip.expired {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            background: transparent;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 6px;
+            cursor: pointer;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .btn-icon:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .btn-icon.danger:hover {
+            background: #fee2e2;
+            border-color: #fca5a5;
+            color: #991b1b;
+        }
+
+        #empty-state {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+        #empty-state h3 {
+            font-size: 20px;
+            color: #64748b;
+            margin: 16px 0 8px;
+        }
+
+        #empty-state p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #ffffff;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+
+        .modal-close:hover {
+            background: #f1f5f9;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #0f172a;
+            background: #ffffff;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .form-checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            font-size: 14px;
+            color: #0f172a;
+            cursor: pointer;
+        }
+
+        .modal-footer {
+            padding: 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .key-display-modal .key-value {
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 14px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            word-break: break-all;
+            color: #0f172a;
+        }
+
+        .key-display-modal .warning {
+            background: #fef3c7;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 16px 0;
+            color: #92400e;
+            font-size: 14px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .usage-logs {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .usage-logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .usage-logs-header h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        .usage-logs-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .usage-log-item {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .usage-log-item:last-child {
+            border-bottom: none;
+        }
+
+        .usage-log-endpoint {
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            color: #64748b;
+        }
+
+        .usage-log-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* Stats/Usage Card Styles */
+        .stats-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .stats-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .stats-card-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .stats-card-title .info-link {
+            color: #0ea5e9;
+            font-size: 12px;
+            font-weight: 400;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .stats-card-title .info-link:hover {
+            text-decoration: underline;
+        }
+
+        .stats-card-menu {
+            background: transparent;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .stats-card-content {
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .stats-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+            color: #94a3b8;
+        }
+
+        .stats-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .stats-unavailable-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .stats-unavailable-text {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .stats-card-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stats-card-footer-link {
+            color: #0ea5e9;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .stats-card-footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .stats-card-footer-icon {
+            color: #64748b;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .stats-card-footer-icon:hover {
+            color: #0f172a;
+        }
+
+        /* Stats with data styles */
+        .stats-card-content.has-data {
+            padding: 24px;
+            text-align: left;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-item-label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-item-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+    <div class="passkeys-container">
+        <div class="passkeys-header">
+            <h1>API Keys (Passkeys)</h1>
+            <div class="passkeys-header-actions">
+                <select id="project-selector" class="project-selector" onchange="loadPasskeys()">
+                    <option value="">All Projects</option>
+                </select>
+                <button class="btn-secondary" onclick="loadPasskeys()">
+                    <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+                    Refresh
+                </button>
+                <button class="btn-primary" onclick="showCreateModal()">
+                    <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                    Create API Key
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats/Usage Card -->
+        <div class="stats-card">
+            <div class="stats-card-header">
+                <div class="stats-card-title">
+                    <i data-lucide="bar-chart-3" style="width: 16px; height: 16px;"></i>
+                    <span>API Key Usage</span>
+                    <a href="#" class="info-link" onclick="showUsageInfo(event)">Info</a>
+                </div>
+                <button class="stats-card-menu">
+                    <i data-lucide="more-vertical" style="width: 16px; height: 16px;"></i>
+                </button>
+            </div>
+            <div class="stats-card-content" id="stats-card-content">
+                <div class="stats-icon">
+                    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Bar Chart -->
+                        <rect x="20" y="60" width="15" height="40" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <rect x="40" y="45" width="15" height="55" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <rect x="60" y="30" width="15" height="70" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <!-- Line Graph -->
+                        <polyline points="20,80 35,70 50,65 65,50 80,45 95,40" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <!-- Pie Chart -->
+                        <circle cx="90" cy="90" r="20" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M 90 90 L 90 70 A 20 20 0 0 1 105 85 Z" fill="currentColor" opacity="0.3"/>
+                        <path d="M 90 90 L 105 85 A 20 20 0 0 1 110 100 Z" fill="currentColor" opacity="0.5"/>
+                    </svg>
+                </div>
+                <div class="stats-unavailable-title">Data unavailable</div>
+                <div class="stats-unavailable-text">You must enable usage tracking to view your API key usage statistics.</div>
+                <button class="btn-primary" onclick="enableUsageTracking()" style="margin: 0 auto;">
+                    Enable Usage Tracking
+                </button>
+            </div>
+            <div class="stats-card-footer">
+                <a href="#" class="stats-card-footer-link" onclick="goToUsageSettings(event)">Go to Usage Settings</a>
+                <i data-lucide="edit-3" class="stats-card-footer-icon" style="width: 16px; height: 16px;"></i>
+            </div>
+        </div>
+
+        <div class="passkeys-table-container">
+            <table class="passkeys-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Project</th>
+                        <th>Key</th>
+                        <th>Status</th>
+                        <th>Last Used</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="passkeys-table-body">
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px;">
+                            <div style="color: #94a3b8;">Loading...</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="empty-state">
+            <i data-lucide="key" style="width: 64px; height: 64px; color: #94a3b8;"></i>
+            <h3>No API keys created</h3>
+            <p>Create your first API key to start building custom AI systems</p>
+            <button class="btn-primary" onclick="showCreateModal()">
+                <i data-lucide="plus" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                Create API Key
+            </button>
+        </div>
+    </div>
+
+    <!-- Create API Key Modal -->
+    <div id="create-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create API Key</h2>
+                <button class="modal-close" onclick="closeCreateModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="create-form" onsubmit="handleCreate(event)">
+                    <div class="form-group">
+                        <label class="form-label">Project (Optional)</label>
+                        <select id="create-project" class="form-select">
+                            <option value="">No Project</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Name *</label>
+                        <input type="text" id="create-name" class="form-input" placeholder="e.g., Production API Key" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Scopes</label>
+                        <div class="form-checkbox-group" id="scopes-list">
+                            <!-- Scopes will be populated from config -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Expiration Date (Optional)</label>
+                        <input type="date" id="create-expires" class="form-input">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeCreateModal()">Cancel</button>
+                <button class="btn-primary" onclick="document.getElementById('create-form').requestSubmit()">
+                    Create API Key
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Display Modal (shown once after creation) -->
+    <div id="key-display-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>API Key Created</h2>
+                <button class="modal-close" onclick="closeKeyDisplayModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="warning">
+                    <i data-lucide="alert-triangle" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
+                    <div>
+                        <strong>Important:</strong> This is the only time you will be able to see your API key. 
+                        Make sure to copy it and store it securely. You will not be able to retrieve it again.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Your API Key</label>
+                    <div class="key-value" id="display-key-value"></div>
+                    <button class="btn-primary" onclick="copyDisplayedKey()" style="margin-top: 12px;">
+                        <i data-lucide="copy" style="width: 16px; height: 16px;"></i>
+                        Copy to Clipboard
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="closeKeyDisplayModal()">I've Saved It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View/Details Modal -->
+    <div id="view-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>API Key Details</h2>
+                <button class="modal-close" onclick="closeViewModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="view-modal-body">
+                <!-- Content populated dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeViewModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPasskeys = [];
+        let currentProjectId = null;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.lucide) lucide.createIcons();
+            
+            // Populate scopes from config
+            populateScopes();
+            
+            // Load passkeys
+            await loadPasskeys();
+            
+            // Initialize stats card icons
+            if (window.lucide) lucide.createIcons();
+        });
+
+        // Populate scopes checkbox list
+        function populateScopes() {
+            const scopesList = document.getElementById('scopes-list');
+            const defaultScopes = window.PASSKEYS_DEFAULT_SCOPES || [];
+            
+            scopesList.innerHTML = defaultScopes.map(scope => `
+                <div class="form-checkbox">
+                    <input type="checkbox" id="scope-${scope.value}" value="${scope.value}">
+                    <label for="scope-${scope.value}">${scope.label}</label>
+                </div>
+            `).join('');
+        }
+
+        // Load passkeys
+        async function loadPasskeys() {
+            try {
+                const projectSelector = document.getElementById('project-selector');
+                const selectedProject = projectSelector.value || null;
+                currentProjectId = selectedProject;
+
+                const result = await window.passkeysService.listPasskeys(selectedProject);
+                currentPasskeys = result.passkeys || [];
+
+                renderPasskeysTable();
+                updateStatsCard();
+            } catch (error) {
+                console.error('Error loading passkeys:', error);
+                window.passkeysService.showNotification('Failed to load API keys: ' + error.message, 'error');
+            }
+        }
+
+        // Update stats card with usage data
+        function updateStatsCard() {
+            const statsContent = document.getElementById('stats-card-content');
+            
+            // Calculate stats from current passkeys
+            const totalKeys = currentPasskeys.length;
+            const activeKeys = currentPasskeys.filter(k => k.status === 'active').length;
+            const totalUsage = currentPasskeys.reduce((sum, key) => {
+                // This would come from usage logs in a real implementation
+                return sum + (key.usage_stats?.total_requests || 0);
+            }, 0);
+
+            // For now, show unavailable state if no keys or no usage tracking
+            // In a real implementation, you'd check if usage tracking is enabled
+            const hasUsageData = false; // This would check if usage tracking is enabled
+
+            if (hasUsageData && totalKeys > 0) {
+                statsContent.className = 'stats-card-content has-data';
+                statsContent.innerHTML = `
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-item-label">Total API Keys</div>
+                            <div class="stat-item-value">${totalKeys}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-item-label">Active Keys</div>
+                            <div class="stat-item-value">${activeKeys}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-item-label">Total Requests</div>
+                            <div class="stat-item-value">${totalUsage.toLocaleString()}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-item-label">Last 30 Days</div>
+                            <div class="stat-item-value">—</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Show unavailable state
+                statsContent.className = 'stats-card-content';
+                statsContent.innerHTML = `
+                    <div class="stats-icon">
+                        <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Bar Chart -->
+                            <rect x="20" y="60" width="15" height="40" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <rect x="40" y="45" width="15" height="55" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <rect x="60" y="30" width="15" height="70" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <!-- Line Graph -->
+                            <polyline points="20,80 35,70 50,65 65,50 80,45 95,40" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <!-- Pie Chart -->
+                            <circle cx="90" cy="90" r="20" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <path d="M 90 90 L 90 70 A 20 20 0 0 1 105 85 Z" fill="currentColor" opacity="0.3"/>
+                            <path d="M 90 90 L 105 85 A 20 20 0 0 1 110 100 Z" fill="currentColor" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <div class="stats-unavailable-title">Data unavailable</div>
+                    <div class="stats-unavailable-text">You must enable usage tracking to view your API key usage statistics.</div>
+                    <button class="btn-primary" onclick="enableUsageTracking()" style="margin: 0 auto;">
+                        Enable Usage Tracking
+                    </button>
+                `;
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        // Enable usage tracking
+        function enableUsageTracking() {
+            // In a real implementation, this would enable usage tracking
+            window.passkeysService.showNotification('Usage tracking feature coming soon', 'info');
+            // For now, just show a message
+        }
+
+        // Show usage info
+        function showUsageInfo(event) {
+            event.preventDefault();
+            alert('API Key Usage provides insights into how your API keys are being used, including request counts, endpoint usage, and activity patterns.');
+        }
+
+        // Go to usage settings
+        function goToUsageSettings(event) {
+            event.preventDefault();
+            window.passkeysService.showNotification('Usage settings feature coming soon', 'info');
+        }
+
+        // Render passkeys table
+        function renderPasskeysTable() {
+            const tbody = document.getElementById('passkeys-table-body');
+            const emptyState = document.getElementById('empty-state');
+
+            if (currentPasskeys.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            tbody.innerHTML = currentPasskeys.map(passkey => {
+                const createdDate = new Date(passkey.created_at).toLocaleDateString();
+                const lastUsed = passkey.last_used_at 
+                    ? new Date(passkey.last_used_at).toLocaleDateString() 
+                    : 'Never';
+                const statusClass = passkey.status || 'active';
+
+                return `
+                    <tr>
+                        <td>
+                            <div class="key-name">${escapeHtml(passkey.name)}</div>
+                        </td>
+                        <td>${passkey.project_id ? 'Project ' + passkey.project_id.substring(0, 8) : '—'}</td>
+                        <td>
+                            <div class="key-prefix">
+                                ${escapeHtml(passkey.api_key_prefix)}...
+                                <button class="copy-btn" onclick="copyKeyPrefix('${passkey.api_key_prefix}')" title="Copy prefix">
+                                    <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td><span class="status-chip ${statusClass}">${statusClass}</span></td>
+                        <td>${lastUsed}</td>
+                        <td>${createdDate}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-icon" onclick="viewPasskey('${passkey.id}')" title="View Details">
+                                    <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                                </button>
+                                <button class="btn-icon" onclick="regeneratePasskey('${passkey.id}')" title="Regenerate">
+                                    <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
+                                </button>
+                                <button class="btn-icon danger" onclick="revokePasskey('${passkey.id}')" title="Revoke">
+                                    <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Show create modal
+        function showCreateModal() {
+            document.getElementById('create-modal').style.display = 'block';
+        }
+
+        // Close create modal
+        function closeCreateModal() {
+            document.getElementById('create-modal').style.display = 'none';
+            document.getElementById('create-form').reset();
+        }
+
+        // Handle create form submission
+        async function handleCreate(event) {
+            event.preventDefault();
+            
+            try {
+                const name = document.getElementById('create-name').value;
+                const projectId = document.getElementById('create-project').value || null;
+                const expiresAt = document.getElementById('create-expires').value || null;
+
+                // Get selected scopes
+                const scopes = Array.from(document.querySelectorAll('#scopes-list input[type="checkbox"]:checked'))
+                    .map(cb => cb.value);
+
+                const result = await window.passkeysService.createPasskey(projectId, name, scopes, expiresAt);
+                
+                closeCreateModal();
+                
+                // Show key display modal
+                showKeyDisplayModal(result.passkey.api_key);
+                
+                // Reload passkeys
+                await loadPasskeys();
+                
+                window.passkeysService.showNotification('API key created successfully', 'success');
+            } catch (error) {
+                console.error('Error creating passkey:', error);
+                window.passkeysService.showNotification('Failed to create API key: ' + error.message, 'error');
+            }
+        }
+
+        // Show key display modal
+        function showKeyDisplayModal(apiKey) {
+            document.getElementById('display-key-value').textContent = apiKey;
+            document.getElementById('key-display-modal').style.display = 'block';
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Close key display modal
+        function closeKeyDisplayModal() {
+            document.getElementById('key-display-modal').style.display = 'none';
+        }
+
+        // Copy displayed key
+        async function copyDisplayedKey() {
+            const keyValue = document.getElementById('display-key-value').textContent;
+            const success = await window.passkeysService.copyToClipboard(keyValue);
+            if (success) {
+                window.passkeysService.showNotification('API key copied to clipboard', 'success');
+            } else {
+                window.passkeysService.showNotification('Failed to copy to clipboard', 'error');
+            }
+        }
+
+        // Copy key prefix
+        async function copyKeyPrefix(prefix) {
+            const success = await window.passkeysService.copyToClipboard(prefix);
+            if (success) {
+                window.passkeysService.showNotification('Key prefix copied to clipboard', 'success');
+            }
+        }
+
+        // View passkey details
+        async function viewPasskey(passkeyId) {
+            try {
+                const result = await window.passkeysService.getPasskey(passkeyId);
+                const passkey = result.passkey;
+                const usageStats = passkey.usage_stats || {};
+
+                // Get usage logs
+                let usageLogs = [];
+                try {
+                    const logsResult = await window.passkeysService.getUsageLogs(passkeyId, 10, 0);
+                    usageLogs = logsResult.logs || [];
+                } catch (error) {
+                    console.error('Error loading usage logs:', error);
+                }
+
+                const modalBody = document.getElementById('view-modal-body');
+                modalBody.innerHTML = `
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <div>${escapeHtml(passkey.name)}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Project</label>
+                        <div>${passkey.project_id ? 'Project ' + passkey.project_id.substring(0, 8) : 'No Project'}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Key Prefix</label>
+                        <div class="key-prefix">
+                            ${escapeHtml(passkey.api_key_prefix)}...
+                            <button class="copy-btn" onclick="copyKeyPrefix('${passkey.api_key_prefix}')">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <div><span class="status-chip ${passkey.status}">${passkey.status}</span></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Scopes</label>
+                        <div>${passkey.scopes && passkey.scopes.length > 0 
+                            ? passkey.scopes.map(s => `<span style="background: #f1f5f9; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-right: 4px;">${escapeHtml(s)}</span>`).join('')
+                            : 'No scopes'}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Created</label>
+                        <div>${new Date(passkey.created_at).toLocaleString()}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Used</label>
+                        <div>${passkey.last_used_at ? new Date(passkey.last_used_at).toLocaleString() : 'Never'}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Usage Statistics</label>
+                        <div>
+                            <div>Total Requests: ${usageStats.total_requests || 0}</div>
+                            <div>Days Active: ${usageStats.days_active || 0}</div>
+                        </div>
+                    </div>
+                    ${usageLogs.length > 0 ? `
+                        <div class="usage-logs">
+                            <div class="usage-logs-header">
+                                <h4>Recent Usage</h4>
+                            </div>
+                            <div class="usage-logs-list">
+                                ${usageLogs.map(log => `
+                                    <div class="usage-log-item">
+                                        <div>
+                                            <div class="usage-log-endpoint">${escapeHtml(log.method)} ${escapeHtml(log.endpoint)}</div>
+                                            <div class="usage-log-meta">
+                                                <span>${new Date(log.created_at).toLocaleString()}</span>
+                                                ${log.ip_address ? `<span>${escapeHtml(log.ip_address)}</span>` : ''}
+                                                ${log.status_code ? `<span>Status: ${log.status_code}</span>` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                `;
+
+                document.getElementById('view-modal').style.display = 'block';
+                if (window.lucide) lucide.createIcons();
+            } catch (error) {
+                console.error('Error viewing passkey:', error);
+                window.passkeysService.showNotification('Failed to load API key details: ' + error.message, 'error');
+            }
+        }
+
+        // Close view modal
+        function closeViewModal() {
+            document.getElementById('view-modal').style.display = 'none';
+        }
+
+        // Revoke passkey
+        async function revokePasskey(passkeyId) {
+            if (!confirm('Are you sure you want to revoke this API key? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                await window.passkeysService.revokePasskey(passkeyId);
+                window.passkeysService.showNotification('API key revoked successfully', 'success');
+                await loadPasskeys();
+            } catch (error) {
+                console.error('Error revoking passkey:', error);
+                window.passkeysService.showNotification('Failed to revoke API key: ' + error.message, 'error');
+            }
+        }
+
+        // Regenerate passkey
+        async function regeneratePasskey(passkeyId) {
+            if (!confirm('Are you sure you want to regenerate this API key? The old key will be revoked and you will receive a new key.')) {
+                return;
+            }
+
+            try {
+                const result = await window.passkeysService.regeneratePasskey(passkeyId);
+                showKeyDisplayModal(result.passkey.api_key);
+                await loadPasskeys();
+                window.passkeysService.showNotification('API key regenerated successfully', 'success');
+            } catch (error) {
+                console.error('Error regenerating passkey:', error);
+                window.passkeysService.showNotification('Failed to regenerate API key: ' + error.message, 'error');
+            }
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = ['create-modal', 'key-display-modal', 'view-modal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

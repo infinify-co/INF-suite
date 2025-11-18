@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Assets - INF Dashboard</title>
+    <title>Online Assets - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -196,7 +196,7 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="social-assets.html" class="nav-link active">Social Assets</a></li>
+                <li><a href="Online-assets.html" class="nav-link active">Online Assets</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
@@ -224,37 +224,41 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
+            <div class="dock-item" onclick="window.location.href='Operation.html'">
+                <i data-lucide="hard-hat"></i>
+                <span class="dock-label">Operation</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Team's</span>
+            </div>
             <div class="dock-item" onclick="window.location.href='Agents.html'">
                 <i data-lucide="cpu"></i>
                 <span class="dock-label">Agents</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='teams.html'">
-                <i data-lucide="users"></i>
-                <span class="dock-label">Team's</span>
+            <div class="dock-item" onclick="window.location.href='Kreative.html'">
+                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Account</span>
             </div>
             <div class="dock-item" onclick="window.location.href='chats.html'">
                 <i data-lucide="message-circle-plus"></i>
                 <span class="dock-label">Chats</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Marketplace.html'">
-                <i data-lucide="store"></i>
+            <div class="dock-item" onclick="window.location.href='Apps.html'">
+                <i data-lucide="squares-exclude"></i>
                 <span class="dock-label">Marketplace</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='my-apps.html'">
-                <i data-lucide="grid-3x3"></i>
-                <span class="dock-label">My apps</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Leads-marketing.html'">
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
                 <i data-lucide="focus"></i>
-                <span class="dock-label">Leads &amp; Marketing</span>
+                <span class="dock-label">Campaigns</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Database.html'">
                 <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='social-assets.html'">
+            <div class="dock-item active" onclick="window.location.href='Online-assets.html'">
                 <i data-lucide="container"></i>
-                <span class="dock-label">Social assets</span>
+                <span class="dock-label">Online assets</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Filebase.html'">
                 <i data-lucide="files"></i>
@@ -263,10 +267,6 @@
             <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='CreatePro.html'">
-                <i data-lucide="image-upscale"></i>
-                <span class="dock-label">Account</span>
             </div>
         </div>
     </div>
@@ -280,7 +280,7 @@
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Social Assets</div>
+                    <div class="secondary-sidebar-brand">Online Assets</div>
                     <div class="secondary-sidebar-icon">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
@@ -289,26 +289,29 @@
                 </div>
                 <div class="secondary-sidebar-nav">
                     <div class="secondary-nav-list">
-                        <div class="secondary-nav-back">
+                        <div class="secondary-nav-back" data-nav="home">
                             <span>Home</span>
                         </div>
-                        <div class="secondary-nav-item active">
-                            <span>API Platform</span>
+                        <div class="secondary-nav-item" data-nav="domains">
+                            <span>Domains</span>
                         </div>
-                        <div class="secondary-nav-item">
-                            <span>API Pricing</span>
+                        <div class="secondary-nav-item active" data-nav="collective-tasks">
+                            <span>Collective Tasks</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="teams">
+                            <span>Teams</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="agents">
                             <span>Agents</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="codex">
                             <span>Codex</span>
                         </div>
-                        <div class="secondary-nav-item">
+                        <div class="secondary-nav-item" data-nav="open-models">
                             <span>Open Models</span>
                         </div>
-                        <div class="secondary-nav-item">
-                            <span>Community</span>
+                        <div class="secondary-nav-item" data-nav="passkeys">
+                            <span>Passkey's</span>
                         </div>
                     </div>
                 </div>
@@ -382,6 +385,7 @@
         </div>
     </main>
 
+    <script src="navigation-handler.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();

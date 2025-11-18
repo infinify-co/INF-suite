@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex - Online Assets</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="codex-config.js"></script>
+    <script src="codex-service.js"></script>
+    <style>
+        .codex-container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .codex-header {
+            margin-bottom: 24px;
+        }
+
+        .codex-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .codex-header p {
+            font-size: 16px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .codex-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .codex-panel {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .codex-panel-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .codex-panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .codex-panel-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .codex-btn {
+            padding: 6px 12px;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .codex-btn:hover {
+            background: #f9fafb;
+            border-color: #cbd5e1;
+        }
+
+        .codex-btn-primary {
+            background: #0ea5e9;
+            color: #ffffff;
+            border-color: #0ea5e9;
+        }
+
+        .codex-btn-primary:hover {
+            background: #0284c7;
+        }
+
+        .codex-editor {
+            flex: 1;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            border: none;
+            resize: none;
+            outline: none;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        .codex-chat {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .codex-message {
+            display: flex;
+            gap: 12px;
+        }
+
+        .codex-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .codex-message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .codex-message.user .codex-message-avatar {
+            background: #0ea5e9;
+            color: #ffffff;
+        }
+
+        .codex-message.ai .codex-message-avatar {
+            background: #f0f9ff;
+            color: #0ea5e9;
+        }
+
+        .codex-message-content {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .codex-message.user .codex-message-content {
+            background: #0ea5e9;
+            color: #ffffff;
+        }
+
+        .codex-message.ai .codex-message-content {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .codex-message-content pre {
+            margin: 8px 0 0 0;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 13px;
+        }
+
+        .codex-message-content code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        .codex-input-area {
+            padding: 16px 20px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 12px;
+        }
+
+        .codex-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .codex-input:focus {
+            border-color: #0ea5e9;
+        }
+
+        .codex-task-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .codex-task-btn {
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .codex-task-btn.active {
+            background: #0ea5e9;
+            color: #ffffff;
+            border-color: #0ea5e9;
+        }
+
+        .codex-loading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .codex-loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e5e7eb;
+            border-top-color: #0ea5e9;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .codex-error {
+            padding: 12px 16px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            color: #dc2626;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .codex-main {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="codex-container">
+        <div class="codex-header">
+            <h1>Codex</h1>
+            <p>Your AI-powered coding assistant</p>
+        </div>
+
+        <div class="codex-task-selector">
+            <button class="codex-task-btn active" data-task="chat">Chat</button>
+            <button class="codex-task-btn" data-task="generate">Generate</button>
+            <button class="codex-task-btn" data-task="explain">Explain</button>
+            <button class="codex-task-btn" data-task="refactor">Refactor</button>
+            <button class="codex-task-btn" data-task="debug">Debug</button>
+            <button class="codex-task-btn" data-task="translate">Translate</button>
+            <button class="codex-task-btn" data-task="document">Document</button>
+        </div>
+
+        <div class="codex-main">
+            <!-- Code Editor Panel -->
+            <div class="codex-panel">
+                <div class="codex-panel-header">
+                    <div class="codex-panel-title">Code Editor</div>
+                    <div class="codex-panel-actions">
+                        <button class="codex-btn" id="clear-code-btn">Clear</button>
+                        <button class="codex-btn" id="copy-code-btn">Copy</button>
+                    </div>
+                </div>
+                <textarea 
+                    class="codex-editor" 
+                    id="code-editor" 
+                    placeholder="Paste your code here or start typing..."
+                ></textarea>
+            </div>
+
+            <!-- Chat Panel -->
+            <div class="codex-panel">
+                <div class="codex-panel-header">
+                    <div class="codex-panel-title">Chat</div>
+                    <div class="codex-panel-actions">
+                        <button class="codex-btn" id="clear-chat-btn">Clear</button>
+                    </div>
+                </div>
+                <div class="codex-chat" id="chat-messages">
+                    <div class="codex-message ai">
+                        <div class="codex-message-avatar">
+                            <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                        </div>
+                        <div class="codex-message-content">
+                            <p>Hello! I'm Codex, your AI coding assistant. I can help you:</p>
+                            <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+                                <li>Generate code from descriptions</li>
+                                <li>Explain how code works</li>
+                                <li>Refactor and improve code</li>
+                                <li>Debug and fix bugs</li>
+                                <li>Translate between languages</li>
+                                <li>Generate documentation</li>
+                            </ul>
+                            <p style="margin-top: 12px;">Type a message or select a task above to get started!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="codex-input-area">
+                    <input 
+                        type="text" 
+                        class="codex-input" 
+                        id="chat-input" 
+                        placeholder="Ask a question or describe what you want to build..."
+                    />
+                    <button class="codex-btn codex-btn-primary" id="send-btn">
+                        <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+
+            const codeEditor = document.getElementById('code-editor');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const sendBtn = document.getElementById('send-btn');
+            const clearCodeBtn = document.getElementById('clear-code-btn');
+            const clearChatBtn = document.getElementById('clear-chat-btn');
+            const copyCodeBtn = document.getElementById('copy-code-btn');
+            const taskButtons = document.querySelectorAll('.codex-task-btn');
+
+            let currentTask = 'chat';
+            let isLoading = false;
+
+            // Task selector
+            taskButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    taskButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentTask = btn.dataset.task;
+                    
+                    // Update placeholder based on task
+                    const placeholders = {
+                        chat: 'Ask a question or describe what you want to build...',
+                        generate: 'Describe the code you want to generate...',
+                        explain: 'Ask a question about the code (optional)...',
+                        refactor: 'Describe refactoring requirements (optional)...',
+                        debug: 'Describe the issue you\'re experiencing (optional)...',
+                        translate: 'Enter target language (e.g., Python, JavaScript)...',
+                        document: 'Describe documentation requirements (optional)...'
+                    };
+                    chatInput.placeholder = placeholders[currentTask] || placeholders.chat;
+                });
+            });
+
+            // Clear code
+            clearCodeBtn.addEventListener('click', () => {
+                codeEditor.value = '';
+            });
+
+            // Copy code
+            copyCodeBtn.addEventListener('click', () => {
+                codeEditor.select();
+                document.execCommand('copy');
+                copyCodeBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyCodeBtn.textContent = 'Copy';
+                }, 2000);
+            });
+
+            // Clear chat
+            clearChatBtn.addEventListener('click', () => {
+                chatMessages.innerHTML = '';
+                addAIMessage('Chat cleared. How can I help you?');
+            });
+
+            // Send message
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                const code = codeEditor.value.trim();
+
+                if (!message && (currentTask === 'chat' || !code)) {
+                    return;
+                }
+
+                if (isLoading) return;
+                isLoading = true;
+
+                // Add user message
+                addUserMessage(message || (code ? 'Process this code' : ''));
+
+                // Clear input
+                chatInput.value = '';
+
+                // Show loading
+                const loadingId = addLoadingMessage();
+
+                try {
+                    let response;
+                    if (currentTask === 'generate') {
+                        response = await window.codexService.generateCode(message, 'javascript', code);
+                    } else if (currentTask === 'explain') {
+                        response = await window.codexService.explainCode(code, message);
+                    } else if (currentTask === 'refactor') {
+                        response = await window.codexService.refactorCode(code, 'javascript', message);
+                    } else if (currentTask === 'debug') {
+                        response = await window.codexService.debugCode(code, 'javascript', message);
+                    } else if (currentTask === 'translate') {
+                        response = await window.codexService.translateCode(code, message);
+                    } else if (currentTask === 'document') {
+                        response = await window.codexService.documentCode(code, 'javascript', message);
+                    } else {
+                        response = await window.codexService.chat(message, code, 'chat');
+                    }
+
+                    removeLoadingMessage(loadingId);
+                    addAIMessage(response.response);
+                } catch (error) {
+                    removeLoadingMessage(loadingId);
+                    addErrorMessage(error.message);
+                } finally {
+                    isLoading = false;
+                }
+            }
+
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            function addUserMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'codex-message user';
+                messageDiv.innerHTML = `
+                    <div class="codex-message-avatar">
+                        <i data-lucide="user" style="width: 18px; height: 18px;"></i>
+                    </div>
+                    <div class="codex-message-content">
+                        <p>${escapeHtml(text)}</p>
+                    </div>
+                `;
+                chatMessages.appendChild(messageDiv);
+                if (window.lucide) lucide.createIcons();
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addAIMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'codex-message ai';
+                
+                // Check if message contains code blocks
+                const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
+                let formattedText = escapeHtml(text);
+                formattedText = formattedText.replace(codeBlockRegex, (match, lang, code) => {
+                    return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
+                });
+
+                messageDiv.innerHTML = `
+                    <div class="codex-message-avatar">
+                        <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                    </div>
+                    <div class="codex-message-content">
+                        <div>${formattedText.replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+                chatMessages.appendChild(messageDiv);
+                if (window.lucide) lucide.createIcons();
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function addLoadingMessage() {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'codex-message ai';
+                messageDiv.id = 'loading-message';
+                messageDiv.innerHTML = `
+                    <div class="codex-message-avatar">
+                        <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+                    </div>
+                    <div class="codex-message-content">
+                        <div class="codex-loading">
+                            <div class="codex-loading-spinner"></div>
+                            <span>Thinking...</span>
+                        </div>
+                    </div>
+                `;
+                chatMessages.appendChild(messageDiv);
+                if (window.lucide) lucide.createIcons();
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return 'loading-message';
+            }
+
+            function removeLoadingMessage(id) {
+                const loadingMsg = document.getElementById(id);
+                if (loadingMsg) {
+                    loadingMsg.remove();
+                }
+            }
+
+            function addErrorMessage(text) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'codex-error';
+                errorDiv.textContent = text;
+                chatMessages.appendChild(errorDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        });
+    </script>
+</body>
+</html>

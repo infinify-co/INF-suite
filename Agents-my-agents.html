@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Agents - INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="agents-config.js"></script>
+    <script src="agents-service.js"></script>
+    <style>
+        .agents-container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .agents-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .agents-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .agents-header p {
+            font-size: 16px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .create-btn {
+            background: #0ea5e9;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .create-btn:hover {
+            background: #0284c7;
+        }
+
+        #agents-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        #empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            display: none;
+        }
+
+        .empty-icon {
+            width: 64px;
+            height: 64px;
+            background: #f0f9ff;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0 0 24px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="agents-container">
+        <div class="agents-header">
+            <div>
+                <h1>My Agents</h1>
+                <p>View and manage your personal AI agents</p>
+            </div>
+            <button class="create-btn" id="create-agent-btn">
+                <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                Create Agent
+            </button>
+        </div>
+
+        <div id="agents-list"></div>
+        
+        <div id="empty-state" class="empty-state">
+            <div class="empty-icon">
+                <i data-lucide="bot" style="width: 32px; height: 32px; color: #0ea5e9;"></i>
+            </div>
+            <h3>No agents yet</h3>
+            <p>Create your first AI agent to get started</p>
+            <button class="create-btn" onclick="document.getElementById('create-agent-btn').click()">
+                Create Agent
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.lucide) lucide.createIcons();
+            
+            // Load agents on page load
+            if (window.agentsService) {
+                await window.agentsService.loadAgents();
+            }
+            
+            // Create agent button handler
+            document.getElementById('create-agent-btn')?.addEventListener('click', () => {
+                window.agentsService?.showCreateModal();
+            });
+        });
+    </script>
+</body>
+</html>
+

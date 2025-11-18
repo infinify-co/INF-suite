@@ -2657,6 +2657,17 @@ body {
     box-shadow: 0 18px 44px rgba(37, 99, 235, 0.35), 0 6px 16px rgba(37, 99, 235, 0.25);
 }
 
+.dock-item.active img {
+    border: 3px solid #2563eb;
+    background: #ffffff;
+    padding: 0;
+    box-sizing: content-box;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
 .dock-item i { 
     color: currentColor; 
     font-size: 20px;             /* scale icon back to match 48px items */
@@ -3930,6 +3941,82 @@ body[class*="dashboard-page"]:not(:has([data-page="dashboard"])) .productivity-p
     padding: 0;
 }
 
+/* Marketplace Logo Squares Grid */
+.marketplace-logos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 24px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.marketplace-logo-square {
+    aspect-ratio: 1;
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 12px -4px rgba(15, 23, 42, 0.2);
+}
+
+.marketplace-logo-square:hover {
+    transform: translateY(-4px);
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 12px 24px -8px rgba(30, 64, 175, 0.3);
+}
+
+.marketplace-logo-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f172a;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 8px 16px -8px rgba(15, 23, 42, 0.4);
+}
+
+.marketplace-logo-icon i {
+    width: 32px;
+    height: 32px;
+}
+
+/* Marketplace Logo Icon Variants */
+.marketplace-logo-icon.is-analytics {
+    background: linear-gradient(140deg, #6366f1, #8b5cf6);
+    color: #f8fafc;
+}
+
+.marketplace-logo-icon.is-prompt {
+    background: linear-gradient(140deg, #f97316, #facc15);
+    color: #1f2937;
+}
+
+.marketplace-logo-icon.is-forecast {
+    background: linear-gradient(140deg, #0ea5e9, #6366f1);
+    color: #f8fafc;
+}
+
+.marketplace-logo-icon.is-support {
+    background: linear-gradient(140deg, #14b8a6, #2dd4bf);
+    color: #022c22;
+}
+
+.marketplace-logo-icon.is-compliance {
+    background: linear-gradient(140deg, #4ade80, #22c55e);
+    color: #14532d;
+}
+
+.marketplace-logo-icon.is-automation {
+    background: linear-gradient(140deg, #f472b6, #22d3ee);
+    color: #0f172a;
+}
+
 .marketplace-section-header {
     grid-column: 1 / -1;
     display: flex;
@@ -4268,6 +4355,12 @@ body[class*="dashboard-page"]:not(:has([data-page="dashboard"])) .productivity-p
         width: 100%;
         min-width: 0;
     }
+
+    .marketplace-logos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
 }
 
 /* Marketplace Icon Variants */
@@ -4316,6 +4409,22 @@ body[class*="dashboard-page"]:not(:has([data-page="dashboard"])) .productivity-p
     .marketplace-card-icon {
         width: 64px;
         height: 64px;
+    }
+
+    .marketplace-logos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .marketplace-logo-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .marketplace-logo-icon i {
+        width: 24px;
+        height: 24px;
     }
 }
 

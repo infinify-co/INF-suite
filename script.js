@@ -418,12 +418,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = searchForm.querySelector('.search-input');
     const routes = [
         { label: 'Dashboard', keywords: ['suite','home','dashboard'], url: 'dashboard.html' },
-        { label: 'Teams', keywords: ['team','users','members'], url: 'teams.html' },
+        { label: 'Work', keywords: ['work','team','users','members'], url: 'work.html' },
         { label: 'Financials', keywords: ['finance','financials','budgets'], url: 'financial.html' },
         { label: 'Agents', keywords: ['ops','operations'], url: 'Agents.html' },
         { label: 'Apps', keywords: ['apps','applications'], url: 'apps.html' },
         { label: 'Database', keywords: ['database','data','explore','discover','search'], url: 'Database.html' },
-        { label: 'Social Assets', keywords: ['social','assets','media','analytics'], url: 'social-assets.html' },
+        { label: 'Online Assets', keywords: ['online','assets','media','analytics'], url: 'Online-assets.html' },
         { label: 'Filebase', keywords: ['organise','organize','docs','documents','files'], url: 'Filebase.html' },
         { label: 'Marketplace', keywords: ['marketplace','store','settings','shop'], url: 'settings.html' }
     ];

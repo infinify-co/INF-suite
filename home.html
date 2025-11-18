@@ -183,6 +183,165 @@
         .front-tile-container::-webkit-scrollbar {
             display: none;
         }
+
+        /* Content Creation Cards */
+        .content-creation-section {
+            padding: 60px 40px 40px;
+        }
+
+        .creation-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .creation-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .creation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .creation-card-gradient {
+            height: 180px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .creation-card-gradient.blue {
+            background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+        }
+
+        .creation-card-gradient.green {
+            background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+        }
+
+        .creation-card-gradient.purple {
+            background: linear-gradient(180deg, #a78bfa 0%, #8b5cf6 100%);
+        }
+
+        .creation-card-graphic {
+            width: 80%;
+            height: 60px;
+            opacity: 0.3;
+        }
+
+        .creation-card-graphic.whiteboard {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .creation-card-graphic.whiteboard .line {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 6px;
+        }
+
+        .creation-card-graphic.document {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .creation-card-graphic.document .line {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 6px;
+        }
+
+        .creation-card-graphic.template {
+            display: flex;
+            gap: 8px;
+        }
+
+        .creation-card-graphic.template .grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+
+        .creation-card-graphic.template .grid-item {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 4px;
+            height: 30px;
+        }
+
+        .creation-card-graphic.template .space {
+            flex: 2;
+        }
+
+        .creation-card-content {
+            padding: 20px;
+        }
+
+        .creation-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .creation-card-icon {
+            width: 20px;
+            height: 20px;
+            color: #8b5cf6;
+        }
+
+        .creation-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .creation-card-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0 40px 40px;
+        }
+
+        .category-filter-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: #ffffff;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-filter-btn:hover {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .category-filter-btn.active {
+            background: #8b5cf6;
+            color: #ffffff;
+        }
     </style>
 </head>
 <body class="dashboard-page">
@@ -197,7 +356,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="teams.html" class="nav-link">Teams</a></li>
+                <li><a href="work.html" class="nav-link">Work</a></li>
                 <li><a href="financial.html" class="nav-link">Financials</a></li>
                 <li><a href="dashboard.html#about" class="nav-link">About</a></li>
                 <li><a href="dashboard.html#contact" class="nav-link">Contact</a></li>
@@ -236,37 +395,41 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
+            <div class="dock-item" onclick="window.location.href='Operation.html'">
+                <i data-lucide="hard-hat"></i>
+                <span class="dock-label">Operation</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Teams</span>
+            </div>
             <div class="dock-item" onclick="window.location.href='Agents.html'">
                 <i data-lucide="cpu"></i>
                 <span class="dock-label">Agents</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='teams.html'">
-                <i data-lucide="users"></i>
-                <span class="dock-label">Teams</span>
+            <div class="dock-item" onclick="window.location.href='Kreative.html'">
+                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Account</span>
             </div>
             <div class="dock-item" onclick="window.location.href='chats.html'">
                 <i data-lucide="message-circle-plus"></i>
                 <span class="dock-label">Chats</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Marketplace.html'">
-                <i data-lucide="store"></i>
+            <div class="dock-item" onclick="window.location.href='Apps.html'">
+                <i data-lucide="squares-exclude"></i>
                 <span class="dock-label">Marketplace</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='my-apps.html'">
-                <i data-lucide="grid-3x3"></i>
-                <span class="dock-label">My apps</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Leads-marketing.html'">
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
                 <i data-lucide="focus"></i>
-                <span class="dock-label">Leads &amp; Marketing</span>
+                <span class="dock-label">Campaigns</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Database.html'">
                 <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='social-assets.html'">
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
                 <i data-lucide="container"></i>
-                <span class="dock-label">Social assets</span>
+                <span class="dock-label">Online assets</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Filebase.html'">
                 <i data-lucide="files"></i>
@@ -275,10 +438,6 @@
             <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='CreatePro.html'">
-                <i data-lucide="image-upscale"></i>
-                <span class="dock-label">Account</span>
             </div>
         </div>
     </div>
@@ -349,7 +508,80 @@
                 </div>
             </div>
             <div class="top-left-heading">Home</div>
-            <!-- Page Header removed per request -->
+            <!-- Content Creation Section -->
+            <div class="content-creation-section">
+                <div class="creation-cards">
+                    <!-- Blank Whiteboard Card -->
+                    <div class="creation-card">
+                        <div class="creation-card-gradient blue">
+                            <div class="creation-card-graphic whiteboard">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div class="creation-card-content">
+                            <div class="creation-card-header">
+                                <i data-lucide="layout-grid" class="creation-card-icon"></i>
+                                <h3 class="creation-card-title">Blank Whiteboard</h3>
+                            </div>
+                            <p class="creation-card-description">Start with a blank canvas</p>
+                        </div>
+                    </div>
+
+                    <!-- Blank Document Card -->
+                    <div class="creation-card">
+                        <div class="creation-card-gradient green">
+                            <div class="creation-card-graphic document">
+                                <div class="line"></div>
+                                <div class="line"></div>
+                            </div>
+                        </div>
+                        <div class="creation-card-content">
+                            <div class="creation-card-header">
+                                <i data-lucide="file-plus" class="creation-card-icon"></i>
+                                <h3 class="creation-card-title">Blank Document</h3>
+                            </div>
+                            <p class="creation-card-description">Start from scratch</p>
+                        </div>
+                    </div>
+
+                    <!-- Template Card -->
+                    <div class="creation-card">
+                        <div class="creation-card-gradient purple">
+                            <div class="creation-card-graphic template">
+                                <div class="grid">
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item"></div>
+                                    <div class="grid-item"></div>
+                                </div>
+                                <div class="space"></div>
+                            </div>
+                        </div>
+                        <div class="creation-card-content">
+                            <div class="creation-card-header">
+                                <i data-lucide="layout-template" class="creation-card-icon"></i>
+                                <h3 class="creation-card-title">Template</h3>
+                            </div>
+                            <p class="creation-card-description">Choose a template</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="category-filter-btn active">All</button>
+                    <button class="category-filter-btn">Whiteboards</button>
+                    <button class="category-filter-btn">Conversations</button>
+                    <button class="category-filter-btn">Messages</button>
+                    <button class="category-filter-btn">Articles</button>
+                    <button class="category-filter-btn">Projects</button>
+                    <button class="category-filter-btn">Health</button>
+                    <button class="category-filter-btn">Plans</button>
+                    <button class="category-filter-btn">Work</button>
+                    <button class="category-filter-btn">Blocks</button>
+                </div>
+            </div>
             </div>
         </div>
         <!-- Circle in bottom right corner -->
@@ -363,6 +595,14 @@
             // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
 
+            // Category filter functionality
+            const filterButtons = document.querySelectorAll('.category-filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
         });
     </script>
 </body>

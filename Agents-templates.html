@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates - Types of AI Agents</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .templates-container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .templates-header {
+            margin-bottom: 48px;
+        }
+
+        .templates-header h1 {
+            font-size: 40px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .templates-header p {
+            font-size: 18px;
+            color: #64748b;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .templates-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        .template-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .template-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .template-card.highlighted {
+            border-color: #3b82f6;
+        }
+
+        .template-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: #1e293b;
+        }
+
+        .template-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke-width: 1.5;
+        }
+
+        .template-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .template-meta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .template-meta svg {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2;
+        }
+
+        .template-price {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .template-price-amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .template-price-unit {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .template-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            margin-top: 4px;
+        }
+
+        .template-arrow svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.5;
+        }
+
+        .template-category {
+            margin-bottom: 48px;
+        }
+
+        .template-category-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 24px 0;
+            letter-spacing: -0.01em;
+        }
+
+        @media (max-width: 768px) {
+            .templates-container {
+                padding: 24px;
+            }
+
+            .templates-header h1 {
+                font-size: 32px;
+            }
+
+            .templates-grid {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="templates-container">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+
+        function selectTemplate(templateId) {
+            // Navigate to create agent page with template pre-selected
+            // This can be customized based on your routing needs
+            if (window.agentsService) {
+                window.agentsService.showCreateModal(templateId);
+            } else {
+                // Fallback: navigate to create page
+                const createNav = document.querySelector('[data-nav="create"]');
+                if (createNav) {
+                    createNav.click();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

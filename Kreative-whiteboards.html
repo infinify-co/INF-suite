@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteboards - Kreative | INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .back-tile {
+            position: absolute;
+            top: 0;
+            left: 260px;
+            bottom: 0;
+            width: 230px;
+            background: #ffffff;
+            z-index: 998;
+            border-radius: 20px 0 0 20px;
+            overflow: visible;
+        }
+        .secondary-sidebar {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            transform: translateX(-250px);
+        }
+        .secondary-sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .secondary-sidebar-brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: #000000;
+            letter-spacing: -0.02em;
+        }
+        .secondary-sidebar-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .secondary-sidebar-icon svg {
+            color: #6b7280;
+        }
+        .secondary-sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+        .secondary-nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+            text-decoration: none;
+        }
+        .secondary-nav-back:hover {
+            color: #000000;
+            background-color: #f9fafb;
+        }
+        .secondary-nav-list {
+            margin-top: 8px;
+        }
+        .secondary-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-radius 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+            text-decoration: none;
+        }
+        .secondary-nav-item:hover {
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+        .secondary-nav-item.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+        .secondary-sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .secondary-sidebar-footer svg {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .secondary-sidebar-footer svg:hover {
+            color: #000000;
+        }
+        .front-tile {
+            left: 270px;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#">
+                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+                <div class="nav-logo-line"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="Kreative.html" class="nav-link active">Kreative</a></li>
+            </ul>
+            <div class="nav-search">
+                <form id="navSearchForm">
+                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
+                    <button class="search-btn" type="submit" title="Search">
+                        <i data-lucide="search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="vertical-dock">
+        <div class="dock-logo">
+            <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
+        </div>
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Operation.html'">
+                <i data-lucide="hard-hat"></i>
+                <span class="dock-label">Operation</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Team's</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <i data-lucide="cpu"></i>
+                <span class="dock-label">Agents</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='Kreative.html'">
+                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Account</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='chats.html'">
+                <i data-lucide="message-circle-plus"></i>
+                <span class="dock-label">Chats</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Apps.html'">
+                <i data-lucide="squares-exclude"></i>
+                <span class="dock-label">Marketplace</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+                <i data-lucide="focus"></i>
+                <span class="dock-label">Campaigns</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Database.html'">
+                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Data</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+                <i data-lucide="container"></i>
+                <span class="dock-label">Online assets</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <i data-lucide="files"></i>
+                <span class="dock-label">Filebase</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='financial.html'">
+                <i data-lucide="landmark"></i>
+                <span class="dock-label">Financials</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+        </div>
+        
+        <div class="back-tile">
+            <div class="secondary-sidebar">
+                <div class="secondary-sidebar-header">
+                    <div class="secondary-sidebar-brand">Kreative</div>
+                    <div class="secondary-sidebar-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-nav">
+                    <div class="secondary-nav-list">
+                        <a href="Kreative/home.html" class="secondary-nav-back">
+                            <span>Home</span>
+                        </a>
+                        <a href="Kreative-my-projects.html" class="secondary-nav-item">
+                            <span>My Projects</span>
+                        </a>
+                        <a href="Kreative-templates.html" class="secondary-nav-item">
+                            <span>Templates</span>
+                        </a>
+                        <a href="Kreative-whiteboards.html" class="secondary-nav-item active">
+                            <span>Whiteboards</span>
+                        </a>
+                        <a href="Kreative-documents.html" class="secondary-nav-item">
+                            <span>Documents</span>
+                        </a>
+                        <a href="Kreative-recent.html" class="secondary-nav-item">
+                            <span>Recent</span>
+                        </a>
+                        <a href="Kreative-shared.html" class="secondary-nav-item">
+                            <span>Shared</span>
+                        </a>
+                        <a href="Kreative/basic.html" class="secondary-nav-item">
+                            <span>Basic</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-footer">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <div class="front-tile">
+            <div class="front-tile-container">
+            <div class="top-right-bar inside-tile">
+                <div class="top-right-actions">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                        <i data-lucide="grid"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                        <i data-lucide="user-circle"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="top-left-heading">Whiteboards</div>
+            </div>
+        </div>
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
+            dockItems.forEach(item => {
+                const label = item.querySelector('.dock-label');
+                if (label) {
+                    item.addEventListener('mouseenter', () => {
+                        const rect = item.getBoundingClientRect();
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`;
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

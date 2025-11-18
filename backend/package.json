@@ -16,15 +16,16 @@
   "author": "Infinify Team",
   "license": "MIT",
   "dependencies": {
-    "pg": "^8.11.3",
-    "bcrypt": "^5.1.1",
-    "jsonwebtoken": "^9.0.2",
+    "@aws-sdk/client-rds": "^3.490.0",
     "@aws-sdk/client-s3": "^3.490.0",
     "@aws-sdk/client-ses": "^3.490.0",
-    "@aws-sdk/client-rds": "^3.490.0"
+    "aws-sdk": "^2.1692.0",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "openai": "^6.9.1",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
   }
 }
-
