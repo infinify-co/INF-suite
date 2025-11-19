@@ -421,8 +421,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { label: 'Work', keywords: ['work','team','users','members'], url: 'work.html' },
         { label: 'Financials', keywords: ['finance','financials','budgets'], url: 'financial.html' },
         { label: 'Agents', keywords: ['ops','operations'], url: 'Agents.html' },
-        { label: 'Apps', keywords: ['apps','applications'], url: 'apps.html' },
-        { label: 'Database', keywords: ['database','data','explore','discover','search'], url: 'Database.html' },
+        { label: 'Devra', keywords: ['devra','apps','applications'], url: 'Devra.html' },
+        { label: 'Database', keywords: ['database','data','explore','discover','search'], url: 'Oceanbase.html' },
         { label: 'Online Assets', keywords: ['online','assets','media','analytics'], url: 'Online-assets.html' },
         { label: 'Filebase', keywords: ['organise','organize','docs','documents','files'], url: 'Filebase.html' },
         { label: 'Marketplace', keywords: ['marketplace','store','settings','shop'], url: 'settings.html' }

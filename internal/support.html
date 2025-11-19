@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - Internal Suite</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .internal-sidebar {
+            width: 280px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            padding: 32px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 24px 32px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .sidebar-header p {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .sidebar-nav {
+            padding: 0 16px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 4px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-item:hover {
+            background: #f9fafb;
+        }
+
+        .sidebar-item.active {
+            background: #eff6ff;
+        }
+
+        .sidebar-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-item-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .sidebar-item.active .sidebar-item-text {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .internal-container {
+            flex: 1;
+            margin-left: 280px;
+            max-width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 8px 0;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .tickets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .ticket-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+        }
+
+        .ticket-id {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .ticket-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .ticket-description {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .ticket-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ticket-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .ticket-meta-item i {
+            width: 16px;
+            height: 16px;
+            color: #9ca3af;
+        }
+
+        .ticket-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .ticket-status {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .ticket-status.open {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .ticket-status.in-progress {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .ticket-status.resolved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .ticket-status.closed {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .ticket-priority {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ticket-priority.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .ticket-priority.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .ticket-priority.low {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .ticket-date {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 12px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="internal-sidebar">
+        <div class="sidebar-header">
+            <h2>INFINIFY</h2>
+            <p>Internal Suite</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="home" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Home</span>
+            </a>
+            <a href="workspace.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="message-square" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Workspace</span>
+            </a>
+            <a href="clientportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="briefcase" style="width: 20px; height: 20px; color: #d97706;"></i>
+                </div>
+                <span class="sidebar-item-text">Client Portal</span>
+            </a>
+            <a href="salesportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="dollar-sign" style="width: 20px; height: 20px; color: #059669;"></i>
+                </div>
+                <span class="sidebar-item-text">Sales Portal</span>
+            </a>
+            <a href="teams.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="users" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Teams</span>
+            </a>
+            <a href="support.html" class="sidebar-item active">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="life-buoy" style="width: 20px; height: 20px; color: #db2777;"></i>
+                </div>
+                <span class="sidebar-item-text">Support</span>
+            </a>
+            <a href="agents.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="cpu" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Agents</span>
+            </a>
+            <a href="impersonation.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="user-check" style="width: 20px; height: 20px; color: #dc2626;"></i>
+                </div>
+                <span class="sidebar-item-text">Impersonation</span>
+            </a>
+            <a href="tasks.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="check-square" style="width: 20px; height: 20px; color: #0891b2;"></i>
+                </div>
+                <span class="sidebar-item-text">Tasks</span>
+            </a>
+            <a href="toolcentre.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="wrench" style="width: 20px; height: 20px; color: #ea580c;"></i>
+                </div>
+                <span class="sidebar-item-text">Tool Centre</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="internal-container">
+        <div class="page-header">
+            <h1>Support Tickets</h1>
+            <p>Manage and track user support requests</p>
+        </div>
+
+        <div class="tickets-grid">
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-001</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">Unable to access dashboard after login</h3>
+                </div>
+                <p class="ticket-description">
+                    User reports being redirected to a blank page after successful authentication. Issue started occurring after the latest update.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>John Smith</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>john.smith@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Technical Issue</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status open">Open</span>
+                    <span class="ticket-priority high">High</span>
+                </div>
+                <div class="ticket-date">Created 2 hours ago</div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-002</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">Feature request: Export data to CSV</h3>
+                </div>
+                <p class="ticket-description">
+                    Client would like the ability to export their analytics data to CSV format for external analysis. This would improve their workflow significantly.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>Sarah Johnson</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>sarah.j@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Feature Request</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status in-progress">In Progress</span>
+                    <span class="ticket-priority medium">Medium</span>
+                </div>
+                <div class="ticket-date">Created 1 day ago</div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-003</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">Password reset email not received</h3>
+                </div>
+                <p class="ticket-description">
+                    User attempted to reset password but did not receive the email. Checked spam folder and waited 24 hours. Email delivery may be blocked.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>Michael Chen</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>m.chen@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Account Issue</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status resolved">Resolved</span>
+                    <span class="ticket-priority high">High</span>
+                </div>
+                <div class="ticket-date">Resolved 3 hours ago</div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-004</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">Billing question about subscription plan</h3>
+                </div>
+                <p class="ticket-description">
+                    Customer has questions about their current subscription tier and wants to understand the differences between plans before upgrading.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>Emily Davis</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>emily.davis@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Billing</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status open">Open</span>
+                    <span class="ticket-priority low">Low</span>
+                </div>
+                <div class="ticket-date">Created 4 hours ago</div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-005</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">API integration documentation needed</h3>
+                </div>
+                <p class="ticket-description">
+                    Developer needs comprehensive API documentation for integrating our service with their custom application. Looking for authentication examples.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>David Wilson</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>d.wilson@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Documentation</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status in-progress">In Progress</span>
+                    <span class="ticket-priority medium">Medium</span>
+                </div>
+                <div class="ticket-date">Created 2 days ago</div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-006</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">Mobile app crashes on iOS 17</h3>
+                </div>
+                <p class="ticket-description">
+                    Application crashes immediately upon launch on iPhone running iOS 17.2. Works fine on Android and older iOS versions. Needs urgent attention.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>Lisa Anderson</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>lisa.a@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Bug Report</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status open">Open</span>
+                    <span class="ticket-priority high">High</span>
+                </div>
+                <div class="ticket-date">Created 5 hours ago</div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-007</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">Request for custom branding options</h3>
+                </div>
+                <p class="ticket-description">
+                    Enterprise client wants to customize the interface with their company logo and brand colors. This is a premium feature request.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>Robert Taylor</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>robert.t@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Customization</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status closed">Closed</span>
+                    <span class="ticket-priority low">Low</span>
+                </div>
+                <div class="ticket-date">Closed 1 week ago</div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-id">#TKT-2024-008</div>
+                <div class="ticket-header">
+                    <h3 class="ticket-title">Performance issues with large datasets</h3>
+                </div>
+                <p class="ticket-description">
+                    System becomes slow when loading reports with more than 10,000 records. Requesting optimization for better performance with large data volumes.
+                </p>
+                <div class="ticket-meta">
+                    <div class="ticket-meta-item">
+                        <i data-lucide="user"></i>
+                        <span>Jennifer Martinez</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="mail"></i>
+                        <span>j.martinez@example.com</span>
+                    </div>
+                    <div class="ticket-meta-item">
+                        <i data-lucide="tag"></i>
+                        <span>Performance</span>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <span class="ticket-status in-progress">In Progress</span>
+                    <span class="ticket-priority high">High</span>
+                </div>
+                <div class="ticket-date">Created 3 days ago</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
+

@@ -9,22 +9,6 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body class="dashboard-page">
-    <!-- Top Right Bar -->
-    <div class="top-right-bar">
-        <div class="top-bar-search">
-            <i data-lucide="search" class="search-icon"></i>
-            <input type="search" placeholder="Search" class="top-bar-search-input" />
-        </div>
-        <div class="top-bar-icons">
-            <button class="top-bar-icon-btn" title="Notifications">
-                <i data-lucide="bell"></i>
-            </button>
-        </div>
-        <div class="top-bar-profile">
-            <img src="https://ui-avatars.com/api/?name=User&background=9f7aea&color=fff" alt="Profile" class="profile-picture">
-        </div>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -88,19 +72,15 @@
                 <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <div class="new-nametag">Account</div>
             </div>
-            <div class="dock-item active" onclick="window.location.href='chats.html'">
-                <i data-lucide="message-circle-plus"></i>
-                <div class="new-nametag">Chats</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Apps.html'">
+            <div class="dock-item" onclick="window.location.href='Devra.html'">
                 <i data-lucide="squares-exclude"></i>
-                <div class="new-nametag">Marketplace</div>
+                <div class="new-nametag">Devra</div>
             </div>
             <div class="dock-item" onclick="window.location.href='campaigns.html'">
                 <i data-lucide="focus"></i>
                 <div class="new-nametag">Campaigns</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Database.html'">
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
                 <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <div class="new-nametag">Data</div>
             </div>
@@ -109,12 +89,16 @@
                 <div class="new-nametag">Online assets</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Filebase.html'">
-                <i data-lucide="files"></i>
+                <i data-lucide="folder-tree"></i>
                 <div class="new-nametag">Filebase</div>
             </div>
             <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
                 <div class="new-nametag">Financials</div>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='chats.html'">
+                <i data-lucide="message-circle-more"></i>
+                <div class="new-nametag">Chats</div>
             </div>
         </div>
     </div>
@@ -226,10 +210,6 @@
             <div class="front-tile-container">
                 <!-- Content for the front tile -->
             </div>
-        </div>
-        <!-- Circle in bottom right corner -->
-        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
-            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
 

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Centre - Internal Suite</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .internal-sidebar {
+            width: 280px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            padding: 32px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 24px 32px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .sidebar-header p {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .sidebar-nav {
+            padding: 0 16px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 4px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-item:hover {
+            background: #f9fafb;
+        }
+
+        .sidebar-item.active {
+            background: #eff6ff;
+        }
+
+        .sidebar-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-item-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .sidebar-item.active .sidebar-item-text {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .internal-container {
+            flex: 1;
+            margin-left: 280px;
+            max-width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 8px 0;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .tool-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .tool-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            background: #f3f4f6;
+        }
+
+        .tool-card-icon i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .tool-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 8px 0;
+        }
+
+        .tool-card-description {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="internal-sidebar">
+        <div class="sidebar-header">
+            <h2>INFINIFY</h2>
+            <p>Internal Suite</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="home" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Home</span>
+            </a>
+            <a href="workspace.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="message-square" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Workspace</span>
+            </a>
+            <a href="clientportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="briefcase" style="width: 20px; height: 20px; color: #d97706;"></i>
+                </div>
+                <span class="sidebar-item-text">Client Portal</span>
+            </a>
+            <a href="salesportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="dollar-sign" style="width: 20px; height: 20px; color: #059669;"></i>
+                </div>
+                <span class="sidebar-item-text">Sales Portal</span>
+            </a>
+            <a href="teams.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="users" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Teams</span>
+            </a>
+            <a href="support.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="life-buoy" style="width: 20px; height: 20px; color: #db2777;"></i>
+                </div>
+                <span class="sidebar-item-text">Support</span>
+            </a>
+            <a href="agents.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="cpu" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Agents</span>
+            </a>
+            <a href="impersonation.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="user-check" style="width: 20px; height: 20px; color: #dc2626;"></i>
+                </div>
+                <span class="sidebar-item-text">Impersonation</span>
+            </a>
+            <a href="tasks.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="check-square" style="width: 20px; height: 20px; color: #0891b2;"></i>
+                </div>
+                <span class="sidebar-item-text">Tasks</span>
+            </a>
+            <a href="toolcentre.html" class="sidebar-item active">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="wrench" style="width: 20px; height: 20px; color: #ea580c;"></i>
+                </div>
+                <span class="sidebar-item-text">Tool Centre</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="internal-container">
+        <div class="page-header">
+            <h1>Tool Centre</h1>
+            <p>Access internal tools and utilities</p>
+        </div>
+
+        <div class="tools-grid">
+            <a href="blog.html" class="tool-card">
+                <div class="tool-card-icon" style="background: #eff6ff;">
+                    <i data-lucide="file-text" style="width: 24px; height: 24px; color: #2563eb;"></i>
+                </div>
+                <h3 class="tool-card-title">Blog</h3>
+                <p class="tool-card-description">Create and manage blog posts and content</p>
+            </a>
+
+            <a href="settings.html" class="tool-card">
+                <div class="tool-card-icon" style="background: #fef3c7;">
+                    <i data-lucide="settings" style="width: 24px; height: 24px; color: #d97706;"></i>
+                </div>
+                <h3 class="tool-card-title">Settings</h3>
+                <p class="tool-card-description">Configure system settings and preferences</p>
+            </a>
+
+            <a href="database.html" class="tool-card">
+                <div class="tool-card-icon" style="background: #d1fae5;">
+                    <i data-lucide="database" style="width: 24px; height: 24px; color: #059669;"></i>
+                </div>
+                <h3 class="tool-card-title">Database</h3>
+                <p class="tool-card-description">Manage database connections and queries</p>
+            </a>
+
+            <a href="apikeys.html" class="tool-card">
+                <div class="tool-card-icon" style="background: #e0e7ff;">
+                    <i data-lucide="key" style="width: 24px; height: 24px; color: #6366f1;"></i>
+                </div>
+                <h3 class="tool-card-title">API Keys</h3>
+                <p class="tool-card-description">Manage API keys and authentication</p>
+            </a>
+
+            <a href="analytics.html" class="tool-card">
+                <div class="tool-card-icon" style="background: #fce7f3;">
+                    <i data-lucide="bar-chart" style="width: 24px; height: 24px; color: #db2777;"></i>
+                </div>
+                <h3 class="tool-card-title">Analytics</h3>
+                <p class="tool-card-description">View system analytics and metrics</p>
+            </a>
+
+            <a href="security.html" class="tool-card">
+                <div class="tool-card-icon" style="background: #fef3c7;">
+                    <i data-lucide="shield" style="width: 24px; height: 24px; color: #d97706;"></i>
+                </div>
+                <h3 class="tool-card-title">Security</h3>
+                <p class="tool-card-description">Security settings and audit logs</p>
+            </a>
+
+            <a href="mockupdesigns.html" class="tool-card">
+                <div class="tool-card-icon" style="background: #fce7f3;">
+                    <i data-lucide="layout" style="width: 24px; height: 24px; color: #db2777;"></i>
+                </div>
+                <h3 class="tool-card-title">Mock up Design's</h3>
+                <p class="tool-card-description">Create and manage design mockups</p>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
+

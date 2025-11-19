@@ -48,7 +48,7 @@ class SharingService {
 
       // Generate share link if public
       if (!email && shareToken) {
-        const shareLink = `${window.location.origin}/Database.html?share=${shareToken}`;
+        const shareLink = `${window.location.origin}/Oceanbase.html?share=${shareToken}`;
         return { data, shareLink, error: null };
       }
 
@@ -355,7 +355,7 @@ class SharingService {
             <div class="share-type">${share.share_token ? '🔗 Public Link' : '📧 Email Invite'}</div>
             <div class="share-permission">${share.permission}</div>
             ${share.share_token ? `
-              <div class="share-link">${window.location.origin}/Database.html?share=${share.share_token}</div>
+              <div class="share-link">${window.location.origin}/Oceanbase.html?share=${share.share_token}</div>
             ` : ''}
           </div>
           <button class="btn-danger btn-small" onclick="sharingService.revokeShare('${share.id}')">
@@ -403,7 +403,7 @@ class SharingService {
       
       if (error || !data) {
         alert('Invalid or expired share link');
-        window.location.href = 'Database.html';
+        window.location.href = 'Oceanbase.html';
         return;
       }
 

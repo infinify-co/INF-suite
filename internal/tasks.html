@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - Internal Suite</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .internal-sidebar {
+            width: 280px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            padding: 32px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 24px 32px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .sidebar-header p {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .sidebar-nav {
+            padding: 0 16px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 4px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-item:hover {
+            background: #f9fafb;
+        }
+
+        .sidebar-item.active {
+            background: #eff6ff;
+        }
+
+        .sidebar-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-item-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .sidebar-item.active .sidebar-item-text {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .internal-container {
+            flex: 1;
+            margin-left: 280px;
+            max-width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .page-header-content {
+            flex: 1;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 8px 0;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-plus {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+        }
+
+        .btn-plus:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-plus-rainbow i {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-plus-normal {
+            background: #2563eb;
+        }
+
+        .btn-plus-normal i {
+            width: 24px;
+            height: 24px;
+            color: #ffffff;
+        }
+
+        .agent-tasks-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .agent-tasks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .agent-tasks-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .agent-tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .agent-task-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .agent-task-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .agent-task-info {
+            flex: 1;
+        }
+
+        .agent-task-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .agent-task-desc {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .agent-task-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon-small {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon-small:hover {
+            background: #f3f4f6;
+        }
+
+        .sticky-notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .sticky-note {
+            background: #fef9c3;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-height: 200px;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .sticky-note:nth-child(3n) {
+            background: #fce7f3;
+        }
+
+        .sticky-note:nth-child(3n+1) {
+            background: #dbeafe;
+        }
+
+        .sticky-note:nth-child(3n+2) {
+            background: #d1fae5;
+        }
+
+        .sticky-note:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        .sticky-note-content {
+            font-size: 14px;
+            color: #111827;
+            line-height: 1.6;
+            word-wrap: break-word;
+            margin-bottom: 12px;
+        }
+
+        .sticky-note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .sticky-note-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .sticky-note-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .sticky-note-action {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sticky-note-action:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .sticky-note-action i {
+            width: 14px;
+            height: 14px;
+            color: #6b7280;
+        }
+
+        .task-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .task-modal.active {
+            display: flex;
+        }
+
+        .task-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 32px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .task-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .task-card-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .task-card-close {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .task-card-close:hover {
+            background: #f3f4f6;
+        }
+
+        .task-card-close i {
+            width: 20px;
+            height: 20px;
+            color: #6b7280;
+        }
+
+        .task-form-group {
+            margin-bottom: 20px;
+        }
+
+        .task-form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .task-form-label.required::after {
+            content: ' *';
+            color: #dc2626;
+        }
+
+        .task-form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        .task-form-input:focus {
+            border-color: #2563eb;
+        }
+
+        .task-form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            box-sizing: border-box;
+        }
+
+        .task-form-textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .task-mode-selection {
+            display: flex;
+            gap: 12px;
+        }
+
+        .task-mode-option {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .task-mode-option:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .task-mode-option.selected {
+            border-color: #2563eb;
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .task-card-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .task-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .task-btn-cancel {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .task-btn-cancel:hover {
+            background: #e5e7eb;
+        }
+
+        .task-btn-submit {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .task-btn-submit:hover {
+            background: #1d4ed8;
+        }
+
+        .delete-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-modal.active {
+            display: flex;
+        }
+
+        .delete-confirm-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 32px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .delete-confirm-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 16px 0;
+        }
+
+        .delete-confirm-message {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0 0 24px 0;
+        }
+
+        .delete-confirm-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .delete-btn {
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .delete-btn-no {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .delete-btn-no:hover {
+            background: #e5e7eb;
+        }
+
+        .delete-btn-yes {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .delete-btn-yes:hover {
+            background: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="internal-sidebar">
+        <div class="sidebar-header">
+            <h2>INFINIFY</h2>
+            <p>Internal Suite</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="home" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Home</span>
+            </a>
+            <a href="workspace.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="message-square" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Workspace</span>
+            </a>
+            <a href="clientportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="briefcase" style="width: 20px; height: 20px; color: #d97706;"></i>
+                </div>
+                <span class="sidebar-item-text">Client Portal</span>
+            </a>
+            <a href="salesportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="dollar-sign" style="width: 20px; height: 20px; color: #059669;"></i>
+                </div>
+                <span class="sidebar-item-text">Sales Portal</span>
+            </a>
+            <a href="teams.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="users" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Teams</span>
+            </a>
+            <a href="support.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="life-buoy" style="width: 20px; height: 20px; color: #db2777;"></i>
+                </div>
+                <span class="sidebar-item-text">Support</span>
+            </a>
+            <a href="agents.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="cpu" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Agents</span>
+            </a>
+            <a href="impersonation.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="user-check" style="width: 20px; height: 20px; color: #dc2626;"></i>
+                </div>
+                <span class="sidebar-item-text">Impersonation</span>
+            </a>
+            <a href="tasks.html" class="sidebar-item active">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="check-square" style="width: 20px; height: 20px; color: #0891b2;"></i>
+                </div>
+                <span class="sidebar-item-text">Tasks</span>
+            </a>
+            <a href="toolcentre.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="wrench" style="width: 20px; height: 20px; color: #ea580c;"></i>
+                </div>
+                <span class="sidebar-item-text">Tool Centre</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="internal-container">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h1>Tasks</h1>
+                <p>Manage and organize tasks across different areas</p>
+            </div>
+            <div class="header-buttons">
+                <button class="btn-plus btn-plus-rainbow" onclick="openTaskModal('normal')" title="Add Task">
+                    <i data-lucide="plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="sticky-notes-grid" id="stickyNotesGrid">
+            <!-- All tasks will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="task-modal" id="taskModal">
+        <div class="task-card">
+            <div class="task-card-header">
+                <h2 class="task-card-title">Add New Task</h2>
+                <button class="task-card-close" onclick="closeTaskModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="taskCardForm" onsubmit="handleTaskSubmit(event)">
+                <div class="task-form-group">
+                    <label class="task-form-label required">Task Title</label>
+                    <input type="text" class="task-form-input" id="taskCardTitle" placeholder="Enter task title" required>
+                </div>
+                <div class="task-form-group">
+                    <label class="task-form-label">Mode</label>
+                    <div class="task-mode-selection">
+                        <div class="task-mode-option selected" data-mode="normal" onclick="selectMode('normal')">
+                            Normal
+                        </div>
+                        <div class="task-mode-option" data-mode="agent" onclick="selectMode('agent')">
+                            Agent Task
+                        </div>
+                    </div>
+                </div>
+                <div class="task-form-group">
+                    <label class="task-form-label">Details</label>
+                    <textarea class="task-form-textarea" id="taskCardDetails" placeholder="Add task details (optional)"></textarea>
+                </div>
+                <div class="task-card-actions">
+                    <button type="button" class="task-btn task-btn-cancel" onclick="closeTaskModal()">Cancel</button>
+                    <button type="submit" class="task-btn task-btn-submit">Add Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="delete-modal" id="deleteModal">
+        <div class="delete-confirm-card">
+            <h2 class="delete-confirm-title">Are you sure?</h2>
+            <p class="delete-confirm-message">This action cannot be undone.</p>
+            <div class="delete-confirm-actions">
+                <button class="delete-btn delete-btn-no" onclick="closeDeleteModal()">No</button>
+                <button class="delete-btn delete-btn-yes" onclick="confirmDelete()">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Task storage
+        let allTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let agentTasks = JSON.parse(localStorage.getItem('agentTasks')) || [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            
+            // Load and display all tasks
+            renderAllTasks();
+        });
+
+        let selectedMode = 'normal';
+
+        function openTaskModal(mode) {
+            selectedMode = mode || 'normal';
+            const modal = document.getElementById('taskModal');
+            modal.classList.add('active');
+            
+            // Reset form
+            document.getElementById('taskCardForm').reset();
+            
+            // Set mode selection
+            document.querySelectorAll('.task-mode-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-mode="${selectedMode}"]`).classList.add('selected');
+            
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeTaskModal() {
+            const modal = document.getElementById('taskModal');
+            modal.classList.remove('active');
+            document.getElementById('taskCardForm').reset();
+            selectedMode = 'normal';
+        }
+
+        function selectMode(mode) {
+            selectedMode = mode;
+            document.querySelectorAll('.task-mode-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('selected');
+        }
+
+        function handleTaskSubmit(event) {
+            event.preventDefault();
+            
+            const taskTitle = document.getElementById('taskCardTitle').value.trim();
+            const taskDetails = document.getElementById('taskCardDetails').value.trim();
+            const isAgentTask = selectedMode === 'agent';
+
+            if (!taskTitle) {
+                return;
+            }
+
+            const task = {
+                id: Date.now().toString(),
+                name: taskTitle,
+                area: 'general',
+                description: taskDetails,
+                priority: 'medium',
+                status: 'pending',
+                isAgentTask: isAgentTask,
+                createdAt: new Date().toISOString()
+            };
+
+            allTasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(allTasks));
+
+            if (isAgentTask) {
+                agentTasks.push(task);
+                localStorage.setItem('agentTasks', JSON.stringify(agentTasks));
+            }
+
+            closeTaskModal();
+            renderAllTasks();
+            
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('taskModal');
+            if (e.target === modal) {
+                closeTaskModal();
+            }
+        });
+
+        function renderAllTasks() {
+            const grid = document.getElementById('stickyNotesGrid');
+            grid.innerHTML = '';
+
+            if (allTasks.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #9ca3af; padding: 40px;">No tasks yet. Click the plus button to add tasks.</p>';
+                return;
+            }
+
+            allTasks.forEach(task => {
+                const note = document.createElement('div');
+                note.className = 'sticky-note';
+                note.innerHTML = `
+                    <div class="sticky-note-header">
+                        <h3 class="sticky-note-title">${task.name}</h3>
+                        <div class="sticky-note-actions">
+                            <button class="sticky-note-action" onclick="toggleAgentTask('${task.id}')" title="${task.isAgentTask ? 'Remove from' : 'Add to'} Agent Tasks">
+                                <i data-lucide="${task.isAgentTask ? 'star' : 'star-off'}" style="width: 14px; height: 14px; color: ${task.isAgentTask ? '#fbbf24' : '#6b7280'};"></i>
+                            </button>
+                            <button class="sticky-note-action" onclick="deleteTask('${task.id}')" title="Delete">
+                                <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sticky-note-content">
+                        ${task.description || 'No description'}
+                    </div>
+                `;
+                grid.appendChild(note);
+            });
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function toggleAgentTask(taskId) {
+            const task = allTasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            task.isAgentTask = !task.isAgentTask;
+
+            if (task.isAgentTask) {
+                if (!agentTasks.find(t => t.id === taskId)) {
+                    agentTasks.push(task);
+                }
+            } else {
+                agentTasks = agentTasks.filter(t => t.id !== taskId);
+            }
+
+            localStorage.setItem('tasks', JSON.stringify(allTasks));
+            localStorage.setItem('agentTasks', JSON.stringify(agentTasks));
+
+            renderAllTasks();
+        }
+
+        let taskToDelete = null;
+
+        function deleteTask(taskId) {
+            taskToDelete = taskId;
+            const modal = document.getElementById('deleteModal');
+            modal.classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.classList.remove('active');
+            taskToDelete = null;
+        }
+
+        function confirmDelete() {
+            if (taskToDelete) {
+                allTasks = allTasks.filter(t => t.id !== taskToDelete);
+                agentTasks = agentTasks.filter(t => t.id !== taskToDelete);
+                
+                localStorage.setItem('tasks', JSON.stringify(allTasks));
+                localStorage.setItem('agentTasks', JSON.stringify(agentTasks));
+                
+                renderAllTasks();
+                
+                closeDeleteModal();
+            }
+        }
+
+        // Close delete modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const deleteModal = document.getElementById('deleteModal');
+            if (e.target === deleteModal) {
+                closeDeleteModal();
+            }
+        });
+
+        // Export function to sync with agents page
+        window.getAgentTasks = function() {
+            return agentTasks;
+        };
+    </script>
+</body>
+</html>
+
+

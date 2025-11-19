@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apps - INF Dashboard</title>
+    <title>Devra - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -19,7 +19,7 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="Apps.html" class="nav-link active">Apps</a></li>
+                <li><a href="Devra.html" class="nav-link active">Devra</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
@@ -63,19 +63,15 @@
                 <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Account</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
-                <i data-lucide="message-circle-plus"></i>
-                <span class="dock-label">Chats</span>
-            </div>
-            <div class="dock-item active" onclick="window.location.href='Apps.html'">
+            <div class="dock-item active" onclick="window.location.href='Devra.html'">
                 <i data-lucide="squares-exclude"></i>
-                <span class="dock-label">Apps</span>
+                <span class="dock-label">Devra</span>
             </div>
             <div class="dock-item" onclick="window.location.href='campaigns.html'">
                 <i data-lucide="focus"></i>
                 <span class="dock-label">Campaigns</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Database.html'">
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
                 <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
@@ -84,12 +80,16 @@
                 <span class="dock-label">Online assets</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Filebase.html'">
-                <i data-lucide="files"></i>
+                <i data-lucide="folder-tree"></i>
                 <span class="dock-label">Filebase</span>
             </div>
             <div class="dock-item" onclick="window.location.href='financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='chats.html'">
+                <i data-lucide="message-circle-more"></i>
+                <span class="dock-label">Chats</span>
             </div>
         </div>
     </div>
@@ -97,8 +97,21 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
+            <div class="top-right-bar">
+                <div class="top-right-actions">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                        <i data-lucide="grid"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                        <i data-lucide="user-circle"></i>
+                    </button>
+                </div>
+            </div>
             <section class="page-header marketplace-center">
-                <h1 class="marketplace-title">Apps</h1>
+                <h1 class="marketplace-title">Devra</h1>
             </section>
 
             <section class="marketplace-grid">

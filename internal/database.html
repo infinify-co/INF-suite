@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database - Tool Centre</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .internal-sidebar {
+            width: 280px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            padding: 32px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 24px 32px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .sidebar-header p {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .sidebar-nav {
+            padding: 0 16px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 4px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-item:hover {
+            background: #f9fafb;
+        }
+
+        .sidebar-item.active {
+            background: #eff6ff;
+        }
+
+        .sidebar-item-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-item-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .sidebar-item.active .sidebar-item-text {
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .internal-container {
+            flex: 1;
+            margin-left: 280px;
+            max-width: calc(100% - 280px);
+            padding: 40px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .database-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 20px 0;
+        }
+
+        .connection-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .connection-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .connection-info {
+            flex: 1;
+        }
+
+        .connection-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .connection-details {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .connection-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 12px;
+        }
+
+        .connection-status.connected {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .connection-status.disconnected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .query-editor {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .query-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            outline: none;
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .query-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #111827;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="internal-sidebar">
+        <div class="sidebar-header">
+            <h2>INFINIFY</h2>
+            <p>Internal Suite</p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="home.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="home" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Home</span>
+            </a>
+            <a href="workspace.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="message-square" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Workspace</span>
+            </a>
+            <a href="clientportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="briefcase" style="width: 20px; height: 20px; color: #d97706;"></i>
+                </div>
+                <span class="sidebar-item-text">Client Portal</span>
+            </a>
+            <a href="salesportal.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="dollar-sign" style="width: 20px; height: 20px; color: #059669;"></i>
+                </div>
+                <span class="sidebar-item-text">Sales Portal</span>
+            </a>
+            <a href="teams.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="users" style="width: 20px; height: 20px; color: #7c3aed;"></i>
+                </div>
+                <span class="sidebar-item-text">Teams</span>
+            </a>
+            <a href="support.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="life-buoy" style="width: 20px; height: 20px; color: #db2777;"></i>
+                </div>
+                <span class="sidebar-item-text">Support</span>
+            </a>
+            <a href="agents.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="cpu" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+                <span class="sidebar-item-text">Agents</span>
+            </a>
+            <a href="impersonation.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="user-check" style="width: 20px; height: 20px; color: #dc2626;"></i>
+                </div>
+                <span class="sidebar-item-text">Impersonation</span>
+            </a>
+            <a href="tasks.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="check-square" style="width: 20px; height: 20px; color: #0891b2;"></i>
+                </div>
+                <span class="sidebar-item-text">Tasks</span>
+            </a>
+            <a href="toolcentre.html" class="sidebar-item">
+                <div class="sidebar-item-icon">
+                    <i data-lucide="wrench" style="width: 20px; height: 20px; color: #ea580c;"></i>
+                </div>
+                <span class="sidebar-item-text">Tool Centre</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="internal-container">
+        <div class="page-header">
+            <h1>Database</h1>
+            <button class="btn-primary" onclick="addConnection()">
+                <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
+                New Connection
+            </button>
+        </div>
+
+        <div class="database-section">
+            <h2 class="section-title">Active Connections</h2>
+            <div class="connection-list">
+                <div class="connection-item">
+                    <div class="connection-info">
+                        <div class="connection-name">Primary Database</div>
+                        <div class="connection-details">PostgreSQL • localhost:5432</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="connection-status connected">Connected</span>
+                        <button class="btn-icon" title="Disconnect">
+                            <i data-lucide="x" style="width: 16px; height: 16px; color: #dc2626;"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="connection-item">
+                    <div class="connection-info">
+                        <div class="connection-name">Analytics DB</div>
+                        <div class="connection-details">MySQL • analytics.example.com:3306</div>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="connection-status disconnected">Disconnected</span>
+                        <button class="btn-icon" title="Connect">
+                            <i data-lucide="play" style="width: 16px; height: 16px; color: #059669;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="database-section">
+            <h2 class="section-title">Query Editor</h2>
+            <div class="query-editor">
+                <textarea class="query-textarea" placeholder="SELECT * FROM users LIMIT 10;">SELECT * FROM users LIMIT 10;</textarea>
+            </div>
+            <div class="query-actions">
+                <button class="btn-primary" onclick="executeQuery()">
+                    <i data-lucide="play" style="width: 18px; height: 18px;"></i>
+                    Execute Query
+                </button>
+                <button class="btn-secondary" onclick="clearQuery()">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+
+        function addConnection() {
+            alert('Add new database connection - to be implemented');
+        }
+
+        function executeQuery() {
+            alert('Query executed - to be implemented');
+        }
+
+        function clearQuery() {
+            document.querySelector('.query-textarea').value = '';
+        }
+    </script>
+</body>
+</html>
+

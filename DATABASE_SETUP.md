@@ -48,7 +48,7 @@ If you encounter permission issues, you may need to:
 ### 4. Test the Setup
 
 1. Make sure you're logged in (via `supabase-config.js`)
-2. Navigate to `Database.html`
+2. Navigate to `Oceanbase.html`
 3. Click "Create Your First Database"
 4. Try creating a database from a template
 5. Verify the database appears in the sidebar
@@ -98,7 +98,7 @@ If you encounter permission issues, you may need to:
 ## File Structure
 
 ```
-├── Database.html              # Main database builder page
+├── Oceanbase.html              # Main database builder page
 ├── schema.sql                 # Database schema (run in Supabase)
 ├── templates.js               # Template definitions
 ├── client-database-service.js # Database operations

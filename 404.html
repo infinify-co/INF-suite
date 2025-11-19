@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #fafafa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+
+        /* Main Content */
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* TV Section */
+        .tv-section {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .tv-wrapper {
+            position: relative;
+            transform: rotate(5deg);
+        }
+
+        .tv {
+            width: 320px;
+            height: 280px;
+            position: relative;
+        }
+
+        .tv-casing {
+            width: 100%;
+            height: 100%;
+            background: #e8e5e0;
+            border-radius: 8px 8px 4px 4px;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .tv-screen {
+            width: 240px;
+            height: 180px;
+            background: #000;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .color-bars {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .color-bar {
+            flex: 1;
+            height: 100%;
+        }
+
+        .color-bar:nth-child(1) {
+            background: #00ff00;
+        }
+
+        .color-bar:nth-child(2) {
+            background: #ff00ff;
+        }
+
+        .color-bar:nth-child(3) {
+            background: #0000ff;
+        }
+
+        .color-bar:nth-child(4) {
+            background: #ff8800;
+        }
+
+        .color-bar:nth-child(5) {
+            background: #ff0000;
+        }
+
+        .color-bar:nth-child(6) {
+            background: #000000;
+        }
+
+        .tv-404-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            padding: 12px 20px;
+            border-radius: 4px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            image-rendering: pixelated;
+        }
+
+        .tv-404-text {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tv-dial {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: #2a2a2a;
+            border-radius: 50%;
+            border: 2px solid #1a1a1a;
+        }
+
+        .tv-grilles {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .tv-grille {
+            width: 3px;
+            height: 20px;
+            background: #2a2a2a;
+            border-radius: 2px;
+        }
+
+        .tv-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #4a9b9b;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tv-side-accent {
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 0;
+            width: 12px;
+            background: #4a9b9b;
+            border-radius: 0 0 0 4px;
+        }
+
+        .tv-shadow {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+
+        /* Text Section */
+        .text-section {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .oops-text {
+            font-size: 64px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            line-height: 1;
+        }
+
+        .message-text {
+            font-size: 18px;
+            color: #666666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .go-home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .go-home-button:hover {
+            background: #333333;
+        }
+
+        .arrow-icon {
+            width: 20px;
+            height: 20px;
+            fill: #ffffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .container {
+                flex-direction: column;
+                gap: 60px;
+                padding: 100px 40px 40px;
+            }
+
+            .tv-wrapper {
+                transform: rotate(0deg);
+            }
+
+            .oops-text {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tv {
+                width: 260px;
+                height: 230px;
+            }
+
+            .tv-screen {
+                width: 200px;
+                height: 150px;
+            }
+
+            .oops-text {
+                font-size: 36px;
+            }
+
+            .message-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- TV Section -->
+        <div class="tv-section">
+            <div class="tv-wrapper">
+                <div class="tv">
+                    <div class="tv-casing">
+                        <div class="tv-accent"></div>
+                        <div class="tv-side-accent"></div>
+                        <div class="tv-dial"></div>
+                        <div class="tv-grilles">
+                            <div class="tv-grille"></div>
+                            <div class="tv-grille"></div>
+                            <div class="tv-grille"></div>
+                            <div class="tv-grille"></div>
+                            <div class="tv-grille"></div>
+                        </div>
+                        <div class="tv-screen">
+                            <div class="color-bars">
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                                <div class="color-bar"></div>
+                            </div>
+                            <div class="tv-404-overlay">
+                                <span class="tv-404-text">4 0 4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tv-shadow"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Section -->
+        <div class="text-section">
+            <h1 class="oops-text">Oops!</h1>
+            <p class="message-text">We couldn't find the page you were looking for</p>
+            <a href="home.html" class="go-home-button">
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Go home
+            </a>
+        </div>
+    </div>
+</body>
+</html>
+
