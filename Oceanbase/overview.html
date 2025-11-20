@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filebase - INF Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Overview - INF Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
@@ -14,11 +14,11 @@
             top: 0;
             left: 260px;
             bottom: 0;
-            width: 230px; /* Reduced by 150px (380px - 150px) */
+            width: 230px;
             background: #ffffff;
-            z-index: 998; /* Behind front tile (999) */
-            border-radius: 20px 0 0 20px; /* Rounded left corners only */
-            overflow: visible; /* Changed from hidden to visible */
+            z-index: 998;
+            border-radius: 20px 0 0 20px;
+            overflow: visible;
         }
 
         /* Secondary Sidebar Styles */
@@ -62,6 +62,12 @@
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .secondary-sidebar-nav::-webkit-scrollbar {
+            display: none;
         }
 
         .secondary-nav-back {
@@ -144,7 +150,14 @@
 
         /* Adjust front tile to account for back tile */
         .front-tile {
-            left: 270px; /* Extended 220px to the left (490px - 220px) */
+            left: 270px;
+        }
+
+        /* Scale down content proportionally */
+        .front-tile-container {
+            transform: scale(0.85);
+            transform-origin: top left;
+            width: 117.65%;
         }
     </style>
 </head>
@@ -153,22 +166,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="dashboard.html">
-                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                <a href="../dashboard.html">
+                    <img src="../INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="dashboard.html" class="nav-link active">Suite</a></li>
+                <li><a href="../dashboard.html" class="nav-link active">Suite</a></li>
             </ul>
-            <div class="nav-search">
-                <form id="navSearchForm">
-                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
-                    <button class="search-btn" type="submit" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                </form>
-            </div>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
                     <i data-lucide="message-circle"></i>
@@ -188,54 +193,54 @@
     <!-- Vertical Dock -->
     <div class="vertical-dock">
         <div class="dock-logo">
-            <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
+            <img src="../INF.logo3.png" alt="INF Logo" class="dock-logo-img">
         </div>
         <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='home.html'">
+            <div class="dock-item" onclick="window.location.href='../home.html'">
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Operation.html'">
+            <div class="dock-item" onclick="window.location.href='../Operation.html'">
                 <i data-lucide="hard-hat"></i>
                 <span class="dock-label">Operation</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='work.html'">
-                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Team's</span>
+            <div class="dock-item" onclick="window.location.href='../work.html'">
+                <img src="../work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Users</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Agents.html'">
+            <div class="dock-item" onclick="window.location.href='../Agents.html'">
                 <i data-lucide="cpu"></i>
                 <span class="dock-label">Agents</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Kreative.html'">
-                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+            <div class="dock-item" onclick="window.location.href='../Kreative.html'">
+                <img src="../Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Account</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Devra.html'">
+            <div class="dock-item" onclick="window.location.href='../Devra.html'">
                 <i data-lucide="squares-exclude"></i>
                 <span class="dock-label">Devra</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+            <div class="dock-item" onclick="window.location.href='../campaigns.html'">
                 <i data-lucide="focus"></i>
                 <span class="dock-label">Campaigns</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+            <div class="dock-item active" onclick="window.location.href='../Oceanbase.html'">
+                <img src="../Oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+            <div class="dock-item" onclick="window.location.href='../Online-assets.html'">
                 <i data-lucide="container"></i>
                 <span class="dock-label">Online assets</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='filebase/homebase.html'">
+            <div class="dock-item" onclick="window.location.href='../filebase/homebase.html'">
                 <i data-lucide="folder-tree"></i>
                 <span class="dock-label">Filebase</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
+            <div class="dock-item" onclick="window.location.href='../financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
+            <div class="dock-item" onclick="window.location.href='../chats.html'">
                 <i data-lucide="message-circle-more"></i>
                 <span class="dock-label">Chats</span>
             </div>
@@ -250,27 +255,33 @@
         <!-- Back Tile (Secondary Sidebar) -->
         <div class="back-tile">
             <div class="secondary-sidebar">
-                <div class="secondary-sidebar-header" style="justify-content: flex-start; padding-right: 0;">
-                    <div style="width: 100%; padding-right: 0;">
-                        <div class="secondary-sidebar-brand">Filebase</div>
-                        <div style="font-size: 12px; color: #6b7280; margin-top: 4px; line-height: 1.4; font-weight: 400;">
-                            Your central hub for organizing, managing, and accessing all your files and documents. Streamline your workflow with powerful file management tools.
-                        </div>
+                <div class="secondary-sidebar-header">
+                    <div class="secondary-sidebar-brand">Database</div>
+                    <div class="secondary-sidebar-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
                     </div>
                 </div>
                 <div class="secondary-sidebar-nav">
                     <div class="secondary-nav-list">
-                        <div class="secondary-nav-back active" data-nav="home" onclick="window.location.href='filebase/homebase.html'">
-                            <span>Homebase</span>
+                        <div class="secondary-nav-back active" onclick="window.location.href='overview.html'">
+                            <span>Overview</span>
                         </div>
-                        <div class="secondary-nav-item" data-nav="file-to-roles">
-                            <span>File to roles</span>
+                        <div class="secondary-nav-item" onclick="window.location.href='client-table.html'">
+                            <span>Client table</span>
                         </div>
-                        <div class="secondary-nav-item" data-nav="backup-base" onclick="window.location.href='filebase/backup-base.html'">
-                            <span>Backup base</span>
+                        <div class="secondary-nav-item" data-nav="queries">
+                            <span>Queries</span>
                         </div>
-                        <div class="secondary-nav-item" data-nav="statistics" onclick="window.location.href='filebase/statistics.html'">
-                            <span>Statistics</span>
+                        <div class="secondary-nav-item" data-nav="reports">
+                            <span>Reports</span>
+                        </div>
+                        <div class="secondary-nav-item" onclick="window.location.href='connections.html'">
+                            <span>Connections</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="settings">
+                            <span>Settings</span>
                         </div>
                     </div>
                 </div>
@@ -285,35 +296,18 @@
         <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
-                <!-- Content for the front tile -->
+                <!-- Blank content area -->
             </div>
         </div>
         <!-- Circle in bottom right corner -->
         <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
-            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="../sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
 
-    <script src="navigation-handler.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
-
-            // Initialize navigation (will default to 'home' if no hash)
-            // Use setTimeout to ensure DOM is fully ready
-            setTimeout(() => {
-                if (typeof initNavigation === 'function') {
-                    initNavigation();
-                } else {
-                    // Fallback: manually set home as active if navigation handler isn't available
-                    const homeItem = document.querySelector('[data-nav="home"]');
-                    const allNavItems = document.querySelectorAll('.secondary-nav-item, .secondary-nav-back');
-                    if (homeItem && allNavItems.length > 0) {
-                        allNavItems.forEach(item => item.classList.remove('active'));
-                        homeItem.classList.add('active');
-                    }
-                }
-            }, 100);
 
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
             dockItems.forEach(item => {
@@ -321,7 +315,7 @@
                 if (label) {
                     item.addEventListener('mouseenter', () => {
                         const rect = item.getBoundingClientRect();
-                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`;
                     });
                 }
             });
@@ -329,5 +323,4 @@
     </script>
 </body>
 </html>
-
 

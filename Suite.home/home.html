@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shared - Kreative | INF Dashboard</title>
+    <title>Home - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
+        /* Back Tile Styles */
         .back-tile {
             position: absolute;
             top: 0;
             left: 260px;
             bottom: 0;
-            width: 230px;
+            width: 230px; /* Reduced by 150px (380px - 150px) */
             background: #ffffff;
-            z-index: 998;
-            border-radius: 20px 0 0 20px;
-            overflow: visible;
+            z-index: 998; /* Behind front tile (999) */
+            border-radius: 20px 0 0 20px; /* Rounded left corners only */
+            overflow: visible; /* Changed from hidden to visible */
         }
+
+        /* Secondary Sidebar Styles */
         .secondary-sidebar {
             height: 100%;
             display: flex;
@@ -27,6 +30,7 @@
             background: #ffffff;
             transform: translateX(-250px);
         }
+
         .secondary-sidebar-header {
             display: flex;
             align-items: center;
@@ -34,12 +38,14 @@
             padding: 20px 24px;
             border-bottom: 1px solid #e5e7eb;
         }
+
         .secondary-sidebar-brand {
             font-weight: 700;
             font-size: 16px;
             color: #000000;
             letter-spacing: -0.02em;
         }
+
         .secondary-sidebar-icon {
             width: 20px;
             height: 20px;
@@ -47,14 +53,23 @@
             align-items: center;
             justify-content: center;
         }
+
         .secondary-sidebar-icon svg {
             color: #6b7280;
         }
+
         .secondary-sidebar-nav {
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
+
+        .secondary-sidebar-nav::-webkit-scrollbar {
+            display: none;
+        }
+
         .secondary-nav-back {
             display: flex;
             align-items: center;
@@ -67,15 +82,22 @@
             position: relative;
             border-radius: 8px;
             margin: 0 8px;
-            text-decoration: none;
         }
+
         .secondary-nav-back:hover {
             color: #000000;
             background-color: #f9fafb;
         }
+
+        .secondary-nav-back i {
+            width: 16px;
+            height: 16px;
+        }
+
         .secondary-nav-list {
             margin-top: 8px;
         }
+
         .secondary-nav-item {
             display: flex;
             align-items: center;
@@ -88,16 +110,24 @@
             position: relative;
             border-radius: 8px;
             margin: 0 8px;
-            text-decoration: none;
         }
+
         .secondary-nav-item:hover {
             background-color: #f9fafb;
             border-radius: 8px;
         }
+
         .secondary-nav-item.active {
             background-color: #f3f4f6;
             border-radius: 8px;
         }
+
+        .secondary-nav-item i {
+            width: 14px;
+            height: 14px;
+            color: #6b7280;
+        }
+
         .secondary-sidebar-footer {
             padding: 16px 24px;
             border-top: 1px solid #e5e7eb;
@@ -105,6 +135,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .secondary-sidebar-footer svg {
             width: 18px;
             height: 18px;
@@ -112,25 +143,223 @@
             cursor: pointer;
             transition: color 0.2s;
         }
+
         .secondary-sidebar-footer svg:hover {
             color: #000000;
         }
+
+        /* Adjust front tile to account for back tile */
         .front-tile {
-            left: 270px;
+            left: 270px; /* Extended 220px to the left (490px - 220px) */
+        }
+
+        /* Scale down content proportionally */
+        .front-tile-container {
+            transform: scale(0.85);
+            transform-origin: top left;
+            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
+        }
+
+        /* Hide all scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        main::-webkit-scrollbar,
+        .dashboard-main::-webkit-scrollbar,
+        .front-tile::-webkit-scrollbar,
+        .front-tile-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Content Creation Cards */
+        .content-creation-section {
+            padding: 60px 40px 40px;
+        }
+
+        .creation-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .creation-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .creation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .creation-card-gradient {
+            height: 180px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .creation-card-gradient.blue {
+            background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+        }
+
+        .creation-card-gradient.green {
+            background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+        }
+
+        .creation-card-gradient.purple {
+            background: linear-gradient(180deg, #a78bfa 0%, #8b5cf6 100%);
+        }
+
+        .creation-card-graphic {
+            width: 80%;
+            height: 60px;
+            opacity: 0.3;
+        }
+
+        .creation-card-graphic.whiteboard {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .creation-card-graphic.whiteboard .line {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 6px;
+        }
+
+        .creation-card-graphic.document {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .creation-card-graphic.document .line {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 6px;
+        }
+
+        .creation-card-graphic.template {
+            display: flex;
+            gap: 8px;
+        }
+
+        .creation-card-graphic.template .grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+
+        .creation-card-graphic.template .grid-item {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 4px;
+            height: 30px;
+        }
+
+        .creation-card-graphic.template .space {
+            flex: 2;
+        }
+
+        .creation-card-content {
+            padding: 20px;
+        }
+
+        .creation-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .creation-card-icon {
+            width: 20px;
+            height: 20px;
+            color: #8b5cf6;
+        }
+
+        .creation-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .creation-card-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0 40px 40px;
+        }
+
+        .category-filter-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: #ffffff;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-filter-btn:hover {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .category-filter-btn.active {
+            background: #8b5cf6;
+            color: #ffffff;
         }
     </style>
 </head>
 <body class="dashboard-page">
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#">
+                <a href="dashboard.html">
                     <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="Kreative.html" class="nav-link active">Kreative</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="work.html" class="nav-link">Work</a></li>
+                <li><a href="financial.html" class="nav-link">Financials</a></li>
+                <li><a href="dashboard.html#about" class="nav-link">About</a></li>
+                <li><a href="dashboard.html#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-search">
                 <form id="navSearchForm">
@@ -156,12 +385,13 @@
         </div>
     </nav>
 
+    <!-- Vertical Dock -->
     <div class="vertical-dock">
         <div class="dock-logo">
             <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
         </div>
         <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='home.html'">
+            <div class="dock-item active" onclick="window.location.href='home.html'">
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
@@ -171,13 +401,13 @@
             </div>
             <div class="dock-item" onclick="window.location.href='work.html'">
                 <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Team's</span>
+                <span class="dock-label">Teams</span>
             </div>
             <div class="dock-item" onclick="window.location.href='Agents.html'">
                 <i data-lucide="cpu"></i>
                 <span class="dock-label">Agents</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='Kreative.html'">
+            <div class="dock-item" onclick="window.location.href='Kreative.html'">
                 <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Account</span>
             </div>
@@ -197,7 +427,7 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Online assets</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+            <div class="dock-item" onclick="window.location.href='filebase/homebase.html'">
                 <i data-lucide="folder-tree"></i>
                 <span class="dock-label">Filebase</span>
             </div>
@@ -212,14 +442,16 @@
         </div>
     </div>
 
+    <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
         </div>
         
+        <!-- Back Tile (Secondary Sidebar) -->
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Kreative</div>
+                    <div class="secondary-sidebar-brand">Home</div>
                     <div class="secondary-sidebar-icon">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
@@ -228,30 +460,27 @@
                 </div>
                 <div class="secondary-sidebar-nav">
                     <div class="secondary-nav-list">
-                        <a href="Kreative/home.html" class="secondary-nav-back">
+                        <div class="secondary-nav-back">
                             <span>Home</span>
-                        </a>
-                        <a href="Kreative-my-projects.html" class="secondary-nav-item">
-                            <span>My Projects</span>
-                        </a>
-                        <a href="Kreative-templates.html" class="secondary-nav-item">
-                            <span>Templates</span>
-                        </a>
-                        <a href="Kreative-whiteboards.html" class="secondary-nav-item">
-                            <span>Whiteboards</span>
-                        </a>
-                        <a href="Kreative-documents.html" class="secondary-nav-item">
-                            <span>Documents</span>
-                        </a>
-                        <a href="Kreative-recent.html" class="secondary-nav-item">
-                            <span>Recent</span>
-                        </a>
-                        <a href="Kreative-shared.html" class="secondary-nav-item active">
-                            <span>Shared</span>
-                        </a>
-                        <a href="Kreative/basic.html" class="secondary-nav-item">
-                            <span>Basic</span>
-                        </a>
+                        </div>
+                        <div class="secondary-nav-item active">
+                            <span>API Platform</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>API Pricing</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Agents</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Codex</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Open Models</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Community</span>
+                        </div>
                     </div>
                 </div>
                 <div class="secondary-sidebar-footer">
@@ -262,11 +491,12 @@
             </div>
         </div>
         
+        <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
             <div class="top-right-bar">
                 <div class="top-right-actions">
-                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
                         <i data-lucide="grid"></i>
                     </button>
                     <button class="accounts-icon-btn teams-action-btn" title="Notifications">
@@ -277,9 +507,9 @@
                     </button>
                 </div>
             </div>
-            <div class="top-left-heading">Shared</div>
             </div>
         </div>
+        <!-- Circle in bottom right corner -->
         <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
             <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
@@ -287,19 +517,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
-            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
-            dockItems.forEach(item => {
-                const label = item.querySelector('.dock-label');
-                if (label) {
-                    item.addEventListener('mouseenter', () => {
-                        const rect = item.getBoundingClientRect();
-                        label.style.top = `${rect.top + rect.height / 2 - 100}px`;
-                    });
-                }
-            });
         });
     </script>
 </body>
 </html>
-

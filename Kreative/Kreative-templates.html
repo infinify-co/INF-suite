@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates - Kreative | INF Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .back-tile {
+            position: absolute;
+            top: 0;
+            left: 260px;
+            bottom: 0;
+            width: 230px;
+            background: #ffffff;
+            z-index: 998;
+            border-radius: 20px 0 0 20px;
+            overflow: visible;
+        }
+        .secondary-sidebar {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            transform: translateX(-250px);
+        }
+        .secondary-sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .secondary-sidebar-brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: #000000;
+            letter-spacing: -0.02em;
+        }
+        .secondary-sidebar-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .secondary-sidebar-icon svg {
+            color: #6b7280;
+        }
+        .secondary-sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+        .secondary-nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+            text-decoration: none;
+        }
+        .secondary-nav-back:hover {
+            color: #000000;
+            background-color: #f9fafb;
+        }
+        .secondary-nav-list {
+            margin-top: 8px;
+        }
+        .secondary-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-radius 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+            text-decoration: none;
+        }
+        .secondary-nav-item:hover {
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+        .secondary-nav-item.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+        .secondary-sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .secondary-sidebar-footer svg {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .secondary-sidebar-footer svg:hover {
+            color: #000000;
+        }
+        .front-tile {
+            left: 270px;
+        }
+
+        /* Content Creation Cards */
+        .content-creation-section {
+            padding: 60px 40px 40px;
+        }
+
+        .creation-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .creation-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .creation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .creation-card-gradient {
+            height: 180px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .creation-card-gradient.blue {
+            background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+        }
+
+        .creation-card-gradient.green {
+            background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+        }
+
+        .creation-card-gradient.purple {
+            background: linear-gradient(180deg, #a78bfa 0%, #8b5cf6 100%);
+        }
+
+        .creation-card-graphic {
+            width: 80%;
+            height: 60px;
+            opacity: 0.3;
+        }
+
+        .creation-card-graphic.template {
+            display: flex;
+            gap: 8px;
+        }
+
+        .creation-card-graphic.template .grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+
+        .creation-card-graphic.template .grid-item {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 4px;
+            height: 30px;
+        }
+
+        .creation-card-graphic.template .space {
+            flex: 2;
+        }
+
+        .creation-card-content {
+            padding: 20px;
+        }
+
+        .creation-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .creation-card-icon {
+            width: 20px;
+            height: 20px;
+            color: #8b5cf6;
+        }
+
+        .creation-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .creation-card-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0 40px 40px;
+        }
+
+        .category-filter-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: #ffffff;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-filter-btn:hover {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .category-filter-btn.active {
+            background: #8b5cf6;
+            color: #ffffff;
+        }
+
+        /* Template Preview with Inline Editing */
+        .template-preview-card {
+            position: relative;
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .template-preview-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .template-preview-card.editing {
+            box-shadow: 0 0 0 3px #8b5cf6;
+        }
+
+        .template-preview-area {
+            height: 240px;
+            position: relative;
+            background: #f9fafb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .template-preview-canvas {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .template-preview-card:hover .template-preview-overlay {
+            display: flex;
+        }
+
+        .template-overlay-btn {
+            padding: 10px 20px;
+            background: #ffffff;
+            color: #111827;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .template-overlay-btn:hover {
+            background: #f3f4f6;
+            transform: scale(1.05);
+        }
+
+        .template-overlay-btn.primary {
+            background: #8b5cf6;
+            color: #ffffff;
+        }
+
+        .template-overlay-btn.primary:hover {
+            background: #7c3aed;
+        }
+
+        .template-card-actions {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .template-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .template-card-size {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 4px 0 0 0;
+        }
+
+        .template-card-edit-btn {
+            padding: 6px 12px;
+            background: #f3f4f6;
+            color: #111827;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .template-card-edit-btn:hover {
+            background: #e5e7eb;
+        }
+
+        /* Inline Editor Modal */
+        .inline-editor-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .inline-editor-modal.active {
+            display: flex;
+        }
+
+        .inline-editor-container {
+            background: #ffffff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .inline-editor-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .inline-editor-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .inline-editor-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f3f4f6;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .inline-editor-close:hover {
+            background: #e5e7eb;
+        }
+
+        .inline-editor-content {
+            flex: 1;
+            overflow: auto;
+            padding: 24px;
+        }
+
+        .inline-editor-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .inline-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-right: 16px;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .inline-toolbar-group:last-child {
+            border-right: none;
+        }
+
+        .inline-toolbar-btn {
+            padding: 8px 16px;
+            border: none;
+            background: #ffffff;
+            color: #111827;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .inline-toolbar-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .inline-toolbar-btn.active {
+            background: #8b5cf6;
+            color: #ffffff;
+        }
+
+        .inline-canvas-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 40px;
+            min-height: 400px;
+        }
+
+        .inline-canvas-wrapper {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .inline-canvas {
+            display: block;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body class="dashboard-page kreative-page">
+    <div class="vertical-dock">
+        <div class="dock-logo">
+            <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
+        </div>
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Operation.html'">
+                <i data-lucide="hard-hat"></i>
+                <span class="dock-label">Operation</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Team's</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <i data-lucide="cpu"></i>
+                <span class="dock-label">Agents</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='Kreative.html'">
+                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Account</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Devra.html'">
+                <i data-lucide="squares-exclude"></i>
+                <span class="dock-label">Devra</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+                <i data-lucide="focus"></i>
+                <span class="dock-label">Campaigns</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
+                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Data</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+                <i data-lucide="container"></i>
+                <span class="dock-label">Online assets</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='filebase/homebase.html'">
+                <i data-lucide="folder-tree"></i>
+                <span class="dock-label">Filebase</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='financial.html'">
+                <i data-lucide="landmark"></i>
+                <span class="dock-label">Financials</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='chats.html'">
+                <i data-lucide="message-circle-more"></i>
+                <span class="dock-label">Chats</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+        </div>
+        
+        <div class="back-tile">
+            <div class="secondary-sidebar">
+                <div class="secondary-sidebar-header">
+                    <div class="secondary-sidebar-brand">Kreative</div>
+                    <div class="secondary-sidebar-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-nav">
+                    <div class="secondary-nav-list">
+                        <a href="Kreative/home.html" class="secondary-nav-back">
+                            <span>Home</span>
+                        </a>
+                        <a href="Kreative-my-projects.html" class="secondary-nav-item">
+                            <span>My Projects</span>
+                        </a>
+                        <a href="Kreative-templates.html" class="secondary-nav-item active">
+                            <span>Templates</span>
+                        </a>
+                        <a href="Kreative-whiteboards.html" class="secondary-nav-item">
+                            <span>Whiteboards</span>
+                        </a>
+                        <a href="Kreative-documents.html" class="secondary-nav-item">
+                            <span>Documents</span>
+                        </a>
+                        <a href="Kreative-recent.html" class="secondary-nav-item">
+                            <span>Recent</span>
+                        </a>
+                        <a href="Kreative-shared.html" class="secondary-nav-item">
+                            <span>Shared</span>
+                        </a>
+                        <a href="Kreative/basic.html" class="secondary-nav-item">
+                            <span>Basic</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-footer">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <div class="front-tile">
+            <div class="front-tile-container">
+            <div class="top-right-bar">
+                <div class="top-right-actions">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
+                        <i data-lucide="grid"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                        <i data-lucide="user-circle"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="top-left-heading">Templates</div>
+            
+            <!-- Templates Section -->
+            <div class="content-creation-section">
+                <div class="creation-cards">
+                    <!-- Logo Template Card with Preview -->
+                    <div class="template-preview-card" data-template="logo" data-width="500" data-height="500">
+                        <div class="template-preview-area">
+                            <canvas class="template-preview-canvas" width="500" height="500"></canvas>
+                            <div class="template-preview-overlay">
+                                <button class="template-overlay-btn primary" onclick="openInlineEditor('logo', 500, 500, this)">
+                                    <i data-lucide="edit-2"></i>
+                                    <span>Edit</span>
+                                </button>
+                                <button class="template-overlay-btn" onclick="window.location.href='template-editor.html?template=logo'">
+                                    <i data-lucide="external-link"></i>
+                                    <span>Open Full Editor</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="template-card-actions">
+                            <div>
+                                <h3 class="template-card-title">Logo Template</h3>
+                                <p class="template-card-size">500px × 500px</p>
+                            </div>
+                            <button class="template-card-edit-btn" onclick="openInlineEditor('logo', 500, 500, this)">
+                                <i data-lucide="edit-2"></i>
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Social Media Post Template -->
+                    <div class="template-preview-card" data-template="social" data-width="1080" data-height="1080">
+                        <div class="template-preview-area">
+                            <canvas class="template-preview-canvas" width="1080" height="1080"></canvas>
+                            <div class="template-preview-overlay">
+                                <button class="template-overlay-btn primary" onclick="openInlineEditor('social', 1080, 1080, this)">
+                                    <i data-lucide="edit-2"></i>
+                                    <span>Edit</span>
+                                </button>
+                                <button class="template-overlay-btn" onclick="window.location.href='template-editor.html?template=social'">
+                                    <i data-lucide="external-link"></i>
+                                    <span>Open Full Editor</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="template-card-actions">
+                            <div>
+                                <h3 class="template-card-title">Social Media Post</h3>
+                                <p class="template-card-size">1080px × 1080px</p>
+                            </div>
+                            <button class="template-card-edit-btn" onclick="openInlineEditor('social', 1080, 1080, this)">
+                                <i data-lucide="edit-2"></i>
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Banner Template -->
+                    <div class="template-preview-card" data-template="banner" data-width="1920" data-height="400">
+                        <div class="template-preview-area">
+                            <canvas class="template-preview-canvas" width="1920" height="400"></canvas>
+                            <div class="template-preview-overlay">
+                                <button class="template-overlay-btn primary" onclick="openInlineEditor('banner', 1920, 400, this)">
+                                    <i data-lucide="edit-2"></i>
+                                    <span>Edit</span>
+                                </button>
+                                <button class="template-overlay-btn" onclick="window.location.href='template-editor.html?template=banner'">
+                                    <i data-lucide="external-link"></i>
+                                    <span>Open Full Editor</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="template-card-actions">
+                            <div>
+                                <h3 class="template-card-title">Banner Template</h3>
+                                <p class="template-card-size">1920px × 400px</p>
+                            </div>
+                            <button class="template-card-edit-btn" onclick="openInlineEditor('banner', 1920, 400, this)">
+                                <i data-lucide="edit-2"></i>
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="category-filter-btn active">All</button>
+                    <button class="category-filter-btn">Logos</button>
+                    <button class="category-filter-btn">Social Media</button>
+                    <button class="category-filter-btn">Banners</button>
+                    <button class="category-filter-btn">Presentations</button>
+                    <button class="category-filter-btn">Documents</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+    </main>
+
+    <!-- Inline Editor Modal -->
+    <div class="inline-editor-modal" id="inlineEditorModal">
+        <div class="inline-editor-container">
+            <div class="inline-editor-header">
+                <h2 class="inline-editor-title" id="inlineEditorTitle">Edit Template</h2>
+                <button class="inline-editor-close" onclick="closeInlineEditor()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="inline-editor-content">
+                <div class="inline-editor-toolbar">
+                    <div class="inline-toolbar-group">
+                        <button class="inline-toolbar-btn active" id="inlineDrawTool" onclick="setInlineTool('draw')">
+                            <i data-lucide="pen-tool"></i>
+                            <span>Draw</span>
+                        </button>
+                        <button class="inline-toolbar-btn" id="inlineTextTool" onclick="setInlineTool('text')">
+                            <i data-lucide="type"></i>
+                            <span>Text</span>
+                        </button>
+                    </div>
+                    <div class="inline-toolbar-group">
+                        <label style="font-size: 12px; color: #6b7280;">Color:</label>
+                        <input type="color" id="inlineColorPicker" value="#000000" style="width: 40px; height: 32px; border: 2px solid #e5e7eb; border-radius: 6px; cursor: pointer;">
+                    </div>
+                    <div class="inline-toolbar-group" id="inlineTextGroup" style="display: none;">
+                        <input type="text" id="inlineTextInput" placeholder="Enter text..." style="padding: 6px 12px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 14px; width: 200px;">
+                        <input type="number" id="inlineFontSize" value="24" min="8" max="200" style="padding: 6px 12px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 14px; width: 60px;">
+                        <button class="inline-toolbar-btn" onclick="addInlineText()">Add Text</button>
+                    </div>
+                    <div class="inline-toolbar-group">
+                        <button class="inline-toolbar-btn" onclick="clearInlineCanvas()">
+                            <i data-lucide="trash-2"></i>
+                            <span>Clear</span>
+                        </button>
+                        <button class="inline-toolbar-btn" onclick="undoInlineAction()">
+                            <i data-lucide="undo"></i>
+                            <span>Undo</span>
+                        </button>
+                        <button class="inline-toolbar-btn" onclick="saveInlineTemplate()" style="background: #8b5cf6; color: #ffffff;">
+                            <i data-lucide="download"></i>
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="inline-canvas-container">
+                    <div class="inline-canvas-wrapper">
+                        <canvas id="inlineEditorCanvas" class="inline-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Template preview canvases
+        const templatePreviews = {};
+        let currentEditingTemplate = null;
+        let inlineCanvas = null;
+        let inlineCtx = null;
+        let inlineHistory = [];
+        let inlineHistoryStep = -1;
+        let inlineIsDrawing = false;
+        let inlineCurrentTool = 'draw';
+        let inlineCurrentColor = '#000000';
+        let inlineCanvasWidth = 500;
+        let inlineCanvasHeight = 500;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            
+            // Initialize template previews
+            initializeTemplatePreviews();
+            
+            // Color picker setup
+            const colorPicker = document.getElementById('inlineColorPicker');
+            if (colorPicker) {
+                colorPicker.addEventListener('change', (e) => {
+                    inlineCurrentColor = e.target.value;
+                });
+            }
+            
+            // Category filter functionality
+            const filterButtons = document.querySelectorAll('.category-filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+
+            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
+            dockItems.forEach(item => {
+                const label = item.querySelector('.dock-label');
+                if (label) {
+                    item.addEventListener('mouseenter', () => {
+                        const rect = item.getBoundingClientRect();
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`;
+                    });
+                }
+            });
+        });
+
+        function initializeTemplatePreviews() {
+            const previewCards = document.querySelectorAll('.template-preview-card');
+            previewCards.forEach(card => {
+                const canvas = card.querySelector('.template-preview-canvas');
+                const ctx = canvas.getContext('2d');
+                const width = parseInt(card.dataset.width);
+                const height = parseInt(card.dataset.height);
+                
+                // Set canvas size for preview (scaled down)
+                const previewSize = 200;
+                const scale = Math.min(previewSize / width, previewSize / height);
+                canvas.style.width = (width * scale) + 'px';
+                canvas.style.height = (height * scale) + 'px';
+                canvas.width = width;
+                canvas.height = height;
+                
+                // Initialize with white background
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, width, height);
+                
+                // Draw a subtle gradient background for preview
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, '#6b7280');
+                gradient.addColorStop(1, '#4b5563');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+                
+                // Draw a simple geometric shape in center (like the image)
+                ctx.fillStyle = '#d1d5db';
+                ctx.strokeStyle = '#9ca3af';
+                ctx.lineWidth = 2;
+                
+                // Draw a stylized Z/N shape
+                const centerX = width / 2;
+                const centerY = height / 2;
+                const size = Math.min(width, height) * 0.3;
+                
+                ctx.beginPath();
+                // Top horizontal bar
+                ctx.moveTo(centerX - size, centerY - size * 0.5);
+                ctx.lineTo(centerX + size, centerY - size * 0.5);
+                // Diagonal
+                ctx.lineTo(centerX - size, centerY + size * 0.5);
+                // Bottom horizontal bar
+                ctx.lineTo(centerX + size, centerY + size * 0.5);
+                ctx.stroke();
+                
+                // Add some depth with shading
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.fill();
+                
+                templatePreviews[card.dataset.template] = { canvas, ctx, width, height };
+            });
+        }
+
+        function openInlineEditor(templateType, width, height, btn) {
+            currentEditingTemplate = templateType;
+            inlineCanvasWidth = width;
+            inlineCanvasHeight = height;
+            
+            const modal = document.getElementById('inlineEditorModal');
+            inlineCanvas = document.getElementById('inlineEditorCanvas');
+            inlineCtx = inlineCanvas.getContext('2d');
+            
+            // Set canvas size
+            const maxDisplaySize = 600;
+            const scale = Math.min(maxDisplaySize / width, maxDisplaySize / height);
+            inlineCanvas.style.width = (width * scale) + 'px';
+            inlineCanvas.style.height = (height * scale) + 'px';
+            inlineCanvas.width = width;
+            inlineCanvas.height = height;
+            
+            // Load existing content from preview
+            const preview = templatePreviews[templateType];
+            if (preview) {
+                inlineCtx.drawImage(preview.canvas, 0, 0);
+            } else {
+                // Initialize with white background
+                inlineCtx.fillStyle = '#ffffff';
+                inlineCtx.fillRect(0, 0, width, height);
+            }
+            
+            // Update title
+            const titleMap = {
+                logo: 'Logo Template',
+                social: 'Social Media Post',
+                banner: 'Banner Template'
+            };
+            document.getElementById('inlineEditorTitle').textContent = `Edit ${titleMap[templateType] || 'Template'}`;
+            
+            // Reset history
+            inlineHistory = [];
+            inlineHistoryStep = -1;
+            saveInlineState();
+            
+            // Setup canvas events
+            setupInlineCanvasEvents();
+            
+            modal.classList.add('active');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeInlineEditor() {
+            const modal = document.getElementById('inlineEditorModal');
+            modal.classList.remove('active');
+            
+            // Update preview with edited content
+            if (currentEditingTemplate && inlineCanvas) {
+                const preview = templatePreviews[currentEditingTemplate];
+                if (preview) {
+                    preview.ctx.clearRect(0, 0, preview.width, preview.height);
+                    preview.ctx.drawImage(inlineCanvas, 0, 0);
+                }
+            }
+            
+            currentEditingTemplate = null;
+        }
+
+        function setInlineTool(tool) {
+            inlineCurrentTool = tool;
+            document.getElementById('inlineDrawTool').classList.toggle('active', tool === 'draw');
+            document.getElementById('inlineTextTool').classList.toggle('active', tool === 'text');
+            document.getElementById('inlineTextGroup').style.display = tool === 'text' ? 'flex' : 'none';
+            inlineCanvas.style.cursor = tool === 'draw' ? 'crosshair' : 'text';
+        }
+
+        // Drawing functions for inline editor
+        function getInlineMousePos(e) {
+            if (!inlineCanvas) return { x: 0, y: 0 };
+            const rect = inlineCanvas.getBoundingClientRect();
+            const scaleX = inlineCanvasWidth / rect.width;
+            const scaleY = inlineCanvasHeight / rect.height;
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
+
+        function setupInlineCanvasEvents() {
+            if (!inlineCanvas) return;
+            
+            inlineCanvas.addEventListener('mousedown', (e) => {
+                if (inlineCurrentTool === 'draw') {
+                    inlineIsDrawing = true;
+                    const pos = getInlineMousePos(e);
+                    inlineCtx.beginPath();
+                    inlineCtx.moveTo(pos.x, pos.y);
+                }
+            });
+
+            inlineCanvas.addEventListener('mousemove', (e) => {
+                if (!inlineIsDrawing || inlineCurrentTool !== 'draw') return;
+                const pos = getInlineMousePos(e);
+                inlineCtx.strokeStyle = inlineCurrentColor;
+                inlineCtx.lineWidth = 2;
+                inlineCtx.lineCap = 'round';
+                inlineCtx.lineTo(pos.x, pos.y);
+                inlineCtx.stroke();
+            });
+
+            inlineCanvas.addEventListener('mouseup', () => {
+                if (inlineIsDrawing) {
+                    inlineIsDrawing = false;
+                    saveInlineState();
+                }
+            });
+
+            inlineCanvas.addEventListener('mouseleave', () => {
+                if (inlineIsDrawing) {
+                    inlineIsDrawing = false;
+                    saveInlineState();
+                }
+            });
+        }
+
+        function addInlineText() {
+            const text = document.getElementById('inlineTextInput').value.trim();
+            if (!text) return;
+            
+            const fontSize = parseInt(document.getElementById('inlineFontSize').value) || 24;
+            inlineCtx.fillStyle = inlineCurrentColor;
+            inlineCtx.font = `${fontSize}px Arial`;
+            inlineCtx.textBaseline = 'top';
+            
+            const textWidth = inlineCtx.measureText(text).width;
+            const x = (inlineCanvasWidth - textWidth) / 2;
+            const y = inlineCanvasHeight / 2 - fontSize / 2;
+            
+            inlineCtx.fillText(text, x, y);
+            document.getElementById('inlineTextInput').value = '';
+            saveInlineState();
+        }
+
+        function clearInlineCanvas() {
+            if (confirm('Clear the entire canvas?')) {
+                inlineCtx.fillStyle = '#ffffff';
+                inlineCtx.fillRect(0, 0, inlineCanvasWidth, inlineCanvasHeight);
+                saveInlineState();
+            }
+        }
+
+        function saveInlineState() {
+            inlineHistoryStep++;
+            if (inlineHistoryStep < inlineHistory.length) {
+                inlineHistory.length = inlineHistoryStep;
+            }
+            inlineHistory.push(inlineCanvas.toDataURL());
+        }
+
+        function undoInlineAction() {
+            if (inlineHistoryStep > 0) {
+                inlineHistoryStep--;
+                const img = new Image();
+                img.onload = () => {
+                    inlineCtx.clearRect(0, 0, inlineCanvasWidth, inlineCanvasHeight);
+                    inlineCtx.drawImage(img, 0, 0);
+                };
+                img.src = inlineHistory[inlineHistoryStep];
+            }
+        }
+
+        function saveInlineTemplate() {
+            const link = document.createElement('a');
+            const templateNames = {
+                logo: 'logo-template',
+                social: 'social-media-post',
+                banner: 'banner-template'
+            };
+            link.download = `${templateNames[currentEditingTemplate] || 'template'}-${Date.now()}.png`;
+            link.href = inlineCanvas.toDataURL();
+            link.click();
+        }
+
+    </script>
+</body>
+</html>
+

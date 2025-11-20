@@ -120,42 +120,7 @@
         }
     </style>
 </head>
-<body class="dashboard-page">
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#">
-                    <img src="../INF.logo2.png" alt="INF Logo" class="inf-logo-img">
-                </a>
-                <div class="nav-logo-line"></div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="../Kreative.html" class="nav-link active">Kreative</a></li>
-            </ul>
-            <div class="nav-search">
-                <form id="navSearchForm">
-                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
-                    <button class="search-btn" type="submit" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                </form>
-            </div>
-            <div class="nav-actions">
-                <button class="icon-btn" title="Chat">
-                    <i data-lucide="message-circle"></i>
-                </button>
-                <button class="icon-btn" title="Settings">
-                    <i data-lucide="settings"></i>
-                </button>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
+<body class="dashboard-page kreative-page">
     <div class="vertical-dock">
         <div class="dock-logo">
             <img src="../INF.logo3.png" alt="INF Logo" class="dock-logo-img">
@@ -197,7 +162,7 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Online assets</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='../Filebase.html'">
+            <div class="dock-item" onclick="window.location.href='../filebase/homebase.html'">
                 <i data-lucide="folder-tree"></i>
                 <span class="dock-label">Filebase</span>
             </div>
@@ -266,7 +231,7 @@
             <div class="front-tile-container">
             <div class="top-right-bar inside-tile">
                 <div class="top-right-actions">
-                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
                         <i data-lucide="grid"></i>
                     </button>
                     <button class="accounts-icon-btn teams-action-btn" title="Notifications">

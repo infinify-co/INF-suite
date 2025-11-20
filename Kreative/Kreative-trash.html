@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operation - INF Dashboard</title>
+    <title>Basic - Kreative | INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
-        /* Back Tile Styles */
         .back-tile {
             position: absolute;
             top: 0;
             left: 260px;
             bottom: 0;
-            width: 230px; /* Reduced by 150px (380px - 150px) */
+            width: 230px;
             background: #ffffff;
-            z-index: 998; /* Behind front tile (999) */
-            border-radius: 20px 0 0 20px; /* Rounded left corners only */
-            overflow: visible; /* Changed from hidden to visible */
+            z-index: 998;
+            border-radius: 20px 0 0 20px;
+            overflow: visible;
         }
-
-        /* Secondary Sidebar Styles */
         .secondary-sidebar {
             height: 100%;
             display: flex;
@@ -30,7 +27,6 @@
             background: #ffffff;
             transform: translateX(-250px);
         }
-
         .secondary-sidebar-header {
             display: flex;
             align-items: center;
@@ -38,14 +34,12 @@
             padding: 20px 24px;
             border-bottom: 1px solid #e5e7eb;
         }
-
         .secondary-sidebar-brand {
             font-weight: 700;
             font-size: 16px;
             color: #000000;
             letter-spacing: -0.02em;
         }
-
         .secondary-sidebar-icon {
             width: 20px;
             height: 20px;
@@ -53,17 +47,14 @@
             align-items: center;
             justify-content: center;
         }
-
         .secondary-sidebar-icon svg {
             color: #6b7280;
         }
-
         .secondary-sidebar-nav {
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
         }
-
         .secondary-nav-back {
             display: flex;
             align-items: center;
@@ -76,22 +67,15 @@
             position: relative;
             border-radius: 8px;
             margin: 0 8px;
+            text-decoration: none;
         }
-
         .secondary-nav-back:hover {
             color: #000000;
             background-color: #f9fafb;
         }
-
-        .secondary-nav-back i {
-            width: 16px;
-            height: 16px;
-        }
-
         .secondary-nav-list {
             margin-top: 8px;
         }
-
         .secondary-nav-item {
             display: flex;
             align-items: center;
@@ -104,24 +88,16 @@
             position: relative;
             border-radius: 8px;
             margin: 0 8px;
+            text-decoration: none;
         }
-
         .secondary-nav-item:hover {
             background-color: #f9fafb;
             border-radius: 8px;
         }
-
         .secondary-nav-item.active {
             background-color: #f3f4f6;
             border-radius: 8px;
         }
-
-        .secondary-nav-item i {
-            width: 14px;
-            height: 14px;
-            color: #6b7280;
-        }
-
         .secondary-sidebar-footer {
             padding: 16px 24px;
             border-top: 1px solid #e5e7eb;
@@ -129,7 +105,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .secondary-sidebar-footer svg {
             width: 18px;
             height: 18px;
@@ -137,47 +112,15 @@
             cursor: pointer;
             transition: color 0.2s;
         }
-
         .secondary-sidebar-footer svg:hover {
             color: #000000;
         }
-
-        /* Adjust front tile to account for back tile */
         .front-tile {
-            left: 270px; /* Extended 220px to the left (490px - 220px) */
+            left: 270px;
         }
     </style>
 </head>
-<body class="dashboard-page">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#">
-                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
-                </a>
-                <div class="nav-logo-line"></div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="Operation.html" class="nav-link active">Operation</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="icon-btn" title="Chat">
-                    <i data-lucide="message-circle"></i>
-                </button>
-                <button class="icon-btn" title="Settings">
-                    <i data-lucide="settings"></i>
-                </button>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Vertical Dock -->
+<body class="dashboard-page kreative-page">
     <div class="vertical-dock">
         <div class="dock-logo">
             <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
@@ -187,7 +130,7 @@
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='Operation.html'">
+            <div class="dock-item" onclick="window.location.href='Operation.html'">
                 <i data-lucide="hard-hat"></i>
                 <span class="dock-label">Operation</span>
             </div>
@@ -199,7 +142,7 @@
                 <i data-lucide="cpu"></i>
                 <span class="dock-label">Agents</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Kreative.html'">
+            <div class="dock-item active" onclick="window.location.href='Kreative.html'">
                 <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Account</span>
             </div>
@@ -219,7 +162,7 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Online assets</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+            <div class="dock-item" onclick="window.location.href='filebase/homebase.html'">
                 <i data-lucide="folder-tree"></i>
                 <span class="dock-label">Filebase</span>
             </div>
@@ -234,16 +177,14 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
         </div>
         
-        <!-- Back Tile (Secondary Sidebar) -->
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Operation</div>
+                    <div class="secondary-sidebar-brand">Kreative</div>
                     <div class="secondary-sidebar-icon">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
@@ -252,27 +193,30 @@
                 </div>
                 <div class="secondary-sidebar-nav">
                     <div class="secondary-nav-list">
-                        <div class="secondary-nav-item active" data-section="overview">
-                            <span>Overview</span>
-                        </div>
-                        <div class="secondary-nav-item" data-section="api-platform">
-                            <span>API Platform</span>
-                        </div>
-                        <div class="secondary-nav-item" data-section="api-pricing">
-                            <span>API Pricing</span>
-                        </div>
-                        <div class="secondary-nav-item" data-section="agents">
-                            <span>Agents</span>
-                        </div>
-                        <div class="secondary-nav-item" data-section="codex">
-                            <span>Codex</span>
-                        </div>
-                        <div class="secondary-nav-item" data-section="open-models">
-                            <span>Open Models</span>
-                        </div>
-                        <div class="secondary-nav-item" data-section="community">
-                            <span>Community</span>
-                        </div>
+                        <a href="Kreative/home.html" class="secondary-nav-back">
+                            <span>Home</span>
+                        </a>
+                        <a href="Kreative-my-projects.html" class="secondary-nav-item">
+                            <span>My Projects</span>
+                        </a>
+                        <a href="Kreative-templates.html" class="secondary-nav-item">
+                            <span>Templates</span>
+                        </a>
+                        <a href="Kreative-whiteboards.html" class="secondary-nav-item">
+                            <span>Whiteboards</span>
+                        </a>
+                        <a href="Kreative-documents.html" class="secondary-nav-item">
+                            <span>Documents</span>
+                        </a>
+                        <a href="Kreative-recent.html" class="secondary-nav-item">
+                            <span>Recent</span>
+                        </a>
+                        <a href="Kreative-shared.html" class="secondary-nav-item">
+                            <span>Shared</span>
+                        </a>
+                        <a href="Kreative/basic.html" class="secondary-nav-item active">
+                            <span>Basic</span>
+                        </a>
                     </div>
                 </div>
                 <div class="secondary-sidebar-footer">
@@ -283,82 +227,24 @@
             </div>
         </div>
         
-        <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
-            <!-- Overview Content (Blank) -->
-            <div class="content-section" id="overview-content" style="display: block;">
-                <!-- Blank content for Overview -->
+            <div class="top-right-bar">
+                <div class="top-right-actions">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
+                        <i data-lucide="grid"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                        <i data-lucide="user-circle"></i>
+                    </button>
+                </div>
             </div>
-            
-            <!-- App Icons Grid (Shown for API Platform section) -->
-            <section class="apps-grid content-section" id="api-platform-content" style="display: none;">
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail analytics-gradient"></div>
-                    </div>
-                    <span class="app-name">Analytics</span>
-                </div>
-
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail crm-gradient"></div>
-                    </div>
-                    <span class="app-name">CRM</span>
-                </div>
-
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail finance-gradient"></div>
-                    </div>
-                    <span class="app-name">Finance</span>
-                </div>
-
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail hr-gradient"></div>
-                    </div>
-                    <span class="app-name">HR</span>
-                </div>
-
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail marketing-gradient"></div>
-                    </div>
-                    <span class="app-name">Marketing</span>
-                </div>
-
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail sales-gradient"></div>
-                    </div>
-                    <span class="app-name">Sales</span>
-                </div>
-
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail support-gradient"></div>
-                    </div>
-                    <span class="app-name">Support</span>
-                </div>
-
-                <div class="app-icon">
-                    <div class="app-icon-body">
-                        <div class="app-icon-thumbnail inventory-gradient"></div>
-                    </div>
-                    <span class="app-name">Inventory</span>
-                </div>
-            </section>
-            
-            <!-- Other content sections (blank for now) -->
-            <div class="content-section" id="api-pricing-content" style="display: none;"></div>
-            <div class="content-section" id="agents-content" style="display: none;"></div>
-            <div class="content-section" id="codex-content" style="display: none;"></div>
-            <div class="content-section" id="open-models-content" style="display: none;"></div>
-            <div class="content-section" id="community-content" style="display: none;"></div>
+            <div class="top-left-heading">Basic</div>
             </div>
         </div>
-        <!-- Circle in bottom right corner -->
         <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
             <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
@@ -366,44 +252,16 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
-
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
             dockItems.forEach(item => {
                 const label = item.querySelector('.dock-label');
                 if (label) {
                     item.addEventListener('mouseenter', () => {
                         const rect = item.getBoundingClientRect();
-                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`;
                     });
                 }
-            });
-
-            // Handle secondary navigation item clicks
-            const navItems = document.querySelectorAll('.secondary-nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    // Remove active class from all items
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    // Add active class to clicked item
-                    item.classList.add('active');
-                    
-                    // Get the section identifier
-                    const section = item.getAttribute('data-section');
-                    
-                    // Hide all content sections
-                    const allContentSections = document.querySelectorAll('.content-section');
-                    allContentSections.forEach(content => {
-                        content.style.display = 'none';
-                    });
-                    
-                    // Show the selected content section
-                    const targetContent = document.getElementById(`${section}-content`);
-                    if (targetContent) {
-                        targetContent.style.display = 'block';
-                    }
-                });
             });
         });
     </script>

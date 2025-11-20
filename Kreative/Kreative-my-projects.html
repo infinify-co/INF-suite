@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whiteboards - Kreative | INF Dashboard</title>
+    <title>My Projects - Kreative | INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
+        /* Back Tile Styles */
         .back-tile {
             position: absolute;
             top: 0;
@@ -19,6 +20,8 @@
             border-radius: 20px 0 0 20px;
             overflow: visible;
         }
+
+        /* Secondary Sidebar Styles */
         .secondary-sidebar {
             height: 100%;
             display: flex;
@@ -27,6 +30,7 @@
             background: #ffffff;
             transform: translateX(-250px);
         }
+
         .secondary-sidebar-header {
             display: flex;
             align-items: center;
@@ -34,12 +38,14 @@
             padding: 20px 24px;
             border-bottom: 1px solid #e5e7eb;
         }
+
         .secondary-sidebar-brand {
             font-weight: 700;
             font-size: 16px;
             color: #000000;
             letter-spacing: -0.02em;
         }
+
         .secondary-sidebar-icon {
             width: 20px;
             height: 20px;
@@ -47,14 +53,17 @@
             align-items: center;
             justify-content: center;
         }
+
         .secondary-sidebar-icon svg {
             color: #6b7280;
         }
+
         .secondary-sidebar-nav {
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
         }
+
         .secondary-nav-back {
             display: flex;
             align-items: center;
@@ -69,13 +78,21 @@
             margin: 0 8px;
             text-decoration: none;
         }
+
         .secondary-nav-back:hover {
             color: #000000;
             background-color: #f9fafb;
         }
+
+        .secondary-nav-back i {
+            width: 16px;
+            height: 16px;
+        }
+
         .secondary-nav-list {
             margin-top: 8px;
         }
+
         .secondary-nav-item {
             display: flex;
             align-items: center;
@@ -90,14 +107,23 @@
             margin: 0 8px;
             text-decoration: none;
         }
+
         .secondary-nav-item:hover {
             background-color: #f9fafb;
             border-radius: 8px;
         }
+
         .secondary-nav-item.active {
             background-color: #f3f4f6;
             border-radius: 8px;
         }
+
+        .secondary-nav-item i {
+            width: 14px;
+            height: 14px;
+            color: #6b7280;
+        }
+
         .secondary-sidebar-footer {
             padding: 16px 24px;
             border-top: 1px solid #e5e7eb;
@@ -105,6 +131,7 @@
             align-items: center;
             justify-content: center;
         }
+
         .secondary-sidebar-footer svg {
             width: 18px;
             height: 18px;
@@ -112,50 +139,19 @@
             cursor: pointer;
             transition: color 0.2s;
         }
+
         .secondary-sidebar-footer svg:hover {
             color: #000000;
         }
+
+        /* Adjust front tile to account for back tile */
         .front-tile {
             left: 270px;
         }
     </style>
 </head>
-<body class="dashboard-page">
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#">
-                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
-                </a>
-                <div class="nav-logo-line"></div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="Kreative.html" class="nav-link active">Kreative</a></li>
-            </ul>
-            <div class="nav-search">
-                <form id="navSearchForm">
-                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
-                    <button class="search-btn" type="submit" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                </form>
-            </div>
-            <div class="nav-actions">
-                <button class="icon-btn" title="Chat">
-                    <i data-lucide="message-circle"></i>
-                </button>
-                <button class="icon-btn" title="Settings">
-                    <i data-lucide="settings"></i>
-                </button>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
-
+<body class="dashboard-page kreative-page">
+    <!-- Vertical Dock -->
     <div class="vertical-dock">
         <div class="dock-logo">
             <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
@@ -197,7 +193,7 @@
                 <i data-lucide="container"></i>
                 <span class="dock-label">Online assets</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+            <div class="dock-item" onclick="window.location.href='filebase/homebase.html'">
                 <i data-lucide="folder-tree"></i>
                 <span class="dock-label">Filebase</span>
             </div>
@@ -212,10 +208,12 @@
         </div>
     </div>
 
+    <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
         </div>
         
+        <!-- Back Tile (Secondary Sidebar) -->
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
@@ -231,13 +229,13 @@
                         <a href="Kreative/home.html" class="secondary-nav-back">
                             <span>Home</span>
                         </a>
-                        <a href="Kreative-my-projects.html" class="secondary-nav-item">
+                        <a href="Kreative-my-projects.html" class="secondary-nav-item active">
                             <span>My Projects</span>
                         </a>
                         <a href="Kreative-templates.html" class="secondary-nav-item">
                             <span>Templates</span>
                         </a>
-                        <a href="Kreative-whiteboards.html" class="secondary-nav-item active">
+                        <a href="Kreative-whiteboards.html" class="secondary-nav-item">
                             <span>Whiteboards</span>
                         </a>
                         <a href="Kreative-documents.html" class="secondary-nav-item">
@@ -262,11 +260,12 @@
             </div>
         </div>
         
+        <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
             <div class="top-right-bar">
                 <div class="top-right-actions">
-                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
                         <i data-lucide="grid"></i>
                     </button>
                     <button class="accounts-icon-btn teams-action-btn" title="Notifications">
@@ -277,9 +276,11 @@
                     </button>
                 </div>
             </div>
-            <div class="top-left-heading">Whiteboards</div>
+            <!-- Matching top-left text on same row as the bar -->
+            <div class="top-left-heading">My Projects</div>
             </div>
         </div>
+        <!-- Circle in bottom right corner -->
         <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
             <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
@@ -287,7 +288,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
+
             const dockItems = Array.from(document.querySelectorAll('.dock-item'));
             dockItems.forEach(item => {
                 const label = item.querySelector('.dock-label');

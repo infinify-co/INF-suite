@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campaigns - INF Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Operation - INF Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
@@ -374,13 +374,18 @@
         html {
             background: #ffffff !important;
         }
+
+        /* Content sections */
+        .content-section {
+            padding: 40px;
+        }
     </style>
 </head>
 <body class="dashboard-page">
     <!-- Secondary Sidebar -->
     <div class="secondary-sidebar">
         <div class="secondary-sidebar-header">
-            <div class="secondary-sidebar-brand">Campaigns</div>
+            <div class="secondary-sidebar-brand">Operation</div>
             <div class="secondary-sidebar-icon">
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
@@ -389,23 +394,26 @@
         </div>
         <div class="secondary-sidebar-nav">
             <div class="secondary-nav-list">
-                <div class="secondary-nav-back">
-                    <span>Campaigns</span>
+                <div class="secondary-nav-item active" data-section="overview">
+                    <span>Overview</span>
                 </div>
-                <div class="secondary-nav-item active">
-                    <span>All Campaigns</span>
+                <div class="secondary-nav-item" data-section="api-platform">
+                    <span>API Platform</span>
                 </div>
-                <div class="secondary-nav-item">
-                    <span>Active</span>
+                <div class="secondary-nav-item" data-section="api-pricing">
+                    <span>API Pricing</span>
                 </div>
-                <div class="secondary-nav-item">
-                    <span>Draft</span>
+                <div class="secondary-nav-item" data-section="agents">
+                    <span>Agents</span>
                 </div>
-                <div class="secondary-nav-item">
-                    <span>Completed</span>
+                <div class="secondary-nav-item" data-section="codex">
+                    <span>Codex</span>
                 </div>
-                <div class="secondary-nav-item">
-                    <span>Analytics</span>
+                <div class="secondary-nav-item" data-section="open-models">
+                    <span>Open Models</span>
+                </div>
+                <div class="secondary-nav-item" data-section="community">
+                    <span>Community</span>
                 </div>
             </div>
         </div>
@@ -418,78 +426,150 @@
 
     <!-- Main Content -->
     <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Overview Content (Blank) -->
+            <div class="content-section" id="overview-content" style="display: block;">
+                <!-- Blank content for Overview -->
+            </div>
+            
+            <!-- App Icons Grid (Shown for API Platform section) -->
+            <section class="apps-grid content-section" id="api-platform-content" style="display: none;">
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail analytics-gradient"></div>
+                    </div>
+                    <span class="app-name">Analytics</span>
+                </div>
+
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail crm-gradient"></div>
+                    </div>
+                    <span class="app-name">CRM</span>
+                </div>
+
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail finance-gradient"></div>
+                    </div>
+                    <span class="app-name">Finance</span>
+                </div>
+
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail hr-gradient"></div>
+                    </div>
+                    <span class="app-name">HR</span>
+                </div>
+
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail marketing-gradient"></div>
+                    </div>
+                    <span class="app-name">Marketing</span>
+                </div>
+
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail sales-gradient"></div>
+                    </div>
+                    <span class="app-name">Sales</span>
+                </div>
+
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail support-gradient"></div>
+                    </div>
+                    <span class="app-name">Support</span>
+                </div>
+
+                <div class="app-icon">
+                    <div class="app-icon-body">
+                        <div class="app-icon-thumbnail inventory-gradient"></div>
+                    </div>
+                    <span class="app-name">Inventory</span>
+                </div>
+            </section>
+            
+            <!-- Other content sections (blank for now) -->
+            <div class="content-section" id="api-pricing-content" style="display: none;"></div>
+            <div class="content-section" id="agents-content" style="display: none;"></div>
+            <div class="content-section" id="codex-content" style="display: none;"></div>
+            <div class="content-section" id="open-models-content" style="display: none;"></div>
+            <div class="content-section" id="community-content" style="display: none;"></div>
+        </div>
     </main>
 
     <!-- Dock -->
     <div class="dock-container">
         <div class="dock" id="dock">
-            <div class="dock-item" onclick="window.location.href='home.html'">
+            <div class="dock-item" onclick="window.location.href='../home.html'">
                 <div class="dock-icon blue-shade-4">
                     <i data-lucide="home"></i>
                 </div>
                 <div class="dock-label">Home</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Operation/Operation.html'">
+            <div class="dock-item" onclick="window.location.href='Operation.html'">
                 <div class="dock-icon blue-shade-5">
                     <i data-lucide="hard-hat"></i>
                 </div>
                 <div class="dock-label">Operation</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='work.html'">
+            <div class="dock-item" onclick="window.location.href='../work.html'">
                 <div class="dock-icon blue-shade-3">
-                    <img src="work.2.png" alt="Teams">
+                    <img src="../work.2.png" alt="Teams">
                 </div>
                 <div class="dock-label">Teams</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Agents.html'">
+            <div class="dock-item" onclick="window.location.href='../Agents.html'">
                 <div class="dock-icon blue-shade-6">
                     <i data-lucide="cpu"></i>
                 </div>
                 <div class="dock-label">Agents</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Kreative/Kreative.html'">
+            <div class="dock-item" onclick="window.location.href='../Kreative/Kreative.html'">
                 <div class="dock-icon blue-shade-2">
-                    <img src="Kreative.png" alt="Kreative">
+                    <img src="../Kreative.png" alt="Kreative">
                 </div>
                 <div class="dock-label">Kreative</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Devra/Devra.html'">
+            <div class="dock-item" onclick="window.location.href='../Devra/Devra.html'">
                 <div class="dock-icon blue-shade-7">
                     <i data-lucide="squares-exclude"></i>
                 </div>
                 <div class="dock-label">Devra</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+            <div class="dock-item" onclick="window.location.href='../campaigns.html'">
                 <div class="dock-icon blue-shade-1">
                     <i data-lucide="focus"></i>
                 </div>
                 <div class="dock-label">Campaigns</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase/Oceanbase.html'">
+            <div class="dock-item" onclick="window.location.href='../Oceanbase/Oceanbase.html'">
                 <div class="dock-icon blue-shade-8">
-                    <img src="Oceanbase.1.jpg" alt="Database">
+                    <img src="../Oceanbase.1.jpg" alt="Database">
                 </div>
                 <div class="dock-label">Oceanbase</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+            <div class="dock-item" onclick="window.location.href='../Online-assets.html'">
                 <div class="dock-icon blue-shade-4">
                     <i data-lucide="container"></i>
                 </div>
                 <div class="dock-label">Online Assets</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+            <div class="dock-item" onclick="window.location.href='../Filebase.html'">
                 <div class="dock-icon blue-shade-6">
                     <i data-lucide="folder-tree"></i>
                 </div>
                 <div class="dock-label">Filebase</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
+            <div class="dock-item" onclick="window.location.href='../financial.html'">
                 <div class="dock-icon blue-shade-5">
                     <i data-lucide="landmark"></i>
                 </div>
                 <div class="dock-label">Financials</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
+            <div class="dock-item" onclick="window.location.href='../chats.html'">
                 <div class="dock-icon blue-shade-2">
                     <i data-lucide="message-circle-more"></i>
                 </div>
@@ -500,7 +580,7 @@
 
     <!-- Bottom Circle with Sorif Image -->
     <div class="bottom-circle">
-        <img src="sorif.real.png" alt="Sorif">
+        <img src="../sorif.real.png" alt="Sorif">
     </div>
 
     <script>
@@ -583,6 +663,32 @@
             if (window.lucide) {
                 lucide.createIcons();
             }
+
+            // Handle secondary navigation item clicks
+            const navItems = document.querySelectorAll('.secondary-nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Get the section identifier
+                    const section = item.getAttribute('data-section');
+                    
+                    // Hide all content sections
+                    const allContentSections = document.querySelectorAll('.content-section');
+                    allContentSections.forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    
+                    // Show the selected content section
+                    const targetContent = document.getElementById(`${section}-content`);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                    }
+                });
+            });
         });
     </script>
 </body>

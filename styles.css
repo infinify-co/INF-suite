@@ -437,7 +437,7 @@ body {
 /* Top Right Bar */
 .top-right-bar {
     position: fixed;
-    top: 20px;
+    top: -40px;
     right: 20px;
     display: flex;
     align-items: center;
@@ -464,6 +464,15 @@ body {
 .top-right-actions {
     display: flex;
     gap: 22px;
+}
+
+/* Hide header buttons on Kreative section */
+.kreative-page .top-right-actions {
+    display: none;
+}
+
+.kreative-page .top-right-bar {
+    display: none;
 }
 
 .teams-action-btn {
@@ -583,7 +592,7 @@ body {
 /* Landing Page Header */
 .landing-header {
     position: fixed;
-    top: 0;
+    top: -40px;
     left: 0;
     right: 0;
     width: 100%;
@@ -870,7 +879,7 @@ body {
 .navbar {
     display: none; /* Hidden on all pages */
     position: fixed;
-    top: 0;
+    top: -40px;
     width: 100%;
     background: white;
     backdrop-filter: none;

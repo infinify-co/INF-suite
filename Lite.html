@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lite.html</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            width: 100%;
+            padding: 12px 40px;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: -20px;
+        }
+
+        .header-logo {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: -75px;
+            /* Logo placeholder - you can add an img tag here */
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.02em;
+            font-family: 'Open Sans', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Gradient Button Styles */
+        .gradient-button-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: inline-block;
+            border-radius: 11px;
+            padding: 2px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            transition: all 0.2s;
+            z-index: 101;
+        }
+
+        .gradient-button-wrapper:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .gradient-button-wrapper:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        .gradient-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            min-width: 100px;
+            padding: 10px 20px;
+            font-size: 14px;
+            line-height: 17px;
+            font-weight: 500;
+            color: #111827;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            border: none;
+            cursor: pointer;
+            background: #ffffff;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .gradient-button:focus-visible {
+            outline: none;
+        }
+
+        .gradient-button-wrapper:focus-within {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2), 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .gradient-button:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .main-content {
+            margin-top: 64px;
+            height: calc(100vh - 64px);
+            background: #ffffff;
+            padding-bottom: 150px;
+        }
+
+        /* Dock Styles */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px 20px 20px 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #f9fafb;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .dock {
+                background: #171717;
+            }
+            .dock-label {
+                background: #262626;
+                border-color: #171717;
+                color: #ffffff;
+            }
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+
+        .dock-item:hover .dock-icon {
+            transform: scale(1.1);
+        }
+
+        .dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .dock-icon img,
+        .dock-icon svg,
+        .dock-icon i {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .dock-icon i[data-lucide] {
+            display: block;
+        }
+
+        /* Bottom Circle with Sorif Image */
+        .bottom-circle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 
+                        0 2px 6px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+        }
+
+        .bottom-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Grid 3x3 Button */
+        .grid-button {
+            position: fixed;
+            top: 94px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .grid-button:hover {
+            background: #f9fafb;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .grid-button i {
+            width: 24px;
+            height: 24px;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-title-wrapper">
+                <div class="header-logo">
+                    <img src="INF.Asset1.png" alt="INF Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <h1 class="header-title">INFINIFY LITE</h1>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Try Full Suite Button in Corner -->
+    <div class="gradient-button-wrapper">
+        <button class="gradient-button">
+            Try full suite
+        </button>
+    </div>
+    
+    <!-- Grid 3x3 Button -->
+    <button class="grid-button" title="Grid">
+        <i data-lucide="grid-3x3"></i>
+    </button>
+    
+    <main class="main-content">
+        <!-- Blank screen content -->
+    </main>
+
+    <!-- Dock -->
+    <div class="dock-container">
+        <div class="dock" id="dock">
+            <!-- Dock items numbered 1-10 from left to right -->
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #38bdf8; border-radius: 8px; position: relative;">
+                        <i data-lucide="bookmark" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
+                </div>
+                <div class="dock-label">1</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #60a5fa; border-radius: 8px; position: relative;">
+                        <i data-lucide="book-open" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
+                </div>
+                <div class="dock-label">2</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #0ea5e9; border-radius: 8px; position: relative;">
+                        <i data-lucide="shapes" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
+                </div>
+                <div class="dock-label">3</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #3b82f6; border-radius: 8px; position: relative;">
+                        <i data-lucide="boxes" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
+                </div>
+                <div class="dock-label">4</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #0284c7; border-radius: 8px; position: relative;">
+                        <i data-lucide="brain-circuit" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
+                </div>
+                <div class="dock-label">5</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #2563eb; border-radius: 8px; position: relative;">
+                        <i data-lucide="link" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
+                </div>
+                <div class="dock-label">6</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #1d4ed8; border-radius: 8px; position: relative;">
+                        <i data-lucide="notebook-pen" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
+                </div>
+                <div class="dock-label">7</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #1e40af; border-radius: 8px;"></div>
+                </div>
+                <div class="dock-label">8</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #1e3a8a; border-radius: 8px;"></div>
+                </div>
+                <div class="dock-label">9</div>
+            </div>
+            <div class="dock-item">
+                <div class="dock-icon">
+                    <div style="width: 100%; height: 100%; background: #1e1b4b; border-radius: 8px;"></div>
+                </div>
+                <div class="dock-label">10</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dock magnification effect with smoother animations
+        const dock = document.getElementById('dock');
+        const dockItems = Array.from(dock.querySelectorAll('.dock-item'));
+        
+        let mouseX = Infinity;
+        let isHovered = false;
+        const distance = 150;
+        const magnification = 56; // Reduced from 80 to make items grow less
+        const defaultSize = 40;
+        let animationFrameId = null;
+        let lastUpdateTime = 0;
+        const throttleMs = 16; // ~60fps
+
+        // Smooth easing function
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        function updateDockItems() {
+            const now = performance.now();
+            if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                return;
+            }
+            lastUpdateTime = now;
+
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+
+            animationFrameId = requestAnimationFrame(() => {
+                dockItems.forEach((item) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemCenterX = rect.left + rect.width / 2;
+                    const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                    
+                    if (isHovered && distanceFromMouse < distance) {
+                        // Smooth interpolation with easing
+                        const normalizedDistance = distanceFromMouse / distance;
+                        const easedDistance = easeOutCubic(1 - normalizedDistance);
+                        const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                        const newSize = defaultSize * scale;
+                        item.style.width = `${newSize}px`;
+                        item.style.height = `${newSize}px`;
+                    } else {
+                        item.style.width = `${defaultSize}px`;
+                        item.style.height = `${defaultSize}px`;
+                    }
+                });
+            });
+        }
+
+        dock.addEventListener('mousemove', (e) => {
+            isHovered = true;
+            mouseX = e.pageX;
+            updateDockItems();
+        });
+
+        dock.addEventListener('mouseleave', () => {
+            isHovered = false;
+            mouseX = Infinity;
+            dockItems.forEach((item) => {
+                item.style.width = `${defaultSize}px`;
+                item.style.height = `${defaultSize}px`;
+            });
+        });
+
+        // Continuous smooth updates
+        function smoothUpdate() {
+            if (isHovered) {
+                updateDockItems();
+            }
+            requestAnimationFrame(smoothUpdate);
+        }
+        smoothUpdate();
+
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+    <!-- Bottom Circle with Sorif Image -->
+    <div class="bottom-circle">
+        <img src="sorif.real.png" alt="Sorif">
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Select - INF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: #f9fafb;
+            border-color: #cbd5e1;
+            transform: translateX(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .back-button i {
+            width: 20px;
+            height: 20px;
+            color: #1f2937;
+        }
+
+        .container {
+            padding: 80px 40px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 24px;
+            margin-top: 48px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .app-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        .app-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+            border-color: #cbd5e1;
+        }
+
+        .app-card-header {
+            height: 140px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .app-card-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .app-card-gradient.blue {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+        }
+
+        .app-card-gradient.green {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        }
+
+        .app-card-gradient.purple {
+            background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+        }
+
+        .app-card-gradient.orange {
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+        }
+
+        .app-card-gradient.pink {
+            background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+        }
+
+        .app-card-gradient.indigo {
+            background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+        }
+
+        .app-card-gradient.cyan {
+            background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 100%);
+        }
+
+        .app-card-gradient.red {
+            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+        }
+
+        .app-card-icon {
+            position: relative;
+            z-index: 1;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .app-card-icon i,
+        .app-card-icon svg {
+            width: 36px;
+            height: 36px;
+            color: #ffffff;
+        }
+
+        .app-card-icon img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .app-card-content {
+            padding: 20px;
+        }
+
+        .app-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 4px 0;
+            text-align: center;
+        }
+
+        .app-card-description {
+            font-size: 13px;
+            color: #6b7280;
+            margin: 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 1200px) {
+            .apps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .container {
+                padding: 80px 20px 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="goBack()" title="Go back">
+        <i data-lucide="arrow-left"></i>
+    </button>
+    
+    <div class="container">
+        <div class="page-header">
+        <h1>App Select</h1>
+        </div>
+
+        <div class="section-title">Applications</div>
+        <div class="apps-grid" id="appsGrid">
+            <div class="app-card" onclick="window.location.href='home.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient blue"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="home"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Home</div>
+                    <div class="app-card-description">Dashboard and overview</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='Operation/Operation.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient orange"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="hard-hat"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Operation</div>
+                    <div class="app-card-description">Operations management</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='work.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient green"></div>
+                    <div class="app-card-icon">
+                        <img src="work.2.png" alt="Teams">
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Teams</div>
+                    <div class="app-card-description">Team collaboration</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='Agents.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient purple"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Agents</div>
+                    <div class="app-card-description">AI agents platform</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='Kreative/Kreative.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient pink"></div>
+                    <div class="app-card-icon">
+                        <img src="Kreative.png" alt="Kreative">
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Kreative</div>
+                    <div class="app-card-description">Creative workspace</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='Devra/Devra.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient indigo"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="squares-exclude"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Devra</div>
+                    <div class="app-card-description">Development tools</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='campaigns.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient cyan"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="focus"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Campaigns</div>
+                    <div class="app-card-description">Marketing campaigns</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='Oceanbase/Oceanbase.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient blue"></div>
+                    <div class="app-card-icon">
+                        <img src="Oceanbase.1.jpg" alt="Database">
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Oceanbase</div>
+                    <div class="app-card-description">Database management</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Extensions</div>
+        <div class="apps-grid" id="extensionsGrid">
+            <div class="app-card" onclick="window.location.href='Online-assets.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient green"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="container"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Online Assets</div>
+                    <div class="app-card-description">Asset management</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='Filebase.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient purple"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="folder-tree"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Filebase</div>
+                    <div class="app-card-description">File storage</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='financial.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient orange"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="landmark"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Financials</div>
+                    <div class="app-card-description">Financial tracking</div>
+                </div>
+            </div>
+
+            <div class="app-card" onclick="window.location.href='chats.html'">
+                <div class="app-card-header">
+                    <div class="app-card-gradient pink"></div>
+                    <div class="app-card-icon">
+                        <i data-lucide="message-circle-more"></i>
+                    </div>
+                </div>
+                <div class="app-card-content">
+                    <div class="app-card-title">Chats</div>
+                    <div class="app-card-description">Messaging platform</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+
+        function goBack() {
+            // Try to go back in history, or redirect to referrer if available
+            if (document.referrer && document.referrer !== window.location.href) {
+                window.location.href = document.referrer;
+            } else if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                // Fallback to home if no history
+                window.location.href = 'home.html';
+            }
+        }
+    </script>
+</body>
+</html>

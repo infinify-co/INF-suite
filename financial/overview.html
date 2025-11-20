@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects - Kreative | INF Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Financial Overview - INF Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Back Tile Styles */
         .back-tile {
@@ -14,11 +15,11 @@
             top: 0;
             left: 260px;
             bottom: 0;
-            width: 230px;
+            width: 230px; /* Reduced by 150px (380px - 150px) */
             background: #ffffff;
-            z-index: 998;
-            border-radius: 20px 0 0 20px;
-            overflow: visible;
+            z-index: 998; /* Behind front tile (999) */
+            border-radius: 20px 0 0 20px; /* Rounded left corners only */
+            overflow: visible; /* Changed from hidden to visible */
         }
 
         /* Secondary Sidebar Styles */
@@ -62,6 +63,12 @@
             flex: 1;
             padding: 16px 0;
             overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .secondary-sidebar-nav::-webkit-scrollbar {
+            display: none;
         }
 
         .secondary-nav-back {
@@ -76,7 +83,6 @@
             position: relative;
             border-radius: 8px;
             margin: 0 8px;
-            text-decoration: none;
         }
 
         .secondary-nav-back:hover {
@@ -105,7 +111,6 @@
             position: relative;
             border-radius: 8px;
             margin: 0 8px;
-            text-decoration: none;
         }
 
         .secondary-nav-item:hover {
@@ -146,7 +151,38 @@
 
         /* Adjust front tile to account for back tile */
         .front-tile {
-            left: 270px;
+            left: 270px; /* Extended 220px to the left (490px - 220px) */
+        }
+
+        /* Scale down content proportionally */
+        .front-tile-container {
+            transform: scale(0.85);
+            transform-origin: top left;
+            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
+        }
+
+        /* Hide all scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        main::-webkit-scrollbar,
+        .dashboard-main::-webkit-scrollbar,
+        .front-tile::-webkit-scrollbar,
+        .front-tile-container::-webkit-scrollbar {
+            display: none;
         }
     </style>
 </head>
@@ -156,12 +192,12 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#">
-                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                    <img src="../INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="Kreative.html" class="nav-link active">Kreative</a></li>
+                <li><a href="../financial.html" class="nav-link active">Financials</a></li>
             </ul>
             <div class="nav-search">
                 <form id="navSearchForm">
@@ -190,54 +226,54 @@
     <!-- Vertical Dock -->
     <div class="vertical-dock">
         <div class="dock-logo">
-            <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
+            <img src="../INF.logo3.png" alt="INF Logo" class="dock-logo-img">
         </div>
         <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='home.html'">
+            <div class="dock-item" onclick="window.location.href='../home.html'">
                 <i data-lucide="home"></i>
                 <span class="dock-label">Home</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Operation.html'">
+            <div class="dock-item" onclick="window.location.href='../Operation.html'">
                 <i data-lucide="hard-hat"></i>
                 <span class="dock-label">Operation</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='work.html'">
-                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+            <div class="dock-item" onclick="window.location.href='../work.html'">
+                <img src="../work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Team's</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Agents.html'">
+            <div class="dock-item" onclick="window.location.href='../Agents.html'">
                 <i data-lucide="cpu"></i>
                 <span class="dock-label">Agents</span>
             </div>
-            <div class="dock-item active" onclick="window.location.href='Kreative.html'">
-                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+            <div class="dock-item" onclick="window.location.href='../Kreative.html'">
+                <img src="../Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Account</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Devra.html'">
+            <div class="dock-item" onclick="window.location.href='../Devra.html'">
                 <i data-lucide="squares-exclude"></i>
                 <span class="dock-label">Devra</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+            <div class="dock-item" onclick="window.location.href='../campaigns.html'">
                 <i data-lucide="focus"></i>
                 <span class="dock-label">Campaigns</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+            <div class="dock-item" onclick="window.location.href='../Oceanbase.html'">
+                <img src="../Oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
                 <span class="dock-label">Data</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+            <div class="dock-item" onclick="window.location.href='../Online-assets.html'">
                 <i data-lucide="container"></i>
                 <span class="dock-label">Online assets</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+            <div class="dock-item" onclick="window.location.href='../filebase/homebase.html'">
                 <i data-lucide="folder-tree"></i>
                 <span class="dock-label">Filebase</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
+            <div class="dock-item active" onclick="window.location.href='../financial.html'">
                 <i data-lucide="landmark"></i>
                 <span class="dock-label">Financials</span>
             </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
+            <div class="dock-item" onclick="window.location.href='../chats.html'">
                 <i data-lucide="message-circle-more"></i>
                 <span class="dock-label">Chats</span>
             </div>
@@ -253,7 +289,7 @@
         <div class="back-tile">
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Kreative</div>
+                    <div class="secondary-sidebar-brand">Financials</div>
                     <div class="secondary-sidebar-icon">
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
@@ -262,30 +298,27 @@
                 </div>
                 <div class="secondary-sidebar-nav">
                     <div class="secondary-nav-list">
-                        <a href="Kreative/home.html" class="secondary-nav-back">
-                            <span>Home</span>
-                        </a>
-                        <a href="Kreative-my-projects.html" class="secondary-nav-item active">
-                            <span>My Projects</span>
-                        </a>
-                        <a href="Kreative-templates.html" class="secondary-nav-item">
-                            <span>Templates</span>
-                        </a>
-                        <a href="Kreative-whiteboards.html" class="secondary-nav-item">
-                            <span>Whiteboards</span>
-                        </a>
-                        <a href="Kreative-documents.html" class="secondary-nav-item">
-                            <span>Documents</span>
-                        </a>
-                        <a href="Kreative-recent.html" class="secondary-nav-item">
-                            <span>Recent</span>
-                        </a>
-                        <a href="Kreative-shared.html" class="secondary-nav-item">
-                            <span>Shared</span>
-                        </a>
-                        <a href="Kreative/basic.html" class="secondary-nav-item">
-                            <span>Basic</span>
-                        </a>
+                        <div class="secondary-nav-item active" onclick="window.location.href='overview.html'">
+                            <span>Overview</span>
+                        </div>
+                        <div class="secondary-nav-item" onclick="window.location.href='tracker.html'">
+                            <span>Tracker</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>API Pricing</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Agents</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Codex</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Wages</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Additional subscriptions</span>
+                        </div>
                     </div>
                 </div>
                 <div class="secondary-sidebar-footer">
@@ -299,26 +332,38 @@
         <!-- Front Tile -->
         <div class="front-tile">
             <div class="front-tile-container">
-            <div class="top-right-bar">
-                <div class="top-right-actions">
-                    <button class="accounts-icon-btn teams-action-btn" title="Apps">
-                        <i data-lucide="grid"></i>
-                    </button>
-                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
-                        <i data-lucide="bell"></i>
-                    </button>
-                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
-                        <i data-lucide="user-circle"></i>
-                    </button>
+                <div class="top-right-bar">
+                    <div class="top-right-actions">
+                        <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
+                            <i data-lucide="grid"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                            <i data-lucide="bell"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                            <i data-lucide="user-circle"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <!-- Matching top-left text on same row as the bar -->
-            <div class="top-left-heading">My Projects</div>
+                <!-- Financial Overview content tile -->
+                <section class="tiles-grid">
+                    <div class="tiles-row row-1">
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Financial Overview</h3>
+                                <div class="card-meta">2025 <i data-lucide="chevron-down"></i></div>
+                            </div>
+                            <div class="chart-wrap">
+                                <canvas id="financialChart" height="160"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
         <!-- Circle in bottom right corner -->
         <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
-            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="../sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </main>
 
@@ -333,10 +378,51 @@
                 if (label) {
                     item.addEventListener('mouseenter', () => {
                         const rect = item.getBoundingClientRect();
-                        label.style.top = `${rect.top + rect.height / 2 - 100}px`;
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
                     });
                 }
             });
+
+            // Financial Chart
+            if (window.Chart) {
+                const financialCtx = document.getElementById('financialChart');
+                if (financialCtx) {
+                    new Chart(financialCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+                            datasets: [
+                                {
+                                    label: 'Revenue',
+                                    data: [12000, 19000, 15000, 25000, 22000, 30000],
+                                    borderColor: '#60a5fa',
+                                    backgroundColor: 'rgba(96,165,250,0.15)',
+                                    fill: true,
+                                    tension: 0.35,
+                                    borderWidth: 2
+                                },
+                                {
+                                    label: 'Expenses',
+                                    data: [8000, 12000, 10000, 15000, 14000, 18000],
+                                    borderColor: '#f87171',
+                                    backgroundColor: 'rgba(248,113,113,0.15)',
+                                    fill: true,
+                                    tension: 0.35,
+                                    borderWidth: 2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'top' } },
+                            scales: {
+                                y: { grid: { color: 'rgba(0,0,0,0.05)' } },
+                                x: { grid: { display: false } }
+                            }
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>
