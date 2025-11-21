@@ -5,383 +5,772 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financials - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Back Tile Styles */
-        .back-tile {
-            position: absolute;
-            top: 0;
-            left: 260px;
+        /* Force remove any scrollbar or border lines */
+        html {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            border: none !important;
+            outline: none !important;
+            background: #ffffff !important;
+        }
+
+        body, body.dashboard-page {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100vw !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+        }
+
+        /* Completely remove all scrollbar elements */
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar,
+        *::-webkit-scrollbar {
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+            display: none !important;
+        }
+
+        html::-webkit-scrollbar-track,
+        body::-webkit-scrollbar-track,
+        *::-webkit-scrollbar-track {
+            background: transparent !important;
+            display: none !important;
+            width: 0 !important;
+        }
+
+        html::-webkit-scrollbar-thumb,
+        body::-webkit-scrollbar-thumb,
+        *::-webkit-scrollbar-thumb {
+            background: transparent !important;
+            display: none !important;
+            width: 0 !important;
+        }
+
+        html::-webkit-scrollbar-corner,
+        body::-webkit-scrollbar-corner,
+        *::-webkit-scrollbar-corner {
+            background: transparent !important;
+            display: none !important;
+        }
+
+        /* Dock Styles */
+        .dock-container {
+            position: fixed;
             bottom: 0;
-            width: 230px; /* Reduced by 150px (380px - 150px) */
-            background: #ffffff;
-            z-index: 998; /* Behind front tile (999) */
-            border-radius: 20px 0 0 20px; /* Rounded left corners only */
-            overflow: visible; /* Changed from hidden to visible */
-        }
-
-        /* Secondary Sidebar Styles */
-        .secondary-sidebar {
-            height: 100%;
+            left: 0;
+            right: 0;
             display: flex;
-            flex-direction: column;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #ffffff;
-            transform: translateX(-250px);
-        }
-
-        .secondary-sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .secondary-sidebar-brand {
-            font-weight: 700;
-            font-size: 16px;
-            color: #000000;
-            letter-spacing: -0.02em;
-        }
-
-        .secondary-sidebar-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
             justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
         }
 
-        .secondary-sidebar-icon svg {
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-nav {
-            flex: 1;
-            padding: 16px 0;
-            overflow-y: auto;
-            -ms-overflow-style: none;
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
             scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
-        .secondary-sidebar-nav::-webkit-scrollbar {
+        .dock::-webkit-scrollbar {
             display: none;
         }
 
-        .secondary-nav-back {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
+        .dock-item {
             position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-back:hover {
-            color: #000000;
-            background-color: #f9fafb;
-        }
-
-        .secondary-nav-back i {
-            width: 16px;
-            height: 16px;
-        }
-
-        .secondary-nav-list {
-            margin-top: 8px;
-        }
-
-        .secondary-nav-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, border-radius 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-item:hover {
-            background-color: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item.active {
-            background-color: #f3f4f6;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item i {
-            width: 14px;
-            height: 14px;
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid #e5e7eb;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
         }
 
-        .secondary-sidebar-footer svg {
+        .dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .dock-item.active img {
+            box-shadow: none !important;
+        }
+
+        .dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+        }
+
+        .dock-item:hover .dock-icon {
+            transform: scale(1.1);
+        }
+
+        .dock-item.active .dock-icon {
+            border: 2px solid #3b82f6;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        .dock-item.active::after {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+        }
+
+        .dock-item.active::before {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+        }
+
+        .dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .dock-icon i,
+        .dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dock-item.active .dock-icon i,
+        .dock-item.active .dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .dock-item.chats .dock-icon {
+            background: #3b82f6;
+        }
+
+        .dock-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .dock-item:has(img[src="work.2.png"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent;
+        }
+        
+        .dock-item:has(img[src="work.2.png"]) .dock-icon img {
+            clip-path: inset(6%);
+            filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
+        
+        .dock-item.active:has(img[src="work.2.png"]) .dock-icon {
+            border: 2px solid #3b82f6;
+            background: #ffffff !important;
+        }
+        
+        .dock-item.active:has(img[src="work.2.png"]) .dock-icon img {
+            filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
+        }
+        
+        /* Style all image icons to be dark gray */
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent;
+        }
+        
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+            filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
+        
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon,
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6;
+            background: #ffffff !important;
+        }
+        
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img,
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+            filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
+        }
+
+        /* Header Bar Styles */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i,
+        .header-action-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px; /* Below header */
+            bottom: 0;
+            width: 260px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .sidebar-nav {
+            padding: 20px 8px 12px 8px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .sidebar-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-nav-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .sidebar-nav-item i {
             width: 18px;
             height: 18px;
             color: #6b7280;
+        }
+
+        .sidebar-chats {
+            flex: 1;
+            padding: 12px 8px;
+            overflow-y: auto;
+        }
+
+        .sidebar-chats-header {
+            padding: 8px 12px;
+            color: #9ca3af;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar-chats-list {
+            margin-top: 4px;
+        }
+
+        .sidebar-chat-item {
+            padding: 10px 12px;
+            color: #374151;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             cursor: pointer;
-            transition: color 0.2s;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            margin-bottom: 2px;
         }
 
-        .secondary-sidebar-footer svg:hover {
+        .sidebar-chat-item:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Main content wrapper */
+        .main-content-wrapper {
+            margin-left: 260px;
+            margin-top: 65px; /* Account for fixed header */
+            padding-left: 40px;
+            padding-right: 40px;
+            min-height: calc(100vh - 65px);
+            overflow-y: auto;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
             color: #000000;
+            text-decoration: none;
         }
 
-        /* Adjust front tile to account for back tile */
-        .front-tile {
-            left: 270px; /* Extended 220px to the left (490px - 220px) */
+        /* Main content - clean screen */
+        .dashboard-main {
+            margin: 0 !important;
+            margin-left: 0 !important;
+            padding: 0 !important;
+            padding-bottom: 150px !important;
+            background: #ffffff !important;
+            min-height: 100vh !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            border: none !important;
+            overflow: hidden !important;
+            outline: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
         }
 
-        /* Scale down content proportionally */
-        .front-tile-container {
-            transform: scale(0.85);
-            transform-origin: top left;
-            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
+        body.dashboard-page {
+            background: #ffffff !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
-        /* Hide all scrollbars */
-        * {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+        /* Financial content styles */
+        .tiles-grid {
+            padding: 40px 0;
         }
 
-        *::-webkit-scrollbar {
-            display: none;
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
-        body::-webkit-scrollbar,
-        html::-webkit-scrollbar,
-        main::-webkit-scrollbar,
-        .dashboard-main::-webkit-scrollbar,
-        .front-tile::-webkit-scrollbar,
-        .front-tile-container::-webkit-scrollbar {
-            display: none;
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .card-meta {
+            font-size: 14px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chart-wrap {
+            position: relative;
+            height: 200px;
         }
     </style>
 </head>
 <body class="dashboard-page">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#">
-                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
-                </a>
-                <div class="nav-logo-line"></div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="financial.html" class="nav-link active">Financials</a></li>
-            </ul>
-            <div class="nav-search">
-                <form id="navSearchForm">
-                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
-                    <button class="search-btn" type="submit" title="Search">
-                        <i data-lucide="search"></i>
-                    </button>
-                </form>
-            </div>
-            <div class="nav-actions">
-                <button class="icon-btn" title="Chat">
-                    <i data-lucide="message-circle"></i>
-                </button>
-                <button class="icon-btn" title="Settings">
-                    <i data-lucide="settings"></i>
-                </button>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Vertical Dock -->
-    <div class="vertical-dock">
-        <div class="dock-logo">
-            <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
-        </div>
-        <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='home.html'">
-                <i data-lucide="home"></i>
-                <span class="dock-label">Home</span>
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Header Bar -->
+        <div class="page-header">
+            <div class="page-title">Financials</div>
+            <div class="header-logo">
+                <img src="INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+                <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
             </div>
-            <div class="dock-item" onclick="window.location.href='Operation.html'">
-                <i data-lucide="hard-hat"></i>
-                <span class="dock-label">Operation</span>
+            <div class="header-actions">
+                <button class="header-action-btn">
+                    <i data-lucide="grid-3x3"></i>
+                </button>
+                <button class="header-action-btn">
+                    <i data-lucide="bell"></i>
+                </button>
+                <button class="header-action-btn">
+                    <i data-lucide="user"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="main-sidebar">
+            <div class="sidebar-nav">
+                <div class="sidebar-nav-item">
+                    <i data-lucide="pencil"></i>
+                    <span>New chat</span>
+                </div>
+                <div class="sidebar-nav-item">
+                    <i data-lucide="search"></i>
+                    <span>Search chats</span>
+                </div>
+                <div class="sidebar-nav-item">
+                    <i data-lucide="image"></i>
+                    <span>Library</span>
+                </div>
+                <div class="sidebar-nav-item">
+                    <i data-lucide="smile"></i>
+                    <span>Codex</span>
+                </div>
+                <div class="sidebar-nav-item">
+                    <i data-lucide="cloud"></i>
+                    <span>Atlas</span>
+                </div>
+                <div class="sidebar-nav-item">
+                    <i data-lucide="grid-3x3"></i>
+                    <span>GPTs</span>
+                </div>
+                <div class="sidebar-nav-item">
+                    <i data-lucide="folder-plus"></i>
+                    <span>Projects</span>
+                </div>
+            </div>
+
+            <div class="sidebar-chats">
+                <div class="sidebar-chats-header">Chats</div>
+                <div class="sidebar-chats-list">
+                    <div class="sidebar-chat-item">Car value projection limits</div>
+                    <div class="sidebar-chat-item">How startup founders get paid</div>
+                    <div class="sidebar-chat-item">Code safety analysis</div>
+                    <div class="sidebar-chat-item">Open source AI revenue</div>
+                    <div class="sidebar-chat-item">Component issues review</div>
+                    <div class="sidebar-chat-item">Improved pitch deck prompt</div>
+                    <div class="sidebar-chat-item">Internal synonyms list</div>
+                    <div class="sidebar-chat-item">Sports clubs comparison</div>
+                    <div class="sidebar-chat-item">Billionaires on Instagram</div>
+                    <div class="sidebar-chat-item">Make downloadable desktop</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="main-content-wrapper">
+            <!-- Financials content -->
+            <section class="tiles-grid">
+                <div class="tiles-row row-1">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Financial Overview</h3>
+                            <div class="card-meta">2025 <i data-lucide="chevron-down"></i></div>
+                        </div>
+                        <div class="chart-wrap">
+                            <canvas id="financialChart" height="160"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Dock -->
+    <div class="dock-container">
+        <div class="dock" id="dock">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <div class="dock-icon">
+                    <i data-lucide="home"></i>
+                </div>
+                <div class="dock-label">Home</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='operation.html'">
+                <div class="dock-icon">
+                    <i data-lucide="hard-hat"></i>
+                </div>
+                <div class="dock-label">Operation</div>
             </div>
             <div class="dock-item" onclick="window.location.href='work.html'">
-                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Team's</span>
+                <div class="dock-icon">
+                    <img src="work.2.png" alt="Teams">
+                </div>
+                <div class="dock-label">Teams</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Agents.html'">
-                <i data-lucide="cpu"></i>
-                <span class="dock-label">Agents</span>
+                <div class="dock-icon">
+                    <i data-lucide="cpu"></i>
+                </div>
+                <div class="dock-label">Agents</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Kreative.html'">
-                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Account</span>
+            <div class="dock-item" onclick="window.location.href='Kreative/Kreative.html'">
+                <div class="dock-icon">
+                    <img src="Kreative.png" alt="Kreative">
+                </div>
+                <div class="dock-label">Kreative</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Devra.html'">
-                <i data-lucide="squares-exclude"></i>
-                <span class="dock-label">Devra</span>
+            <div class="dock-item" onclick="window.location.href='Devra/Devra.html'">
+                <div class="dock-icon">
+                    <i data-lucide="squares-exclude"></i>
+                </div>
+                <div class="dock-label">Devra</div>
             </div>
             <div class="dock-item" onclick="window.location.href='campaigns.html'">
-                <i data-lucide="focus"></i>
-                <span class="dock-label">Campaigns</span>
+                <div class="dock-icon">
+                    <i data-lucide="focus"></i>
+                </div>
+                <div class="dock-label">Campaigns</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Data</span>
+                <div class="dock-icon">
+                    <img src="Oceanbase.1.jpg" alt="Database">
+                </div>
+                <div class="dock-label">Oceanbase</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Online-assets.html'">
-                <i data-lucide="container"></i>
-                <span class="dock-label">Online assets</span>
+                <div class="dock-icon">
+                    <i data-lucide="container"></i>
+                </div>
+                <div class="dock-label">Online Assets</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='filebase/homebase.html'">
-                <i data-lucide="folder-tree"></i>
-                <span class="dock-label">Filebase</span>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <div class="dock-icon">
+                    <i data-lucide="folder-tree"></i>
+                </div>
+                <div class="dock-label">Filebase</div>
             </div>
             <div class="dock-item active" onclick="window.location.href='financial.html'">
-                <i data-lucide="landmark"></i>
-                <span class="dock-label">Financials</span>
+                <div class="dock-icon">
+                    <i data-lucide="landmark"></i>
+                </div>
+                <div class="dock-label">Financials</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
-                <i data-lucide="message-circle-more"></i>
-                <span class="dock-label">Chats</span>
+            <div class="dock-item chats" onclick="window.location.href='chats.html'">
+                <div class="dock-icon">
+                </div>
+                <div class="dock-label">Chats</div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <main class="dashboard-main">
-        <div class="dashboard-container">
-        </div>
-        
-        <!-- Back Tile (Secondary Sidebar) -->
-        <div class="back-tile">
-            <div class="secondary-sidebar">
-                <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Financials</div>
-                    <div class="secondary-sidebar-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="secondary-sidebar-nav">
-                    <div class="secondary-nav-list">
-                        <div class="secondary-nav-item active" onclick="window.location.href='financial/overview.html'">
-                            <span>Overview</span>
-                        </div>
-                        <div class="secondary-nav-item" onclick="window.location.href='financial/tracker.html'">
-                            <span>Tracker</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>API Pricing</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Agents</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Codex</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Wages</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Additional subscriptions</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="secondary-sidebar-footer">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Front Tile -->
-        <div class="front-tile">
-            <div class="front-tile-container">
-                <div class="top-right-bar">
-                    <div class="top-right-actions">
-                        <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='App-select.html'">
-                            <i data-lucide="grid"></i>
-                        </button>
-                        <button class="accounts-icon-btn teams-action-btn" title="Notifications">
-                            <i data-lucide="bell"></i>
-                        </button>
-                        <button class="accounts-icon-btn teams-action-btn" title="Profile">
-                            <i data-lucide="user-circle"></i>
-                        </button>
-                    </div>
-                </div>
-                <!-- Financials content tile -->
-                <section class="tiles-grid">
-                    <div class="tiles-row row-1">
-                        <div class="card chart-card">
-                            <div class="card-header">
-                                <h3 class="card-title">Financial Overview</h3>
-                                <div class="card-meta">2025 <i data-lucide="chevron-down"></i></div>
-                            </div>
-                            <div class="chart-wrap">
-                                <canvas id="financialChart" height="160"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <!-- Circle in bottom right corner -->
-        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
-            <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-    </main>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Lucide icons
-            if (window.lucide) lucide.createIcons();
+        // Dock magnification effect
+        const dock = document.getElementById('dock');
+        const dockItems = Array.from(dock.querySelectorAll('.dock-item'));
+        
+        let mouseX = Infinity;
+        let isHovered = false;
+        const distance = 150;
+        const magnification = 56;
+        const defaultSize = 40;
+        let animationFrameId = null;
+        let lastUpdateTime = 0;
+        const throttleMs = 16;
 
-            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
-            dockItems.forEach(item => {
-                const label = item.querySelector('.dock-label');
-                if (label) {
-                    item.addEventListener('mouseenter', () => {
-                        const rect = item.getBoundingClientRect();
-                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
-                    });
-                }
+        // Smooth easing function
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        function updateDockItems() {
+            const now = performance.now();
+            if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                return;
+            }
+            lastUpdateTime = now;
+
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+
+            animationFrameId = requestAnimationFrame(() => {
+                dockItems.forEach((item) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemCenterX = rect.left + rect.width / 2;
+                    const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                    
+                    if (isHovered && distanceFromMouse < distance) {
+                        const normalizedDistance = distanceFromMouse / distance;
+                        const easedDistance = easeOutCubic(1 - normalizedDistance);
+                        const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                        const newSize = defaultSize * scale;
+                        item.style.width = `${newSize}px`;
+                        item.style.height = `${newSize}px`;
+                    } else {
+                        item.style.width = `${defaultSize}px`;
+                        item.style.height = `${defaultSize}px`;
+                    }
+                });
             });
+        }
+
+        dock.addEventListener('mousemove', (e) => {
+            isHovered = true;
+            mouseX = e.pageX;
+            updateDockItems();
+        });
+
+        dock.addEventListener('mouseleave', () => {
+            isHovered = false;
+            mouseX = Infinity;
+            dockItems.forEach((item) => {
+                item.style.width = `${defaultSize}px`;
+                item.style.height = `${defaultSize}px`;
+            });
+        });
+
+        // Continuous smooth updates
+        function smoothUpdate() {
+            if (isHovered) {
+                updateDockItems();
+            }
+            requestAnimationFrame(smoothUpdate);
+        }
+        smoothUpdate();
+
+        // Initialize Lucide icons and Chart
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
 
             // Financial Chart
             if (window.Chart) {
@@ -414,10 +803,23 @@
                         },
                         options: {
                             responsive: true,
-                            plugins: { legend: { position: 'top' } },
+                            maintainAspectRatio: false,
+                            plugins: { 
+                                legend: { 
+                                    position: 'top' 
+                                } 
+                            },
                             scales: {
-                                y: { grid: { color: 'rgba(0,0,0,0.05)' } },
-                                x: { grid: { display: false } }
+                                y: { 
+                                    grid: { 
+                                        color: 'rgba(0,0,0,0.05)' 
+                                    } 
+                                },
+                                x: { 
+                                    grid: { 
+                                        display: false 
+                                    } 
+                                }
                             }
                         }
                     });
@@ -427,4 +829,3 @@
     </script>
 </body>
 </html>
-

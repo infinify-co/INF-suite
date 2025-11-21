@@ -38,14 +38,13 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
         }
 
         .header-title-wrapper {
             display: flex;
             align-items: center;
             gap: 5px;
-            margin-left: -20px;
         }
 
         .header-logo {
@@ -54,7 +53,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-left: -75px;
             /* Logo placeholder - you can add an img tag here */
         }
 
@@ -266,8 +264,8 @@
         /* Grid 3x3 Button */
         .grid-button {
             position: fixed;
-            top: 94px;
-            right: 20px;
+            top: 20px;
+            left: 20px;
             width: 40px;
             height: 40px;
             background: #ffffff;
@@ -279,7 +277,7 @@
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 999;
+            z-index: 102;
         }
 
         .grid-button:hover {
@@ -385,7 +383,9 @@
             </div>
             <div class="dock-item">
                 <div class="dock-icon">
-                    <div style="width: 100%; height: 100%; background: #1e40af; border-radius: 8px;"></div>
+                    <div style="width: 100%; height: 100%; background: #1e40af; border-radius: 8px; position: relative;">
+                        <i data-lucide="sprout" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60%; height: 60%; color: #ffffff;"></i>
+                    </div>
                 </div>
                 <div class="dock-label">8</div>
             </div>

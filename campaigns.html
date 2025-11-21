@@ -214,7 +214,195 @@
             object-fit: cover;
         }
 
-        /* Secondary Sidebar Styles */
+        /* Header Bar Styles */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i,
+        .header-action-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px; /* Below header */
+            bottom: 0;
+            width: 260px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 20px 8px 12px 8px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .sidebar-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            color: #374151;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-nav-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .sidebar-nav-item i {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+        }
+
+        .sidebar-chats {
+            flex: 1;
+            padding: 12px 8px;
+            overflow-y: auto;
+        }
+
+        .sidebar-chats-header {
+            padding: 8px 12px;
+            color: #9ca3af;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar-chats-list {
+            margin-top: 4px;
+        }
+
+        .sidebar-chat-item {
+            padding: 10px 12px;
+            color: #111827;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .sidebar-chat-item:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Secondary Sidebar Styles - REMOVED */
         .secondary-sidebar {
             position: fixed;
             left: 0;
@@ -350,7 +538,8 @@
         /* Main content - clean screen */
         .dashboard-main {
             margin: 0 !important;
-            margin-left: 230px !important;
+            margin-left: 260px !important;
+            margin-top: 65px !important;
             padding: 0 !important;
             padding-bottom: 150px !important;
             background: #ffffff !important;
@@ -377,42 +566,73 @@
     </style>
 </head>
 <body class="dashboard-page">
-    <!-- Secondary Sidebar -->
-    <div class="secondary-sidebar">
-        <div class="secondary-sidebar-header">
-            <div class="secondary-sidebar-brand">Campaigns</div>
-            <div class="secondary-sidebar-icon">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
-                </svg>
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">Campaigns</div>
+        <div class="header-logo">
+            <img src="INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
+        </div>
+        <div class="header-actions">
+            <button class="header-action-btn">
+                <i data-lucide="grid-3x3"></i>
+            </button>
+            <button class="header-action-btn">
+                <i data-lucide="bell"></i>
+            </button>
+            <button class="header-action-btn">
+                <i data-lucide="user"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item">
+                <i data-lucide="pencil"></i>
+                <span>New chat</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <i data-lucide="search"></i>
+                <span>Search chats</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <i data-lucide="image"></i>
+                <span>Library</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <i data-lucide="smile"></i>
+                <span>Codex</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <i data-lucide="cloud"></i>
+                <span>Atlas</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <i data-lucide="grid-3x3"></i>
+                <span>GPTs</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <i data-lucide="folder-plus"></i>
+                <span>Projects</span>
             </div>
         </div>
-        <div class="secondary-sidebar-nav">
-            <div class="secondary-nav-list">
-                <div class="secondary-nav-back">
-                    <span>Campaigns</span>
-                </div>
-                <div class="secondary-nav-item active">
-                    <span>All Campaigns</span>
-                </div>
-                <div class="secondary-nav-item">
-                    <span>Active</span>
-                </div>
-                <div class="secondary-nav-item">
-                    <span>Draft</span>
-                </div>
-                <div class="secondary-nav-item">
-                    <span>Completed</span>
-                </div>
-                <div class="secondary-nav-item">
-                    <span>Analytics</span>
-                </div>
+
+        <div class="sidebar-chats">
+            <div class="sidebar-chats-header">Chats</div>
+            <div class="sidebar-chats-list">
+                <div class="sidebar-chat-item">Car value projection limits</div>
+                <div class="sidebar-chat-item">How startup founders get paid</div>
+                <div class="sidebar-chat-item">Code safety analysis</div>
+                <div class="sidebar-chat-item">Open source AI revenue</div>
+                <div class="sidebar-chat-item">Component issues review</div>
+                <div class="sidebar-chat-item">Improved pitch deck prompt</div>
+                <div class="sidebar-chat-item">Internal synonyms list</div>
+                <div class="sidebar-chat-item">Sports clubs comparison</div>
+                <div class="sidebar-chat-item">Billionaires on Instagram</div>
+                <div class="sidebar-chat-item">Make downloadable desktop</div>
             </div>
-        </div>
-        <div class="secondary-sidebar-footer">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
         </div>
     </div>
 
@@ -429,7 +649,7 @@
                 </div>
                 <div class="dock-label">Home</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Operation/Operation.html'">
+            <div class="dock-item" onclick="window.location.href='operation.html'">
                 <div class="dock-icon blue-shade-5">
                     <i data-lucide="hard-hat"></i>
                 </div>
@@ -454,7 +674,7 @@
                 <div class="dock-label">Kreative</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Devra/Devra.html'">
-                <div class="dock-icon blue-shade-7">
+                <div class="dock-icon">
                     <i data-lucide="squares-exclude"></i>
                 </div>
                 <div class="dock-label">Devra</div>
@@ -465,7 +685,7 @@
                 </div>
                 <div class="dock-label">Campaigns</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase/Oceanbase.html'">
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
                 <div class="dock-icon blue-shade-8">
                     <img src="Oceanbase.1.jpg" alt="Database">
                 </div>

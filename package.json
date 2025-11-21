@@ -7,7 +7,12 @@
     "start": "npx live-server --port=3000 --open=/dashboard.html",
     "dev": "npx live-server --port=3000 --open=/dashboard.html --watch=.",
     "build": "echo 'No build process needed for static site'",
-    "serve": "npx http-server -p 8080 -o"
+    "serve": "npx http-server -p 8080 -o",
+    "git:feature": "echo 'Use: git checkout develop && git pull && git checkout -b feature/name'",
+    "git:bugfix": "echo 'Use: git checkout develop && git pull && git checkout -b bugfix/name'",
+    "git:hotfix": "echo 'Use: git checkout main && git pull && git checkout -b hotfix/name'",
+    "git:sync": "git fetch origin && git merge origin/develop",
+    "git:cleanup": "git branch --merged develop | grep -v '\\*\\|develop\\|main' | xargs -n 1 git branch -d"
   },
   "keywords": [
     "automation",

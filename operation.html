@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agents - INF Dashboard</title>
+    <title>Operation - INF Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -95,6 +95,7 @@
             color: #000000;
             text-decoration: none;
         }
+
 
         /* Main Sidebar Styles */
         .main-sidebar {
@@ -197,128 +198,6 @@
             background-color: #f9fafb;
         }
 
-        .secondary-sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .secondary-sidebar-brand {
-            font-weight: 700;
-            font-size: 16px;
-            color: #000000;
-            letter-spacing: -0.02em;
-        }
-
-        .secondary-sidebar-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-icon svg {
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-nav {
-            flex: 1;
-            padding: 16px 0;
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .secondary-sidebar-nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .secondary-nav-back {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-back:hover {
-            color: #000000;
-            background-color: #f9fafb;
-        }
-
-        .secondary-nav-back.active {
-            background-color: #f3f4f6;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-back i {
-            width: 16px;
-            height: 16px;
-        }
-
-        .secondary-nav-list {
-            margin-top: 8px;
-        }
-
-        .secondary-nav-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, border-radius 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-item:hover {
-            background-color: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item.active {
-            background-color: #f3f4f6;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item i {
-            width: 14px;
-            height: 14px;
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-footer svg {
-            width: 18px;
-            height: 18px;
-            color: #6b7280;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .secondary-sidebar-footer svg:hover {
-            color: #000000;
-        }
-
         /* Remove tile effect from dashboard-main */
         .dashboard-main {
             border-radius: 0 !important;
@@ -326,7 +205,9 @@
             margin: 0 !important;
             margin-left: 260px !important;
             margin-top: 65px !important;
+            position: relative !important;
         }
+
 
         /* Dock Styles */
         .dock-container {
@@ -462,10 +343,6 @@
             color: #3b82f6;
         }
 
-        .dock-item.chats .dock-icon {
-            background: #3b82f6;
-        }
-
         .dock-icon img {
             width: 70%;
             height: 70%;
@@ -475,6 +352,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+        
+        .dock-item.chats .dock-icon {
+            background: #3b82f6;
         }
         
         .dock-item:has(img[src="work.2.png"]) .dock-icon {
@@ -517,17 +398,6 @@
         .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img,
         .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
-        }
-
-        .dock-icon img {
-            width: 70%;
-            height: 70%;
-            object-fit: contain;
-            border-radius: 8px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
         }
 
         /* Blue shades for dock buttons */
@@ -576,7 +446,7 @@
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="Agents.html" class="nav-link active">Agents</a></li>
+                <li><a href="operation.html" class="nav-link active">Operation</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
@@ -597,7 +467,7 @@
 
     <!-- Header Bar -->
     <div class="page-header">
-        <div class="page-title">Agents</div>
+        <div class="page-title">Operation</div>
         <div class="header-logo">
             <img src="INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
             <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
@@ -667,136 +537,242 @@
 
     <!-- Main Content -->
     <main class="dashboard-main" style="padding: 40px; padding-bottom: 150px; min-height: 100vh; background: #ffffff; border-radius: 0; box-shadow: none;">
-        <!-- Agents Management Content -->
+        <!-- Operation Content -->
         <div>
-                    <!-- Header with Create Button -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
-                        <div>
-                            <h1 style="font-size: 32px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0; letter-spacing: -0.02em;">
-                                AI Agents
-                            </h1>
-                            <p style="font-size: 16px; color: #64748b; margin: 0;">
-                                Create and manage AI agents powered by OpenAI
-                            </p>
-                        </div>
-                        <button id="create-agent-btn" style="background: #0ea5e9; color: #ffffff; border: none; border-radius: 8px; padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s;" onmouseover="this.style.background='#0284c7'" onmouseout="this.style.background='#0ea5e9'">
-                            <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
-                            Create Agent
-                        </button>
-                    </div>
+            <!-- Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <div>
+                    <h1 style="font-size: 32px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0; letter-spacing: -0.02em;">
+                        Operation
+                    </h1>
+                    <p style="font-size: 16px; color: #64748b; margin: 0;">
+                        Manage and monitor your operations
+                    </p>
+                </div>
+            </div>
 
-                    <!-- Agents List -->
-                    <div id="agents-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;">
-                        <!-- Agents will be loaded here -->
+            <!-- Content sections -->
+            <div id="overview-content" style="display: block;">
+                <div style="text-align: center; padding: 80px 20px;">
+                    <div style="width: 64px; height: 64px; background: #f0f9ff; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                        <i data-lucide="hard-hat" style="width: 32px; height: 32px; color: #0ea5e9;"></i>
                     </div>
-
-                    <!-- Empty State -->
-                    <div id="empty-state" style="text-align: center; padding: 80px 20px; display: none;">
-                        <div style="width: 64px; height: 64px; background: #f0f9ff; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                            <i data-lucide="bot" style="width: 32px; height: 32px; color: #0ea5e9;"></i>
+                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Operation Dashboard</h3>
+                    <p style="font-size: 14px; color: #64748b; margin: 0;">Operation dashboard</p>
+                </div>
+            </div>
+            
+            <!-- API Platform Content -->
+            <div id="api-platform-content" style="display: none;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
                         </div>
-                        <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">No agents yet</h3>
-                        <p style="font-size: 14px; color: #64748b; margin: 0 0 24px 0;">Create your first AI agent to get started</p>
-                        <button onclick="document.getElementById('create-agent-btn').click()" style="background: #0ea5e9; color: #ffffff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer;">
-                            Create Agent
-                        </button>
                     </div>
+                </div>
+            </div>
+            
+            <!-- More content sections can go here -->
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
+                </div>
+            </div>
+            
+            <!-- API Platform Content -->
+            <div id="api-platform-content" style="display: none;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="bar-chart" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Analytics</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">View analytics</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="users" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">CRM</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Customer management</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="dollar-sign" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Finance</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Financial tools</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="briefcase" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">HR</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Human resources</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="megaphone" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Marketing</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Marketing tools</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="trending-up" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Sales</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Sales management</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="headphones" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Support</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Customer support</p>
+                    </div>
+                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="package" style="width: 24px; height: 24px; color: #ffffff;"></i>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Inventory</h4>
+                        <p style="font-size: 14px; color: #64748b; margin: 0;">Inventory management</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other content sections (hidden by default) -->
+            <div id="api-pricing-content" style="display: none;">
+                <div style="text-align: center; padding: 80px 20px;">
+                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">API Pricing</h3>
+                    <p style="font-size: 14px; color: #64748b; margin: 0;">Pricing information coming soon</p>
+                </div>
+            </div>
+            <div id="agents-content" style="display: none;">
+                <div style="text-align: center; padding: 80px 20px;">
+                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Agents</h3>
+                    <p style="font-size: 14px; color: #64748b; margin: 0;">Agent management coming soon</p>
+                </div>
+            </div>
+            <div id="codex-content" style="display: none;">
+                <div style="text-align: center; padding: 80px 20px;">
+                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Codex</h3>
+                    <p style="font-size: 14px; color: #64748b; margin: 0;">Codex features coming soon</p>
+                </div>
+            </div>
+            <div id="open-models-content" style="display: none;">
+                <div style="text-align: center; padding: 80px 20px;">
+                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Open Models</h3>
+                    <p style="font-size: 14px; color: #64748b; margin: 0;">Open models coming soon</p>
+                </div>
+            </div>
+            <div id="community-content" style="display: none;">
+                <div style="text-align: center; padding: 80px 20px;">
+                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Community</h3>
+                    <p style="font-size: 14px; color: #64748b; margin: 0;">Community features coming soon</p>
+                </div>
+            </div>
         </div>
     </main>
         
     <!-- Dock -->
     <div class="dock-container">
-            <div class="dock" id="dock">
-                <div class="dock-item" onclick="window.location.href='home.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="home"></i>
-                    </div>
-                    <div class="dock-label">Home</div>
+        <div class="dock" id="dock">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <div class="dock-icon">
+                    <i data-lucide="home"></i>
                 </div>
-                <div class="dock-item" onclick="window.location.href='operation.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="hard-hat"></i>
-                    </div>
-                    <div class="dock-label">Operation</div>
+                <div class="dock-label">Home</div>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='operation.html'">
+                <div class="dock-icon">
+                    <i data-lucide="hard-hat"></i>
                 </div>
-                <div class="dock-item" onclick="window.location.href='work.html'">
-                    <div class="dock-icon">
-                        <img src="work.2.png" alt="Teams">
-                    </div>
-                    <div class="dock-label">Teams</div>
+                <div class="dock-label">Operation</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <div class="dock-icon">
+                    <img src="work.2.png" alt="Teams">
                 </div>
-                <div class="dock-item active" onclick="window.location.href='Agents.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="cpu"></i>
-                    </div>
-                    <div class="dock-label">Agents</div>
+                <div class="dock-label">Teams</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <div class="dock-icon">
+                    <i data-lucide="cpu"></i>
                 </div>
-                <div class="dock-item" onclick="window.location.href='Kreative/Kreative.html'">
-                    <div class="dock-icon">
-                        <img src="Kreative.png" alt="Kreative">
-                    </div>
-                    <div class="dock-label">Kreative</div>
+                <div class="dock-label">Agents</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Kreative/Kreative.html'">
+                <div class="dock-icon">
+                    <img src="Kreative.png" alt="Kreative">
                 </div>
-                <div class="dock-item" onclick="window.location.href='Devra/Devra.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="squares-exclude"></i>
-                    </div>
-                    <div class="dock-label">Devra</div>
+                <div class="dock-label">Kreative</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Devra/Devra.html'">
+                <div class="dock-icon">
+                    <i data-lucide="squares-exclude"></i>
                 </div>
-                <div class="dock-item" onclick="window.location.href='campaigns.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="focus"></i>
-                    </div>
-                    <div class="dock-label">Campaigns</div>
+                <div class="dock-label">Devra</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+                <div class="dock-icon">
+                    <i data-lucide="focus"></i>
                 </div>
-                <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                    <div class="dock-icon">
-                        <img src="Oceanbase.1.jpg" alt="Database">
-                    </div>
-                    <div class="dock-label">Oceanbase</div>
+                <div class="dock-label">Campaigns</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
+                <div class="dock-icon">
+                    <img src="Oceanbase.1.jpg" alt="Database">
                 </div>
-                <div class="dock-item" onclick="window.location.href='Online-assets.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="container"></i>
-                    </div>
-                    <div class="dock-label">Online Assets</div>
+                <div class="dock-label">Oceanbase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+                <div class="dock-icon">
+                    <i data-lucide="container"></i>
                 </div>
-                <div class="dock-item" onclick="window.location.href='Filebase.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="folder-tree"></i>
-                    </div>
-                    <div class="dock-label">Filebase</div>
+                <div class="dock-label">Online Assets</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <div class="dock-icon">
+                    <i data-lucide="folder-tree"></i>
                 </div>
-                <div class="dock-item" onclick="window.location.href='financial.html'">
-                    <div class="dock-icon">
-                        <i data-lucide="landmark"></i>
-                    </div>
-                    <div class="dock-label">Financials</div>
+                <div class="dock-label">Filebase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='financial.html'">
+                <div class="dock-icon">
+                    <i data-lucide="landmark"></i>
                 </div>
-                <div class="dock-item chats" onclick="window.location.href='chats.html'">
-                    <div class="dock-icon">
-                    </div>
-                    <div class="dock-label">Chats</div>
+                <div class="dock-label">Financials</div>
+            </div>
+            <div class="dock-item chats" onclick="window.location.href='chats.html'">
+                <div class="dock-icon">
                 </div>
+                <div class="dock-label">Chats</div>
             </div>
         </div>
+    </div>
 
     <!-- Circle in bottom right corner -->
     <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
         <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
 
-    <!-- AWS Cognito -->
-    <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
-    <script src="cognito-config.js"></script>
-    <script src="cognito-auth.js"></script>
-    <script src="agents-config.js"></script>
-    <script src="agents-service.js"></script>
-    <script src="navigation-handler.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Initialize Lucide icons
-            if (window.lucide) lucide.createIcons();
+            if (window.lucide) {
+                lucide.createIcons();
+                setTimeout(() => lucide.createIcons(), 100);
+            }
 
             // Dock magnification effect with smoother animations
             const dock = document.getElementById('dock');
@@ -874,29 +850,33 @@
                 smoothUpdate();
             }
 
-            // Initialize agents (navigation handler will load content dynamically)
-            // Only load if we're on the main Agents page (no hash or hash is my-agents)
-            const hash = window.location.hash.replace('#', '');
-            if (!hash || hash === 'my-agents') {
-                if (window.agentsService) {
-                    await window.agentsService.loadAgents();
-                }
-            }
-
-            // Create agent button handler (will work for both main page and loaded content)
-            document.getElementById('create-agent-btn')?.addEventListener('click', () => {
-                window.agentsService?.showCreateModal();
-            });
-            
-            // Listen for content loaded events to reinitialize buttons
-            window.addEventListener('contentLoaded', () => {
-                document.getElementById('create-agent-btn')?.addEventListener('click', () => {
-                    window.agentsService?.showCreateModal();
+            // Handle secondary navigation item clicks
+            const navItems = document.querySelectorAll('.secondary-nav-item, .secondary-nav-back');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Get the section identifier
+                    const section = item.getAttribute('data-nav');
+                    
+                    // Hide all content sections
+                    const allContentSections = document.querySelectorAll('[id$="-content"]');
+                    allContentSections.forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    
+                    // Show the selected content section
+                    const targetContent = document.getElementById(`${section}-content`);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                    }
                 });
             });
         });
     </script>
 </body>
 </html>
-
 

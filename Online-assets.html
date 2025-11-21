@@ -8,27 +8,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
-        /* Back Tile Styles */
-        .back-tile {
-            position: absolute;
-            top: 0;
-            left: 260px;
-            bottom: 0;
-            width: 230px; /* Reduced by 150px (380px - 150px) */
-            background: #ffffff;
-            z-index: 998; /* Behind front tile (999) */
-            border-radius: 20px 0 0 20px; /* Rounded left corners only */
-            overflow: visible; /* Changed from hidden to visible */
-        }
-
         /* Secondary Sidebar Styles */
         .secondary-sidebar {
-            height: 100%;
-            display: flex;
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            width: 230px !important;
+            height: 100vh !important;
+            display: flex !important;
             flex-direction: column;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #ffffff;
-            transform: translateX(-250px);
+            background: #ffffff !important;
+            z-index: 999 !important;
+            border-right: 1px solid #e5e7eb;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            visibility: visible !important;
+            opacity: 1 !important;
+            overflow: hidden !important;
         }
 
         .secondary-sidebar-header {
@@ -87,6 +84,11 @@
         .secondary-nav-back:hover {
             color: #000000;
             background-color: #f9fafb;
+        }
+
+        .secondary-nav-back.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
         }
 
         .secondary-nav-back i {
@@ -148,17 +150,155 @@
             color: #000000;
         }
 
-        /* Adjust front tile to account for back tile */
-        .front-tile {
-            left: 270px; /* Extended 220px to the left (490px - 220px) */
+        /* Remove tile effect from dashboard-main */
+        .dashboard-main {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            margin-left: 230px !important;
+            position: relative !important;
+            padding-bottom: 150px !important;
         }
 
-        /* Scale down content proportionally */
-        .front-tile-container {
-            transform: scale(0.85);
-            transform-origin: top left;
-            width: 117.65%; /* Inverse of 0.85 to maintain full width after scaling */
+        /* Ensure body doesn't have padding that causes content to show behind sidebar */
+        body.dashboard-page {
+            padding-left: 0 !important;
+            margin-left: 0 !important;
+            overflow-x: hidden !important;
         }
+
+        /* Ensure no content appears behind sidebar - add a cover */
+        body.dashboard-page::before {
+            content: '';
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 230px;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 998;
+            pointer-events: none;
+        }
+
+        /* Dock Styles */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #f9fafb;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+
+        .dock-item:hover .dock-icon {
+            transform: scale(1.1);
+        }
+
+        .dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .dock-icon i,
+        .dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #ffffff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dock-icon img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+            border-radius: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Blue shades for dock buttons */
+        .blue-shade-1 { background: #38bdf8; }
+        .blue-shade-2 { background: #60a5fa; }
+        .blue-shade-3 { background: #0ea5e9; }
+        .blue-shade-4 { background: #3b82f6; }
+        .blue-shade-5 { background: #0284c7; }
+        .blue-shade-6 { background: #2563eb; }
+        .blue-shade-7 { background: #1d4ed8; }
+        .blue-shade-8 { background: #1e40af; }
 
         /* Hide all scrollbars */
         * {
@@ -214,70 +354,8 @@
         </div>
     </nav>
 
-    <!-- Vertical Dock -->
-    <div class="vertical-dock">
-        <div class="dock-logo">
-            <img src="INF.logo3.png" alt="INF Logo" class="dock-logo-img">
-        </div>
-        <div class="dock-items">
-            <div class="dock-item" onclick="window.location.href='home.html'">
-                <i data-lucide="home"></i>
-                <span class="dock-label">Home</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Operation.html'">
-                <i data-lucide="hard-hat"></i>
-                <span class="dock-label">Operation</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='work.html'">
-                <img src="work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Team's</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Agents.html'">
-                <i data-lucide="cpu"></i>
-                <span class="dock-label">Agents</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Kreative.html'">
-                <img src="Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Account</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Devra.html'">
-                <i data-lucide="squares-exclude"></i>
-                <span class="dock-label">Devra</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
-                <i data-lucide="focus"></i>
-                <span class="dock-label">Campaigns</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                <img src="oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
-                <span class="dock-label">Data</span>
-            </div>
-            <div class="dock-item active" onclick="window.location.href='Online-assets.html'">
-                <i data-lucide="container"></i>
-                <span class="dock-label">Online assets</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='filebase/homebase.html'">
-                <i data-lucide="folder-tree"></i>
-                <span class="dock-label">Filebase</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
-                <i data-lucide="landmark"></i>
-                <span class="dock-label">Financials</span>
-            </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
-                <i data-lucide="message-circle-more"></i>
-                <span class="dock-label">Chats</span>
-            </div>
-        </div>
-    </div>
 
-    <!-- Main Content -->
-    <main class="dashboard-main">
-        <div class="dashboard-container">
-        </div>
-        
-        <!-- Back Tile (Secondary Sidebar) -->
-        <div class="back-tile">
+    <!-- Secondary Sidebar -->
             <div class="secondary-sidebar">
                 <div class="secondary-sidebar-header">
                     <div class="secondary-sidebar-brand">Online Assets</div>
@@ -319,13 +397,11 @@
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                </div>
             </div>
         </div>
         
-        <!-- Front Tile -->
-        <div class="front-tile">
-            <div class="front-tile-container">
+    <!-- Main Content -->
+    <main class="dashboard-main" style="padding: 40px; min-height: 100vh; background: #ffffff;">
             <section class="tiles-grid">
                 <div class="tiles-row row-1">
                     <!-- Sites management placeholder -->
@@ -377,18 +453,124 @@
                     </div>
                 </div>
             </section>
+    </main>
+        
+    <!-- Dock -->
+    <div class="dock-container">
+        <div class="dock" id="dock">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <div class="dock-icon blue-shade-4">
+                    <i data-lucide="home"></i>
+                </div>
+                <div class="dock-label">Home</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='operation.html'">
+                <div class="dock-icon blue-shade-5">
+                    <i data-lucide="hard-hat"></i>
+                </div>
+                <div class="dock-label">Operation</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <div class="dock-icon blue-shade-3">
+                    <img src="work.2.png" alt="Teams">
+                </div>
+                <div class="dock-label">Teams</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <div class="dock-icon blue-shade-6">
+                    <i data-lucide="cpu"></i>
+                </div>
+                <div class="dock-label">Agents</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Kreative.html'">
+                <div class="dock-icon blue-shade-2">
+                    <img src="Kreative.png" alt="Kreative">
+                </div>
+                <div class="dock-label">Kreative</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Devra.html'">
+                <div class="dock-icon blue-shade-7">
+                    <i data-lucide="squares-exclude"></i>
+                </div>
+                <div class="dock-label">Devra</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+                <div class="dock-icon blue-shade-1">
+                    <i data-lucide="focus"></i>
+                </div>
+                <div class="dock-label">Campaigns</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
+                <div class="dock-icon blue-shade-8">
+                    <img src="oceanbase.1.jpg" alt="Database">
+                </div>
+                <div class="dock-label">Oceanbase</div>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='Online-assets.html'">
+                <div class="dock-icon blue-shade-4">
+                    <i data-lucide="container"></i>
+                </div>
+                <div class="dock-label">Online Assets</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <div class="dock-icon blue-shade-6">
+                    <i data-lucide="folder-tree"></i>
+                </div>
+                <div class="dock-label">Filebase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='financial.html'">
+                <div class="dock-icon blue-shade-5">
+                    <i data-lucide="landmark"></i>
+                </div>
+                <div class="dock-label">Financials</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='chats.html'">
+                <div class="dock-icon blue-shade-2">
+                    <i data-lucide="message-circle-more"></i>
+                </div>
+                <div class="dock-label">Chats</div>
             </div>
         </div>
+    </div>
+
         <!-- Circle in bottom right corner -->
         <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
             <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-    </main>
 
     <script src="navigation-handler.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
+
+            // Bottom dock magnification effect
+            const dock = document.getElementById('dock');
+            if (dock) {
+                const dockItems = dock.querySelectorAll('.dock-item');
+                dockItems.forEach(item => {
+                    item.addEventListener('mouseenter', function() {
+                        const baseSize = 40;
+                        const hoverSize = 56;
+                        dockItems.forEach((other, index) => {
+                            if (other === item) {
+                                other.style.width = hoverSize + 'px';
+                                other.style.height = hoverSize + 'px';
+                            } else {
+                                other.style.width = baseSize + 'px';
+                                other.style.height = baseSize + 'px';
+                            }
+                        });
+                    });
+                    item.addEventListener('mouseleave', function() {
+                        dockItems.forEach(other => {
+                            if (!other.classList.contains('active')) {
+                                other.style.width = '';
+                                other.style.height = '';
+                            }
+                        });
+                    });
+                });
+            }
         });
     </script>
 </body>
