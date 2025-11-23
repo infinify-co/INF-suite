@@ -144,7 +144,12 @@ class DatabaseService {
 
   // ========== PROJECTS ==========
 
-  async getProjects(teamId = null) {
+  /**
+   * Get projects
+   * @param {string} teamId - Optional team ID filter
+   * @param {string} categorySlug - Optional category filter
+   */
+  async getProjects(teamId = null, categorySlug = null) {
     try {
       let query = this.supabase
         .from('projects')
@@ -157,6 +162,24 @@ class DatabaseService {
 
       const { data, error } = await query;
       if (error) throw error;
+
+      // Filter by category if specified and organization service is available
+      if (categorySlug && window.dataOrganizationService && data) {
+        try {
+          const { data: { user } } = await this.supabase.auth.getUser();
+          if (user) {
+            const { data: categoryItems } = await window.dataOrganizationService.getDataItemsByCategory('projects', user.id);
+            
+            if (categoryItems) {
+              const categoryItemIds = new Set(categoryItems.map(item => item.item_id));
+              return { data: data.filter(project => categoryItemIds.has(project.id)), error: null };
+            }
+          }
+        } catch (orgError) {
+          console.warn('Error filtering projects by category:', orgError);
+        }
+      }
+
       return { data, error: null };
     } catch (error) {
       console.error('Error fetching projects:', error);
@@ -180,7 +203,7 @@ class DatabaseService {
     }
   }
 
-  async createProject(name, description, clientName, teamId = null, status = 'active') {
+  async createProject(name, description, clientName, teamId = null, status = 'active', tags = []) {
     try {
       const { data: { user } } = await this.supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
@@ -200,6 +223,25 @@ class DatabaseService {
         .single();
 
       if (error) throw error;
+
+      // Create data item for categorization (if organization service is available)
+      if (data && window.dataOrganizationService) {
+        try {
+          await window.dataOrganizationService.createDataItem({
+            itemType: 'project',
+            itemId: data.id,
+            itemTable: 'projects',
+            name: data.name,
+            categorySlug: 'projects',
+            description: data.description || `Project: ${data.name}`,
+            tags: tags
+          });
+        } catch (orgError) {
+          console.warn('Error creating data item for project:', orgError);
+          // Non-blocking - project creation succeeded
+        }
+      }
+
       return { data, error: null };
     } catch (error) {
       console.error('Error creating project:', error);

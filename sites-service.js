@@ -94,6 +94,27 @@ class SitesService {
                 payload
             );
 
+            // Create data item for categorization (if organization service is available)
+            if (result.site && window.dataOrganizationService) {
+                try {
+                    // Get user ID (convert cognito user id to UUID if needed)
+                    const userId = window.authManager?.user?.id || cognitoUserId;
+                    
+                    await window.dataOrganizationService.createDataItem({
+                        itemType: 'site',
+                        itemId: result.site.id,
+                        itemTable: 'sites',
+                        name: result.site.site_name,
+                        categorySlug: 'sites',
+                        description: `Site: ${result.site.site_name}`,
+                        tags: siteConfig.tags || []
+                    });
+                } catch (orgError) {
+                    console.warn('Error creating data item for site:', orgError);
+                    // Non-blocking - site creation succeeded
+                }
+            }
+
             return result;
         } catch (error) {
             console.error('Error creating site:', error);
@@ -103,8 +124,10 @@ class SitesService {
 
     /**
      * List all sites for current user
+     * @param {string} status - Optional status filter
+     * @param {string} categorySlug - Optional category filter
      */
-    async listSites(status = null) {
+    async listSites(status = null, categorySlug = null) {
         try {
             const cognitoUserId = await this.getCurrentUserId();
             let url = `${this.sitesEndpoint}/list?cognitoUserId=${encodeURIComponent(cognitoUserId)}`;
@@ -114,6 +137,22 @@ class SitesService {
             }
 
             const result = await this.apiRequest(url, 'GET');
+            
+            // Filter by category if specified and organization service is available
+            if (categorySlug && window.dataOrganizationService && result.sites) {
+                try {
+                    const userId = window.authManager?.user?.id || cognitoUserId;
+                    const { data: categoryItems } = await window.dataOrganizationService.getDataItemsByCategory('sites', userId);
+                    
+                    if (categoryItems) {
+                        const categoryItemIds = new Set(categoryItems.map(item => item.item_id));
+                        result.sites = result.sites.filter(site => categoryItemIds.has(site.id));
+                    }
+                } catch (orgError) {
+                    console.warn('Error filtering sites by category:', orgError);
+                }
+            }
+            
             return result;
         } catch (error) {
             console.error('Error listing sites:', error);

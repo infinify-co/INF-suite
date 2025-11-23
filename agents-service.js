@@ -94,6 +94,27 @@ class AgentsService {
                 payload
             );
 
+            // Create data item for categorization (if organization service is available)
+            if (result.agent && window.dataOrganizationService) {
+                try {
+                    // Get user ID (convert cognito user id to UUID if needed)
+                    const userId = window.authManager?.user?.id || cognitoUserId;
+                    
+                    await window.dataOrganizationService.createDataItem({
+                        itemType: 'agent',
+                        itemId: result.agent.id,
+                        itemTable: 'agents',
+                        name: result.agent.name,
+                        categorySlug: 'agents',
+                        description: result.agent.instructions?.substring(0, 200) || `AI Agent: ${result.agent.name}`,
+                        tags: agentConfig.tags || []
+                    });
+                } catch (orgError) {
+                    console.warn('Error creating data item for agent:', orgError);
+                    // Non-blocking - agent creation succeeded
+                }
+            }
+
             return result;
         } catch (error) {
             console.error('Error creating agent:', error);
@@ -104,7 +125,12 @@ class AgentsService {
     /**
      * List all agents for current user
      */
-    async listAgents(status = null) {
+    /**
+     * List all agents for current user
+     * @param {string} status - Optional status filter
+     * @param {string} categorySlug - Optional category filter
+     */
+    async listAgents(status = null, categorySlug = null) {
         try {
             const cognitoUserId = await this.getCurrentUserId();
             let url = `${this.agentsEndpoint}/list?cognitoUserId=${encodeURIComponent(cognitoUserId)}`;
@@ -114,6 +140,22 @@ class AgentsService {
             }
 
             const result = await this.apiRequest(url, 'GET');
+            
+            // Filter by category if specified and organization service is available
+            if (categorySlug && window.dataOrganizationService && result.agents) {
+                try {
+                    const userId = window.authManager?.user?.id || cognitoUserId;
+                    const { data: categoryItems } = await window.dataOrganizationService.getDataItemsByCategory('agents', userId);
+                    
+                    if (categoryItems) {
+                        const categoryItemIds = new Set(categoryItems.map(item => item.item_id));
+                        result.agents = result.agents.filter(agent => categoryItemIds.has(agent.id));
+                    }
+                } catch (orgError) {
+                    console.warn('Error filtering agents by category:', orgError);
+                }
+            }
+            
             return result;
         } catch (error) {
             console.error('Error listing agents:', error);

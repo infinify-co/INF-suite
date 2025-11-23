@@ -1,5 +1,6 @@
 // Storage Service
 // Handles file uploads and downloads using Supabase Storage
+// Enhanced with category support for organized file management
 
 class StorageService {
   constructor() {
@@ -7,16 +8,110 @@ class StorageService {
       throw new Error('Supabase client not initialized');
     }
     this.supabase = window.supabase;
+    this.categoryCache = new Map(); // Cache for category mappings
+  }
+
+  /**
+   * Get category for a bucket
+   */
+  async getBucketCategory(bucketName) {
+    try {
+      // Check cache first
+      if (this.categoryCache.has(bucketName)) {
+        return this.categoryCache.get(bucketName);
+      }
+
+      const { data, error } = await this.supabase
+        .from('storage_bucket_categories')
+        .select('*, category:data_categories(*)')
+        .eq('bucket_name', bucketName)
+        .single();
+
+      if (error) {
+        console.warn(`No category mapping found for bucket: ${bucketName}`);
+        return null;
+      }
+
+      // Cache the result
+      this.categoryCache.set(bucketName, data);
+      return data;
+    } catch (error) {
+      console.error('Error getting bucket category:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Generate organized file path based on category
+   * Format: {category}/{user_id}/{item_type}/{item_id}/{filename}
+   */
+  async generateOrganizedPath(bucketName, userId, itemType, itemId, filename) {
+    try {
+      const bucketCategory = await this.getBucketCategory(bucketName);
+      
+      if (bucketCategory && bucketCategory.category) {
+        const categorySlug = bucketCategory.category.slug || 'other';
+        return `${categorySlug}/${userId}/${itemType}/${itemId}/${filename}`;
+      }
+      
+      // Fallback to simple path if no category
+      return `${userId}/${itemType}/${itemId}/${filename}`;
+    } catch (error) {
+      console.error('Error generating organized path:', error);
+      // Fallback
+      return `${userId}/${itemType}/${itemId}/${filename}`;
+    }
+  }
+
+  /**
+   * Store file metadata in database
+   */
+  async storeFileMetadata(fileMetadata) {
+    try {
+      const { data, error } = await this.supabase
+        .from('file_metadata')
+        .insert(fileMetadata)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return { data, error: null };
+    } catch (error) {
+      console.error('Error storing file metadata:', error);
+      return { data: null, error };
+    }
   }
 
   /**
    * Upload file to storage bucket
+   * @param {string} bucket - Bucket name
+   * @param {File} file - File to upload
+   * @param {string} path - Optional custom path
+   * @param {object} options - Upload options
+   * @param {object} categoryOptions - Category organization options
+   * @param {string} categoryOptions.userId - User ID for path organization
+   * @param {string} categoryOptions.itemType - Item type (e.g., 'site', 'agent', 'project')
+   * @param {string} categoryOptions.itemId - Item ID
+   * @param {string} categoryOptions.categoryId - Optional category ID override
    */
-  async uploadFile(bucket, file, path = null, options = {}) {
+  async uploadFile(bucket, file, path = null, options = {}, categoryOptions = {}) {
     try {
-      const fileName = path || file.name;
-      const fileExt = file.name.split('.').pop();
-      const filePath = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      let filePath = path;
+      
+      // Generate organized path if category options provided
+      if (categoryOptions.userId && categoryOptions.itemType && categoryOptions.itemId && !path) {
+        filePath = await this.generateOrganizedPath(
+          bucket,
+          categoryOptions.userId,
+          categoryOptions.itemType,
+          categoryOptions.itemId,
+          file.name
+        );
+      } else if (!filePath) {
+        // Fallback to timestamp-based path
+        const fileExt = file.name.split('.').pop();
+        filePath = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      }
 
       // Upload file
       const { data, error } = await this.supabase.storage
@@ -34,6 +129,34 @@ class StorageService {
         .from(bucket)
         .getPublicUrl(filePath);
 
+      // Get bucket category for metadata
+      const bucketCategory = await this.getBucketCategory(bucket);
+      const categoryId = categoryOptions.categoryId || bucketCategory?.category_id || null;
+
+      // Store file metadata if user ID is available
+      if (categoryOptions.userId) {
+        const fileMetadata = {
+          user_id: categoryOptions.userId,
+          category_id: categoryId,
+          bucket_name: bucket,
+          file_path: filePath,
+          file_name: file.name,
+          file_type: file.type,
+          file_size: file.size,
+          storage_provider: 'supabase',
+          public_url: urlData.publicUrl,
+          metadata: {
+            item_type: categoryOptions.itemType,
+            item_id: categoryOptions.itemId
+          }
+        };
+
+        // Try to store metadata (non-blocking)
+        this.storeFileMetadata(fileMetadata).catch(err => {
+          console.warn('Error storing file metadata:', err);
+        });
+      }
+
       // Trigger backup
       if (window.backupService) {
         window.backupService.backupFile(file, {
@@ -49,7 +172,8 @@ class StorageService {
         data: {
           path: filePath,
           fullPath: data.path,
-          publicUrl: urlData.publicUrl
+          publicUrl: urlData.publicUrl,
+          categoryId: categoryId
         },
         error: null
       };
@@ -61,8 +185,13 @@ class StorageService {
 
   /**
    * Upload file with progress tracking
+   * @param {string} bucket - Bucket name
+   * @param {File} file - File to upload
+   * @param {string} path - Optional custom path
+   * @param {function} onProgress - Progress callback
+   * @param {object} categoryOptions - Category organization options
    */
-  async uploadFileWithProgress(bucket, file, path = null, onProgress = null) {
+  async uploadFileWithProgress(bucket, file, path = null, onProgress = null, categoryOptions = {}) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       
@@ -75,7 +204,7 @@ class StorageService {
 
           // For now, upload in one go (Supabase handles this)
           // In production, you might want to implement chunked uploads
-          const result = await this.uploadFile(bucket, file, path);
+          const result = await this.uploadFile(bucket, file, path, {}, categoryOptions);
           
           if (result.error) {
             reject(result.error);
@@ -213,11 +342,24 @@ class StorageService {
 
   /**
    * Upload project file
+   * @param {File} file - File to upload
+   * @param {string} projectId - Project ID
+   * @param {string} userId - User ID for category organization
    */
-  async uploadProjectFile(file, projectId) {
+  async uploadProjectFile(file, projectId, userId = null) {
     try {
-      const path = `projects/${projectId}/${file.name}`;
-      const result = await this.uploadFile('project-files', file, path);
+      // Get current user if not provided
+      if (!userId && window.authManager?.user) {
+        userId = window.authManager.user.id;
+      }
+
+      const categoryOptions = {
+        userId: userId,
+        itemType: 'project',
+        itemId: projectId
+      };
+
+      const result = await this.uploadFile('project-files', file, null, {}, categoryOptions);
 
       if (result.error) throw result.error;
 
@@ -230,17 +372,57 @@ class StorageService {
 
   /**
    * Upload document
+   * @param {File} file - File to upload
+   * @param {string} folder - Optional folder path
+   * @param {object} categoryOptions - Category organization options
    */
-  async uploadDocument(file, folder = '') {
+  async uploadDocument(file, folder = '', categoryOptions = {}) {
     try {
-      const path = folder ? `${folder}/${file.name}` : file.name;
-      const result = await this.uploadFile('documents', file, path);
+      // Get current user if not provided
+      if (!categoryOptions.userId && window.authManager?.user) {
+        categoryOptions.userId = window.authManager.user.id;
+      }
+
+      let path = null;
+      if (folder) {
+        path = `${folder}/${file.name}`;
+      }
+
+      const result = await this.uploadFile('documents', file, path, {}, {
+        ...categoryOptions,
+        itemType: categoryOptions.itemType || 'document'
+      });
 
       if (result.error) throw result.error;
 
       return result;
     } catch (error) {
       console.error('Error uploading document:', error);
+      return { data: null, error };
+    }
+  }
+
+  /**
+   * Get files by category
+   * @param {string} categorySlug - Category slug
+   * @param {string} userId - User ID
+   */
+  async getFilesByCategory(categorySlug, userId) {
+    try {
+      const { data, error } = await this.supabase
+        .from('file_metadata')
+        .select(`
+          *,
+          category:data_categories!file_metadata_category_id_fkey(*)
+        `)
+        .eq('user_id', userId)
+        .eq('category.slug', categorySlug)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return { data, error: null };
+    } catch (error) {
+      console.error('Error getting files by category:', error);
       return { data: null, error };
     }
   }
