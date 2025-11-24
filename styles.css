@@ -592,7 +592,7 @@ body {
 /* Landing Page Header */
 .landing-header {
     position: fixed;
-    top: -40px;
+    top: 0;
     left: 0;
     right: 0;
     width: 100%;

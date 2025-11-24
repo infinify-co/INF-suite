@@ -208,7 +208,7 @@
         }
 
         .dock-item.chats .dock-icon {
-            background: #3b82f6;
+            background: #ffffff;
         }
 
         .dock-icon img {
@@ -298,12 +298,12 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            position: relative;
         }
 
         .header-action-btn {
-            width: 40px;
             height: 40px;
-            padding: 0;
+            padding: 0 12px;
             background: #ffffff;
             border: 1px solid #e5e7eb;
             border-radius: 8px;
@@ -316,7 +316,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 6px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            position: relative;
+            white-space: nowrap;
         }
 
         .header-action-btn:hover {
@@ -330,6 +333,301 @@
             width: 16px !important;
             height: 16px !important;
             color: #374151;
+        }
+
+        /* Notifications Dropdown Styles */
+        .notifications-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            max-height: 500px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .notifications-dropdown.active {
+            display: block;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .notifications-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .notifications-clear-all {
+            font-size: 14px;
+            color: #2563eb;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .notifications-clear-all:hover {
+            color: #1d4ed8;
+        }
+
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .notification-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-icon.success {
+            background: #10b981;
+        }
+
+        .notification-icon.info {
+            background: #3b82f6;
+        }
+
+        .notification-icon i {
+            width: 20px;
+            height: 20px;
+            color: #ffffff;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .notification-description {
+            font-size: 13px;
+            color: #6b7280;
+            margin: 0 0 4px 0;
+            line-height: 1.4;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+
+        /* Apps Dropdown Styles */
+        .apps-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .apps-dropdown.active {
+            display: block;
+        }
+
+        .apps-section {
+            padding: 16px 20px;
+        }
+
+        .apps-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 12px 0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .app-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            background: #f3f4f6;
+        }
+
+        .app-icon i {
+            width: 20px;
+            height: 20px;
+            color: #374151;
+        }
+
+        .app-name {
+            font-size: 12px;
+            color: #374151;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .apps-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0;
+        }
+
+        /* Account Dropdown Styles */
+        .account-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 280px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .account-dropdown.active {
+            display: block;
+        }
+
+        .account-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 2px 0;
+        }
+
+        .account-email {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .account-menu {
+            padding: 8px 0;
+        }
+
+        .account-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #374151;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .account-menu-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .account-menu-item i {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+        }
+
+        .account-menu-item span {
+            font-size: 14px;
+        }
+
+        .account-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 8px 0;
         }
 
         /* Main Sidebar Styles */
@@ -533,15 +831,149 @@
                 <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
             </div>
             <div class="header-actions">
-                <button class="header-action-btn">
+                <button class="header-action-btn" id="appsDropdownBtn">
                     <i data-lucide="grid-3x3"></i>
+                    <span>App's</span>
                 </button>
-                <button class="header-action-btn">
+                <div class="apps-dropdown" id="appsDropdown">
+                    <div class="apps-section">
+                        <h4 class="apps-section-title">extensions</h4>
+                        <div class="apps-grid">
+                            <div class="app-item extension-slot" data-slot="1">
+                                <div class="app-icon extension-icon-empty">
+                                    <i data-lucide="plus"></i>
+                                </div>
+                                <p class="app-name">empty</p>
+                            </div>
+                            <div class="app-item extension-slot" data-slot="2">
+                                <div class="app-icon extension-icon-empty">
+                                    <i data-lucide="plus"></i>
+                                </div>
+                                <p class="app-name">empty</p>
+                            </div>
+                            <div class="app-item extension-slot" data-slot="3">
+                                <div class="app-icon extension-icon-empty">
+                                    <i data-lucide="plus"></i>
+                                </div>
+                                <p class="app-name">empty</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="apps-divider"></div>
+                    <div class="apps-section">
+                        <h4 class="apps-section-title">more App's</h4>
+                        <div class="apps-grid">
+                            <div class="app-item">
+                                <div class="app-icon">
+                                    <i data-lucide="home"></i>
+                                </div>
+                                <p class="app-name">Home</p>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-icon">
+                                    <i data-lucide="hard-hat"></i>
+                                </div>
+                                <p class="app-name">Operation</p>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-icon">
+                                    <i data-lucide="users"></i>
+                                </div>
+                                <p class="app-name">Teams</p>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-icon">
+                                    <i data-lucide="cpu"></i>
+                                </div>
+                                <p class="app-name">Agents</p>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-icon">
+                                    <i data-lucide="palette"></i>
+                                </div>
+                                <p class="app-name">Kreative</p>
+                            </div>
+                            <div class="app-item">
+                                <div class="app-icon">
+                                    <i data-lucide="squares-exclude"></i>
+                                </div>
+                                <p class="app-name">Devra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="header-action-btn" id="bellDropdownBtn">
                     <i data-lucide="bell"></i>
                 </button>
-                <button class="header-action-btn">
+                <div class="notifications-dropdown" id="bellDropdown">
+                    <div class="notifications-header">
+                        <h3 class="notifications-title">Notifications</h3>
+                        <a href="#" class="notifications-clear-all" id="clearAllBellNotifications">Clear All</a>
+                    </div>
+                    <div class="notifications-list">
+                        <div class="notification-item">
+                            <div class="notification-icon success">
+                                <i data-lucide="check-circle"></i>
+                            </div>
+                            <div class="notification-content">
+                                <h4 class="notification-title">System Update</h4>
+                                <p class="notification-description">Your data has been backed up successfully</p>
+                                <p class="notification-time">10d ago</p>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon success">
+                                <i data-lucide="check-circle"></i>
+                            </div>
+                            <div class="notification-content">
+                                <h4 class="notification-title">New Feature Available</h4>
+                                <p class="notification-description">Check out the Creator Home page</p>
+                                <p class="notification-time">10d ago</p>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon info">
+                                <i data-lucide="info"></i>
+                            </div>
+                            <div class="notification-content">
+                                <h4 class="notification-title">Welcome to ORDUS</h4>
+                                <p class="notification-description">Get started by exploring the dashboard</p>
+                                <p class="notification-time">10d ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="header-action-btn" id="accountDropdownBtn">
                     <i data-lucide="user"></i>
                 </button>
+                <div class="account-dropdown" id="accountDropdown">
+                    <div class="account-header">
+                        <div class="account-avatar">JD</div>
+                        <div class="account-info">
+                            <h4 class="account-name">John Doe</h4>
+                            <p class="account-email">john.doe@example.com</p>
+                        </div>
+                    </div>
+                    <div class="account-menu">
+                        <a href="#" class="account-menu-item">
+                            <i data-lucide="user"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" class="account-menu-item">
+                            <i data-lucide="settings"></i>
+                            <span>Settings</span>
+                        </a>
+                        <a href="#" class="account-menu-item">
+                            <i data-lucide="credit-card"></i>
+                            <span>Billing</span>
+                        </a>
+                        <div class="account-divider"></div>
+                        <a href="#" class="account-menu-item">
+                            <i data-lucide="log-out"></i>
+                            <span>Sign out</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -685,6 +1117,7 @@
             </div>
             <div class="dock-item chats" onclick="window.location.href='chats.html'">
                 <div class="dock-icon">
+                    <i data-lucide="message-square"></i>
                 </div>
                 <div class="dock-label">Chats</div>
             </div>
@@ -767,10 +1200,69 @@
         smoothUpdate();
 
         // Initialize Lucide icons and Chart
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize Lucide icons
             if (window.lucide) {
                 lucide.createIcons();
+                setTimeout(() => lucide.createIcons(), 100);
             }
+
+            // Helper function to handle dropdown hover
+            function setupDropdownHover(buttonId, dropdownId, clearAllBtnId = null) {
+                const button = document.getElementById(buttonId);
+                const dropdown = document.getElementById(dropdownId);
+                
+                if (button && dropdown) {
+                    let hoverTimeout;
+                    
+                    // Show dropdown on hover
+                    button.addEventListener('mouseenter', () => {
+                        clearTimeout(hoverTimeout);
+                        dropdown.classList.add('active');
+                        // Reinitialize icons after showing
+                        if (window.lucide) {
+                            setTimeout(() => lucide.createIcons(), 50);
+                        }
+                    });
+                    
+                    // Keep dropdown open when hovering over it
+                    dropdown.addEventListener('mouseenter', () => {
+                        clearTimeout(hoverTimeout);
+                        dropdown.classList.add('active');
+                    });
+                    
+                    // Hide dropdown when mouse leaves button or dropdown
+                    const hideDropdown = () => {
+                        hoverTimeout = setTimeout(() => {
+                            dropdown.classList.remove('active');
+                        }, 150); // Small delay to prevent flickering
+                    };
+                    
+                    button.addEventListener('mouseleave', hideDropdown);
+                    dropdown.addEventListener('mouseleave', hideDropdown);
+                    
+                    // Handle clear all button if provided
+                    if (clearAllBtnId) {
+                        const clearAllBtn = document.getElementById(clearAllBtnId);
+                        if (clearAllBtn) {
+                            clearAllBtn.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                // Clear notifications logic here
+                                const notificationItems = dropdown.querySelectorAll('.notification-item');
+                                notificationItems.forEach(item => {
+                                    item.style.display = 'none';
+                                });
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Setup dropdowns
+            setupDropdownHover('appsDropdownBtn', 'appsDropdown');
+            setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
+            setupDropdownHover('accountDropdownBtn', 'accountDropdown');
 
             // Financial Chart
             if (window.Chart) {

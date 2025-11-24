@@ -130,10 +130,39 @@
             justify-content: center;
             border-radius: 12px;
             transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
         }
 
         .dock-item:hover .dock-icon {
             transform: scale(1.1);
+        }
+
+        .dock-item.active .dock-icon {
+            border: 2px solid #3b82f6;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        .dock-item.active .dock-icon i,
+        .dock-item.active .dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .dock-item.chats .dock-icon {
+            background: #ffffff;
+        }
+
+        /* Override blue-shade classes to use white background */
+        .dock-icon.blue-shade-1,
+        .dock-icon.blue-shade-2,
+        .dock-icon.blue-shade-3,
+        .dock-icon.blue-shade-4,
+        .dock-icon.blue-shade-5,
+        .dock-icon.blue-shade-6,
+        .dock-icon.blue-shade-7,
+        .dock-icon.blue-shade-8 {
+            background: #ffffff !important;
         }
 
         .dock-label {
@@ -163,7 +192,7 @@
         .dock-icon svg {
             width: 60%;
             height: 60%;
-            color: #ffffff;
+            color: #374151;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -644,31 +673,31 @@
     <div class="dock-container">
         <div class="dock" id="dock">
             <div class="dock-item" onclick="window.location.href='home.html'">
-                <div class="dock-icon blue-shade-4">
+                <div class="dock-icon">
                     <i data-lucide="home"></i>
                 </div>
                 <div class="dock-label">Home</div>
             </div>
             <div class="dock-item" onclick="window.location.href='operation.html'">
-                <div class="dock-icon blue-shade-5">
+                <div class="dock-icon">
                     <i data-lucide="hard-hat"></i>
                 </div>
                 <div class="dock-label">Operation</div>
             </div>
             <div class="dock-item" onclick="window.location.href='work.html'">
-                <div class="dock-icon blue-shade-3">
+                <div class="dock-icon">
                     <img src="work.2.png" alt="Teams">
                 </div>
                 <div class="dock-label">Teams</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Agents.html'">
-                <div class="dock-icon blue-shade-6">
+                <div class="dock-icon">
                     <i data-lucide="cpu"></i>
                 </div>
                 <div class="dock-label">Agents</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Kreative/Kreative.html'">
-                <div class="dock-icon blue-shade-2">
+                <div class="dock-icon">
                     <img src="Kreative.png" alt="Kreative">
                 </div>
                 <div class="dock-label">Kreative</div>
@@ -679,39 +708,39 @@
                 </div>
                 <div class="dock-label">Devra</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
-                <div class="dock-icon blue-shade-1">
+            <div class="dock-item active" onclick="window.location.href='campaigns.html'">
+                <div class="dock-icon">
                     <i data-lucide="focus"></i>
                 </div>
                 <div class="dock-label">Campaigns</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                <div class="dock-icon blue-shade-8">
+                <div class="dock-icon">
                     <img src="Oceanbase.1.jpg" alt="Database">
                 </div>
                 <div class="dock-label">Oceanbase</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Online-assets.html'">
-                <div class="dock-icon blue-shade-4">
+                <div class="dock-icon">
                     <i data-lucide="container"></i>
                 </div>
                 <div class="dock-label">Online Assets</div>
             </div>
             <div class="dock-item" onclick="window.location.href='Filebase.html'">
-                <div class="dock-icon blue-shade-6">
+                <div class="dock-icon">
                     <i data-lucide="folder-tree"></i>
                 </div>
                 <div class="dock-label">Filebase</div>
             </div>
             <div class="dock-item" onclick="window.location.href='financial.html'">
-                <div class="dock-icon blue-shade-5">
+                <div class="dock-icon">
                     <i data-lucide="landmark"></i>
                 </div>
                 <div class="dock-label">Financials</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
-                <div class="dock-icon blue-shade-2">
-                    <i data-lucide="message-circle-more"></i>
+            <div class="dock-item chats" onclick="window.location.href='chats.html'">
+                <div class="dock-icon">
+                    <i data-lucide="message-square"></i>
                 </div>
                 <div class="dock-label">Chats</div>
             </div>

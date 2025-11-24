@@ -396,7 +396,7 @@
         }
 
         .dock-item.chats .dock-icon {
-            background: #3b82f6;
+            background: #ffffff;
         }
 
         .dock-icon img {
@@ -461,6 +461,18 @@
         .blue-shade-6 { background: #2563eb; }
         .blue-shade-7 { background: #1d4ed8; }
         .blue-shade-8 { background: #1e40af; }
+
+        /* Override blue-shade classes to use white background */
+        .dock-icon.blue-shade-1,
+        .dock-icon.blue-shade-2,
+        .dock-icon.blue-shade-3,
+        .dock-icon.blue-shade-4,
+        .dock-icon.blue-shade-5,
+        .dock-icon.blue-shade-6,
+        .dock-icon.blue-shade-7,
+        .dock-icon.blue-shade-8 {
+            background: #ffffff !important;
+        }
 
         body, html, main, .dashboard-main {
             scrollbar-width: none;
@@ -1115,9 +1127,9 @@
             </div>
             <div class="dock-item chats" onclick="window.location.href='chats.html'">
                 <div class="dock-icon">
-        </div>
+                    <i data-lucide="message-square"></i>
+                </div>
                 <div class="dock-label">Chats</div>
-    </div>
             </div>
         </div>
         
