@@ -269,27 +269,59 @@
             border-radius: 12px !important;
         }
         
-        /* Style all image icons to be dark gray */
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon,
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+        /* Style Kreative icon */
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon {
             background: #ffffff !important;
             border: 2px solid transparent;
         }
         
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon img,
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
         }
         
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon,
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon {
             border: 2px solid #3b82f6;
             background: #ffffff !important;
         }
         
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img,
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
+        }
+
+        /* Style Oceanbase icon (Oceanbase.1.jpg) */
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+        
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon {
+            transform: scale(0.95);
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
         }
 
         /* Blue shades for dock buttons */
