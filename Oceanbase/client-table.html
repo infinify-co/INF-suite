@@ -301,6 +301,44 @@
         .blue-shade-7 { background: #1d4ed8; }
         .blue-shade-8 { background: #1e40af; }
 
+        /* Style Oceanbase icon (Oceanbase.1.jpg) */
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="../Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]):active .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+        
+        .dock-item.active:has(img[src="../Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+        }
+
         /* Hide all scrollbars */
         * {
             scrollbar-width: none;

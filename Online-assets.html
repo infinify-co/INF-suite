@@ -446,7 +446,7 @@
         }
 
         .sidebar-nav {
-            padding: 20px 16px 12px 16px;
+            padding: 170px 16px 12px 16px;
             border-bottom: 1px solid #e5e7eb;
         }
 
@@ -790,6 +790,39 @@
             transform: translate(-50%, -50%);
         }
 
+        /* Style Oceanbase icon (Oceanbase.1.jpg) */
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+        }
+
         /* Override blue-shade classes to use white background like home.html */
         .dock-icon.blue-shade-1,
         .dock-icon.blue-shade-2,
@@ -1024,48 +1057,29 @@
     <div class="main-sidebar">
         <div class="sidebar-nav">
             <div class="sidebar-nav-item">
-                <span>New chat</span>
+                <span>Overview</span>
             </div>
             <div class="sidebar-nav-item">
-                <span>Search chats</span>
+                <span>websites</span>
             </div>
             <div class="sidebar-nav-item">
-                <span>Library</span>
+                <a href="online-assets/domains.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Domains</span>
+                </a>
             </div>
             <div class="sidebar-nav-item">
-                            <span>Codex</span>
-                        </div>
-            <div class="sidebar-nav-item">
-                <span>Atlas</span>
-                        </div>
-            <div class="sidebar-nav-item">
-                <span>GPTs</span>
-                        </div>
-            <div class="sidebar-nav-item">
-                <span>Projects</span>
-                    </div>
-                </div>
-
-        <div class="sidebar-chats">
-            <div class="sidebar-chats-header">Chats</div>
-            <div class="sidebar-chats-list">
-                <div class="sidebar-chat-item">Car value projection limits</div>
-                <div class="sidebar-chat-item">How startup founders get paid</div>
-                <div class="sidebar-chat-item">Code safety analysis</div>
-                <div class="sidebar-chat-item">Open source AI revenue</div>
-                <div class="sidebar-chat-item">Component issues review</div>
-                <div class="sidebar-chat-item">Improved pitch deck prompt</div>
-                <div class="sidebar-chat-item">Internal synonyms list</div>
-                <div class="sidebar-chat-item">Sports clubs comparison</div>
-                <div class="sidebar-chat-item">Billionaires on Instagram</div>
-                <div class="sidebar-chat-item">Make downloadable desktop</div>
-                <div class="sidebar-chat-item">Additional chat conversation</div>
-                <div class="sidebar-chat-item">Recent project discussion</div>
-                <div class="sidebar-chat-item">Team collaboration notes</div>
-                <div class="sidebar-chat-item">Product development ideas</div>
-                <div class="sidebar-chat-item">Market research findings</div>
+                <span>Apps</span>
             </div>
+            <div class="sidebar-nav-item">
+                <span>Socials</span>
             </div>
+            <div class="sidebar-nav-item">
+                <span>Emails</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Access Manage</span>
+            </div>
+        </div>
         </div>
         
     <!-- Main Content -->
@@ -1191,12 +1205,6 @@
                     <i data-lucide="landmark"></i>
                 </div>
                 <div class="dock-label">Financials</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
-                <div class="dock-icon">
-                    <i data-lucide="message-square"></i>
-                </div>
-                <div class="dock-label">Chats</div>
             </div>
         </div>
     </div>

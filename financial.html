@@ -241,27 +241,56 @@
             filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
         }
         
-        /* Style all image icons to be dark gray */
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon,
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+        /* Style Kreative icon */
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon {
             background: #ffffff !important;
             border: 2px solid transparent;
         }
         
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon img,
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
         }
         
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon,
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon {
             border: 2px solid #3b82f6;
             background: #ffffff !important;
         }
         
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img,
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
+        }
+
+        /* Style Oceanbase icon (Oceanbase.1.jpg) */
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
         }
 
         /* Header Bar Styles */
@@ -636,7 +665,7 @@
             left: 0;
             top: 65px; /* Below header */
             bottom: 0;
-            width: 260px;
+            width: 200px;
             background: #ffffff;
             border-right: 1px solid #e5e7eb;
             display: flex;
@@ -662,7 +691,6 @@
 
         .sidebar-nav {
             padding: 20px 8px 12px 8px;
-            border-bottom: 1px solid #f3f4f6;
         }
 
         .sidebar-nav-item {
@@ -728,7 +756,7 @@
 
         /* Main content wrapper */
         .main-content-wrapper {
-            margin-left: 260px;
+            margin-left: 200px;
             margin-top: 65px; /* Account for fixed header */
             padding-left: 40px;
             padding-right: 40px;
@@ -1007,22 +1035,6 @@
                 <div class="sidebar-nav-item">
                     <i data-lucide="folder-plus"></i>
                     <span>Projects</span>
-                </div>
-            </div>
-
-            <div class="sidebar-chats">
-                <div class="sidebar-chats-header">Chats</div>
-                <div class="sidebar-chats-list">
-                    <div class="sidebar-chat-item">Car value projection limits</div>
-                    <div class="sidebar-chat-item">How startup founders get paid</div>
-                    <div class="sidebar-chat-item">Code safety analysis</div>
-                    <div class="sidebar-chat-item">Open source AI revenue</div>
-                    <div class="sidebar-chat-item">Component issues review</div>
-                    <div class="sidebar-chat-item">Improved pitch deck prompt</div>
-                    <div class="sidebar-chat-item">Internal synonyms list</div>
-                    <div class="sidebar-chat-item">Sports clubs comparison</div>
-                    <div class="sidebar-chat-item">Billionaires on Instagram</div>
-                    <div class="sidebar-chat-item">Make downloadable desktop</div>
                 </div>
             </div>
         </div>

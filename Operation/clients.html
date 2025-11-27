@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients - Operation - INF Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Force remove any scrollbar or border lines */
+        html {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            border: none !important;
+            outline: none !important;
+            background: #ffffff !important;
+        }
+
+        body, body.dashboard-page {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100vw !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+        }
+
+        /* Completely remove all scrollbar elements */
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar,
+        *::-webkit-scrollbar {
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+            display: none !important;
+        }
+
+        html::-webkit-scrollbar-track,
+        body::-webkit-scrollbar-track,
+        *::-webkit-scrollbar-track {
+            background: transparent !important;
+            display: none !important;
+            width: 0 !important;
+        }
+
+        html::-webkit-scrollbar-thumb,
+        body::-webkit-scrollbar-thumb,
+        *::-webkit-scrollbar-thumb {
+            background: transparent !important;
+            display: none !important;
+            width: 0 !important;
+        }
+
+        html::-webkit-scrollbar-corner,
+        body::-webkit-scrollbar-corner,
+        *::-webkit-scrollbar-corner {
+            background: transparent !important;
+            display: none !important;
+        }
+
+        /* Main content - clean screen */
+        .dashboard-main {
+            margin: 0 !important;
+            margin-left: 200px !important;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            background: #ffffff !important;
+            min-height: 100vh !important;
+            max-width: calc(100% - 200px) !important;
+            width: calc(100% - 200px) !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        /* Override any styles.css rules that might cause borders or margins */
+        body.dashboard-page {
+            background: #ffffff !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Remove any potential border from viewport */
+        html {
+            background: #ffffff !important;
+        }
+
+        /* Content sections */
+        .content-section {
+            padding: 40px;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Clients Content -->
+            <div class="content-section" id="clients-content">
+                <h1 style="font-size: 24px; font-weight: 600; color: #0f172a; margin: 0 0 24px 0;">Clients</h1>
+                <p style="font-size: 14px; color: #64748b; margin: 0;">Client management content coming soon</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
+

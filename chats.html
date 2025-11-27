@@ -497,21 +497,89 @@
         }
 
         .sidebar-chat-item {
-            padding: 10px 12px;
+            padding: 6px 8px;
             color: #111827;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 6px;
             transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            min-height: 32px;
+        }
+
+        .chat-text {
+            flex: 1;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
+        .chat-options-btn {
+            background: none;
+            border: none;
+            padding: 2px;
+            cursor: pointer;
+            color: #9ca3af;
+            opacity: 0;
+            transition: opacity 0.2s, color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .sidebar-chat-item:hover .chat-options-btn {
+            opacity: 1;
+        }
+
+        .chat-options-btn:hover {
+            color: #374151;
+            background-color: #e5e7eb;
+        }
+
+        .chat-options-btn i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 12px 12px 8px 12px;
+        }
+
+        .sidebar-section-header {
+            padding: 8px 12px;
+            color: #9ca3af;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
         .sidebar-chat-item:hover {
             background-color: #f9fafb;
+        }
+
+        .chat-indicator {
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+
+        .sidebar-chat-item.read .chat-indicator {
+            display: none;
         }
 
         /* Remove tile effect from dashboard-main */
@@ -692,27 +760,56 @@
             filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
         }
         
-        /* Style all image icons to be dark gray */
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon,
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+        /* Style Kreative icon */
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon {
             background: #ffffff !important;
             border: 2px solid transparent;
         }
         
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon img,
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+        .dock-item:has(img[src="Kreative.png"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
         }
         
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon,
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon {
             border: 2px solid #3b82f6;
             background: #ffffff !important;
         }
         
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img,
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
+        }
+
+        /* Style Oceanbase icon (Oceanbase.1.jpg) */
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
         }
 
         /* Hide all scrollbars */
@@ -932,46 +1029,83 @@
 
     <!-- Sidebar -->
     <div class="main-sidebar">
-        <div class="sidebar-nav">
-            <div class="sidebar-nav-item">
-                <span>New chat</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Search chats</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Library</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Codex</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Atlas</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>GPTs</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Projects</span>
-            </div>
-        </div>
-
         <div class="sidebar-chats">
             <div class="sidebar-chats-header">Chats</div>
             <div class="sidebar-chats-list">
-                <div class="sidebar-chat-item">Car value projection limits</div>
-                <div class="sidebar-chat-item">How startup founders get paid</div>
-                <div class="sidebar-chat-item">Code safety analysis</div>
-                <div class="sidebar-chat-item">Open source AI revenue</div>
-                <div class="sidebar-chat-item">Component issues review</div>
-                <div class="sidebar-chat-item">Improved pitch deck prompt</div>
-                <div class="sidebar-chat-item">Internal synonyms list</div>
-                <div class="sidebar-chat-item">Sports clubs comparison</div>
-                <div class="sidebar-chat-item">Billionaires on Instagram</div>
-                <div class="sidebar-chat-item">Make downloadable desktop</div>
-                <div class="sidebar-chat-item">Additional chat conversation</div>
-                <div class="sidebar-chat-item">Recent project discussion</div>
-                <div class="sidebar-chat-item">Team collaboration notes</div>
+                <div class="sidebar-chat-item" data-chat-id="1">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@car_enthusiast</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="2">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@startup_founder</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="3">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@code_master</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="4">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@ai_researcher</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="5">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@ui_designer</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="6">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@pitch_expert</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="7">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@word_smith</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                
+                <div class="sidebar-divider"></div>
+                <div class="sidebar-section-header">Team</div>
+                
+                <div class="sidebar-chat-item" data-chat-id="team1">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@alex_designer</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="team2">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@sarah_dev</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
+                <div class="sidebar-chat-item" data-chat-id="team3">
+                    <span class="chat-indicator"></span>
+                    <span class="chat-text">@mike_pm</span>
+                    <button class="chat-options-btn">
+                        <i data-lucide="more-horizontal"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -979,109 +1113,9 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container" style="padding-top: 2rem; padding-left: 2rem;">
-            <h1 class="chats-title" style="position: relative; top: 0; left: 0;">Chats</h1>
-            
-            <!-- Chat List Section -->
-            <div class="chat-list">
-                <!-- Pinned Sorif Chat -->
-                <div class="chat-item pinned" data-timestamp="0" data-pinned="true">
-                    <div class="chat-avatar">
-                        <img src="https://ui-avatars.com/api/?name=Sorif&background=1a1a1a&color=fff" alt="Sorif" class="avatar-img">
-                        <span class="status-indicator status-online"></span>
-                    </div>
-                    <div class="chat-content">
-                        <div class="chat-header">
-                            <span class="chat-name">Sorif</span>
-                            <span class="chat-time pin-indicator-header" title="Pinned">
-                                <i data-lucide="pin"></i>
-                            </span>
-                        </div>
-                        <div class="chat-message">AI Business Consultant</div>
-                    </div>
-                </div>
-                
-                <div class="chat-item" data-timestamp="2">
-                    <div class="chat-avatar">
-                        <img src="https://ui-avatars.com/api/?name=Alex+Linderson&background=2563eb&color=fff" alt="Alex Linderson" class="avatar-img">
-                        <span class="status-indicator status-online"></span>
-                    </div>
-                    <div class="chat-content">
-                        <div class="chat-header">
-                            <span class="chat-name">Alex Linderson</span>
-                            <span class="chat-time" data-minutes="2">2 min ago</span>
-                        </div>
-                        <div class="chat-message">How are you today?</div>
-                    </div>
-                    <div class="chat-unread">
-                        <span class="unread-badge">3</span>
-                    </div>
-                </div>
-                
-                <div class="chat-item" data-timestamp="3">
-                    <div class="chat-avatar">
-                        <img src="https://ui-avatars.com/api/?name=Team+Align&background=667eea&color=fff" alt="Team Align" class="avatar-img">
-                        <span class="status-indicator status-online"></span>
-                    </div>
-                    <div class="chat-content">
-                        <div class="chat-header">
-                            <span class="chat-name">Team Align</span>
-                            <span class="chat-time" data-minutes="3">3 min ago</span>
-                        </div>
-                        <div class="chat-message">Don't miss to attend the meeting.</div>
-                    </div>
-                    <div class="chat-unread">
-                        <span class="unread-badge">4</span>
-                    </div>
-                </div>
-                
-                <div class="chat-item" data-timestamp="15">
-                    <div class="chat-avatar">
-                        <img src="https://ui-avatars.com/api/?name=John+Ahraham&background=fbbf24&color=000" alt="John Ahraham" class="avatar-img">
-                        <span class="status-indicator status-offline"></span>
-                    </div>
-                    <div class="chat-content">
-                        <div class="chat-header">
-                            <span class="chat-name">John Ahraham</span>
-                            <span class="chat-time" data-minutes="15">15 min ago</span>
-                        </div>
-                        <div class="chat-message">Hey! Can you join the meeting?</div>
-                    </div>
-                </div>
-                
-                <div class="chat-item" data-timestamp="45">
-                    <div class="chat-avatar">
-                        <img src="https://ui-avatars.com/api/?name=Sabila+Sayma&background=f472b6&color=fff" alt="Sabila Sayma" class="avatar-img">
-                        <span class="status-indicator status-offline"></span>
-                    </div>
-                    <div class="chat-content">
-                        <div class="chat-header">
-                            <span class="chat-name">Sabila Sayma</span>
-                            <span class="chat-time" data-minutes="45">45 min ago</span>
-                        </div>
-                        <div class="chat-message">How are you today?</div>
-                    </div>
-                </div>
-                
-                <div class="chat-item" data-timestamp="120">
-                    <div class="chat-avatar">
-                        <img src="https://ui-avatars.com/api/?name=John+Borino&background=8b5cf6&color=fff" alt="John Borino" class="avatar-img">
-                        <span class="status-indicator status-online"></span>
-                    </div>
-                    <div class="chat-content">
-                        <div class="chat-header">
-                            <span class="chat-name">John Borino</span>
-                            <span class="chat-time" data-minutes="120">2 hours ago</span>
-                        </div>
-                        <div class="chat-message">Have a good day 🌸</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- New Front Tile -->
-        <div class="front-tile">
-            <div class="front-tile-container">
-                <!-- Content for the front tile -->
+            <!-- Content area cleared as per user request -->
+            <div class="chat-list" style="display: none;">
+                <!-- Chats removed from main area -->
             </div>
         </div>
     </main>
@@ -1494,6 +1528,27 @@
             
             // Also show notification dot immediately on load for testing (remove this in production)
             setTimeout(() => showMessageNotification(), 1000);
+
+            // Handle sidebar chat item clicks to mark as read
+            const sidebarChatItems = document.querySelectorAll('.sidebar-chat-item');
+            sidebarChatItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Mark as read by adding 'read' class
+                    this.classList.add('read');
+                    
+                    // Save read status to localStorage
+                    const chatId = this.getAttribute('data-chat-id');
+                    if (chatId) {
+                        localStorage.setItem(`chat-read-${chatId}`, 'true');
+                    }
+                });
+
+                // Check if chat was previously read on page load
+                const chatId = item.getAttribute('data-chat-id');
+                if (chatId && localStorage.getItem(`chat-read-${chatId}`) === 'true') {
+                    item.classList.add('read');
+                }
+            });
         });
     </script>
 </body>

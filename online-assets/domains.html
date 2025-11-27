@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operation - INF Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Domains - Online Assets - INF Dashboard</title>
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="../domains-config.js"></script>
+    <script src="../domains-service.js"></script>
     <style>
-
         /* Header Bar Styles */
         .page-header {
             width: 100vw;
@@ -412,7 +413,6 @@
             text-decoration: none;
         }
 
-
         /* Main Sidebar Styles */
         .main-sidebar {
             position: fixed;
@@ -424,7 +424,6 @@
             border-right: 1px solid #e5e7eb;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             z-index: 1000;
             overflow-y: auto;
@@ -449,7 +448,8 @@
         }
 
         .sidebar-nav {
-            padding: 20px 16px;
+            padding: 170px 16px 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .sidebar-nav-item {
@@ -468,50 +468,17 @@
             color: #374151;
         }
 
+        .sidebar-nav-item.active {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
         .sidebar-nav-item i {
             display: none;
         }
 
         .sidebar-nav-item span {
             display: block;
-        }
-
-        .sidebar-chats {
-            flex: 1;
-            padding: 12px 8px;
-            overflow-y: auto;
-        }
-
-        .sidebar-chats-header {
-            padding: 8px 12px;
-            color: #9ca3af;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .sidebar-chats-list {
-            margin-top: 4px;
-        }
-
-        .sidebar-chat-item {
-            padding: 10px 12px;
-            color: #111827;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .sidebar-chat-item:hover {
-            background-color: #f9fafb;
         }
 
         /* Remove tile effect from dashboard-main */
@@ -522,8 +489,130 @@
             margin-left: 200px !important;
             margin-top: 65px !important;
             position: relative !important;
+            padding-bottom: 150px !important;
         }
 
+        /* Domain Management Styles */
+        .domains-container {
+            padding: 40px;
+        }
+
+        .domains-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .domains-header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .refresh-icon {
+            width: 20px;
+            height: 20px;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+            margin-left: 300px;
+        }
+
+        .refresh-icon:hover {
+            color: #0ea5e9;
+            transform: rotate(180deg);
+        }
+
+        .btn-primary {
+            background: #0ea5e9;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #0284c7;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .domains-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        #domains-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        #empty-state {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+        #empty-state h3 {
+            font-size: 20px;
+            color: #64748b;
+            margin: 16px 0 8px;
+        }
+
+        #empty-state p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
 
         /* Dock Styles */
         .dock-container {
@@ -620,6 +709,11 @@
             box-shadow: none !important;
         }
 
+        .dock-item.active .dock-icon i,
+        .dock-item.active .dock-icon svg {
+            color: #3b82f6;
+        }
+
         .dock-label {
             position: absolute;
             bottom: calc(100% + 12px);
@@ -654,95 +748,27 @@
             transform: translate(-50%, -50%);
         }
 
-        .dock-item.active .dock-icon i,
-        .dock-item.active .dock-icon svg {
-            color: #3b82f6;
-        }
-
         .dock-icon img {
-            width: 70%;
-            height: 70%;
+            width: 60%;
+            height: 60%;
             object-fit: contain;
-            border-radius: 8px;
+            border-radius: 6px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
-        .dock-item.chats .dock-icon {
-            background: #ffffff;
-        }
-        
-        .dock-item:has(img[src="work.2.png"]) .dock-icon {
-            background: #ffffff !important;
-            border: 2px solid transparent;
-        }
-        
-        .dock-item:has(img[src="work.2.png"]) .dock-icon img {
-            clip-path: inset(6%);
-            filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-        }
-        
-        .dock-item.active:has(img[src="work.2.png"]) .dock-icon {
-            border: 2px solid #3b82f6;
-            background: #ffffff !important;
-        }
-        
-        .dock-item.active:has(img[src="work.2.png"]) .dock-icon img {
-            filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
-        }
-        
-        /* Style Kreative icon */
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon {
-            background: #ffffff !important;
-            border: 2px solid transparent;
-        }
-        
-        .dock-item:has(img[src="Kreative.png"]) .dock-icon img {
-            filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-        }
-        
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon {
-            border: 2px solid #3b82f6;
-            background: #ffffff !important;
-        }
-        
-        .dock-item.active:has(img[src="Kreative.png"]) .dock-icon img {
-            filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
-        }
 
-        /* Style Oceanbase icon (Oceanbase.1.jpg) */
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon {
+        /* Override blue-shade classes to use white background */
+        .dock-icon.blue-shade-1,
+        .dock-icon.blue-shade-2,
+        .dock-icon.blue-shade-3,
+        .dock-icon.blue-shade-4,
+        .dock-icon.blue-shade-5,
+        .dock-icon.blue-shade-6,
+        .dock-icon.blue-shade-7,
+        .dock-icon.blue-shade-8 {
             background: #ffffff !important;
-            border: 2px solid transparent !important;
-            box-shadow: none !important;
-            border-radius: 12px !important;
-            overflow: hidden;
-        }
-        
-        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon img {
-            transform: translate(-50%, -50%) scale(1.2);
-            filter: grayscale(100%);
-            transition: filter 0.15s ease, transform 0.15s ease;
-        }
-        
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img,
-        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="oceanbase.1.jpg"]):active .dock-icon img {
-            filter: none;
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-        
-        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon {
-            border: 2px solid #3b82f6 !important;
-            background: #ffffff !important;
-            box-shadow: none !important;
-            border-radius: 12px !important;
         }
 
         /* Blue shades for dock buttons */
@@ -754,21 +780,43 @@
         .blue-shade-6 { background: #2563eb; }
         .blue-shade-7 { background: #1d4ed8; }
         .blue-shade-8 { background: #1e40af; }
-        .blue-shade-9 { background: #1e3a8a; }
-        .blue-shade-10 { background: #1e1b4b; }
 
-        /* Override blue-shade classes to use white background */
-        .dock-icon.blue-shade-1,
-        .dock-icon.blue-shade-2,
-        .dock-icon.blue-shade-3,
-        .dock-icon.blue-shade-4,
-        .dock-icon.blue-shade-5,
-        .dock-icon.blue-shade-6,
-        .dock-icon.blue-shade-7,
-        .dock-icon.blue-shade-8,
-        .dock-icon.blue-shade-9,
-        .dock-icon.blue-shade-10 {
+        /* Style Oceanbase icon (Oceanbase.1.jpg) */
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
             background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="../Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item:has(img[src="../Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]):active .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+        
+        .dock-item.active:has(img[src="../Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
         }
 
         /* Hide all scrollbars */
@@ -792,7 +840,6 @@
         .dashboard-main::-webkit-scrollbar {
             display: none;
         }
-
     </style>
 </head>
 <body class="dashboard-page">
@@ -801,12 +848,12 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#">
-                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                    <img src="../INF.logo2.png" alt="INF Logo" class="inf-logo-img">
                 </a>
                 <div class="nav-logo-line"></div>
             </div>
             <ul class="nav-menu">
-                <li><a href="operation.html" class="nav-link active">Operation</a></li>
+                <li><a href="../Online-assets.html" class="nav-link active">Online Assets</a></li>
             </ul>
             <div class="nav-actions">
                 <button class="icon-btn" title="Chat">
@@ -824,13 +871,12 @@
         </div>
     </nav>
 
-
     <!-- Header Bar -->
     <div class="page-header">
-        <div class="page-title">Operation</div>
+        <div class="page-title">Online Assets</div>
         <div class="header-logo">
-            <img src="INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
-            <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
+            <img src="../INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="../home.html" class="header-logo-text">INFINIFY SUITE</a>
         </div>
         <div class="header-actions">
             <button class="header-action-btn" id="appsDropdownBtn">
@@ -845,19 +891,19 @@
                             <div class="app-icon extension-icon-empty">
                                 <i data-lucide="plus"></i>
                             </div>
-                                <p class="app-name">empty</p>
+                            <p class="app-name">empty</p>
                         </div>
                         <div class="app-item extension-slot" data-slot="2">
                             <div class="app-icon extension-icon-empty">
                                 <i data-lucide="plus"></i>
                             </div>
-                                <p class="app-name">empty</p>
+                            <p class="app-name">empty</p>
                         </div>
                         <div class="app-item extension-slot" data-slot="3">
                             <div class="app-icon extension-icon-empty">
                                 <i data-lucide="plus"></i>
                             </div>
-                                <p class="app-name">empty</p>
+                            <p class="app-name">empty</p>
                         </div>
                     </div>
                 </div>
@@ -983,151 +1029,73 @@
     <div class="main-sidebar">
         <div class="sidebar-nav">
             <div class="sidebar-nav-item">
-                <span>Overview</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <a href="Operation/clients.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
-                    <span>Clients</span>
+                <a href="../Online-assets.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Overview</span>
                 </a>
             </div>
             <div class="sidebar-nav-item">
-                <span>Codex</span>
+                <span>websites</span>
+            </div>
+            <div class="sidebar-nav-item active">
+                <span>Domains</span>
             </div>
             <div class="sidebar-nav-item">
-                <span>Atlas</span>
+                <span>Apps</span>
             </div>
             <div class="sidebar-nav-item">
-                <span>GPTs</span>
+                <span>Socials</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Emails</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Access Manage</span>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <main class="dashboard-main" style="padding: 40px; padding-bottom: 150px; min-height: 100vh; background: #ffffff; border-radius: 0; box-shadow: none;">
-        <!-- Operation Content -->
-        <div>
-            <!-- Content sections -->
-            <div id="overview-content" style="display: block;">
+    <main class="dashboard-main" style="padding: 40px; min-height: 100vh; background: #ffffff;">
+        <div class="domains-container">
+            <div class="domains-header">
+                <div class="domains-header-actions">
+                    <button class="btn-primary" onclick="window.domainsService.showConnectModal()">
+                        <i data-lucide="plus"></i>
+                        Connect Domain
+                    </button>
+                    <i data-lucide="refresh-cw" class="refresh-icon" onclick="window.domainsService.loadDomains()"></i>
+                </div>
             </div>
+
+            <div class="domains-stats" id="domains-stats" style="display: none;">
+                <div class="stat-card">
+                    <div class="stat-label">Total Domains</div>
+                    <div class="stat-value" id="stat-total">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Verified</div>
+                    <div class="stat-value" id="stat-verified">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Connected</div>
+                    <div class="stat-value" id="stat-connected">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">SSL Active</div>
+                    <div class="stat-value" id="stat-ssl">0</div>
+                </div>
+            </div>
+
+            <div id="domains-list"></div>
             
-            <!-- API Platform Content -->
-            <div id="api-platform-content" style="display: none;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- More content sections can go here -->
-        </div>
-    </main>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-        });
-    </script>
-</body>
-</html>
-                </div>
-            </div>
-            
-            <!-- API Platform Content -->
-            <div id="api-platform-content" style="display: none;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="bar-chart" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Analytics</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">View analytics</p>
-                    </div>
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="users" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">CRM</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">Customer management</p>
-                    </div>
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="dollar-sign" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Finance</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">Financial tools</p>
-                    </div>
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="briefcase" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">HR</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">Human resources</p>
-                    </div>
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="megaphone" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Marketing</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">Marketing tools</p>
-                    </div>
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="trending-up" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Sales</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">Sales management</p>
-                    </div>
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="headphones" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Support</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">Customer support</p>
-                    </div>
-                    <div style="background: #f9fafb; border-radius: 12px; padding: 24px; text-align: center;">
-                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); border-radius: 12px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;">
-                            <i data-lucide="package" style="width: 24px; height: 24px; color: #ffffff;"></i>
-                        </div>
-                        <h4 style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Inventory</h4>
-                        <p style="font-size: 14px; color: #64748b; margin: 0;">Inventory management</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Other content sections (hidden by default) -->
-            <div id="api-pricing-content" style="display: none;">
-                <div style="text-align: center; padding: 80px 20px;">
-                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">API Pricing</h3>
-                    <p style="font-size: 14px; color: #64748b; margin: 0;">Pricing information coming soon</p>
-                </div>
-            </div>
-            <div id="agents-content" style="display: none;">
-                <div style="text-align: center; padding: 80px 20px;">
-                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Agents</h3>
-                    <p style="font-size: 14px; color: #64748b; margin: 0;">Agent management coming soon</p>
-                </div>
-            </div>
-            <div id="codex-content" style="display: none;">
-                <div style="text-align: center; padding: 80px 20px;">
-                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Codex</h3>
-                    <p style="font-size: 14px; color: #64748b; margin: 0;">Codex features coming soon</p>
-                </div>
-            </div>
-            <div id="open-models-content" style="display: none;">
-                <div style="text-align: center; padding: 80px 20px;">
-                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Open Models</h3>
-                    <p style="font-size: 14px; color: #64748b; margin: 0;">Open models coming soon</p>
-                </div>
-            </div>
-            <div id="community-content" style="display: none;">
-                <div style="text-align: center; padding: 80px 20px;">
-                    <h3 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 8px 0;">Community</h3>
-                    <p style="font-size: 14px; color: #64748b; margin: 0;">Community features coming soon</p>
-                </div>
+            <div id="empty-state">
+                <i data-lucide="globe" style="width: 64px; height: 64px; color: #94a3b8;"></i>
+                <h3>No domains connected</h3>
+                <p>Connect your first domain to get started with domain management</p>
+                <button class="btn-primary" onclick="window.domainsService.showConnectModal()">
+                    <i data-lucide="plus"></i>
+                    Connect Domain
+                </button>
             </div>
         </div>
     </main>
@@ -1135,68 +1103,68 @@
     <!-- Dock -->
     <div class="dock-container">
         <div class="dock" id="dock">
-            <div class="dock-item" onclick="window.location.href='home.html'">
-                <div class="dock-icon">
+            <div class="dock-item" onclick="window.location.href='../home.html'">
+                <div class="dock-icon blue-shade-4">
                     <i data-lucide="home"></i>
                 </div>
                 <div class="dock-label">Home</div>
             </div>
-            <div class="dock-item active" onclick="window.location.href='operation.html'">
-                <div class="dock-icon">
+            <div class="dock-item" onclick="window.location.href='../operation.html'">
+                <div class="dock-icon blue-shade-5">
                     <i data-lucide="hard-hat"></i>
                 </div>
                 <div class="dock-label">Operation</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='work.html'">
-                <div class="dock-icon">
-                    <img src="work.2.png" alt="Teams">
+            <div class="dock-item" onclick="window.location.href='../work.html'">
+                <div class="dock-icon blue-shade-3">
+                    <img src="../work.2.png" alt="Teams">
                 </div>
                 <div class="dock-label">Teams</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Agents.html'">
-                <div class="dock-icon">
+            <div class="dock-item" onclick="window.location.href='../Agents.html'">
+                <div class="dock-icon blue-shade-6">
                     <i data-lucide="cpu"></i>
                 </div>
                 <div class="dock-label">Agents</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Kreative/Kreative.html'">
-                <div class="dock-icon">
-                    <img src="Kreative.png" alt="Kreative">
+            <div class="dock-item" onclick="window.location.href='../Kreative.html'">
+                <div class="dock-icon blue-shade-2">
+                    <img src="../Kreative.png" alt="Kreative">
                 </div>
                 <div class="dock-label">Kreative</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Devra/Devra.html'">
-                <div class="dock-icon">
+            <div class="dock-item" onclick="window.location.href='../Devra.html'">
+                <div class="dock-icon blue-shade-7">
                     <i data-lucide="squares-exclude"></i>
                 </div>
                 <div class="dock-label">Devra</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
-                <div class="dock-icon">
+            <div class="dock-item" onclick="window.location.href='../campaigns.html'">
+                <div class="dock-icon blue-shade-1">
                     <i data-lucide="focus"></i>
                 </div>
                 <div class="dock-label">Campaigns</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                <div class="dock-icon">
-                    <img src="Oceanbase.1.jpg" alt="Database">
+            <div class="dock-item" onclick="window.location.href='../Oceanbase.html'">
+                <div class="dock-icon blue-shade-8">
+                    <img src="../oceanbase.1.jpg" alt="Database">
                 </div>
                 <div class="dock-label">Oceanbase</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
-                <div class="dock-icon">
+            <div class="dock-item active" onclick="window.location.href='../Online-assets.html'">
+                <div class="dock-icon blue-shade-4">
                     <i data-lucide="container"></i>
                 </div>
                 <div class="dock-label">Online Assets</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
-                <div class="dock-icon">
+            <div class="dock-item" onclick="window.location.href='../Filebase.html'">
+                <div class="dock-icon blue-shade-6">
                     <i data-lucide="folder-tree"></i>
                 </div>
                 <div class="dock-label">Filebase</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
-                <div class="dock-icon">
+            <div class="dock-item" onclick="window.location.href='../financial.html'">
+                <div class="dock-icon blue-shade-5">
                     <i data-lucide="landmark"></i>
                 </div>
                 <div class="dock-label">Financials</div>
@@ -1206,9 +1174,10 @@
 
     <!-- Circle in bottom right corner -->
     <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
-        <img src="sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+        <img src="../sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
 
+    <script src="../navigation-handler.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Initialize Lucide icons
@@ -1274,135 +1243,55 @@
             setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
             setupDropdownHover('accountDropdownBtn', 'accountDropdown');
 
-            // Dock magnification effect with smoother animations
+            // Bottom dock magnification effect
             const dock = document.getElementById('dock');
             if (dock) {
-                const dockItems = Array.from(dock.querySelectorAll('.dock-item'));
-                
-                let mouseX = Infinity;
-                let isHovered = false;
-                const distance = 150;
-                const magnification = 56;
-                const defaultSize = 40;
-                let animationFrameId = null;
-                let lastUpdateTime = 0;
-                const throttleMs = 16;
-
-                // Smooth easing function
-                function easeOutCubic(t) {
-                    return 1 - Math.pow(1 - t, 3);
-                }
-
-                function updateDockItems() {
-                    const now = performance.now();
-                    if (now - lastUpdateTime < throttleMs && animationFrameId) {
-                        return;
-                    }
-                    lastUpdateTime = now;
-
-                    if (animationFrameId) {
-                        cancelAnimationFrame(animationFrameId);
-                    }
-
-                    animationFrameId = requestAnimationFrame(() => {
-                        dockItems.forEach((item) => {
-                            const rect = item.getBoundingClientRect();
-                            const itemCenterX = rect.left + rect.width / 2;
-                            const distanceFromMouse = Math.abs(mouseX - itemCenterX);
-                            
-                            if (isHovered && distanceFromMouse < distance) {
-                                const normalizedDistance = distanceFromMouse / distance;
-                                const easedDistance = easeOutCubic(1 - normalizedDistance);
-                                const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
-                                const newSize = defaultSize * scale;
-                                item.style.width = `${newSize}px`;
-                                item.style.height = `${newSize}px`;
+                const dockItems = dock.querySelectorAll('.dock-item');
+                dockItems.forEach(item => {
+                    item.addEventListener('mouseenter', function() {
+                        const baseSize = 40;
+                        const hoverSize = 56;
+                        dockItems.forEach((other, index) => {
+                            if (other === item) {
+                                other.style.width = hoverSize + 'px';
+                                other.style.height = hoverSize + 'px';
                             } else {
-                                item.style.width = `${defaultSize}px`;
-                                item.style.height = `${defaultSize}px`;
+                                other.style.width = baseSize + 'px';
+                                other.style.height = baseSize + 'px';
                             }
                         });
                     });
-                }
-
-                dock.addEventListener('mousemove', (e) => {
-                    isHovered = true;
-                    mouseX = e.pageX;
-                    updateDockItems();
-                });
-
-                dock.addEventListener('mouseleave', () => {
-                    isHovered = false;
-                    mouseX = Infinity;
-                    dockItems.forEach((item) => {
-                        item.style.width = `${defaultSize}px`;
-                        item.style.height = `${defaultSize}px`;
+                    item.addEventListener('mouseleave', function() {
+                        dockItems.forEach(other => {
+                            if (!other.classList.contains('active')) {
+                                other.style.width = '';
+                                other.style.height = '';
+                            }
+                        });
                     });
                 });
-
-                // Continuous smooth updates
-                function smoothUpdate() {
-                    if (isHovered) {
-                        updateDockItems();
-                    }
-                    requestAnimationFrame(smoothUpdate);
-                }
-                smoothUpdate();
             }
 
-            // Handle sidebar navigation item clicks
-            const sidebarNavItems = document.querySelectorAll('.sidebar-nav-item[data-nav]');
-            sidebarNavItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    // Remove active class from all items
-                    sidebarNavItems.forEach(nav => nav.classList.remove('active'));
-                    // Add active class to clicked item
-                    item.classList.add('active');
+            // Load domains on page load
+            if (window.domainsService) {
+                await window.domainsService.loadDomains();
+                
+                // Update stats
+                try {
+                    const result = await window.domainsService.listDomains();
+                    const domains = result.domains || [];
                     
-                    // Get the section identifier
-                    const section = item.getAttribute('data-nav');
-                    
-                    // Hide all content sections
-                    const allContentSections = document.querySelectorAll('[id$="-content"]');
-                    allContentSections.forEach(content => {
-                        content.style.display = 'none';
-                    });
-                    
-                    // Show the selected content section
-                    const targetContent = document.getElementById(`${section}-content`);
-                    if (targetContent) {
-                        targetContent.style.display = 'block';
+                    if (domains.length > 0) {
+                        document.getElementById('domains-stats').style.display = 'grid';
+                        document.getElementById('stat-total').textContent = domains.length;
+                        document.getElementById('stat-verified').textContent = domains.filter(d => d.status === 'verified' || d.status === 'connected').length;
+                        document.getElementById('stat-connected').textContent = domains.filter(d => d.status === 'connected').length;
+                        document.getElementById('stat-ssl').textContent = domains.filter(d => d.ssl_status === 'issued').length;
                     }
-
-                });
-            });
-
-            // Handle secondary navigation item clicks
-            const navItems = document.querySelectorAll('.secondary-nav-item, .secondary-nav-back');
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    // Remove active class from all items
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    // Add active class to clicked item
-                    item.classList.add('active');
-                    
-                    // Get the section identifier
-                    const section = item.getAttribute('data-nav');
-                    
-                    // Hide all content sections
-                    const allContentSections = document.querySelectorAll('[id$="-content"]');
-                    allContentSections.forEach(content => {
-                        content.style.display = 'none';
-                    });
-                    
-                    // Show the selected content section
-                    const targetContent = document.getElementById(`${section}-content`);
-                    if (targetContent) {
-                        targetContent.style.display = 'block';
-                    }
-                });
-            });
-
+                } catch (error) {
+                    console.error('Error loading stats:', error);
+                }
+            }
         });
     </script>
 </body>
