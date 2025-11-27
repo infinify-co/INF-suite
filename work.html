@@ -226,22 +226,47 @@
             transform: translate(-50%, -50%);
         }
         
+        /* Style work.2.png to be dark/black by default, blue on press/active */
         .dock-item:has(img[src="work.2.png"]) .dock-icon {
             background: #ffffff !important;
-            border: 2px solid #ffffff;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden; /* Ensure any image overflow is hidden */
         }
         
         .dock-item:has(img[src="work.2.png"]) .dock-icon img {
-            clip-path: inset(6%);
+            /* Scale up to push internal border out */
+            /* translate(-50%, -50%) is required to keep it centered as per global dock styles */
+            transform: translate(-50%, -50%) scale(1.2);
+            /* Grayscale and darkened to look "black" but keep details */
+            filter: grayscale(100%) brightness(0);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        /* Blue (Original) when active page or pressed */
+        .dock-item.active:has(img[src="work.2.png"]) .dock-icon img,
+        .dock-item:has(img[src="work.2.png"]):active .dock-icon img {
+            /* Show original blue image */
+            filter: none;
+            /* Keep scaling to hide border, centered */
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item:has(img[src="work.2.png"]):active .dock-icon img {
+            /* Slightly reduce scale on press, but keep enough to hide border, centered */
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+        
+        .dock-item:has(img[src="work.2.png"]):active .dock-icon {
+            transform: scale(0.95);
         }
         
         .dock-item.active:has(img[src="work.2.png"]) .dock-icon {
-            border: 2px solid #3b82f6;
+            border: 2px solid #3b82f6 !important;
             background: #ffffff !important;
-        }
-        
-        .dock-item.active:has(img[src="work.2.png"]) .dock-icon img {
-            clip-path: inset(6%);
+            box-shadow: none !important;
+            border-radius: 12px !important;
         }
         
         /* Style all image icons to be dark gray */

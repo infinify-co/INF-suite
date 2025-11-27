@@ -12,6 +12,96 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* Header Bar Styles */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i,
+        .header-action-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
         /* Secondary Sidebar Styles */
         .secondary-sidebar {
             position: fixed !important;
@@ -30,6 +120,7 @@
             visibility: visible !important;
             opacity: 1 !important;
             overflow: hidden !important;
+            padding-top: 70px !important; /* Added for header */
         }
 
         .secondary-sidebar-header {
@@ -99,6 +190,22 @@
             margin-top: 8px;
         }
 
+        .sidebar-divider {
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 0 24px 12px 24px;
+        }
+
+        .sidebar-section-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            padding-left: 24px;
+        }
+
         .secondary-nav-item {
             display: flex;
             align-items: center;
@@ -130,6 +237,7 @@
             margin: 0 !important;
             margin-left: 230px !important;
             position: relative !important;
+            padding-top: 80px !important;
             padding-bottom: 150px !important;
         }
 
@@ -303,10 +411,54 @@
         .blue-shade-8 { background: #1e40af; }
 
 
-        /* Change database highlight from blue to white */
-        .database-highlight {
+        /* Style Oceanbase icon (Oceanbase.1.jpg) to match Teams icon behavior */
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
             background: #ffffff !important;
-            border: 1px solid #e5e7eb !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden; /* Ensure any image overflow is hidden */
+        }
+        
+        .dock-item:has(img[src="oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]) .dock-icon img {
+            /* Scale up to push internal border out */
+            /* translate(-50%, -50%) is required to keep it centered as per global dock styles */
+            transform: translate(-50%, -50%) scale(1.2);
+            /* Grayscale for inactive state */
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        /* Blue (Original) when active page or pressed */
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img {
+            /* Show original blue image */
+            filter: none;
+            /* Keep scaling to hide border, centered */
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item:has(img[src="oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon img {
+            /* Slightly reduce scale on press, but keep enough to hide border, centered */
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+        
+        .dock-item:has(img[src="oceanbase.1.jpg"]):active .dock-icon,
+        .dock-item:has(img[src="Oceanbase.1.jpg"]):active .dock-icon {
+            transform: scale(0.95);
+        }
+        
+        .dock-item.active:has(img[src="oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="Oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
         }
 
         .database-highlight::after {
@@ -353,45 +505,30 @@
     </style>
 </head>
 <body class="dashboard-page database-page">
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="dashboard.html">
-                    <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
-                </a>
-                <div class="nav-logo-line"></div>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="dashboard.html" class="nav-link active">Suite</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button class="icon-btn" title="Chat">
-                    <i data-lucide="message-circle"></i>
-                </button>
-                <button class="icon-btn" title="Settings">
-                    <i data-lucide="settings"></i>
-                </button>
-            </div>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+    <!-- Header Bar -->
+    <header class="page-header">
+        <div class="page-title">Database Builder</div>
+        <div class="header-logo">
+            <img src="INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
         </div>
-    </nav>
+        <div class="header-actions">
+            <button class="header-action-btn" id="appsDropdownBtn">
+                <i data-lucide="grid-3x3"></i>
+                <span>App's</span>
+            </button>
+            <button class="header-action-btn" id="bellDropdownBtn">
+                <i data-lucide="bell"></i>
+            </button>
+            <button class="header-action-btn" id="accountDropdownBtn">
+                <i data-lucide="user"></i>
+            </button>
+        </div>
+    </header>
 
 
     <!-- Secondary Sidebar -->
     <div class="secondary-sidebar">
-        <div class="secondary-sidebar-header">
-            <div class="secondary-sidebar-brand">Database</div>
-            <div class="secondary-sidebar-icon">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-            </div>
-        </div>
         <div class="secondary-sidebar-nav">
             <div class="secondary-nav-list">
                 <div class="secondary-nav-back active" onclick="window.location.href='Oceanbase/overview.html'">
@@ -413,6 +550,18 @@
                     <span>Settings</span>
                 </div>
             </div>
+
+            <div style="height: 100px;"></div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-section-header">BASES</div>
+            <div class="secondary-nav-list">
+                <div class="secondary-nav-item">
+                    <span>Chat 1</span>
+                </div>
+                <div class="secondary-nav-item">
+                    <span>Chat 2</span>
+                </div>
+            </div>
         </div>
     </div>
         
@@ -420,7 +569,7 @@
     <main class="dashboard-main database-main" style="padding: 40px; min-height: 100vh; background: #ffffff;">
         <div class="database-container">
                     <!-- Main Content Area -->
-                    <div class="database-content" style="width: 100%;">
+                    <div class="database-content" style="width: 100%; background: transparent; box-shadow: none; border-radius: 0;">
                         <!-- Highlight Tile -->
                         <section class="database-highlight">
                             <div class="database-highlight-left">
@@ -563,7 +712,7 @@
                 <div class="dock-label">Campaigns</div>
             </div>
             <div class="dock-item active" onclick="window.location.href='Oceanbase.html'">
-                <div class="dock-icon blue-shade-8">
+                <div class="dock-icon">
                     <img src="oceanbase.1.jpg" alt="Database">
                 </div>
                 <div class="dock-label">Oceanbase</div>
