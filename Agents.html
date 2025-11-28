@@ -475,6 +475,12 @@
             display: block;
         }
 
+        .sidebar-nav-item a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
         .sidebar-chats {
             flex: 1;
             padding: 12px 8px;
@@ -1380,26 +1386,17 @@
     <!-- Sidebar -->
     <div class="main-sidebar">
         <div class="sidebar-nav">
-            <div class="sidebar-nav-item">
-                <span>New chat</span>
+            <div class="sidebar-nav-item active">
+                <a href="Agents.html"><span>Overview</span></a>
             </div>
             <div class="sidebar-nav-item">
-                <span>Search chats</span>
+                <a href="Agents/templates.html"><span>Templates</span></a>
             </div>
             <div class="sidebar-nav-item">
-                <span>Library</span>
+                <a href="Agents/agent-map.html"><span>Agent Map</span></a>
             </div>
             <div class="sidebar-nav-item">
-                <span>Codex</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Atlas</span>
-            </div>
-            <div class="sidebar-nav-item" data-nav="agent-map">
-                <span>Agent-map</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Projects</span>
+                <a href="Agents/intergrations.html"><span>Intergrations</span></a>
             </div>
         </div>
     </div>
