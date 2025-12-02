@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients - Operation - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+        /* Header Bar Styles */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i,
+        .header-action-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        /* Notifications Dropdown Styles */
+        .notifications-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            max-height: 500px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .notifications-dropdown.active {
+            display: block;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .notifications-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .notifications-clear-all {
+            font-size: 14px;
+            color: #2563eb;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .notifications-clear-all:hover {
+            color: #1d4ed8;
+        }
+
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .notification-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-icon.success {
+            background: #10b981;
+        }
+
+        .notification-icon.info {
+            background: #3b82f6;
+        }
+
+        .notification-icon i {
+            width: 20px;
+            height: 20px;
+            color: #ffffff;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .notification-description {
+            font-size: 13px;
+            color: #6b7280;
+            margin: 0 0 4px 0;
+            line-height: 1.4;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+
+        /* Apps Dropdown Styles */
+        .apps-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .apps-dropdown.active {
+            display: block;
+        }
+
+        .apps-section {
+            padding: 16px 20px;
+        }
+
+        .apps-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 12px 0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .app-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            background: #f3f4f6;
+        }
+
+        .app-icon i {
+            width: 20px;
+            height: 20px;
+            color: #374151;
+        }
+
+        .extension-icon-empty {
+            background: #f3f4f6;
+            border: 1px dashed #d1d5db;
+        }
+
+        .extension-icon-empty i {
+            color: #6b7280;
+        }
+
+        .extension-slot {
+            cursor: pointer;
+        }
+
+        .extension-slot:hover .extension-icon-empty {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .app-name {
+            font-size: 12px;
+            color: #374151;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .apps-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0;
+        }
+
+        /* Account Dropdown Styles */
+        .account-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 280px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .account-dropdown.active {
+            display: block;
+        }
+
+        .account-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 2px 0;
+        }
+
+        .account-email {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .account-menu {
+            padding: 8px 0;
+        }
+
+        .account-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #374151;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .account-menu-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .account-menu-item i {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+        }
+
+        .account-menu-item span {
+            font-size: 14px;
+        }
+
+        .account-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 8px 0;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px; /* Below header */
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item i {
+            display: none;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        .sidebar-chats {
+            flex: 1;
+            padding: 12px 8px;
+            overflow-y: auto;
+        }
+
+        /* Remove tile effect from dashboard-main */
+        .dashboard-main {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            margin-left: 200px !important;
+            margin-top: 65px !important;
+            position: relative !important;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            min-height: 100vh !important;
+            background: #ffffff !important;
+        }
+
+
+        /* Dock Styles */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 20px 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+        }
+
+        .dock-item:hover .dock-icon {
+            transform: scale(1.1);
+        }
+
+        .dock-item.active .dock-icon {
+            border: 2px solid #3b82f6;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        .dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .dock-item.active::after {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+        }
+
+        .dock-item.active::before {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+        }
+
+        .dock-item.active img {
+            box-shadow: none !important;
+        }
+
+        .dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .dock-icon i,
+        .dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dock-item.active .dock-icon i,
+        .dock-item.active .dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .dock-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .dock-item.chats .dock-icon {
+            background: #ffffff;
+        }
+        
+        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent;
+        }
+        
+        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
+            clip-path: inset(6%);
+            filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon {
+            border: 2px solid #3b82f6;
+            background: #ffffff !important;
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
+            filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
+        }
+        
+        /* Style Oceanbase icon (Oceanbase.1.jpg) */
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+        }
+
+        /* Blue shades for dock buttons */
+        .blue-shade-1 { background: #38bdf8; }
+        .blue-shade-2 { background: #60a5fa; }
+        .blue-shade-3 { background: #0ea5e9; }
+        .blue-shade-4 { background: #3b82f6; }
+        .blue-shade-5 { background: #0284c7; }
+        .blue-shade-6 { background: #2563eb; }
+        .blue-shade-7 { background: #1d4ed8; }
+        .blue-shade-8 { background: #1e40af; }
+        .blue-shade-9 { background: #1e3a8a; }
+        .blue-shade-10 { background: #1e1b4b; }
+
+        /* Override blue-shade classes to use white background */
+        .dock-icon.blue-shade-1,
+        .dock-icon.blue-shade-2,
+        .dock-icon.blue-shade-3,
+        .dock-icon.blue-shade-4,
+        .dock-icon.blue-shade-5,
+        .dock-icon.blue-shade-6,
+        .dock-icon.blue-shade-7,
+        .dock-icon.blue-shade-8,
+        .dock-icon.blue-shade-9,
+        .dock-icon.blue-shade-10 {
+            background: #ffffff !important;
+        }
+
+        /* Hide all scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        body, html, main, .dashboard-main {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        main::-webkit-scrollbar,
+        .dashboard-main::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Kanban Board Styles */
+        .kanban-board {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .kanban-column {
+            flex: 1;
+            min-width: 300px;
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .kanban-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 4px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-leads { background: #3b82f6; }
+        .status-active { background: #10b981; }
+        .status-closed { background: #f59e0b; }
+
+        .column-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin: 0;
+            flex: 1;
+        }
+
+        .view-all-btn {
+            background: none;
+            border: 1px solid #d1d5db;
+            color: #6b7280;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Open Sans', sans-serif;
+            white-space: nowrap;
+        }
+
+        .view-all-btn:hover {
+            background: #ffffff;
+            color: #374151;
+            border-color: #9ca3af;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .kanban-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .kanban-card {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .kanban-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            border-color: #e5e7eb;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .priority-tag {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .priority-tag.high {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .priority-tag.medium {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .priority-tag.low {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        .priority-tag.completed {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .card-menu {
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            color: #9ca3af;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-menu:hover {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .card-menu i, .card-menu svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .card-desc {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 12px;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .card-meta i, .card-meta svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        .card-avatars {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 600;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s;
+            box-sizing: border-box;
+        }
+        
+        .card-avatar:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .card-avatar:hover::after {
+            content: attr(data-manager);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111827;
+            color: #ffffff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 100;
+            margin-bottom: 8px;
+            pointer-events: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .card-avatar:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #111827 transparent transparent transparent;
+            margin-bottom: -2px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .add-member-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border: 1px dashed #9ca3af;
+            color: #6b7280;
+            cursor: pointer;
+            margin-left: 0;
+            z-index: 1;
+            padding: 0;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .add-member-btn:hover {
+            background: #f3f4f6;
+            border-color: #6b7280;
+            color: #374151;
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .add-member-btn i, .add-member-btn svg {
+            width: 10px;
+            height: 10px;
+        }
+
+        .card-menu-container {
+            position: relative;
+        }
+
+        .card-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 140px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 50;
+            display: none;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .card-dropdown.active {
+            display: block;
+        }
+
+        .card-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #374151;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .card-dropdown-item:hover {
+            background: #f3f4f6;
+        }
+
+        .card-dropdown-item i, .card-dropdown-item svg {
+            width: 14px;
+            height: 14px;
+            color: #6b7280;
+        }
+        
+        .card-dropdown-item.delete {
+            color: #ef4444;
+        }
+        
+        .card-dropdown-item.delete i, .card-dropdown-item.delete svg {
+            color: #ef4444;
+        }
+
+
+        .oceanbase-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 240px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 50;
+            display: none;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .oceanbase-dropdown.active {
+            display: block;
+        }
+
+        .dropdown-empty-state {
+            padding: 16px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .add-item-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #2563eb;
+            color: #ffffff;
+            border: 1px solid #2563eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+
+        .add-item-btn:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+
+        .add-item-btn.secondary {
+            background: #ffffff;
+            color: #374151;
+            border-color: #d1d5db;
+        }
+
+        .add-item-btn.secondary:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            color: #111827;
+        }
+
+        .add-item-btn i, .add-item-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(0.95);
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            color: #111827;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border: 1px solid #2563eb;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#">
+                    <img src="../INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+                <div class="nav-logo-line"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="operation.html" class="nav-link active">Operation</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">Operation</div>
+        <div class="header-logo">
+            <img src="../INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="../home.html" class="header-logo-text">INFINIFY SUITE</a>
+        </div>
+        <div class="header-actions">
+            <button class="header-action-btn" id="appsDropdownBtn">
+                <i data-lucide="grid-3x3"></i>
+                <span>App's</span>
+            </button>
+            <div class="apps-dropdown" id="appsDropdown">
+                <div class="apps-section">
+                    <h4 class="apps-section-title">extensions</h4>
+                    <div class="apps-grid">
+                        <div class="app-item extension-slot" data-slot="1">
+                            <div class="app-icon extension-icon-empty">
+                                <i data-lucide="plus"></i>
+                            </div>
+                                <p class="app-name">empty</p>
+                        </div>
+                        <div class="app-item extension-slot" data-slot="2">
+                            <div class="app-icon extension-icon-empty">
+                                <i data-lucide="plus"></i>
+                            </div>
+                                <p class="app-name">empty</p>
+                        </div>
+                        <div class="app-item extension-slot" data-slot="3">
+                            <div class="app-icon extension-icon-empty">
+                                <i data-lucide="plus"></i>
+                            </div>
+                                <p class="app-name">empty</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="apps-divider"></div>
+                <div class="apps-section">
+                    <h4 class="apps-section-title">more App's</h4>
+                    <div class="apps-grid">
+                        <div class="app-item">
+                            <div class="app-icon">
+                                <i data-lucide="home"></i>
+                            </div>
+                            <p class="app-name">Home</p>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-icon">
+                                <i data-lucide="hard-hat"></i>
+                            </div>
+                            <p class="app-name">Operation</p>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-icon">
+                                <i data-lucide="users"></i>
+                            </div>
+                            <p class="app-name">Teams</p>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-icon">
+                                <i data-lucide="cpu"></i>
+                            </div>
+                            <p class="app-name">Agents</p>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-icon">
+                                <i data-lucide="palette"></i>
+                            </div>
+                            <p class="app-name">Kreative</p>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-icon">
+                                <i data-lucide="pocket-knife"></i>
+                            </div>
+                            <p class="app-name">Tools</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="header-action-btn" id="bellDropdownBtn">
+                <i data-lucide="bell"></i>
+            </button>
+            <div class="notifications-dropdown" id="bellDropdown">
+                <div class="notifications-header">
+                    <h3 class="notifications-title">Notifications</h3>
+                    <a href="#" class="notifications-clear-all" id="clearAllBellNotifications">Clear All</a>
+                </div>
+                <div class="notifications-list">
+                    <div class="notification-item">
+                        <div class="notification-icon success">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4 class="notification-title">System Update</h4>
+                            <p class="notification-description">Your data has been backed up successfully</p>
+                            <p class="notification-time">10d ago</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon success">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4 class="notification-title">New Feature Available</h4>
+                            <p class="notification-description">Check out the Creator Home page</p>
+                            <p class="notification-time">10d ago</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <div class="notification-icon info">
+                            <i data-lucide="info"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4 class="notification-title">Welcome to ORDUS</h4>
+                            <p class="notification-description">Get started by exploring the dashboard</p>
+                            <p class="notification-time">10d ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="header-action-btn" id="accountDropdownBtn">
+                <i data-lucide="user"></i>
+            </button>
+            <div class="account-dropdown" id="accountDropdown">
+                <div class="account-header">
+                    <div class="account-avatar">JD</div>
+                    <div class="account-info">
+                        <h4 class="account-name">John Doe</h4>
+                        <p class="account-email">john.doe@example.com</p>
+                    </div>
+                </div>
+                <div class="account-menu">
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="credit-card"></i>
+                        <span>Billing</span>
+                    </a>
+                    <div class="account-divider"></div>
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="log-out"></i>
+                        <span>Sign out</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item">
+                <a href="operation.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Overview</span>
+                </a>
+            </div>
+            <div class="sidebar-nav-item active">
+                <a href="operation-clients.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Clients</span>
+                </a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="operation-legal.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Your Legal</span>
+                </a>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Atlas</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>GPTs</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Clients Content -->
+            <div class="content-section" id="clients-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <h1 style="font-size: 24px; font-weight: 600; color: #0f172a; margin: 0;">Clients</h1>
+                    <div style="display: flex; gap: 12px;">
+                        <div class="oceanbase-dropdown-container" style="position: relative;">
+                            <button class="add-item-btn secondary" onclick="toggleOceanbaseDropdown(event)">
+                                <i data-lucide="database"></i>
+                                <span>Add From Oceanbase</span>
+                                <i data-lucide="chevron-down" style="width: 14px; height: 14px; margin-left: 4px;"></i>
+                            </button>
+                            <div class="oceanbase-dropdown" id="oceanbaseDropdown">
+                                <div class="dropdown-empty-state">No clients found in Oceanbase</div>
+                            </div>
+                        </div>
+                        <button class="add-item-btn" onclick="openAddItemModal()">
+                            <i data-lucide="plus"></i>
+                            <span>Add Item</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="kanban-board">
+                    <!-- Column 1: Leads -->
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <span class="status-dot status-leads"></span>
+                            <h3 class="column-title">Leads</h3>
+                            <button class="view-all-btn">View All</button>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="kanban-card">
+                                <div class="card-header">
+                                    <span class="priority-tag high">High Priority</span>
+                                    <div class="card-menu-container">
+                                        <button class="card-menu" onclick="toggleCardMenu(this, event)"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="card-dropdown">
+                                            <div class="card-dropdown-item" onclick="editCard()"><i data-lucide="edit-2"></i>Edit</div>
+                                            <div class="card-dropdown-item" onclick="moveCard()"><i data-lucide="arrow-right-circle"></i>Move</div>
+                                            <div class="card-dropdown-item delete" onclick="deleteCard()"><i data-lucide="trash-2"></i>Delete</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title">TechFlow Solutions</h4>
+                                <p class="card-desc">Initial consultation regarding cloud migration services.</p>
+                                <div class="card-footer">
+                                    <div class="card-meta">
+                                        <i data-lucide="calendar"></i>
+                                        <span>Due tomorrow</span>
+                                    </div>
+                                    <div class="card-avatars">
+                                        <div class="card-avatar" style="background: #ef4444;" data-manager="Tom Klein" onclick="viewManager('Tom Klein')">TK</div>
+                                        <button class="add-member-btn" onclick="addMember(event)" title="Add Member"><i data-lucide="plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="kanban-card">
+                                <div class="card-header">
+                                    <span class="priority-tag medium">Medium Priority</span>
+                                    <div class="card-menu-container">
+                                        <button class="card-menu" onclick="toggleCardMenu(this, event)"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="card-dropdown">
+                                            <div class="card-dropdown-item" onclick="editCard()"><i data-lucide="edit-2"></i>Edit</div>
+                                            <div class="card-dropdown-item" onclick="moveCard()"><i data-lucide="arrow-right-circle"></i>Move</div>
+                                            <div class="card-dropdown-item delete" onclick="deleteCard()"><i data-lucide="trash-2"></i>Delete</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title">Global Logistics Inc</h4>
+                                <p class="card-desc">Follow up on proposal sent last week.</p>
+                                <div class="card-footer">
+                                    <div class="card-meta">
+                                        <i data-lucide="calendar"></i>
+                                        <span>Oct 24</span>
+                                    </div>
+                                    <div class="card-avatars">
+                                        <div class="card-avatar" style="background: #3b82f6;" data-manager="John Doe" onclick="viewManager('John Doe')">JD</div>
+                                        <button class="add-member-btn" onclick="addMember(event)" title="Add Member"><i data-lucide="plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card">
+                                <div class="card-header">
+                                    <span class="priority-tag low">Low Priority</span>
+                                    <div class="card-menu-container">
+                                        <button class="card-menu" onclick="toggleCardMenu(this, event)"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="card-dropdown">
+                                            <div class="card-dropdown-item" onclick="editCard()"><i data-lucide="edit-2"></i>Edit</div>
+                                            <div class="card-dropdown-item" onclick="moveCard()"><i data-lucide="arrow-right-circle"></i>Move</div>
+                                            <div class="card-dropdown-item delete" onclick="deleteCard()"><i data-lucide="trash-2"></i>Delete</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title">StartUp Hub</h4>
+                                <p class="card-desc">Networking event lead. Needs qualification.</p>
+                                <div class="card-footer">
+                                    <div class="card-meta">
+                                        <i data-lucide="calendar"></i>
+                                        <span>Oct 30</span>
+                                    </div>
+                                    <div class="card-avatars">
+                                        <div class="card-avatar" style="background: #10b981;" data-manager="Anna Lee" onclick="viewManager('Anna Lee')">AL</div>
+                                        <button class="add-member-btn" onclick="addMember(event)" title="Add Member"><i data-lucide="plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Active -->
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <span class="status-dot status-active"></span>
+                            <h3 class="column-title">Active</h3>
+                            <button class="view-all-btn">View All</button>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="kanban-card">
+                                <div class="card-header">
+                                    <span class="priority-tag high">High Priority</span>
+                                    <div class="card-menu-container">
+                                        <button class="card-menu" onclick="toggleCardMenu(this, event)"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="card-dropdown">
+                                            <div class="card-dropdown-item" onclick="editCard()"><i data-lucide="edit-2"></i>Edit</div>
+                                            <div class="card-dropdown-item" onclick="moveCard()"><i data-lucide="arrow-right-circle"></i>Move</div>
+                                            <div class="card-dropdown-item delete" onclick="deleteCard()"><i data-lucide="trash-2"></i>Delete</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title">Nexus Systems</h4>
+                                <p class="card-desc">Implementation phase - Week 3 sprint planning.</p>
+                                <div class="card-footer">
+                                    <div class="card-meta">
+                                        <i data-lucide="calendar"></i>
+                                        <span>Oct 20</span>
+                                    </div>
+                                    <div class="card-avatars">
+                                        <div class="card-avatar" style="background: #f59e0b;" data-manager="Mike Smith" onclick="viewManager('Mike Smith')">MS</div>
+                                        <div class="card-avatar" style="background: #8b5cf6; margin-left: -8px;" data-manager="Rachel Kim" onclick="viewManager('Rachel Kim')">RK</div>
+                                        <button class="add-member-btn" onclick="addMember(event)" title="Add Member"><i data-lucide="plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card">
+                                <div class="card-header">
+                                    <span class="priority-tag medium">Medium Priority</span>
+                                    <div class="card-menu-container">
+                                        <button class="card-menu" onclick="toggleCardMenu(this, event)"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="card-dropdown">
+                                            <div class="card-dropdown-item" onclick="editCard()"><i data-lucide="edit-2"></i>Edit</div>
+                                            <div class="card-dropdown-item" onclick="moveCard()"><i data-lucide="arrow-right-circle"></i>Move</div>
+                                            <div class="card-dropdown-item delete" onclick="deleteCard()"><i data-lucide="trash-2"></i>Delete</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title">BlueWave Digital</h4>
+                                <p class="card-desc">Quarterly review preparation.</p>
+                                <div class="card-footer">
+                                    <div class="card-meta">
+                                        <i data-lucide="calendar"></i>
+                                        <span>Oct 28</span>
+                                    </div>
+                                    <div class="card-avatars">
+                                        <div class="card-avatar" style="background: #ec4899;" data-manager="Jen Lopez" onclick="viewManager('Jen Lopez')">JL</div>
+                                        <button class="add-member-btn" onclick="addMember(event)" title="Add Member"><i data-lucide="plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Closed -->
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <span class="status-dot status-closed"></span>
+                            <h3 class="column-title">Completed</h3>
+                            <button class="view-all-btn">View All</button>
+                        </div>
+                        <div class="kanban-cards">
+                            <div class="kanban-card">
+                                <div class="card-header">
+                                    <span class="priority-tag completed">Completed</span>
+                                    <div class="card-menu-container">
+                                        <button class="card-menu" onclick="toggleCardMenu(this, event)"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="card-dropdown">
+                                            <div class="card-dropdown-item" onclick="editCard()"><i data-lucide="edit-2"></i>Edit</div>
+                                            <div class="card-dropdown-item" onclick="moveCard()"><i data-lucide="arrow-right-circle"></i>Move</div>
+                                            <div class="card-dropdown-item delete" onclick="deleteCard()"><i data-lucide="trash-2"></i>Delete</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title">Apex Industries</h4>
+                                <p class="card-desc">Project delivered and signed off. Final invoice sent.</p>
+                                <div class="card-footer">
+                                    <div class="card-meta">
+                                        <i data-lucide="check-circle"></i>
+                                        <span>Sep 15</span>
+                                    </div>
+                                    <div class="card-avatars">
+                                        <div class="card-avatar" style="background: #6b7280;" data-manager="Alex Irvin" onclick="viewManager('Alex Irvin')">AI</div>
+                                        <button class="add-member-btn" onclick="addMember(event)" title="Add Member"><i data-lucide="plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kanban-card">
+                                <div class="card-header">
+                                    <span class="priority-tag completed">Lost</span>
+                                    <div class="card-menu-container">
+                                        <button class="card-menu" onclick="toggleCardMenu(this, event)"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="card-dropdown">
+                                            <div class="card-dropdown-item" onclick="editCard()"><i data-lucide="edit-2"></i>Edit</div>
+                                            <div class="card-dropdown-item" onclick="moveCard()"><i data-lucide="arrow-right-circle"></i>Move</div>
+                                            <div class="card-dropdown-item delete" onclick="deleteCard()"><i data-lucide="trash-2"></i>Delete</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title">Rapid Growth Ltd</h4>
+                                <p class="card-desc">Client chose competitor due to budget constraints.</p>
+                                <div class="card-footer">
+                                    <div class="card-meta">
+                                        <i data-lucide="x-circle"></i>
+                                        <span>Sep 10</span>
+                                    </div>
+                                    <div class="card-avatars">
+                                        <div class="card-avatar" style="background: #9ca3af;" data-manager="Ryan Gosling" onclick="viewManager('Ryan Gosling')">RG</div>
+                                        <button class="add-member-btn" onclick="addMember(event)" title="Add Member"><i data-lucide="plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+        
+    <!-- Dock -->
+    <div class="dock-container">
+        <div class="dock" id="dock">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <div class="dock-icon">
+                    <i data-lucide="home"></i>
+                </div>
+                <div class="dock-label">Home</div>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='operation.html'">
+                <div class="dock-icon">
+                    <i data-lucide="hard-hat"></i>
+                </div>
+                <div class="dock-label">Operation</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <div class="dock-icon">
+                    <img src="../Logo's/work.2.png" alt="Teams">
+                </div>
+                <div class="dock-label">Teams</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <div class="dock-icon">
+                    <i data-lucide="cpu"></i>
+                </div>
+                <div class="dock-label">Agents</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Tools.html'">
+                <div class="dock-icon">
+                    <i data-lucide="pocket-knife"></i>
+                </div>
+                <div class="dock-label">Tools</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+                <div class="dock-icon">
+                    <i data-lucide="focus"></i>
+                </div>
+                <div class="dock-label">Campaigns</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
+                <div class="dock-icon">
+                    <img src="../Logo's/Oceanbase.1.jpg" alt="Database">
+                </div>
+                <div class="dock-label">Oceanbase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+                <div class="dock-icon">
+                    <i data-lucide="container"></i>
+                </div>
+                <div class="dock-label">Online Assets</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <div class="dock-icon">
+                    <i data-lucide="folder-tree"></i>
+                </div>
+                <div class="dock-label">Filebase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='financial.html'">
+                <div class="dock-icon">
+                    <i data-lucide="landmark"></i>
+                </div>
+                <div class="dock-label">Financials</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Circle in bottom right corner -->
+    <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+        <img src="../sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <!-- Add Item Modal -->
+    <div class="modal-overlay" id="addItemModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Item</h3>
+                <button class="modal-close" onclick="closeAddItemModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" placeholder="e.g. New Client Proposal">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Column</label>
+                    <select class="form-select">
+                        <option value="leads">Leads</option>
+                        <option value="active">Active</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Priority</label>
+                    <select class="form-select">
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" placeholder="Add details..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeAddItemModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="closeAddItemModal()">Add Item</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openAddItemModal() {
+            const modal = document.getElementById('addItemModal');
+            modal.classList.add('active');
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        function toggleOceanbaseDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('oceanbaseDropdown');
+            dropdown.classList.toggle('active');
+            
+            // Close other dropdowns if needed
+             document.querySelectorAll('.card-dropdown.active').forEach(menu => {
+                menu.classList.remove('active');
+            });
+        }
+
+        function closeAddItemModal() {
+            const modal = document.getElementById('addItemModal');
+            modal.classList.remove('active');
+        }
+
+        function toggleCardMenu(btn, event) {
+            event.stopPropagation();
+            
+            // Close all other open menus
+            const allMenus = document.querySelectorAll('.card-dropdown.active');
+            allMenus.forEach(menu => {
+                if (menu !== btn.nextElementSibling) {
+                    menu.classList.remove('active');
+                }
+            });
+            
+            // Toggle current menu
+            const dropdown = btn.nextElementSibling;
+            dropdown.classList.toggle('active');
+            
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+        
+        function viewManager(name) {
+            event.stopPropagation();
+            // In a real app, this would open the user's profile
+            console.log('Viewing profile of: ' + name);
+            // Optional: Show a toast or alert
+            // alert('Viewing profile of: ' + name);
+        }
+        
+        function editCard() {
+            event.stopPropagation();
+            // Placeholder for edit functionality
+            console.log('Edit card clicked');
+            // close dropdown
+            document.querySelectorAll('.card-dropdown.active').forEach(m => m.classList.remove('active'));
+        }
+        
+        function moveCard() {
+            event.stopPropagation();
+            // Placeholder for move functionality
+            console.log('Move card clicked');
+            document.querySelectorAll('.card-dropdown.active').forEach(m => m.classList.remove('active'));
+        }
+        
+        function deleteCard() {
+            event.stopPropagation();
+            // Placeholder for delete functionality
+            console.log('Delete card clicked');
+            document.querySelectorAll('.card-dropdown.active').forEach(m => m.classList.remove('active'));
+        }
+
+        function addMember(event) {
+            event.stopPropagation();
+            console.log('Add member clicked');
+            // Logic to add member goes here
+        }
+
+        // Close modal and menus when clicking outside
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('addItemModal');
+            if (e.target === modal) {
+                closeAddItemModal();
+            }
+            
+            // Close card dropdowns if clicked outside
+            if (!e.target.closest('.card-menu-container')) {
+                document.querySelectorAll('.card-dropdown.active').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            }
+
+            // Close Oceanbase dropdown if clicked outside
+            if (!e.target.closest('.oceanbase-dropdown-container')) {
+                const obDropdown = document.getElementById('oceanbaseDropdown');
+                if (obDropdown) {
+                    obDropdown.classList.remove('active');
+                }
+            }
+        });
+        
+        // Prevent card click when clicking menu
+        document.querySelectorAll('.card-menu-container').forEach(container => {
+            container.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+        // Initialize Lucide icons
+            if (window.lucide) {
+                lucide.createIcons();
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+
+            // Helper function to handle dropdown hover
+            function setupDropdownHover(buttonId, dropdownId, clearAllBtnId = null) {
+                const button = document.getElementById(buttonId);
+                const dropdown = document.getElementById(dropdownId);
+                
+                if (button && dropdown) {
+                    let hoverTimeout;
+                    
+                    // Show dropdown on hover
+                    button.addEventListener('mouseenter', () => {
+                        clearTimeout(hoverTimeout);
+                        dropdown.classList.add('active');
+                        // Reinitialize icons after showing
+                        if (window.lucide) {
+                            setTimeout(() => lucide.createIcons(), 50);
+                        }
+                    });
+                    
+                    // Keep dropdown open when hovering over it
+                    dropdown.addEventListener('mouseenter', () => {
+                        clearTimeout(hoverTimeout);
+                        dropdown.classList.add('active');
+                    });
+                    
+                    // Hide dropdown when mouse leaves button or dropdown
+                    const hideDropdown = () => {
+                        hoverTimeout = setTimeout(() => {
+                            dropdown.classList.remove('active');
+                        }, 150); // Small delay to prevent flickering
+                    };
+                    
+                    button.addEventListener('mouseleave', hideDropdown);
+                    dropdown.addEventListener('mouseleave', hideDropdown);
+                    
+                    // Handle clear all button if provided
+                    if (clearAllBtnId) {
+                        const clearAllBtn = document.getElementById(clearAllBtnId);
+                        if (clearAllBtn) {
+                            clearAllBtn.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                // Clear notifications logic here
+                                const notificationItems = dropdown.querySelectorAll('.notification-item');
+                                notificationItems.forEach(item => {
+                                    item.style.display = 'none';
+                                });
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Setup dropdowns
+            setupDropdownHover('appsDropdownBtn', 'appsDropdown');
+            setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
+            setupDropdownHover('accountDropdownBtn', 'accountDropdown');
+
+            // Dock magnification effect with smoother animations
+            const dock = document.getElementById('dock');
+            if (dock) {
+                const dockItems = Array.from(dock.querySelectorAll('.dock-item'));
+                
+                let mouseX = Infinity;
+                let isHovered = false;
+                const distance = 150;
+                const magnification = 56;
+                const defaultSize = 40;
+                let animationFrameId = null;
+                let lastUpdateTime = 0;
+                const throttleMs = 16;
+
+                // Smooth easing function
+                function easeOutCubic(t) {
+                    return 1 - Math.pow(1 - t, 3);
+                }
+
+                function updateDockItems() {
+                    const now = performance.now();
+                    if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                        return;
+                    }
+                    lastUpdateTime = now;
+
+                    if (animationFrameId) {
+                        cancelAnimationFrame(animationFrameId);
+                    }
+
+                    animationFrameId = requestAnimationFrame(() => {
+                        dockItems.forEach((item) => {
+                            const rect = item.getBoundingClientRect();
+                            const itemCenterX = rect.left + rect.width / 2;
+                            const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                            
+                            if (isHovered && distanceFromMouse < distance) {
+                                const normalizedDistance = distanceFromMouse / distance;
+                                const easedDistance = easeOutCubic(1 - normalizedDistance);
+                                const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                                const newSize = defaultSize * scale;
+                                item.style.width = `${newSize}px`;
+                                item.style.height = `${newSize}px`;
+                            } else {
+                                item.style.width = `${defaultSize}px`;
+                                item.style.height = `${defaultSize}px`;
+                            }
+                        });
+                    });
+                }
+
+                dock.addEventListener('mousemove', (e) => {
+                    isHovered = true;
+                    mouseX = e.pageX;
+                    updateDockItems();
+                });
+
+                dock.addEventListener('mouseleave', () => {
+                    isHovered = false;
+                    mouseX = Infinity;
+                    dockItems.forEach((item) => {
+                        item.style.width = `${defaultSize}px`;
+                        item.style.height = `${defaultSize}px`;
+                    });
+                });
+
+                // Continuous smooth updates
+                function smoothUpdate() {
+                    if (isHovered) {
+                        updateDockItems();
+                    }
+                    requestAnimationFrame(smoothUpdate);
+                }
+                smoothUpdate();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details - Internal - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
+        .internal-section {
+            display: block;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+
+        .top-left-heading {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 32px;
+        }
+
+        .user-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .user-header-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 700;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .user-header-info {
+            flex: 1;
+        }
+
+        .user-header-name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .user-header-meta {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .user-header-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .user-header-meta-item i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card-title i {
+            width: 20px;
+            height: 20px;
+            color: #3b82f6;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #111827;
+            font-weight: 500;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-badge.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e0e7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon i {
+            width: 16px;
+            height: 16px;
+            color: #3b82f6;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 14px;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        .permission-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .permission-item:last-child {
+            border-bottom: none;
+        }
+
+        .permission-name {
+            font-size: 14px;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        .permission-toggle {
+            width: 44px;
+            height: 24px;
+            background: #d1d5db;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .permission-toggle.active {
+            background: #3b82f6;
+        }
+
+        .permission-toggle::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.2s;
+        }
+
+        .permission-toggle.active::after {
+            transform: translateX(20px);
+        }
+
+        .action-button {
+            padding: 10px 16px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-button:hover {
+            background: #2563eb;
+        }
+
+        .action-button.secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .action-button.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .action-button.danger {
+            background: #dc2626;
+        }
+
+        .action-button.danger:hover {
+            background: #b91c1c;
+        }
+
+        .action-button i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px;
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        .dashboard-main {
+            margin: 0 !important;
+            margin-left: 200px !important;
+            margin-top: 65px !important;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            background: #ffffff !important;
+            min-height: calc(100vh - 65px) !important;
+            max-width: calc(100% - 200px) !important;
+            width: calc(100% - 200px) !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 20px 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bottom-dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .bottom-dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon {
+            border: 2px solid #3b82f6;
+        }
+
+        .bottom-dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .bottom-dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .bottom-dock-icon i,
+        .bottom-dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon i,
+        .bottom-dock-item.active .bottom-dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">User Details</div>
+        <div class="header-logo">
+            <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="home.html" class="header-logo-text">INFINIFY INTERNAL</a>
+        </div>
+        <div class="header-actions">
+            <button class="header-action-btn" onclick="window.location.href='users.html'">
+                <i data-lucide="arrow-left"></i>
+                <span>Back to Users</span>
+            </button>
+            <button class="header-action-btn">
+                <i data-lucide="settings"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item active">
+                <span>All Users</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="window.location.href='reserved-handles.html'">
+                <span>Reserved handles</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Pending Invites</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>User Roles</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Permissions</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="internal-section" id="contentSection">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+        
+        <!-- Circle in bottom right corner -->
+        <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
+            <img src="../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+    </main>
+
+    <!-- Bottom Dock -->
+    <div class="dock-container">
+        <div class="dock" id="bottomDock">
+            <div class="bottom-dock-item" onclick="window.location.href='home.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="layout-dashboard"></i>
+                </div>
+                <div class="bottom-dock-label">Dashboard</div>
+            </div>
+            <div class="bottom-dock-item active" onclick="window.location.href='users.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="user-pen"></i>
+                </div>
+                <div class="bottom-dock-label">Users</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='security.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="shield-check"></i>
+                </div>
+                <div class="bottom-dock-label">Security</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='analytics.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <div class="bottom-dock-label">Analytics</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='logs.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="file-text"></i>
+                </div>
+                <div class="bottom-dock-label">Logs</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='settings.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="settings"></i>
+                </div>
+                <div class="bottom-dock-label">Settings</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='client-Assets.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="cuboid"></i>
+                </div>
+                <div class="bottom-dock-label">Client Assets</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='database.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="database"></i>
+                </div>
+                <div class="bottom-dock-label">Database</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample user data - should match the data structure in users.html
+        const usersData = [
+            { 
+                id: 1,
+                name: 'Nike Inc.', 
+                username: '@nike',
+                email: 'contact@nike.com', 
+                role: 'Admin',
+                status: 'active',
+                lastActive: '2 hours ago',
+                avatar: 'N',
+                phone: '+1 (555) 123-4567',
+                location: 'Beaverton, Oregon, USA',
+                joinDate: 'January 15, 2020',
+                accountType: 'Enterprise',
+                storageUsed: '2.4 GB / 10 GB',
+                websites: 3
+            },
+            { 
+                id: 2,
+                name: 'Apple Inc.', 
+                username: '@apple',
+                email: 'support@apple.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '5 minutes ago',
+                avatar: 'A',
+                phone: '+1 (555) 234-5678',
+                location: 'Cupertino, California, USA',
+                joinDate: 'March 22, 2021',
+                accountType: 'Business',
+                storageUsed: '5.8 GB / 50 GB',
+                websites: 2
+            },
+            { 
+                id: 3,
+                name: 'Microsoft Corp.', 
+                username: '@microsoft',
+                email: 'info@microsoft.com', 
+                role: 'Admin',
+                status: 'active',
+                lastActive: '1 day ago',
+                avatar: 'M',
+                phone: '+1 (555) 345-6789',
+                location: 'Redmond, Washington, USA',
+                joinDate: 'June 10, 2019',
+                accountType: 'Enterprise',
+                storageUsed: '12.3 GB / 100 GB',
+                websites: 2
+            },
+            { 
+                id: 4,
+                name: 'Amazon Inc.', 
+                username: '@amazon',
+                email: 'business@amazon.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '30 minutes ago',
+                avatar: 'A',
+                phone: '+1 (555) 456-7890',
+                location: 'Seattle, Washington, USA',
+                joinDate: 'August 5, 2020',
+                accountType: 'Enterprise',
+                storageUsed: '45.2 GB / 500 GB',
+                websites: 3
+            },
+            { 
+                id: 5,
+                name: 'Google LLC', 
+                username: '@google',
+                email: 'contact@google.com', 
+                role: 'Admin',
+                status: 'active',
+                lastActive: '3 hours ago',
+                avatar: 'G',
+                phone: '+1 (555) 567-8901',
+                location: 'Mountain View, California, USA',
+                joinDate: 'February 1, 2018',
+                accountType: 'Enterprise',
+                storageUsed: '89.5 GB / 1 TB',
+                websites: 1
+            },
+            { 
+                id: 6,
+                name: 'Tesla Inc.', 
+                username: '@tesla',
+                email: 'support@tesla.com', 
+                role: 'User',
+                status: 'pending',
+                lastActive: 'Never',
+                avatar: 'T',
+                phone: '+1 (555) 678-9012',
+                location: 'Austin, Texas, USA',
+                joinDate: 'November 20, 2023',
+                accountType: 'Business',
+                storageUsed: '0 GB / 25 GB',
+                websites: 2
+            },
+            { 
+                id: 7,
+                name: 'Starbucks Corp.', 
+                username: '@starbucks',
+                email: 'customer@starbucks.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '1 hour ago',
+                avatar: 'S',
+                phone: '+1 (555) 789-0123',
+                location: 'Seattle, Washington, USA',
+                joinDate: 'April 12, 2022',
+                accountType: 'Business',
+                storageUsed: '3.1 GB / 25 GB',
+                websites: 2
+            },
+            { 
+                id: 8,
+                name: 'Adidas AG', 
+                username: '@adidas',
+                email: 'info@adidas.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '15 minutes ago',
+                avatar: 'A',
+                phone: '+49 (0) 9132 84-0',
+                location: 'Herzogenaurach, Germany',
+                joinDate: 'July 8, 2021',
+                accountType: 'Business',
+                storageUsed: '1.8 GB / 25 GB',
+                websites: 2
+            },
+            { 
+                id: 9,
+                name: 'Netflix Inc.', 
+                username: '@netflix',
+                email: 'support@netflix.com', 
+                role: 'User',
+                status: 'inactive',
+                lastActive: '2 weeks ago',
+                avatar: 'N',
+                phone: '+1 (555) 890-1234',
+                location: 'Los Gatos, California, USA',
+                joinDate: 'September 3, 2020',
+                accountType: 'Business',
+                storageUsed: '8.9 GB / 50 GB',
+                websites: 3
+            },
+            { 
+                id: 10,
+                name: 'Spotify AB', 
+                username: '@spotify',
+                email: 'contact@spotify.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '45 minutes ago',
+                avatar: 'S',
+                phone: '+46 8 124 53 00',
+                location: 'Stockholm, Sweden',
+                joinDate: 'May 18, 2022',
+                accountType: 'Business',
+                storageUsed: '2.2 GB / 25 GB',
+                websites: 1
+            }
+        ];
+
+        // Sample activity data
+        const activityData = [
+            { action: 'Logged in', time: '2 hours ago', icon: 'log-in' },
+            { action: 'Updated profile information', time: '1 day ago', icon: 'user' },
+            { action: 'Changed password', time: '3 days ago', icon: 'lock' },
+            { action: 'Uploaded new website', time: '1 week ago', icon: 'upload' },
+            { action: 'Modified permissions', time: '2 weeks ago', icon: 'shield' }
+        ];
+
+        // Parse username from URL query parameter
+        function getUsernameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('user');
+        }
+
+        // Find user by username (without @)
+        function findUserByUsername(username) {
+            const usernameWithAt = username.startsWith('@') ? username : `@${username}`;
+            return usersData.find(user => 
+                user.username.toLowerCase() === usernameWithAt.toLowerCase()
+            );
+        }
+
+        // Render user detail page
+        function renderUserDetails(user) {
+            const contentSection = document.getElementById('contentSection');
+            
+            if (!user) {
+                contentSection.innerHTML = `
+                    <div style="text-align: center; padding: 64px 24px;">
+                        <h1 style="font-size: 24px; font-weight: 600; color: #111827; margin-bottom: 8px;">User Not Found</h1>
+                        <p style="font-size: 14px; color: #6b7280; margin-bottom: 24px;">The requested user could not be found.</p>
+                        <a href="users.html" style="display: inline-flex; align-items: center; gap: 8px; color: #3b82f6; text-decoration: none; font-size: 14px; font-weight: 500;">
+                            <i data-lucide="arrow-left"></i>
+                            <span>Back to Users</span>
+                        </a>
+                    </div>
+                `;
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            const usernameWithoutAt = user.username.replace('@', '');
+
+            contentSection.innerHTML = `
+                <div class="user-header">
+                    <div class="user-header-avatar">${user.avatar}</div>
+                    <div class="user-header-info">
+                        <div class="user-header-name">${user.name}</div>
+                        <div style="font-size: 18px; opacity: 0.9; margin-bottom: 8px;">${user.username}</div>
+                        <div class="user-header-meta">
+                            <div class="user-header-meta-item">
+                                <i data-lucide="mail"></i>
+                                <span>${user.email}</span>
+                            </div>
+                            <div class="user-header-meta-item">
+                                <i data-lucide="calendar"></i>
+                                <span>Joined ${user.joinDate}</span>
+                            </div>
+                            <div class="user-header-meta-item">
+                                <i data-lucide="map-pin"></i>
+                                <span>${user.location}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
+                        <span class="status-badge ${user.status}">${user.status}</span>
+                        <span class="role-badge">${user.role}</span>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <!-- Account Information -->
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <div class="info-card-title">
+                                <i data-lucide="user"></i>
+                                <span>Account Information</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Username</span>
+                            <span class="info-value">${user.username}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Email</span>
+                            <span class="info-value">${user.email}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value">${user.phone}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Account Type</span>
+                            <span class="info-value">${user.accountType}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Join Date</span>
+                            <span class="info-value">${user.joinDate}</span>
+                        </div>
+                    </div>
+
+                    <!-- Account Status -->
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <div class="info-card-title">
+                                <i data-lucide="activity"></i>
+                                <span>Account Status</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status</span>
+                            <span class="info-value"><span class="status-badge ${user.status}">${user.status}</span></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Role</span>
+                            <span class="info-value"><span class="role-badge">${user.role}</span></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Active</span>
+                            <span class="info-value">${user.lastActive}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Storage Used</span>
+                            <span class="info-value">${user.storageUsed}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Total Websites</span>
+                            <span class="info-value">${user.websites}</span>
+                        </div>
+                    </div>
+
+                    <!-- Permissions -->
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <div class="info-card-title">
+                                <i data-lucide="shield"></i>
+                                <span>Permissions</span>
+                            </div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-name">Manage Users</span>
+                            <div class="permission-toggle ${user.role === 'Admin' ? 'active' : ''}"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-name">Edit Websites</span>
+                            <div class="permission-toggle active"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-name">View Analytics</span>
+                            <div class="permission-toggle active"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-name">Manage Settings</span>
+                            <div class="permission-toggle ${user.role === 'Admin' ? 'active' : ''}"></div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-name">Access Logs</span>
+                            <div class="permission-toggle ${user.role === 'Admin' ? 'active' : ''}"></div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <div class="info-card-title">
+                                <i data-lucide="clock"></i>
+                                <span>Recent Activity</span>
+                            </div>
+                        </div>
+                        <div class="activity-list">
+                            ${activityData.map(activity => `
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i data-lucide="${activity.icon}"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-text">${activity.action}</div>
+                                        <div class="activity-time">${activity.time}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
+                    <button class="action-button" onclick="alert('Edit user: ${user.name}')">
+                        <i data-lucide="edit"></i>
+                        <span>Edit User</span>
+                    </button>
+                    <button class="action-button secondary" onclick="window.location.href='client-assets/websites-user.html?user=${usernameWithoutAt}'">
+                        <i data-lucide="globe"></i>
+                        <span>View Websites</span>
+                    </button>
+                    <button class="action-button secondary" onclick="alert('Reset password for: ${user.name}')">
+                        <i data-lucide="key"></i>
+                        <span>Reset Password</span>
+                    </button>
+                    <button class="action-button ${user.status === 'active' ? 'secondary' : ''}" onclick="alert('${user.status === 'active' ? 'Suspend' : 'Activate'} account: ${user.name}')">
+                        <i data-lucide="${user.status === 'active' ? 'pause' : 'play'}"></i>
+                        <span>${user.status === 'active' ? 'Suspend' : 'Activate'} Account</span>
+                    </button>
+                    <button class="action-button danger" onclick="if(confirm('Are you sure you want to delete ${user.name}? This action cannot be undone.')) alert('User deleted')">
+                        <i data-lucide="trash-2"></i>
+                        <span>Delete User</span>
+                    </button>
+                </div>
+            `;
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            const username = getUsernameFromURL();
+            
+            if (!username) {
+                renderUserDetails(null);
+                return;
+            }
+
+            const user = findUserByUsername(username);
+            renderUserDetails(user);
+        });
+
+        // Bottom dock magnification effect
+        const bottomDock = document.getElementById('bottomDock');
+        if (bottomDock) {
+            const bottomDockItems = Array.from(bottomDock.querySelectorAll('.bottom-dock-item'));
+            let mouseX = Infinity;
+            let isHovered = false;
+            const distance = 150;
+            const magnification = 56;
+            const defaultSize = 40;
+            let animationFrameId = null;
+            let lastUpdateTime = 0;
+            const throttleMs = 16;
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function updateBottomDockItems() {
+                const now = performance.now();
+                if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                    return;
+                }
+                lastUpdateTime = now;
+
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+
+                animationFrameId = requestAnimationFrame(() => {
+                    bottomDockItems.forEach((item) => {
+                        const rect = item.getBoundingClientRect();
+                        const itemCenterX = rect.left + rect.width / 2;
+                        const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                        
+                        if (isHovered && distanceFromMouse < distance) {
+                            const normalizedDistance = distanceFromMouse / distance;
+                            const easedDistance = easeOutCubic(1 - normalizedDistance);
+                            const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                            const newSize = defaultSize * scale;
+                            item.style.width = `${newSize}px`;
+                            item.style.height = `${newSize}px`;
+                        } else {
+                            item.style.width = `${defaultSize}px`;
+                            item.style.height = `${defaultSize}px`;
+                        }
+                    });
+                });
+            }
+
+            bottomDock.addEventListener('mousemove', (e) => {
+                isHovered = true;
+                mouseX = e.pageX;
+                updateBottomDockItems();
+            });
+
+            bottomDock.addEventListener('mouseleave', () => {
+                isHovered = false;
+                mouseX = Infinity;
+                bottomDockItems.forEach((item) => {
+                    item.style.width = `${defaultSize}px`;
+                    item.style.height = `${defaultSize}px`;
+                });
+            });
+
+            function smoothUpdate() {
+                if (isHovered) {
+                    updateBottomDockItems();
+                }
+                requestAnimationFrame(smoothUpdate);
+            }
+            smoothUpdate();
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - Internal - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
+        /* Internal Section Styles */
+        .internal-section {
+            display: block;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+
+        .top-left-heading {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 32px;
+        }
+
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px;
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        /* Adjust dashboard main to account for sidebar and header */
+        .dashboard-main {
+            margin: 0 !important;
+            margin-left: 200px !important;
+            margin-top: 65px !important;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            background: #ffffff !important;
+            min-height: calc(100vh - 65px) !important;
+            max-width: calc(100% - 200px) !important;
+            width: calc(100% - 200px) !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* Bottom Dock Styles */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 20px 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bottom-dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .bottom-dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon {
+            border: 2px solid #3b82f6;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        .bottom-dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .bottom-dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .bottom-dock-icon i,
+        .bottom-dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon i,
+        .bottom-dock-item.active .bottom-dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .bottom-dock-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Page Header */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        /* Database Table Styles */
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .table-search {
+            position: relative;
+            max-width: 400px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-search input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Open Sans', sans-serif;
+            color: #111827;
+            background: #ffffff;
+            transition: all 0.2s;
+        }
+
+        .table-search input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .table-search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            width: 18px;
+            height: 18px;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            padding: 10px 16px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-primary i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .users-table-container {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .users-table thead {
+            background: #f9fafb;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .users-table th {
+            padding: 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .users-table tbody tr {
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+
+        .users-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .users-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .users-table td {
+            padding: 16px;
+            font-size: 14px;
+            color: #111827;
+            vertical-align: middle;
+        }
+
+        .user-info-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .user-email {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-badge.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        /* Three Dots Menu */
+        .menu-button {
+            position: relative;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            color: #6b7280;
+        }
+
+        .menu-button:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .menu-button i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .menu-dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 4px);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+        }
+
+        .menu-dropdown.show {
+            display: block;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #111827;
+            cursor: pointer;
+            transition: background 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .menu-item:hover {
+            background: #f9fafb;
+        }
+
+        .menu-item i {
+            width: 16px;
+            height: 16px;
+            color: #6b7280;
+        }
+
+        .menu-item.danger {
+            color: #dc2626;
+        }
+
+        .menu-item.danger:hover {
+            background: #fef2f2;
+        }
+
+        .menu-item.danger i {
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">Users</div>
+        <div class="header-logo">
+            <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="home.html" class="header-logo-text">INFINIFY INTERNAL</a>
+        </div>
+        <div class="header-actions">
+            <button class="header-action-btn" onclick="window.location.href='../suite/home.html'">
+                <i data-lucide="arrow-left"></i>
+                <span>Back to Suite</span>
+            </button>
+            <button class="header-action-btn">
+                <i data-lucide="settings"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item active">
+                <span>All Users</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="window.location.href='reserved-handles.html'">
+                <span>Reserved handles</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Pending Invites</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>User Roles</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Permissions</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="internal-section">
+            <div class="top-left-heading">All Users</div>
+            
+            <!-- Table Controls -->
+            <div class="table-controls">
+                <div class="table-search">
+                    <i data-lucide="search" class="table-search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search users by name, email, or username..." autocomplete="off">
+                </div>
+                <div class="table-actions">
+                    <button class="btn-primary" onclick="alert('Add User functionality coming soon')">
+                        <i data-lucide="user-plus"></i>
+                        <span>Add User</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="users-table-container">
+                <table class="users-table" id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Last Active</th>
+                            <th style="width: 50px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Circle in bottom right corner -->
+        <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
+            <img src="../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+    </main>
+
+    <!-- Bottom Dock -->
+    <div class="dock-container">
+        <div class="dock" id="bottomDock">
+            <div class="bottom-dock-item" onclick="window.location.href='home.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="layout-dashboard"></i>
+                </div>
+                <div class="bottom-dock-label">Dashboard</div>
+            </div>
+            <div class="bottom-dock-item active" onclick="window.location.href='users.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="user-pen"></i>
+                </div>
+                <div class="bottom-dock-label">Users</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='security.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="shield-check"></i>
+                </div>
+                <div class="bottom-dock-label">Security</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='analytics.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <div class="bottom-dock-label">Analytics</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='logs.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="file-text"></i>
+                </div>
+                <div class="bottom-dock-label">Logs</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='settings.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="settings"></i>
+                </div>
+                <div class="bottom-dock-label">Settings</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='client-Assets.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="cuboid"></i>
+                </div>
+                <div class="bottom-dock-label">Client Assets</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='database.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="database"></i>
+                </div>
+                <div class="bottom-dock-label">Database</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample user data - replace with actual data from your API/database
+        const usersData = [
+            { 
+                id: 1,
+                name: 'Nike Inc.', 
+                username: '@nike',
+                email: 'contact@nike.com', 
+                role: 'Admin',
+                status: 'active',
+                lastActive: '2 hours ago',
+                avatar: 'N'
+            },
+            { 
+                id: 2,
+                name: 'Apple Inc.', 
+                username: '@apple',
+                email: 'support@apple.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '5 minutes ago',
+                avatar: 'A'
+            },
+            { 
+                id: 3,
+                name: 'Microsoft Corp.', 
+                username: '@microsoft',
+                email: 'info@microsoft.com', 
+                role: 'Admin',
+                status: 'active',
+                lastActive: '1 day ago',
+                avatar: 'M'
+            },
+            { 
+                id: 4,
+                name: 'Amazon Inc.', 
+                username: '@amazon',
+                email: 'business@amazon.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '30 minutes ago',
+                avatar: 'A'
+            },
+            { 
+                id: 5,
+                name: 'Google LLC', 
+                username: '@google',
+                email: 'contact@google.com', 
+                role: 'Admin',
+                status: 'active',
+                lastActive: '3 hours ago',
+                avatar: 'G'
+            },
+            { 
+                id: 6,
+                name: 'Tesla Inc.', 
+                username: '@tesla',
+                email: 'support@tesla.com', 
+                role: 'User',
+                status: 'pending',
+                lastActive: 'Never',
+                avatar: 'T'
+            },
+            { 
+                id: 7,
+                name: 'Starbucks Corp.', 
+                username: '@starbucks',
+                email: 'customer@starbucks.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '1 hour ago',
+                avatar: 'S'
+            },
+            { 
+                id: 8,
+                name: 'Adidas AG', 
+                username: '@adidas',
+                email: 'info@adidas.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '15 minutes ago',
+                avatar: 'A'
+            },
+            { 
+                id: 9,
+                name: 'Netflix Inc.', 
+                username: '@netflix',
+                email: 'support@netflix.com', 
+                role: 'User',
+                status: 'inactive',
+                lastActive: '2 weeks ago',
+                avatar: 'N'
+            },
+            { 
+                id: 10,
+                name: 'Spotify AB', 
+                username: '@spotify',
+                email: 'contact@spotify.com', 
+                role: 'User',
+                status: 'active',
+                lastActive: '45 minutes ago',
+                avatar: 'S'
+            }
+        ];
+
+        let filteredData = [...usersData];
+        let activeMenuId = null;
+
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            renderTable(filteredData);
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.menu-button') && !e.target.closest('.menu-dropdown')) {
+                    closeAllMenus();
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const tableBody = document.getElementById('tableBody');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                filteredData = [...usersData];
+            } else {
+                filteredData = usersData.filter(user => {
+                    const name = user.name.toLowerCase();
+                    const email = user.email.toLowerCase();
+                    const username = user.username.toLowerCase();
+                    return name.includes(searchTerm) || 
+                           email.includes(searchTerm) || 
+                           username.includes(searchTerm);
+                });
+            }
+            
+            renderTable(filteredData);
+        });
+
+        function renderTable(data) {
+            if (data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 48px; color: #6b7280;">
+                            No users found matching your search.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tableBody.innerHTML = data.map(user => {
+                const usernameWithoutAt = user.username.replace('@', '');
+                return `
+                <tr style="cursor: pointer;" onclick="window.location.href='user-detail.html?user=${usernameWithoutAt}'">
+                    <td>
+                        <div class="user-info-cell">
+                            <div class="user-avatar">${user.avatar}</div>
+                            <div class="user-details">
+                                <div class="user-name">${user.name}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span style="font-weight: 500; color: #111827;">${user.username}</span>
+                    </td>
+                    <td>
+                        <span class="user-email">${user.email}</span>
+                    </td>
+                    <td>
+                        <span class="role-badge">${user.role}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${user.status}">${user.status}</span>
+                    </td>
+                    <td>
+                        <span style="color: #6b7280; font-size: 13px;">${user.lastActive}</span>
+                    </td>
+                    <td onclick="event.stopPropagation()">
+                        <div style="position: relative;">
+                            <button class="menu-button" onclick="toggleMenu(${user.id}, event)">
+                                <i data-lucide="more-vertical"></i>
+                            </button>
+                            <div class="menu-dropdown" id="menu-${user.id}">
+                                <button class="menu-item" onclick="handleAction('edit', ${user.id})">
+                                    <i data-lucide="edit"></i>
+                                    <span>Edit User</span>
+                                </button>
+                                <button class="menu-item" onclick="handleAction('view', ${user.id})">
+                                    <i data-lucide="eye"></i>
+                                    <span>View Details</span>
+                                </button>
+                                <button class="menu-item" onclick="handleAction('suspend', ${user.id})">
+                                    <i data-lucide="pause"></i>
+                                    <span>Suspend Account</span>
+                                </button>
+                                <button class="menu-item danger" onclick="handleAction('delete', ${user.id})">
+                                    <i data-lucide="trash-2"></i>
+                                    <span>Delete User</span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            }).join('');
+
+            // Re-initialize Lucide icons for new elements
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function toggleMenu(userId, event) {
+            event.stopPropagation();
+            const menu = document.getElementById(`menu-${userId}`);
+            
+            // Close all other menus
+            if (activeMenuId !== userId) {
+                closeAllMenus();
+            }
+            
+            // Toggle current menu
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                activeMenuId = null;
+            } else {
+                menu.classList.add('show');
+                activeMenuId = userId;
+            }
+        }
+
+        function closeAllMenus() {
+            document.querySelectorAll('.menu-dropdown').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            activeMenuId = null;
+        }
+
+        function handleAction(action, userId) {
+            closeAllMenus();
+            const user = usersData.find(u => u.id === userId);
+            
+            switch(action) {
+                case 'edit':
+                    alert(`Edit user: ${user.name}`);
+                    // Implement edit functionality
+                    break;
+                case 'view':
+                    const usernameWithoutAt = user.username.replace('@', '');
+                    window.location.href = `user-detail.html?user=${usernameWithoutAt}`;
+                    break;
+                case 'suspend':
+                    if (confirm(`Are you sure you want to suspend ${user.name}?`)) {
+                        user.status = user.status === 'active' ? 'inactive' : 'active';
+                        renderTable(filteredData);
+                    }
+                    break;
+                case 'delete':
+                    if (confirm(`Are you sure you want to delete ${user.name}? This action cannot be undone.`)) {
+                        const index = usersData.findIndex(u => u.id === userId);
+                        if (index > -1) {
+                            usersData.splice(index, 1);
+                            filteredData = filteredData.filter(u => u.id !== userId);
+                            renderTable(filteredData);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        // Bottom dock magnification effect
+        const bottomDock = document.getElementById('bottomDock');
+        if (bottomDock) {
+            const bottomDockItems = Array.from(bottomDock.querySelectorAll('.bottom-dock-item'));
+            
+            let mouseX = Infinity;
+            let isHovered = false;
+            const distance = 150;
+            const magnification = 56;
+            const defaultSize = 40;
+            let animationFrameId = null;
+            let lastUpdateTime = 0;
+            const throttleMs = 16;
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function updateBottomDockItems() {
+                const now = performance.now();
+                if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                    return;
+                }
+                lastUpdateTime = now;
+
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+
+                animationFrameId = requestAnimationFrame(() => {
+                    bottomDockItems.forEach((item) => {
+                        const rect = item.getBoundingClientRect();
+                        const itemCenterX = rect.left + rect.width / 2;
+                        const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                        
+                        if (isHovered && distanceFromMouse < distance) {
+                            const normalizedDistance = distanceFromMouse / distance;
+                            const easedDistance = easeOutCubic(1 - normalizedDistance);
+                            const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                            const newSize = defaultSize * scale;
+                            item.style.width = `${newSize}px`;
+                            item.style.height = `${newSize}px`;
+                        } else {
+                            item.style.width = `${defaultSize}px`;
+                            item.style.height = `${defaultSize}px`;
+                        }
+                    });
+                });
+            }
+
+            bottomDock.addEventListener('mousemove', (e) => {
+                isHovered = true;
+                mouseX = e.pageX;
+                updateBottomDockItems();
+            });
+
+            bottomDock.addEventListener('mouseleave', () => {
+                isHovered = false;
+                mouseX = Infinity;
+                bottomDockItems.forEach((item) => {
+                    item.style.width = `${defaultSize}px`;
+                    item.style.height = `${defaultSize}px`;
+                });
+            });
+
+            function smoothUpdate() {
+                if (isHovered) {
+                    updateBottomDockItems();
+                }
+                requestAnimationFrame(smoothUpdate);
+            }
+            smoothUpdate();
+        }
+    </script>
+</body>
+</html>
+

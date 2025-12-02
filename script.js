@@ -418,13 +418,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = searchForm.querySelector('.search-input');
     const routes = [
         { label: 'Dashboard', keywords: ['suite','home','dashboard'], url: 'dashboard.html' },
-        { label: 'Work', keywords: ['work','team','users','members'], url: 'work.html' },
-        { label: 'Financials', keywords: ['finance','financials','budgets'], url: 'financial.html' },
-        { label: 'Agents', keywords: ['ops','operations'], url: 'Agents.html' },
-        { label: 'Devra', keywords: ['devra','apps','applications'], url: 'Devra.html' },
-        { label: 'Database', keywords: ['database','data','explore','discover','search'], url: 'Oceanbase.html' },
-        { label: 'Online Assets', keywords: ['online','assets','media','analytics'], url: 'Online-assets.html' },
-        { label: 'Filebase', keywords: ['organise','organize','docs','documents','files'], url: 'Filebase.html' },
+        { label: 'Work', keywords: ['work','team','users','members'], url: 'suite/work.html' },
+        { label: 'Financials', keywords: ['finance','financials','budgets'], url: '/Suite/financial.html' },
+        { label: 'Agents', keywords: ['ops','operations'], url: '/Suite/Agents.html' },
+        { label: 'Tools', keywords: ['tools','dev','development','apps','applications'], url: 'suite/tools.html' },
+        { label: 'Database', keywords: ['database','data','explore','discover','search'], url: '/Suite/Oceanbase.html' },
+        { label: 'Online Assets', keywords: ['online','assets','media','analytics'], url: '/Suite/Online-assets.html' },
+        { label: 'Filebase', keywords: ['organise','organize','docs','documents','files'], url: '/Suite/Filebase.html' },
         { label: 'Marketplace', keywords: ['marketplace','store','settings','shop'], url: 'settings.html' }
     ];
 

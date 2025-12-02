@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filebase Homebase - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+        /* Back Tile Styles */
+        .back-tile {
+            position: absolute;
+            top: 0;
+            left: 260px;
+            bottom: 0;
+            width: 230px; /* Reduced by 150px (380px - 150px) */
+            background: #ffffff;
+            z-index: 998; /* Behind front tile (999) */
+            border-radius: 20px 0 0 20px; /* Rounded left corners only */
+            overflow: visible; /* Changed from hidden to visible */
+        }
+
+        /* Secondary Sidebar Styles */
+        .secondary-sidebar {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            transform: translateX(-250px);
+        }
+
+        .secondary-sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .secondary-sidebar-brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: #000000;
+            letter-spacing: -0.02em;
+        }
+
+        .secondary-sidebar-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-sidebar-icon svg {
+            color: #6b7280;
+        }
+
+        .secondary-sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .secondary-nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-back:hover {
+            color: #000000;
+            background-color: #f9fafb;
+        }
+
+        .secondary-nav-back.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-back i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .secondary-nav-list {
+            margin-top: 8px;
+        }
+
+        .secondary-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-radius 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-item:hover {
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-item.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-item i {
+            width: 14px;
+            height: 14px;
+            color: #6b7280;
+        }
+
+        .secondary-sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-sidebar-footer svg {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .secondary-sidebar-footer svg:hover {
+            color: #000000;
+        }
+
+        /* Adjust front tile to account for back tile */
+        .front-tile {
+            left: 270px; /* Extended 220px to the left (490px - 220px) */
+        }
+        
+        /* Apply Poppins font to body and all elements */
+        body, * {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../dashboard.html">
+                    <img src="../INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+                <div class="nav-logo-line"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../dashboard.html" class="nav-link active">Suite</a></li>
+            </ul>
+            <div class="nav-search">
+                <form id="navSearchForm">
+                    <input class="search-input" type="search" placeholder="Search..." aria-label="Search" />
+                    <button class="search-btn" type="submit" title="Search">
+                        <i data-lucide="search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Vertical Dock -->
+    <div class="vertical-dock">
+        <div class="dock-logo">
+            <img src="../INF.logo3.png" alt="INF Logo" class="dock-logo-img">
+        </div>
+        <div class="dock-items">
+            <div class="dock-item" onclick="window.location.href='/Suite/home.html'">
+                <i data-lucide="home"></i>
+                <span class="dock-label">Home</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='operation.html'">
+                <i data-lucide="hard-hat"></i>
+                <span class="dock-label">Operation</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <img src="../work.2.png" alt="Teams" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Team's</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='/Suite/Agents.html'">
+                <i data-lucide="cpu"></i>
+                <span class="dock-label">Agents</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='/Suite/Kreative.html'">
+                <img src="../Kreative.png" alt="Kreative" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Account</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Tools.html'">
+                <i data-lucide="pocket-knife"></i>
+                <span class="dock-label">Tools</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='/Suite/campaigns.html'">
+                <i data-lucide="focus"></i>
+                <span class="dock-label">Campaigns</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='/Suite/Oceanbase.html'">
+                <img src="../Oceanbase.1.jpg" alt="Database" style="width: 32px; height: 32px; object-fit: contain; border-radius: 6px;">
+                <span class="dock-label">Data</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='/Suite/Online-assets.html'">
+                <i data-lucide="container"></i>
+                <span class="dock-label">Online assets</span>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='../filebase/homebase.html'">
+                <i data-lucide="folder-tree"></i>
+                <span class="dock-label">Filebase</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='/Suite/financial.html'">
+                <i data-lucide="landmark"></i>
+                <span class="dock-label">Financials</span>
+            </div>
+            <div class="dock-item" onclick="window.location.href='/Suite/chats.html'">
+                <i data-lucide="message-circle-more"></i>
+                <span class="dock-label">Chats</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+        </div>
+        
+        <!-- Back Tile (Secondary Sidebar) -->
+        <div class="back-tile">
+            <div class="secondary-sidebar">
+                <div class="secondary-sidebar-header" style="justify-content: flex-start; padding-right: 0;">
+                    <div style="width: 100%; padding-right: 0;">
+                        <div class="secondary-sidebar-brand">Filebase</div>
+                        <div style="font-size: 12px; color: #6b7280; margin-top: 4px; line-height: 1.4; font-weight: 400;">
+                            Your central hub for organizing, managing, and accessing all your files and documents.
+                        </div>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-nav">
+                    <div class="secondary-nav-list">
+                        <div class="secondary-nav-back active" data-nav="home" onclick="window.location.href='homebase.html'">
+                            <span>Homebase</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="file-to-roles">
+                            <span>File to roles</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="backup-base" onclick="window.location.href='backup-base.html'">
+                            <span>Backup base</span>
+                        </div>
+                        <div class="secondary-nav-item" data-nav="statistics" onclick="window.location.href='statistics.html'">
+                            <span>Statistics</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-footer">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Front Tile -->
+        <div class="front-tile">
+            <div class="front-tile-container">
+                <div class="top-right-bar" style="top: 20px;">
+                    <div class="top-right-actions">
+                        <button class="accounts-icon-btn teams-action-btn" title="Apps" style="background: transparent; box-shadow: none; border: none;" onclick="window.location.href='../App-select.html'">
+                            <i data-lucide="grid" style="color: #1f2937;"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Notifications" style="background: transparent; box-shadow: none; border: none;">
+                            <i data-lucide="bell" style="color: #1f2937;"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Profile" style="background: transparent; box-shadow: none; border: none;">
+                            <i data-lucide="user-circle" style="color: #1f2937;"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Filebase Homebase content -->
+                <div style="padding: 40px; max-width: 1200px; margin: 0 auto;">
+                    <!-- Chat Box -->
+                    <div style="margin: 60px auto 48px auto; max-width: 940px;">
+                        <h2 style="font-size: 24px; font-weight: 600; color: #0f172a; margin: 0 0 20px 0; text-align: center;">Search your filebase</h2>
+                        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);">
+                            <div style="position: relative;">
+                                <div style="display: flex; align-items: center; gap: 12px; padding: 16px 20px; background: #ffffff; border-radius: 12px; border: 1px solid #e5e7eb;">
+                                    <i data-lucide="search" style="width: 20px; height: 20px; color: #6b7280; flex-shrink: 0;"></i>
+                                    <input type="text" placeholder="Hey Sorif..." style="flex: 1; border: none; outline: none; background: transparent; font-size: 16px; color: #0f172a;" />
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; padding-left: 20px;">
+                                    <i data-lucide="plus" style="width: 16px; height: 16px; color: #6b7280;"></i>
+                                    <span style="font-size: 14px; color: #6b7280;">Add tabs or files</span>
+                                </div>
+                                <button style="position: absolute; right: 8px; top: 8px; width: 40px; height: 40px; background: #000000; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#1f1f1f'" onmouseout="this.style.backgroundColor='#000000'">
+                                    <i data-lucide="arrow-up" style="width: 20px; height: 20px; color: #ffffff;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div style="margin-bottom: 48px;">
+                        <h2 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 20px 0;">Quick Actions</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                            <button style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 16px;" onmouseover="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.05)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                                <div style="width: 48px; height: 48px; background: #f0f9ff; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                    <i data-lucide="upload" style="width: 24px; height: 24px; color: #0ea5e9;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; color: #0f172a; margin-bottom: 4px;">Upload Files</div>
+                                    <div style="font-size: 13px; color: #64748b;">Add new files to your library</div>
+                                </div>
+                            </button>
+
+                            <button style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; text-align: left; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 16px;" onmouseover="this.style.borderColor='#cbd5e1'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.05)'" onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='none'">
+                                <div style="width: 48px; height: 48px; background: #f0fdf4; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                    <i data-lucide="folder-plus" style="width: 24px; height: 24px; color: #22c55e;"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; color: #0f172a; margin-bottom: 4px;">Create Folder</div>
+                                    <div style="font-size: 13px; color: #64748b;">Organize files into folders</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div>
+                        <h2 style="font-size: 20px; font-weight: 600; color: #0f172a; margin: 0 0 20px 0;">Recent Activity</h2>
+                        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px;">
+                            <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+                                <i data-lucide="inbox" style="width: 48px; height: 48px; margin: 0 auto 16px; display: block; opacity: 0.5;"></i>
+                                <p style="margin: 0; font-size: 14px;">No recent activity</p>
+                                <p style="margin: 8px 0 0 0; font-size: 13px; color: #94a3b8;">Your file activity will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Circle in bottom right corner -->
+        <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+            <img src="../sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            
+            // Remove hash from URL if present
+            if (window.location.hash) {
+                window.history.replaceState(null, null, window.location.pathname);
+            }
+
+            const dockItems = Array.from(document.querySelectorAll('.dock-item'));
+            dockItems.forEach(item => {
+                const label = item.querySelector('.dock-label');
+                if (label) {
+                    item.addEventListener('mouseenter', () => {
+                        const rect = item.getBoundingClientRect();
+                        label.style.top = `${rect.top + rect.height / 2 - 100}px`; /* 100px up from center */
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

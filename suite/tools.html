@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+        /* Back Tile Styles */
+        .back-tile {
+            position: absolute;
+            top: 0;
+            left: 260px;
+            bottom: 0;
+            width: 230px;
+            background: #ffffff;
+            z-index: 998;
+            border-radius: 20px 0 0 20px;
+            overflow: visible;
+        }
+
+        /* Secondary Sidebar Styles */
+        .secondary-sidebar {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Open Sans', sans-serif;
+            background: #ffffff;
+            transform: translateX(-250px);
+        }
+
+        .secondary-sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .secondary-sidebar-brand {
+            font-weight: 700;
+            font-size: 16px;
+            color: #000000;
+            letter-spacing: -0.02em;
+        }
+
+        .secondary-sidebar-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-sidebar-icon svg {
+            color: #6b7280;
+        }
+
+        .secondary-sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .secondary-sidebar-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .secondary-nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-back:hover {
+            color: #000000;
+            background-color: #f9fafb;
+        }
+
+        .secondary-nav-back i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .secondary-nav-list {
+            margin-top: 8px;
+        }
+
+        .secondary-nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            color: #000000;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-radius 0.2s;
+            position: relative;
+            border-radius: 8px;
+            margin: 0 8px;
+        }
+
+        .secondary-nav-item:hover {
+            background-color: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-item.active {
+            background-color: #f3f4f6;
+            border-radius: 8px;
+        }
+
+        .secondary-nav-item i {
+            width: 14px;
+            height: 14px;
+            color: #6b7280;
+        }
+
+        .secondary-sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .secondary-sidebar-footer svg {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .secondary-sidebar-footer svg:hover {
+            color: #000000;
+        }
+
+        /* Adjust front tile to account for back tile */
+        .front-tile {
+            left: 270px;
+        }
+
+        /* Scale down content proportionally */
+        .front-tile-container {
+            transform: scale(0.85);
+            transform-origin: top left;
+            width: 117.65%;
+        }
+
+        /* Hide all scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        body::-webkit-scrollbar,
+        html::-webkit-scrollbar,
+        main::-webkit-scrollbar,
+        .dashboard-main::-webkit-scrollbar,
+        .front-tile::-webkit-scrollbar,
+        .front-tile-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Tools Content Styles */
+        .tools-content-section {
+            padding: 60px 40px 40px;
+        }
+
+        .tools-header {
+            margin-bottom: 40px;
+        }
+
+        .tools-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .tools-subtitle {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .tool-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .tool-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .tool-icon i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .tool-info {
+            flex: 1;
+        }
+
+        .tool-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .tool-category {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .tool-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tool-action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: #f3f4f6;
+            color: #6b7280;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .tool-action-btn:hover {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .tool-description {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .tool-stats {
+            display: flex;
+            gap: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .tool-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .tool-stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* Dock Styles */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px 20px 20px 20px;
+            z-index: 10000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: auto;
+            height: fit-content;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            box-sizing: border-box;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            box-sizing: border-box;
+            aspect-ratio: 1 / 1;
+        }
+
+        .dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            box-sizing: border-box;
+            aspect-ratio: 1 / 1;
+        }
+
+        .dock-item:hover .dock-icon {
+            transform: scale(1.1);
+        }
+
+        .dock-item.active .dock-icon {
+            border: 2px solid #3b82f6;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        .dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .dock-item.active::after {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+        }
+
+        .dock-item.active::before {
+            display: none !important;
+            content: none !important;
+            background: none !important;
+        }
+
+        .dock-item.active img {
+            box-shadow: none !important;
+        }
+
+        .dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .dock-icon i,
+        .dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dock-item.active .dock-icon i,
+        .dock-item.active .dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .dock-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .dock-item.chats .dock-icon {
+            background: #ffffff;
+        }
+        
+        /* Style work.2.png (Teams) icon */
+        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent;
+        }
+        
+        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
+            clip-path: inset(6%);
+            filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon {
+            border: 2px solid #3b82f6;
+            background: #ffffff !important;
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
+            filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
+        }
+        
+        /* Style Oceanbase icon */
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon {
+            background: #ffffff !important;
+            border: 2px solid transparent !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+        
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon img {
+            transform: translate(-50%, -50%) scale(1.2);
+            filter: grayscale(100%);
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]):active .dock-icon img {
+            filter: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon {
+            border: 2px solid #3b82f6 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            border-radius: 12px !important;
+        }
+
+        /* Adjust dashboard main to account for bottom nav */
+        .dashboard-main {
+            padding-bottom: 90px;
+        }
+
+        /* Header Bar Styles */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i,
+        .header-action-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* Apps Dropdown Styles */
+        .apps-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .apps-dropdown.active {
+            display: block;
+        }
+
+        .apps-section {
+            padding: 16px 20px;
+        }
+
+        .apps-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 12px 0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .app-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            background: #f3f4f6;
+        }
+
+        .app-icon i {
+            width: 20px;
+            height: 20px;
+            color: #374151;
+        }
+
+        .app-name {
+            font-size: 12px;
+            color: #374151;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        /* Notifications Dropdown Styles */
+        .notifications-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            max-height: 500px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .notifications-dropdown.active {
+            display: block;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .notifications-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .notifications-clear-all {
+            font-size: 14px;
+            color: #2563eb;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .notifications-clear-all:hover {
+            color: #1d4ed8;
+        }
+
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .notification-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-icon.success {
+            background: #10b981;
+        }
+
+        .notification-icon.info {
+            background: #3b82f6;
+        }
+
+        .notification-icon i {
+            width: 20px;
+            height: 20px;
+            color: #ffffff;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .notification-description {
+            font-size: 13px;
+            color: #6b7280;
+            margin: 0 0 4px 0;
+            line-height: 1.4;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+
+        /* Account Dropdown Styles */
+        .account-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 280px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .account-dropdown.active {
+            display: block;
+        }
+
+        .account-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 2px 0;
+        }
+
+        .account-email {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .account-menu {
+            padding: 8px 0;
+        }
+
+        .account-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #374151;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .account-menu-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .account-menu-item i {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+        }
+
+        .account-menu-item span {
+            font-size: 14px;
+        }
+
+        .account-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 8px 0;
+        }
+
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px;
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        /* Adjust dashboard main to account for sidebar and header */
+        .dashboard-main {
+            margin-left: 200px !important;
+            margin-top: 65px !important;
+            padding-bottom: 90px;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">Tools</div>
+        <div class="header-logo">
+            <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
+        </div>
+        <div class="header-actions">
+            <button class="header-action-btn" id="appsDropdownBtn">
+                <i data-lucide="grid-3x3"></i>
+                <span>App's</span>
+            </button>
+            <div class="apps-dropdown" id="appsDropdown">
+                <div class="apps-section">
+                    <h4 class="apps-section-title">more App's</h4>
+                    <div class="apps-grid">
+                        <div class="app-item" onclick="window.location.href='home.html'">
+                            <div class="app-icon">
+                                <i data-lucide="home"></i>
+                            </div>
+                            <p class="app-name">Home</p>
+                        </div>
+                        <div class="app-item" onclick="window.location.href='Operation.html'">
+                            <div class="app-icon">
+                                <i data-lucide="hard-hat"></i>
+                            </div>
+                            <p class="app-name">Operation</p>
+                        </div>
+                        <div class="app-item" onclick="window.location.href='work.html'">
+                            <div class="app-icon">
+                                <i data-lucide="users"></i>
+                            </div>
+                            <p class="app-name">Teams</p>
+                        </div>
+                        <div class="app-item" onclick="window.location.href='Agents.html'">
+                            <div class="app-icon">
+                                <i data-lucide="cpu"></i>
+                            </div>
+                            <p class="app-name">Agents</p>
+                        </div>
+                        <div class="app-item" onclick="window.location.href='Kreative.html'">
+                            <div class="app-icon">
+                                <i data-lucide="palette"></i>
+                            </div>
+                            <p class="app-name">Kreative</p>
+                        </div>
+                        <div class="app-item" onclick="window.location.href='tools.html'">
+                            <div class="app-icon">
+                                <i data-lucide="pocket-knife"></i>
+                            </div>
+                            <p class="app-name">Tools</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="header-action-btn" id="bellDropdownBtn">
+                <i data-lucide="bell"></i>
+            </button>
+            <div class="notifications-dropdown" id="bellDropdown">
+                <div class="notifications-header">
+                    <h3 class="notifications-title">Notifications</h3>
+                    <a href="#" class="notifications-clear-all" id="clearAllBellNotifications">Clear All</a>
+                </div>
+                <div class="notifications-list">
+                    <div class="notification-item">
+                        <div class="notification-icon success">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <h4 class="notification-title">System Update</h4>
+                            <p class="notification-description">Your data has been backed up successfully</p>
+                            <p class="notification-time">10d ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="header-action-btn" id="accountDropdownBtn">
+                <i data-lucide="user"></i>
+            </button>
+            <div class="account-dropdown" id="accountDropdown">
+                <div class="account-header">
+                    <div class="account-avatar">JD</div>
+                    <div class="account-info">
+                        <h4 class="account-name">John Doe</h4>
+                        <p class="account-email">john.doe@example.com</p>
+                    </div>
+                </div>
+                <div class="account-menu">
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="user"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="settings"></i>
+                        <span>Settings</span>
+                    </a>
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="credit-card"></i>
+                        <span>Billing</span>
+                    </a>
+                    <div class="account-divider"></div>
+                    <a href="#" class="account-menu-item">
+                        <i data-lucide="log-out"></i>
+                        <span>Sign out</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item active">
+                <span>All Tools</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Development</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Design</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Analytics</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Utilities</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+        </div>
+        
+        <!-- Back Tile (Secondary Sidebar) -->
+        <div class="back-tile">
+            <div class="secondary-sidebar">
+                <div class="secondary-sidebar-header">
+                    <div class="secondary-sidebar-brand">Tools</div>
+                    <div class="secondary-sidebar-icon">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-nav">
+                    <div class="secondary-nav-list">
+                        <div class="secondary-nav-back">
+                            <span>Tools</span>
+                        </div>
+                        <div class="secondary-nav-item active">
+                            <span>All Tools</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Development</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Design</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Analytics</span>
+                        </div>
+                        <div class="secondary-nav-item">
+                            <span>Utilities</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="secondary-sidebar-footer">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Front Tile -->
+        <div class="front-tile">
+            <div class="front-tile-container">
+                <div class="top-right-bar">
+                    <div class="top-right-actions">
+                        <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
+                            <i data-lucide="grid"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                            <i data-lucide="bell"></i>
+                        </button>
+                        <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                            <i data-lucide="user-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="tools-content-section">
+                    <div class="tools-header">
+                        <h1 class="tools-title">Development Tools</h1>
+                        <p class="tools-subtitle">Access and manage your development tools and utilities</p>
+                    </div>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="code"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Code Editor</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Advanced code editor with syntax highlighting, auto-completion, and debugging support.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v2.1.0</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="database"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Database Manager</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Manage databases, run queries, and monitor performance with our database management tool.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v1.8.5</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="git-branch"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Version Control</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Git integration and version control tools for managing your codebase and collaboration.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v3.0.2</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="test-tube"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Testing Suite</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Comprehensive testing framework for unit, integration, and end-to-end testing.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v1.5.3</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="package"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Package Manager</div>
+                                    <div class="tool-category">Utilities</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Manage dependencies, install packages, and handle version conflicts efficiently.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v2.4.1</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="bar-chart"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Analytics Dashboard</div>
+                                    <div class="tool-category">Analytics</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Real-time analytics and performance monitoring for your applications and services.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v4.2.0</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Dock -->
+    <div class="dock-container">
+        <div class="dock" id="dock">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <div class="dock-icon">
+                    <i data-lucide="home"></i>
+                </div>
+                <div class="dock-label">Home</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='operation.html'">
+                <div class="dock-icon">
+                    <i data-lucide="hard-hat"></i>
+                </div>
+                <div class="dock-label">Operation</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <div class="dock-icon">
+                    <img src="../Logo's/work.2.png" alt="Teams">
+                </div>
+                <div class="dock-label">Teams</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <div class="dock-icon">
+                    <i data-lucide="cpu"></i>
+                </div>
+                <div class="dock-label">Agents</div>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='Tools.html'">
+                <div class="dock-icon">
+                    <i data-lucide="pocket-knife"></i>
+                </div>
+                <div class="dock-label">Tools</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+                <div class="dock-icon">
+                    <i data-lucide="focus"></i>
+                </div>
+                <div class="dock-label">Campaigns</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
+                <div class="dock-icon">
+                    <img src="../Logo's/Oceanbase.1.jpg" alt="Database">
+                </div>
+                <div class="dock-label">Oceanbase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+                <div class="dock-icon">
+                    <i data-lucide="container"></i>
+                </div>
+                <div class="dock-label">Online Assets</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <div class="dock-icon">
+                    <i data-lucide="folder-tree"></i>
+                </div>
+                <div class="dock-label">Filebase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='financial.html'">
+                <div class="dock-icon">
+                    <i data-lucide="landmark"></i>
+                </div>
+                <div class="dock-label">Financials</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Circle in bottom right corner -->
+    <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
+        <img src="../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    </div>
+    </main>
+
+    <script>
+        // Dock magnification effect with smoother animations
+        const dock = document.getElementById('dock');
+        const dockItems = Array.from(dock.querySelectorAll('.dock-item'));
+        
+        let mouseX = Infinity;
+        let isHovered = false;
+        const distance = 150;
+        const magnification = 56;
+        const defaultSize = 40;
+        let animationFrameId = null;
+        let lastUpdateTime = 0;
+        const throttleMs = 16;
+
+        // Smooth easing function
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+
+        function updateDockItems() {
+            const now = performance.now();
+            if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                return;
+            }
+            lastUpdateTime = now;
+
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+
+            animationFrameId = requestAnimationFrame(() => {
+                dockItems.forEach((item) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemCenterX = rect.left + rect.width / 2;
+                    const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                    
+                    if (isHovered && distanceFromMouse < distance) {
+                        const normalizedDistance = distanceFromMouse / distance;
+                        const easedDistance = easeOutCubic(1 - normalizedDistance);
+                        const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                        const newSize = defaultSize * scale;
+                        item.style.width = `${newSize}px`;
+                        item.style.height = `${newSize}px`;
+                    } else {
+                        item.style.width = `${defaultSize}px`;
+                        item.style.height = `${defaultSize}px`;
+                    }
+                });
+            });
+        }
+
+        dock.addEventListener('mousemove', (e) => {
+            isHovered = true;
+            mouseX = e.pageX;
+            updateDockItems();
+        });
+
+        dock.addEventListener('mouseleave', () => {
+            isHovered = false;
+            mouseX = Infinity;
+            dockItems.forEach((item) => {
+                item.style.width = `${defaultSize}px`;
+                item.style.height = `${defaultSize}px`;
+            });
+        });
+
+        // Continuous smooth updates
+        function smoothUpdate() {
+            if (isHovered) {
+                updateDockItems();
+            }
+            requestAnimationFrame(smoothUpdate);
+        }
+        smoothUpdate();
+
+        // Initialize Lucide icons and ensure images load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+
+            // Force reload images to ensure they display and apply styles
+            const dockImages = document.querySelectorAll('.dock-icon img');
+            dockImages.forEach(img => {
+                if (img.src) {
+                    // Force reload
+                    const originalSrc = img.src;
+                    img.src = '';
+                    img.src = originalSrc;
+                    
+                    // Ensure visibility
+                    img.style.display = 'block';
+                    img.style.opacity = '1';
+                    img.style.visibility = 'visible';
+                    
+                    // Apply specific styles based on image
+                    const alt = img.alt || '';
+                    const src = img.src || '';
+                    
+                    if (src.includes('work.2.png') || alt === 'Teams') {
+                        img.style.clipPath = 'inset(6%)';
+                        img.style.filter = 'brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)';
+                    } else if (src.includes('Kreative.png') || alt === 'Kreative') {
+                        img.style.filter = 'brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)';
+                    } else if (src.includes('Oceanbase') || alt === 'Database') {
+                        img.style.filter = 'grayscale(100%)';
+                        img.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                    }
+                }
+            });
+            
+            // Apply styles to dock icons containing images
+            const dockIconsWithImages = document.querySelectorAll('.dock-icon:has(img)');
+            dockIconsWithImages.forEach(icon => {
+                icon.style.background = '#ffffff';
+                icon.style.border = '2px solid transparent';
+            });
+
+            // Dropdown hover functionality
+            function setupDropdownHover(buttonId, dropdownId, clearAllBtnId = null) {
+                const button = document.getElementById(buttonId);
+                const dropdown = document.getElementById(dropdownId);
+                
+                if (button && dropdown) {
+                    let hoverTimeout;
+                    
+                    // Show dropdown on hover
+                    button.addEventListener('mouseenter', () => {
+                        clearTimeout(hoverTimeout);
+                        dropdown.classList.add('active');
+                        // Reinitialize icons after showing
+                        if (window.lucide) {
+                            setTimeout(() => lucide.createIcons(), 50);
+                        }
+                    });
+                    
+                    // Keep dropdown open when hovering over it
+                    dropdown.addEventListener('mouseenter', () => {
+                        clearTimeout(hoverTimeout);
+                        dropdown.classList.add('active');
+                    });
+                    
+                    // Hide dropdown when mouse leaves button or dropdown
+                    const hideDropdown = () => {
+                        hoverTimeout = setTimeout(() => {
+                            dropdown.classList.remove('active');
+                        }, 150); // Small delay to prevent flickering
+                    };
+                    
+                    button.addEventListener('mouseleave', hideDropdown);
+                    dropdown.addEventListener('mouseleave', hideDropdown);
+                    
+                    // Clear all notifications handler
+                    if (clearAllBtnId) {
+                        const clearAllBtn = document.getElementById(clearAllBtnId);
+                        if (clearAllBtn) {
+                            clearAllBtn.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                const notificationsList = dropdown.querySelector('.notifications-list');
+                                if (notificationsList) {
+                                    notificationsList.innerHTML = '<div style="padding: 20px; text-align: center; color: #6b7280;">No notifications</div>';
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            // Setup dropdowns
+            setupDropdownHover('appsDropdownBtn', 'appsDropdown');
+            setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
+            setupDropdownHover('accountDropdownBtn', 'accountDropdown');
+        });
+    </script>
+</body>
+</html>

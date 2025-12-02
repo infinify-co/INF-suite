@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserved Handles - Internal - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
+        /* Internal Section Styles */
+        .internal-section {
+            display: block;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+
+        .top-left-heading {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 32px;
+        }
+
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px;
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .main-sidebar.modal-open {
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        /* Adjust dashboard main to account for sidebar and header */
+        .dashboard-main {
+            margin: 0 !important;
+            margin-left: 200px !important;
+            margin-top: 65px !important;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            background: #ffffff !important;
+            min-height: calc(100vh - 65px) !important;
+            max-width: calc(100% - 200px) !important;
+            width: calc(100% - 200px) !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* Bottom Dock Styles */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 20px 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bottom-dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .bottom-dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon {
+            border: 2px solid #3b82f6;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        .bottom-dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .bottom-dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .bottom-dock-icon i,
+        .bottom-dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon i,
+        .bottom-dock-item.active .bottom-dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .bottom-dock-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Page Header */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        /* Database Table Styles */
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .table-search {
+            position: relative;
+            max-width: 400px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .table-search input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Open Sans', sans-serif;
+            color: #111827;
+            background: #ffffff;
+            transition: all 0.2s;
+        }
+
+        .table-search input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .table-search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            width: 18px;
+            height: 18px;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            padding: 10px 16px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-primary i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .handles-table-container {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .handles-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .handles-table thead {
+            background: #f9fafb;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .handles-table th {
+            padding: 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .handles-table tbody tr {
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+
+        .handles-table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .handles-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .handles-table td {
+            padding: 16px;
+            font-size: 14px;
+            color: #111827;
+            vertical-align: middle;
+        }
+
+        .handle-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            background: #f3f4f6;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.reserved {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.available {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Three Dots Menu */
+        .menu-button {
+            position: relative;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            color: #6b7280;
+        }
+
+        .menu-button:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .menu-button i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .menu-dropdown {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 4px);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            z-index: 1000;
+            display: none;
+            overflow: hidden;
+        }
+
+        .menu-dropdown.show {
+            display: block;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #111827;
+            cursor: pointer;
+            transition: background 0.2s;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .menu-item:hover {
+            background: #f9fafb;
+        }
+
+        .menu-item i {
+            width: 16px;
+            height: 16px;
+            color: #6b7280;
+        }
+
+        .menu-item.danger {
+            color: #dc2626;
+        }
+
+        .menu-item.danger:hover {
+            background: #fef2f2;
+        }
+
+        .menu-item.danger i {
+            color: #dc2626;
+        }
+
+        /* Reserve Handle Modal/Card */
+        .reserve-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .reserve-modal.show {
+            display: flex;
+        }
+
+        .reserve-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .reserve-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .reserve-card-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .close-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            color: #6b7280;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-button:hover {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .close-button i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Open Sans', sans-serif;
+            color: #111827;
+            background: #ffffff;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 6px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-submit {
+            padding: 12px 24px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+        }
+
+        .btn-submit:hover {
+            background: #2563eb;
+        }
+
+        .handle-preview {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            background: #f3f4f6;
+            margin-top: 8px;
+        }
+
+        /* Success Notification Card */
+        .success-notification {
+            position: fixed;
+            top: 80px;
+            right: 40px;
+            background: #ffffff;
+            border: 1px solid #d1fae5;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        .success-notification.show {
+            display: flex;
+        }
+
+        .success-notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #d1fae5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .success-notification-icon i {
+            width: 24px;
+            height: 24px;
+            color: #065f46;
+        }
+
+        .success-notification-content {
+            flex: 1;
+        }
+
+        .success-notification-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .success-notification-message {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .success-notification.hiding {
+            animation: slideOutRight 0.3s ease-in forwards;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">Reserved Handles</div>
+        <div class="header-logo">
+            <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="home.html" class="header-logo-text">INFINIFY INTERNAL</a>
+        </div>
+        <div class="header-actions">
+            <button class="header-action-btn" onclick="window.location.href='../suite/home.html'">
+                <i data-lucide="arrow-left"></i>
+                <span>Back to Suite</span>
+            </button>
+            <button class="header-action-btn">
+                <i data-lucide="settings"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item" onclick="window.location.href='users.html'">
+                <span>All Users</span>
+            </div>
+            <div class="sidebar-nav-item active">
+                <span>Reserved handles</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Pending Invites</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>User Roles</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Permissions</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="internal-section">
+            <div class="top-left-heading">Reserved Handles</div>
+            
+            <!-- Table Controls -->
+            <div class="table-controls">
+                <div class="table-search">
+                    <i data-lucide="search" class="table-search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search handles..." autocomplete="off">
+                </div>
+                <div class="table-actions">
+                    <button class="btn-primary" onclick="openReserveModal()">
+                        <i data-lucide="plus"></i>
+                        <span>Reserve Handle</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Handles Table -->
+            <div class="handles-table-container">
+                <table class="handles-table" id="handlesTable">
+                    <thead>
+                        <tr>
+                            <th>Handle</th>
+                            <th>Reserved By</th>
+                            <th>Reserved Date</th>
+                            <th>Status</th>
+                            <th>Expires</th>
+                            <th style="width: 50px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table rows will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reserve Handle Modal -->
+        <div class="reserve-modal" id="reserveModal">
+            <div class="reserve-card">
+                <div class="reserve-card-header">
+                    <h2 class="reserve-card-title">Reserve Handle</h2>
+                    <button class="close-button" onclick="closeReserveModal()">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <form id="reserveForm" onsubmit="handleReserveSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="handleInput">Handle</label>
+                        <input 
+                            type="text" 
+                            id="handleInput" 
+                            class="form-input" 
+                            placeholder="e.g., nike (without @)"
+                            required
+                            pattern="[a-zA-Z0-9_]+"
+                            oninput="updateHandlePreview(this.value)"
+                        >
+                        <div class="form-hint">Only letters, numbers, and underscores allowed. The @ symbol will be added automatically.</div>
+                        <div id="handlePreview" class="handle-preview" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reservedByInput">Reserved By</label>
+                        <input 
+                            type="text" 
+                            id="reservedByInput" 
+                            class="form-input" 
+                            placeholder="e.g., Nike Inc."
+                            required
+                        >
+                        <div class="form-hint">The name of the person or organization reserving this handle.</div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeReserveModal()">Cancel</button>
+                        <button type="submit" class="btn-submit">Reserve Handle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Notification -->
+        <div class="success-notification" id="successNotification">
+            <div class="success-notification-icon">
+                <i data-lucide="check"></i>
+            </div>
+            <div class="success-notification-content">
+                <div class="success-notification-title">Handle Saved</div>
+                <div class="success-notification-message">The handle has been saved</div>
+            </div>
+        </div>
+
+        <!-- Circle in bottom right corner -->
+        <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
+            <img src="../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+    </main>
+
+    <!-- Bottom Dock -->
+    <div class="dock-container">
+        <div class="dock" id="bottomDock">
+            <div class="bottom-dock-item" onclick="window.location.href='home.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="layout-dashboard"></i>
+                </div>
+                <div class="bottom-dock-label">Dashboard</div>
+            </div>
+            <div class="bottom-dock-item active" onclick="window.location.href='users.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="user-pen"></i>
+                </div>
+                <div class="bottom-dock-label">Users</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='security.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="shield-check"></i>
+                </div>
+                <div class="bottom-dock-label">Security</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='analytics.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <div class="bottom-dock-label">Analytics</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='logs.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="file-text"></i>
+                </div>
+                <div class="bottom-dock-label">Logs</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='settings.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="settings"></i>
+                </div>
+                <div class="bottom-dock-label">Settings</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='client-Assets.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="cuboid"></i>
+                </div>
+                <div class="bottom-dock-label">Client Assets</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='database.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="database"></i>
+                </div>
+                <div class="bottom-dock-label">Database</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample reserved handles data
+        const handlesData = [
+            { 
+                id: 1,
+                handle: '@admin', 
+                reservedBy: 'System',
+                reservedDate: 'January 1, 2020',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 2,
+                handle: '@support', 
+                reservedBy: 'System',
+                reservedDate: 'January 1, 2020',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 3,
+                handle: '@help', 
+                reservedBy: 'System',
+                reservedDate: 'January 1, 2020',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 4,
+                handle: '@info', 
+                reservedBy: 'System',
+                reservedDate: 'January 1, 2020',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 5,
+                handle: '@nike', 
+                reservedBy: 'Nike Inc.',
+                reservedDate: 'January 15, 2020',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 6,
+                handle: '@apple', 
+                reservedBy: 'Apple Inc.',
+                reservedDate: 'March 22, 2021',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 7,
+                handle: '@microsoft', 
+                reservedBy: 'Microsoft Corp.',
+                reservedDate: 'June 10, 2019',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 8,
+                handle: '@amazon', 
+                reservedBy: 'Amazon Inc.',
+                reservedDate: 'August 5, 2020',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 9,
+                handle: '@google', 
+                reservedBy: 'Google LLC',
+                reservedDate: 'February 1, 2018',
+                status: 'reserved',
+                expires: 'Never'
+            },
+            { 
+                id: 10,
+                handle: '@tesla', 
+                reservedBy: 'Tesla Inc.',
+                reservedDate: 'November 20, 2023',
+                status: 'reserved',
+                expires: 'Never'
+            }
+        ];
+
+        let filteredData = [...handlesData];
+        let activeMenuId = null;
+
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            renderTable(filteredData);
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.menu-button') && !e.target.closest('.menu-dropdown')) {
+                    closeAllMenus();
+                }
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const tableBody = document.getElementById('tableBody');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                filteredData = [...handlesData];
+            } else {
+                filteredData = handlesData.filter(handle => {
+                    const handleName = handle.handle.toLowerCase();
+                    const reservedBy = handle.reservedBy.toLowerCase();
+                    return handleName.includes(searchTerm) || 
+                           reservedBy.includes(searchTerm);
+                });
+            }
+            
+            renderTable(filteredData);
+        });
+
+        function renderTable(data) {
+            if (data.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 48px; color: #6b7280;">
+                            No reserved handles found matching your search.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            // Sort data by reserved date (newest first)
+            const sortedData = [...data].sort((a, b) => {
+                // Parse dates for comparison
+                const dateA = new Date(a.reservedDate);
+                const dateB = new Date(b.reservedDate);
+                return dateB - dateA; // Newest first
+            });
+
+            tableBody.innerHTML = sortedData.map(handle => `
+                <tr>
+                    <td>
+                        <span class="handle-badge">${handle.handle}</span>
+                    </td>
+                    <td>
+                        <span style="font-weight: 500; color: #111827;">${handle.reservedBy}</span>
+                    </td>
+                    <td>
+                        <span style="color: #6b7280; font-size: 13px;">${handle.reservedDate}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${handle.status}">${handle.status}</span>
+                    </td>
+                    <td>
+                        <span style="color: #6b7280; font-size: 13px;">${handle.expires}</span>
+                    </td>
+                    <td>
+                        <div style="position: relative;">
+                            <button class="menu-button" onclick="toggleMenu(${handle.id}, event)">
+                                <i data-lucide="more-vertical"></i>
+                            </button>
+                            <div class="menu-dropdown" id="menu-${handle.id}">
+                                <button class="menu-item" onclick="handleAction('view', ${handle.id})">
+                                    <i data-lucide="eye"></i>
+                                    <span>View Details</span>
+                                </button>
+                                <button class="menu-item" onclick="handleAction('edit', ${handle.id})">
+                                    <i data-lucide="edit"></i>
+                                    <span>Edit Reservation</span>
+                                </button>
+                                <button class="menu-item" onclick="handleAction('release', ${handle.id})">
+                                    <i data-lucide="unlock"></i>
+                                    <span>Release Handle</span>
+                                </button>
+                                <button class="menu-item danger" onclick="handleAction('delete', ${handle.id})">
+                                    <i data-lucide="trash-2"></i>
+                                    <span>Delete Reservation</span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Re-initialize Lucide icons for new elements
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function toggleMenu(handleId, event) {
+            event.stopPropagation();
+            const menu = document.getElementById(`menu-${handleId}`);
+            
+            // Close all other menus
+            if (activeMenuId !== handleId) {
+                closeAllMenus();
+            }
+            
+            // Toggle current menu
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                activeMenuId = null;
+            } else {
+                menu.classList.add('show');
+                activeMenuId = handleId;
+            }
+        }
+
+        function closeAllMenus() {
+            document.querySelectorAll('.menu-dropdown').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            activeMenuId = null;
+        }
+
+        function handleAction(action, handleId) {
+            closeAllMenus();
+            const handle = handlesData.find(h => h.id === handleId);
+            
+            switch(action) {
+                case 'view':
+                    alert(`View details for: ${handle.handle}`);
+                    break;
+                case 'edit':
+                    alert(`Edit reservation for: ${handle.handle}`);
+                    break;
+                case 'release':
+                    if (confirm(`Are you sure you want to release ${handle.handle}?`)) {
+                        handle.status = 'available';
+                        renderTable(filteredData);
+                    }
+                    break;
+                case 'delete':
+                    if (confirm(`Are you sure you want to delete the reservation for ${handle.handle}? This action cannot be undone.`)) {
+                        const index = handlesData.findIndex(h => h.id === handleId);
+                        if (index > -1) {
+                            handlesData.splice(index, 1);
+                            filteredData = filteredData.filter(h => h.id !== handleId);
+                            renderTable(filteredData);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        // Reserve Handle Modal Functions
+        function openReserveModal() {
+            const modal = document.getElementById('reserveModal');
+            const sidebar = document.querySelector('.main-sidebar');
+            modal.classList.add('show');
+            if (sidebar) {
+                sidebar.classList.add('modal-open');
+            }
+            document.getElementById('reserveForm').reset();
+            document.getElementById('handlePreview').style.display = 'none';
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeReserveModal() {
+            const modal = document.getElementById('reserveModal');
+            const sidebar = document.querySelector('.main-sidebar');
+            modal.classList.remove('show');
+            if (sidebar) {
+                sidebar.classList.remove('modal-open');
+            }
+        }
+
+        function updateHandlePreview(value) {
+            const preview = document.getElementById('handlePreview');
+            if (value.trim()) {
+                const cleanValue = value.replace(/[^a-zA-Z0-9_]/g, '');
+                preview.textContent = `@${cleanValue}`;
+                preview.style.display = 'inline-flex';
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
+        function handleReserveSubmit(event) {
+            event.preventDefault();
+            
+            const handleInput = document.getElementById('handleInput');
+            const reservedByInput = document.getElementById('reservedByInput');
+            
+            const handle = handleInput.value.trim().replace(/[^a-zA-Z0-9_]/g, '');
+            const reservedBy = reservedByInput.value.trim();
+            
+            if (!handle) {
+                alert('Please enter a valid handle.');
+                return;
+            }
+            
+            if (!reservedBy) {
+                alert('Please enter who is reserving this handle.');
+                return;
+            }
+            
+            // Check if handle already exists
+            const handleWithAt = `@${handle}`;
+            const exists = handlesData.some(h => h.handle.toLowerCase() === handleWithAt.toLowerCase());
+            
+            if (exists) {
+                alert(`The handle ${handleWithAt} is already reserved.`);
+                return;
+            }
+            
+            // Add new handle to the beginning of the array (newest first)
+            const newHandle = {
+                id: handlesData.length > 0 ? Math.max(...handlesData.map(h => h.id)) + 1 : 1,
+                handle: handleWithAt,
+                reservedBy: reservedBy,
+                reservedDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                status: 'reserved',
+                expires: 'Never'
+            };
+            
+            handlesData.unshift(newHandle);
+            filteredData = [...handlesData];
+            renderTable(filteredData);
+            closeReserveModal();
+            
+            // Show success notification
+            showSuccessNotification();
+        }
+
+        function showSuccessNotification() {
+            const notification = document.getElementById('successNotification');
+            notification.classList.add('show');
+            if (window.lucide) lucide.createIcons();
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('hiding');
+                setTimeout(() => {
+                    notification.classList.remove('show', 'hiding');
+                }, 300);
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('reserveModal').addEventListener('click', (e) => {
+            if (e.target.id === 'reserveModal') {
+                closeReserveModal();
+            }
+        });
+
+        // Bottom dock magnification effect
+        const bottomDock = document.getElementById('bottomDock');
+        if (bottomDock) {
+            const bottomDockItems = Array.from(bottomDock.querySelectorAll('.bottom-dock-item'));
+            
+            let mouseX = Infinity;
+            let isHovered = false;
+            const distance = 150;
+            const magnification = 56;
+            const defaultSize = 40;
+            let animationFrameId = null;
+            let lastUpdateTime = 0;
+            const throttleMs = 16;
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function updateBottomDockItems() {
+                const now = performance.now();
+                if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                    return;
+                }
+                lastUpdateTime = now;
+
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+
+                animationFrameId = requestAnimationFrame(() => {
+                    bottomDockItems.forEach((item) => {
+                        const rect = item.getBoundingClientRect();
+                        const itemCenterX = rect.left + rect.width / 2;
+                        const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                        
+                        if (isHovered && distanceFromMouse < distance) {
+                            const normalizedDistance = distanceFromMouse / distance;
+                            const easedDistance = easeOutCubic(1 - normalizedDistance);
+                            const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                            const newSize = defaultSize * scale;
+                            item.style.width = `${newSize}px`;
+                            item.style.height = `${newSize}px`;
+                        } else {
+                            item.style.width = `${defaultSize}px`;
+                            item.style.height = `${defaultSize}px`;
+                        }
+                    });
+                });
+            }
+
+            bottomDock.addEventListener('mousemove', (e) => {
+                isHovered = true;
+                mouseX = e.pageX;
+                updateBottomDockItems();
+            });
+
+            bottomDock.addEventListener('mouseleave', () => {
+                isHovered = false;
+                mouseX = Infinity;
+                bottomDockItems.forEach((item) => {
+                    item.style.width = `${defaultSize}px`;
+                    item.style.height = `${defaultSize}px`;
+                });
+            });
+
+            function smoothUpdate() {
+                if (isHovered) {
+                    updateBottomDockItems();
+                }
+                requestAnimationFrame(smoothUpdate);
+            }
+            smoothUpdate();
+        }
+    </script>
+</body>
+</html>
+

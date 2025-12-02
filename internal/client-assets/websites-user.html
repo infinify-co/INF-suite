@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Websites - Client Assets - Internal - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+
+        .internal-section {
+            display: block;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+        }
+
+        .top-left-heading {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 32px;
+        }
+
+        .user-info {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .user-info-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .user-info-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .user-info-details {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .user-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .user-info-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .user-info-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .websites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .website-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .website-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .website-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .website-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+            flex: 1;
+        }
+
+        .website-status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .website-status-badge.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .website-status-badge.inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .website-status-badge.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .website-card-url {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .website-card-url:hover {
+            color: #2563eb;
+        }
+
+        .website-card-url i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .no-websites {
+            text-align: center;
+            padding: 64px 24px;
+            color: #6b7280;
+        }
+
+        .no-websites-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            color: #d1d5db;
+        }
+
+        .no-websites-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .no-websites-text {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .user-not-found {
+            text-align: center;
+            padding: 64px 24px;
+        }
+
+        .user-not-found-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .user-not-found-text {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px;
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        .dashboard-main {
+            margin: 0 !important;
+            margin-left: 200px !important;
+            margin-top: 65px !important;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            background: #ffffff !important;
+            min-height: calc(100vh - 65px) !important;
+            max-width: calc(100% - 200px) !important;
+            width: calc(100% - 200px) !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 20px 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .bottom-dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .bottom-dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon {
+            border: 2px solid #3b82f6;
+        }
+
+        .bottom-dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .bottom-dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .bottom-dock-item:hover .bottom-dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .bottom-dock-icon i,
+        .bottom-dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bottom-dock-item.active .bottom-dock-icon i,
+        .bottom-dock-item.active .bottom-dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        @media (max-width: 768px) {
+            .websites-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .user-info-details {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">User Websites</div>
+        <div class="header-logo">
+            <img src="../../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="../home.html" class="header-logo-text">INFINIFY INTERNAL</a>
+        </div>
+        <div class="header-actions">
+            <button class="header-action-btn" onclick="window.location.href='../../suite/home.html'">
+                <i data-lucide="arrow-left"></i>
+                <span>Back to Suite</span>
+            </button>
+            <button class="header-action-btn">
+                <i data-lucide="settings"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item" onclick="window.location.href='../client-Assets.html'">
+                <span>Overview</span>
+            </div>
+            <div class="sidebar-nav-item active" onclick="window.location.href='websites.html'">
+                <span>Websites</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="internal-section" id="contentSection">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+        
+        <!-- Circle in bottom right corner -->
+        <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
+            <img src="../../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+    </main>
+
+    <!-- Bottom Dock -->
+    <div class="dock-container">
+        <div class="dock" id="bottomDock">
+            <div class="bottom-dock-item" onclick="window.location.href='../home.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="layout-dashboard"></i>
+                </div>
+                <div class="bottom-dock-label">Dashboard</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='../users.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="user-pen"></i>
+                </div>
+                <div class="bottom-dock-label">Users</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='../security.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="shield-check"></i>
+                </div>
+                <div class="bottom-dock-label">Security</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='../analytics.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <div class="bottom-dock-label">Analytics</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='../logs.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="file-text"></i>
+                </div>
+                <div class="bottom-dock-label">Logs</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='../settings.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="settings"></i>
+                </div>
+                <div class="bottom-dock-label">Settings</div>
+            </div>
+            <div class="bottom-dock-item active" onclick="window.location.href='../client-Assets.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="cuboid"></i>
+                </div>
+                <div class="bottom-dock-label">Client Assets</div>
+            </div>
+            <div class="bottom-dock-item" onclick="window.location.href='../database.html'">
+                <div class="bottom-dock-icon">
+                    <i data-lucide="database"></i>
+                </div>
+                <div class="bottom-dock-label">Database</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample client data - should match the data structure in websites.html
+        const clientsData = [
+            { 
+                username: '@nike', 
+                email: 'contact@nike.com', 
+                websites: [
+                    { name: 'Main Website', url: 'https://nike.com', status: 'active' },
+                    { name: 'Nike Store', url: 'https://store.nike.com', status: 'active' },
+                    { name: 'Nike App', url: 'https://app.nike.com', status: 'active' }
+                ]
+            },
+            { 
+                username: '@apple', 
+                email: 'support@apple.com', 
+                websites: [
+                    { name: 'Apple Homepage', url: 'https://apple.com', status: 'active' },
+                    { name: 'Apple Store', url: 'https://store.apple.com', status: 'active' }
+                ]
+            },
+            { 
+                username: '@microsoft', 
+                email: 'info@microsoft.com', 
+                websites: [
+                    { name: 'Microsoft Corporate', url: 'https://microsoft.com', status: 'active' },
+                    { name: 'Azure Portal', url: 'https://portal.azure.com', status: 'pending' }
+                ]
+            },
+            { 
+                username: '@amazon', 
+                email: 'business@amazon.com', 
+                websites: [
+                    { name: 'Amazon Homepage', url: 'https://amazon.com', status: 'active' },
+                    { name: 'AWS Console', url: 'https://console.aws.amazon.com', status: 'active' },
+                    { name: 'Amazon Business', url: 'https://business.amazon.com', status: 'inactive' }
+                ]
+            },
+            { 
+                username: '@google', 
+                email: 'contact@google.com', 
+                websites: [
+                    { name: 'Google Homepage', url: 'https://google.com', status: 'active' }
+                ]
+            },
+            { 
+                username: '@tesla', 
+                email: 'support@tesla.com', 
+                websites: [
+                    { name: 'Tesla Website', url: 'https://tesla.com', status: 'active' },
+                    { name: 'Tesla Shop', url: 'https://shop.tesla.com', status: 'active' }
+                ]
+            },
+            { 
+                username: '@starbucks', 
+                email: 'customer@starbucks.com', 
+                websites: [
+                    { name: 'Starbucks Homepage', url: 'https://starbucks.com', status: 'active' },
+                    { name: 'Starbucks Rewards', url: 'https://rewards.starbucks.com', status: 'active' }
+                ]
+            },
+            { 
+                username: '@adidas', 
+                email: 'info@adidas.com', 
+                websites: [
+                    { name: 'Adidas Website', url: 'https://adidas.com', status: 'active' },
+                    { name: 'Adidas Store', url: 'https://shop.adidas.com', status: 'active' }
+                ]
+            },
+            { 
+                username: '@netflix', 
+                email: 'support@netflix.com', 
+                websites: [
+                    { name: 'Netflix Homepage', url: 'https://netflix.com', status: 'active' },
+                    { name: 'Netflix Help Center', url: 'https://help.netflix.com', status: 'active' },
+                    { name: 'Netflix Media Center', url: 'https://media.netflix.com', status: 'pending' }
+                ]
+            },
+            { 
+                username: '@spotify', 
+                email: 'contact@spotify.com', 
+                websites: [
+                    { name: 'Spotify Website', url: 'https://spotify.com', status: 'active' }
+                ]
+            }
+        ];
+
+        // Parse username from URL query parameter
+        function getUsernameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('user');
+        }
+
+        // Find client by username (without @)
+        function findClientByUsername(username) {
+            const usernameWithAt = username.startsWith('@') ? username : `@${username}`;
+            return clientsData.find(client => 
+                client.username.toLowerCase() === usernameWithAt.toLowerCase()
+            );
+        }
+
+        // Render user websites page
+        function renderUserWebsites(client) {
+            const contentSection = document.getElementById('contentSection');
+            
+            if (!client) {
+                contentSection.innerHTML = `
+                    <div class="user-not-found">
+                        <h1 class="user-not-found-title">User Not Found</h1>
+                        <p class="user-not-found-text">The requested user could not be found.</p>
+                        <a href="websites.html" class="back-link">
+                            <i data-lucide="arrow-left"></i>
+                            <span>Back to Websites</span>
+                        </a>
+                    </div>
+                `;
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            const websites = client.websites || [];
+            
+            let websitesHTML = '';
+            if (websites.length === 0) {
+                websitesHTML = `
+                    <div class="no-websites">
+                        <i data-lucide="globe" class="no-websites-icon"></i>
+                        <div class="no-websites-title">No Websites</div>
+                        <div class="no-websites-text">This user doesn't have any websites yet.</div>
+                    </div>
+                `;
+            } else {
+                websitesHTML = `
+                    <div class="websites-grid">
+                        ${websites.map(website => `
+                            <div class="website-card" onclick="window.open('${website.url}', '_blank', 'noopener,noreferrer')">
+                                <div class="website-card-header">
+                                    <h3 class="website-card-title">${website.name}</h3>
+                                    <span class="website-status-badge ${website.status}">${website.status}</span>
+                                </div>
+                                <a href="${website.url}" target="_blank" rel="noopener noreferrer" class="website-card-url" onclick="event.stopPropagation()">
+                                    <i data-lucide="external-link"></i>
+                                    <span>${website.url}</span>
+                                </a>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            contentSection.innerHTML = `
+                <div class="top-left-heading">${client.username}'s Websites</div>
+                <div class="user-info">
+                    <div class="user-info-header">
+                        <h2 class="user-info-title">User Information</h2>
+                    </div>
+                    <div class="user-info-details">
+                        <div class="user-info-item">
+                            <span class="user-info-label">Username</span>
+                            <span class="user-info-value">${client.username}</span>
+                        </div>
+                        <div class="user-info-item">
+                            <span class="user-info-label">Email</span>
+                            <span class="user-info-value">${client.email}</span>
+                        </div>
+                        <div class="user-info-item">
+                            <span class="user-info-label">Total Websites</span>
+                            <span class="user-info-value">${websites.length}</span>
+                        </div>
+                    </div>
+                </div>
+                ${websitesHTML}
+            `;
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            const username = getUsernameFromURL();
+            
+            if (!username) {
+                renderUserWebsites(null);
+                return;
+            }
+
+            const client = findClientByUsername(username);
+            renderUserWebsites(client);
+        });
+
+        // Bottom dock magnification effect
+        const bottomDock = document.getElementById('bottomDock');
+        if (bottomDock) {
+            const bottomDockItems = Array.from(bottomDock.querySelectorAll('.bottom-dock-item'));
+            let mouseX = Infinity;
+            let isHovered = false;
+            const distance = 150;
+            const magnification = 56;
+            const defaultSize = 40;
+            let animationFrameId = null;
+            let lastUpdateTime = 0;
+            const throttleMs = 16;
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function updateBottomDockItems() {
+                const now = performance.now();
+                if (now - lastUpdateTime < throttleMs && animationFrameId) {
+                    return;
+                }
+                lastUpdateTime = now;
+
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+
+                animationFrameId = requestAnimationFrame(() => {
+                    bottomDockItems.forEach((item) => {
+                        const rect = item.getBoundingClientRect();
+                        const itemCenterX = rect.left + rect.width / 2;
+                        const distanceFromMouse = Math.abs(mouseX - itemCenterX);
+                        
+                        if (isHovered && distanceFromMouse < distance) {
+                            const normalizedDistance = distanceFromMouse / distance;
+                            const easedDistance = easeOutCubic(1 - normalizedDistance);
+                            const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
+                            const newSize = defaultSize * scale;
+                            item.style.width = `${newSize}px`;
+                            item.style.height = `${newSize}px`;
+                        } else {
+                            item.style.width = `${defaultSize}px`;
+                            item.style.height = `${defaultSize}px`;
+                        }
+                    });
+                });
+            }
+
+            bottomDock.addEventListener('mousemove', (e) => {
+                isHovered = true;
+                mouseX = e.pageX;
+                updateBottomDockItems();
+            });
+
+            bottomDock.addEventListener('mouseleave', () => {
+                isHovered = false;
+                mouseX = Infinity;
+                bottomDockItems.forEach((item) => {
+                    item.style.width = `${defaultSize}px`;
+                    item.style.height = `${defaultSize}px`;
+                });
+            });
+
+            function smoothUpdate() {
+                if (isHovered) {
+                    updateBottomDockItems();
+                }
+                requestAnimationFrame(smoothUpdate);
+            }
+            smoothUpdate();
+        }
+    </script>
+</body>
+</html>
+

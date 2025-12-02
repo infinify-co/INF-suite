@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Legal - Operation - INF Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif !important;
+        }
+        /* Inherit styles from clients.html */
+        /* Header Bar Styles */
+        .page-header {
+            width: 100vw;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            height: auto;
+            min-height: 65px;
+        }
+
+        .page-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+            margin-top: 5px !important;
+            margin-left: -20px;
+            position: relative;
+            top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .header-action-btn {
+            height: 40px;
+            padding: 0 12px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .header-action-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-action-btn i,
+        .header-action-btn svg {
+            width: 16px !important;
+            height: 16px !important;
+            color: #374151;
+        }
+
+        /* Notifications Dropdown Styles */
+        .notifications-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            max-height: 500px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .notifications-dropdown.active {
+            display: block;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .notifications-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .notifications-clear-all {
+            font-size: 14px;
+            color: #2563eb;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .notifications-clear-all:hover {
+            color: #1d4ed8;
+        }
+
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .notification-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-icon.success {
+            background: #10b981;
+        }
+
+        .notification-icon.info {
+            background: #3b82f6;
+        }
+
+        .notification-icon i {
+            width: 20px;
+            height: 20px;
+            color: #ffffff;
+        }
+
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .notification-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 4px 0;
+        }
+
+        .notification-description {
+            font-size: 13px;
+            color: #6b7280;
+            margin: 0 0 4px 0;
+            line-height: 1.4;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #9ca3af;
+            margin: 0;
+        }
+
+        /* Apps Dropdown Styles */
+        .apps-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 380px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .apps-dropdown.active {
+            display: block;
+        }
+
+        .apps-section {
+            padding: 16px 20px;
+        }
+
+        .apps-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 12px 0;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .app-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .app-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            background: #f3f4f6;
+        }
+
+        .app-icon i {
+            width: 20px;
+            height: 20px;
+            color: #374151;
+        }
+
+        .extension-icon-empty {
+            background: #f3f4f6;
+            border: 1px dashed #d1d5db;
+        }
+
+        .extension-icon-empty i {
+            color: #6b7280;
+        }
+
+        .extension-slot {
+            cursor: pointer;
+        }
+
+        .extension-slot:hover .extension-icon-empty {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+        .app-name {
+            font-size: 12px;
+            color: #374151;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .apps-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 0;
+        }
+
+        /* Account Dropdown Styles */
+        .account-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 280px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 1002;
+            display: none;
+            overflow: hidden;
+        }
+
+        .account-dropdown.active {
+            display: block;
+        }
+
+        .account-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0 0 2px 0;
+        }
+
+        .account-email {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .account-menu {
+            padding: 8px 0;
+        }
+
+        .account-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #374151;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+
+        .account-menu-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .account-menu-item i {
+            width: 18px;
+            height: 18px;
+            color: #6b7280;
+        }
+
+        .account-menu-item span {
+            font-size: 14px;
+        }
+
+        .account-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 8px 0;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-logo-image {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000000;
+            text-decoration: none;
+        }
+
+
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 65px; /* Below header */
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item i {
+            display: none;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        /* Dashboard Main */
+        .dashboard-main {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            margin-left: 200px !important;
+            margin-top: 65px !important;
+            position: relative !important;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            min-height: 100vh !important;
+            background: #ffffff !important;
+        }
+
+        /* Dock Styles */
+        .dock-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px 20px 20px;
+            z-index: 1000;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .dock {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            pointer-events: auto;
+            max-width: fit-content;
+            min-height: 64px;
+            overflow-x: auto;
+            overflow-y: visible;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .dock::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dock-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+            will-change: width, height;
+            overflow: visible;
+        }
+
+        .dock-icon {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #ffffff;
+            border: 2px solid transparent;
+        }
+
+        .dock-item:hover .dock-icon {
+            transform: scale(1.1);
+        }
+
+        .dock-item.active .dock-icon {
+            border: 2px solid #3b82f6;
+            box-shadow: none !important;
+            filter: none !important;
+        }
+
+        .dock-item.active {
+            box-shadow: none !important;
+            filter: none !important;
+            background: transparent !important;
+        }
+
+        .dock-item.active::after, .dock-item.active::before {
+            display: none !important;
+        }
+
+        .dock-label {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #374151;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 1001;
+        }
+
+        .dock-item:hover .dock-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+
+        .dock-icon i, .dock-icon svg {
+            width: 60%;
+            height: 60%;
+            color: #374151;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dock-item.active .dock-icon i, .dock-item.active .dock-icon svg {
+            color: #3b82f6;
+        }
+
+        .dock-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* Specific Dock Item Styling */
+        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon { background: #ffffff !important; }
+        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon img { clip-path: inset(6%); filter: brightness(0) saturate(100%) invert(27%); }
+        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon { border: 2px solid #3b82f6; background: #ffffff !important; }
+        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon img { filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1); }
+        
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon { background: #ffffff !important; border-radius: 12px !important; overflow: hidden; }
+        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img { transform: translate(-50%, -50%) scale(1.2); filter: grayscale(100%); }
+        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon { border: 2px solid #3b82f6 !important; }
+        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img { filter: none; }
+
+        /* Hide scrollbars */
+        * { scrollbar-width: none; -ms-overflow-style: none; }
+        *::-webkit-scrollbar { display: none; }
+
+        /* Legal Page Specific Styles */
+        .legal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .legal-search-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 32px auto;
+            position: relative;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 16px 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease;
+        }
+
+        .search-input-wrapper:focus-within {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            border-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .search-icon {
+            color: #9ca3af;
+            width: 20px;
+            height: 20px;
+            margin-right: 16px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            font-size: 16px;
+            outline: none;
+            color: #111827;
+            background: transparent;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .search-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .search-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-chip {
+            padding: 6px 12px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-chip:hover {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .filter-chip.active {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: #2563eb;
+        }
+
+        .legal-filters {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .categories-menu {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
+            display: none;
+            min-width: 180px;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 100;
+        }
+
+        .categories-menu.active {
+            display: flex;
+        }
+
+        .categories-menu button {
+            border: none;
+            background: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 13px;
+            color: #1f2937;
+            cursor: pointer;
+        }
+
+        .categories-menu button:hover {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .categories-trigger {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .category-trigger {
+            border-color: #e5e7eb;
+        }
+
+        .legal-content-block {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 24px;
+            min-height: 400px;
+            margin-top: 24px;
+        }
+
+        .documents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .document-item,
+        .document-item.add-new {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border: 1px solid #f3f4f6;
+            border-radius: 12px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .document-item:hover {
+            background: #f9fafb;
+            border-color: #e5e7eb;
+            transform: translateX(4px);
+        }
+
+        .doc-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .doc-icon {
+            width: 80px;
+            height: 100px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .doc-icon i {
+            font-size: 24px;
+        }
+
+        .doc-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            background: #ffffff;
+        }
+
+        .doc-preview-header {
+            width: 100%;
+            height: 4px;
+            background: #2563eb;
+            border-radius: 2px 2px 0 0;
+            margin-bottom: 4px;
+        }
+
+        .doc-preview-content {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 4px;
+        }
+
+        .doc-preview-line {
+            height: 2px;
+            background: #e5e7eb;
+            border-radius: 1px;
+            width: 100%;
+        }
+
+        .doc-preview-line.short {
+            width: 60%;
+        }
+
+        .doc-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .doc-meta {
+            font-size: 12px;
+            color: #6b7280;
+            display: flex;
+            gap: 12px;
+        }
+
+        .doc-tag {
+            background: #f3f4f6;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .doc-actions {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .document-item:hover .doc-actions {
+            opacity: 1;
+        }
+
+        .action-btn-sm {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            background: #ffffff;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .doc-action-dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 6px;
+            min-width: 140px;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+            z-index: 30;
+        }
+
+        .doc-action-dropdown.active {
+            display: flex;
+        }
+
+        .doc-action-dropdown button {
+            border: none;
+            background: none;
+            padding: 6px 10px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 13px;
+            color: #1f2937;
+        }
+
+        .doc-action-dropdown button:hover {
+            background: #f3f4f6;
+            color: #2563eb;
+        }
+
+        .action-btn-sm:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .action-btn-sm:focus-visible {
+            border-color: transparent;
+            box-shadow: none;
+        }
+        .document-item.add-new {
+            border-style: dashed;
+            border-color: #bfdbfe;
+            background: #eff6ff;
+            justify-content: center;
+            gap: 12px;
+            color: #2563eb;
+        }
+
+        .document-item.add-new:hover {
+            border-color: #93c5fd;
+            background: #e0f2fe;
+            transform: translateX(0);
+        }
+
+        .document-item.add-new i {
+            font-size: 24px;
+        }
+
+        .template-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2100;
+        }
+
+        .template-modal-overlay.active {
+            display: flex;
+        }
+
+        .template-modal {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 32px;
+            width: min(640px, 90vw);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+        }
+
+        .template-modal h3 {
+            margin: 0;
+            font-size: 22px;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .template-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 18px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            background: #ffffff;
+            min-height: 110px;
+        }
+
+        .template-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .template-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            color: #2563eb;
+            flex-shrink: 0;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .template-card-icon i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .template-card h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .template-card p {
+            margin: 0;
+            font-size: 13px;
+            color: #475467;
+        }
+
+        .template-close-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+
+        .template-close-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .add-doc-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .add-doc-btn:hover {
+            background: #1d4ed8;
+        }
+
+    </style>
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#">
+                    <img src="../INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+                </a>
+                <div class="nav-logo-line"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="operation.html" class="nav-link active">Operation</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="icon-btn" title="Chat">
+                    <i data-lucide="message-circle"></i>
+                </button>
+                <button class="icon-btn" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Bar -->
+    <div class="page-header">
+        <div class="page-title">Operation</div>
+        <div class="header-logo">
+            <img src="../INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="../home.html" class="header-logo-text">INFINIFY SUITE</a>
+        </div>
+        <div class="header-actions">
+            <!-- Copied header actions -->
+            <button class="header-action-btn" id="appsDropdownBtn">
+                <i data-lucide="grid-3x3"></i>
+                <span>App's</span>
+            </button>
+            <!-- Apps Dropdown omitted for brevity, would be same as clients.html -->
+            <button class="header-action-btn" id="bellDropdownBtn">
+                <i data-lucide="bell"></i>
+            </button>
+            <button class="header-action-btn" id="accountDropdownBtn">
+                <i data-lucide="user"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item">
+                <a href="operation.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Overview</span>
+                </a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="operation-clients.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Clients</span>
+                </a>
+            </div>
+            <div class="sidebar-nav-item active">
+                <a href="operation-legal.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Your Legal</span>
+                </a>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Atlas</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>GPTs</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="dashboard-container">
+            <!-- Legal Content -->
+            <div class="content-section" id="legal-content">
+                <div class="legal-search-container">
+                    <div class="search-input-wrapper">
+                        <i data-lucide="search" class="search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search for contracts, agreements, or legal advice...">
+                        <div class="search-actions">
+                            <button style="background: none; border: none; color: #6b7280; cursor: pointer;"><i data-lucide="mic"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="legal-filters">
+                        <div class="filter-chip active">All</div>
+                        <div class="filter-chip">Contracts</div>
+                        <div class="filter-chip">Agreements</div>
+                        <div class="filter-chip">Compliance</div>
+                        <div class="filter-chip">IP</div>
+                        <div class="categories-trigger">
+                            <div class="filter-chip category-trigger" onclick="toggleCategories(event)">
+                                <i data-lucide="filter" style="width: 12px; height: 12px;"></i>
+                                Categories
+                            </div>
+                            <div class="categories-menu" id="categoriesMenu">
+                                <button type="button">Contracts</button>
+                                <button type="button">NDA</button>
+                                <button type="button">Compliance</button>
+                                <button type="button">Policies</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legal-content-block">
+                    <div class="documents-list">
+                        <button class="document-item add-new" type="button" onclick="openTemplateModal()">
+                            <i data-lucide="plus"></i>
+                            <span>Add new legal document</span>
+                        </button>
+                        <!-- Sample Document Item 1 -->
+                        <div class="document-item">
+                            <div class="doc-info">
+                                <div class="doc-icon">
+                                    <div class="doc-preview">
+                                        <div class="doc-preview-header"></div>
+                                        <div class="doc-preview-content">
+                                            <div class="doc-preview-line"></div>
+                                            <div class="doc-preview-line short"></div>
+                                            <div class="doc-preview-line"></div>
+                                            <div class="doc-preview-line short"></div>
+                                            <div class="doc-preview-line"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="doc-details">
+                                    <h4>Service Agreement - TechFlow</h4>
+                                    <div class="doc-meta">
+                                        <span>Updated 2 days ago</span>
+                                        <span>•</span>
+                                        <span class="doc-tag">Contract</span>
+                                        <span>•</span>
+                                        <span>Signed</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="doc-actions">
+                                <button class="action-btn-sm" onclick="event.stopPropagation(); toggleDocMenu(this)">
+                                    <i data-lucide="more-horizontal"></i>
+                                </button>
+                                <div class="doc-action-dropdown">
+                                    <button type="button">Manage permissions</button>
+                                    <button type="button">View details</button>
+                                    <button type="button">Add category</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sample Document Item 2 -->
+                        <div class="document-item">
+                            <div class="doc-info">
+                                <div class="doc-icon">
+                                    <div class="doc-preview">
+                                        <div class="doc-preview-header" style="background: #10b981;"></div>
+                                        <div class="doc-preview-content">
+                                            <div class="doc-preview-line"></div>
+                                            <div class="doc-preview-line short"></div>
+                                            <div class="doc-preview-line"></div>
+                                            <div class="doc-preview-line short"></div>
+                                            <div class="doc-preview-line"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="doc-details">
+                                    <h4>NDA - Global Logistics</h4>
+                                    <div class="doc-meta">
+                                        <span>Updated 1 week ago</span>
+                                        <span>•</span>
+                                        <span class="doc-tag">Agreement</span>
+                                        <span>•</span>
+                                        <span>Pending</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="doc-actions">
+                                <button class="action-btn-sm" onclick="event.stopPropagation(); toggleDocMenu(this)">
+                                    <i data-lucide="more-horizontal"></i>
+                                </button>
+                                <div class="doc-action-dropdown">
+                                    <button type="button">Manage permissions</button>
+                                    <button type="button">View details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sample Document Item 3 -->
+                        <div class="document-item">
+                            <div class="doc-info">
+                                <div class="doc-icon">
+                                    <div class="doc-preview">
+                                        <div class="doc-preview-header" style="background: #8b5cf6;"></div>
+                                        <div class="doc-preview-content">
+                                            <div class="doc-preview-line"></div>
+                                            <div class="doc-preview-line short"></div>
+                                            <div class="doc-preview-line"></div>
+                                            <div class="doc-preview-line short"></div>
+                                            <div class="doc-preview-line"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="doc-details">
+                                    <h4>Privacy Policy v2.0</h4>
+                                    <div class="doc-meta">
+                                        <span>Updated 1 month ago</span>
+                                        <span>•</span>
+                                        <span class="doc-tag">Compliance</span>
+                                        <span>•</span>
+                                        <span>Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="doc-actions">
+                                <button class="action-btn-sm" onclick="event.stopPropagation(); toggleDocMenu(this)">
+                                    <i data-lucide="more-horizontal"></i>
+                                </button>
+                                <div class="doc-action-dropdown">
+                                    <button type="button">Manage permissions</button>
+                                    <button type="button">View details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="template-modal-overlay" id="templateModal">
+        <div class="template-modal">
+            <button class="template-close-btn" onclick="closeTemplateModal()">
+                <i data-lucide="x"></i>
+            </button>
+            <h3>Choose a legal document template</h3>
+            <p style="color:#475467; font-size:14px; margin:0;">Pick a starting point so we can pre-populate fields for you.</p>
+            <div class="template-grid">
+                <div class="template-card" onclick="selectTemplate('Contract')">
+                    <div class="template-card-icon">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <h4>Service Agreement</h4>
+                        <p>Contract template for onboarding new partners.</p>
+                    </div>
+                </div>
+                <div class="template-card" onclick="selectTemplate('NDA')">
+                    <div class="template-card-icon">
+                        <i data-lucide="shield"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <h4>Non-Disclosure Agreement</h4>
+                        <p>Standard NDA with mutual confidentiality.</p>
+                    </div>
+                </div>
+                <div class="template-card" onclick="selectTemplate('Compliance')">
+                    <div class="template-card-icon">
+                        <i data-lucide="check-circle"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <h4>Compliance Checklist</h4>
+                        <p>Log key compliance reviews and approvals.</p>
+                    </div>
+                </div>
+                <div class="template-card" onclick="selectTemplate('Privacy')">
+                    <div class="template-card-icon">
+                        <i data-lucide="lock"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <h4>Privacy Policy</h4>
+                        <p>Updated privacy language for data handling.</p>
+                    </div>
+                </div>
+                <div class="template-card" onclick="selectTemplate('IP')">
+                    <div class="template-card-icon">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <h4>IP Assignment</h4>
+                        <p>Document to assign intellectual property rights.</p>
+                    </div>
+                </div>
+                <div class="template-card" onclick="selectTemplate('Subcontractor')">
+                    <div class="template-card-icon">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div style="flex:1;">
+                        <h4>Subcontractor Agreement</h4>
+                        <p>Liability and scope terms for partners.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dock -->
+    <div class="dock-container">
+        <div class="dock" id="dock">
+            <div class="dock-item" onclick="window.location.href='home.html'">
+                <div class="dock-icon">
+                    <i data-lucide="home"></i>
+                </div>
+                <div class="dock-label">Home</div>
+            </div>
+            <div class="dock-item active" onclick="window.location.href='operation.html'">
+                <div class="dock-icon">
+                    <i data-lucide="hard-hat"></i>
+                </div>
+                <div class="dock-label">Operation</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='work.html'">
+                <div class="dock-icon">
+                    <img src="../Logo's/work.2.png" alt="Teams">
+                </div>
+                <div class="dock-label">Teams</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Agents.html'">
+                <div class="dock-icon">
+                    <i data-lucide="cpu"></i>
+                </div>
+                <div class="dock-label">Agents</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Tools.html'">
+                <div class="dock-icon">
+                    <i data-lucide="pocket-knife"></i>
+                </div>
+                <div class="dock-label">Tools</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+                <div class="dock-icon">
+                    <i data-lucide="focus"></i>
+                </div>
+                <div class="dock-label">Campaigns</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
+                <div class="dock-icon">
+                    <img src="../Logo's/Oceanbase.1.jpg" alt="Database">
+                </div>
+                <div class="dock-label">Oceanbase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+                <div class="dock-icon">
+                    <i data-lucide="container"></i>
+                </div>
+                <div class="dock-label">Online Assets</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+                <div class="dock-icon">
+                    <i data-lucide="folder-tree"></i>
+                </div>
+                <div class="dock-label">Filebase</div>
+            </div>
+            <div class="dock-item" onclick="window.location.href='financial.html'">
+                <div class="dock-icon">
+                    <i data-lucide="landmark"></i>
+                </div>
+                <div class="dock-label">Financials</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Circle in bottom right corner -->
+    <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
+        <img src="../sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <script>
+        const templateModal = document.getElementById('templateModal');
+        let openDocDropdown = null;
+
+        function openTemplateModal() {
+            templateModal?.classList.add('active');
+        }
+
+        function closeTemplateModal() {
+            templateModal?.classList.remove('active');
+        }
+
+        function selectTemplate(name) {
+            console.log('Template selected:', name);
+            closeTemplateModal();
+            // TODO: Navigate to builder or prefill form
+        }
+
+        function toggleCategories(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('categoriesMenu');
+            menu?.classList.toggle('active');
+        }
+
+        function toggleDocMenu(button) {
+            const dropdown = button.nextElementSibling;
+            if (!dropdown) return;
+            if (openDocDropdown && openDocDropdown !== dropdown) {
+                openDocDropdown.classList.remove('active');
+            }
+            dropdown.classList.toggle('active');
+            openDocDropdown = dropdown.classList.contains('active') ? dropdown : null;
+        }
+
+        document.addEventListener('click', () => {
+            document.getElementById('categoriesMenu')?.classList.remove('active');
+            if (openDocDropdown) {
+                openDocDropdown.classList.remove('active');
+                openDocDropdown = null;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize Lucide icons
+            if (window.lucide) {
+                lucide.createIcons();
+                setTimeout(() => lucide.createIcons(), 100);
+            }
+
+            // Dock magnification (same as clients.html)
+            const dock = document.getElementById('dock');
+            if (dock) {
+                const dockItems = Array.from(dock.querySelectorAll('.dock-item'));
+                let mouseX = Infinity;
+                let isHovered = false;
+                const defaultSize = 40;
+
+                dock.addEventListener('mousemove', (e) => {
+                    isHovered = true;
+                    mouseX = e.pageX;
+                    updateDockItems();
+                });
+
+                dock.addEventListener('mouseleave', () => {
+                    isHovered = false;
+                    dockItems.forEach(item => {
+                        item.style.width = `${defaultSize}px`;
+                        item.style.height = `${defaultSize}px`;
+                    });
+                });
+
+                function updateDockItems() {
+                    if (!isHovered) return;
+                    requestAnimationFrame(() => {
+                        dockItems.forEach(item => {
+                            const rect = item.getBoundingClientRect();
+                            const itemCenterX = rect.left + rect.width / 2;
+                            const distance = Math.abs(mouseX - itemCenterX);
+                            if (distance < 150) {
+                                const scale = 1 + (56 / 40 - 1) * (1 - Math.pow(distance / 150, 3)); // Simple easing
+                                const size = 40 * scale;
+                                item.style.width = `${size}px`;
+                                item.style.height = `${size}px`;
+                            } else {
+                                item.style.width = '40px';
+                                item.style.height = '40px';
+                            }
+                        });
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
