@@ -3,167 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work - Teams - INF Dashboard</title>
+    <title>Tools Overview - INF Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         * {
             font-family: 'Open Sans', sans-serif !important;
-        }
-        /* Back Tile Styles */
-        .back-tile {
-            position: absolute;
-            top: 0;
-            left: 260px;
-            bottom: 0;
-            width: 230px;
-            background: #ffffff;
-            z-index: 998;
-            border-radius: 20px 0 0 20px;
-            overflow: visible;
-        }
-
-        /* Secondary Sidebar Styles */
-        .secondary-sidebar {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            font-family: 'Open Sans', sans-serif;
-            background: #ffffff;
-            transform: translateX(-250px);
-        }
-
-        .secondary-sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .secondary-sidebar-brand {
-            font-weight: 700;
-            font-size: 16px;
-            color: #000000;
-            letter-spacing: -0.02em;
-        }
-
-        .secondary-sidebar-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-icon svg {
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-nav {
-            flex: 1;
-            padding: 16px 0;
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .secondary-sidebar-nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .secondary-nav-back {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-back:hover {
-            color: #000000;
-            background-color: #f9fafb;
-        }
-
-        .secondary-nav-back i {
-            width: 16px;
-            height: 16px;
-        }
-
-        .secondary-nav-list {
-            margin-top: 8px;
-        }
-
-        .secondary-nav-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, border-radius 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-item:hover {
-            background-color: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item.active {
-            background-color: #f3f4f6;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item i {
-            width: 14px;
-            height: 14px;
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-footer svg {
-            width: 18px;
-            height: 18px;
-            color: #6b7280;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .secondary-sidebar-footer svg:hover {
-            color: #000000;
-        }
-
-        /* Adjust front tile to account for back tile */
-        .front-tile {
-            left: 270px;
-        }
-
-        /* Scale down content proportionally */
-        .front-tile-container {
-            transform: scale(0.85);
-            transform-origin: top left;
-            width: 117.65%;
         }
 
         /* Hide all scrollbars */
@@ -176,7 +25,7 @@
             display: none;
         }
 
-        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
+        body, html, main, .dashboard-main {
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -184,41 +33,39 @@
         body::-webkit-scrollbar,
         html::-webkit-scrollbar,
         main::-webkit-scrollbar,
-        .dashboard-main::-webkit-scrollbar,
-        .front-tile::-webkit-scrollbar,
-        .front-tile-container::-webkit-scrollbar {
+        .dashboard-main::-webkit-scrollbar {
             display: none;
         }
 
-        /* Work/Teams Content Styles */
-        .work-content-section {
+        /* Tools Content Styles */
+        .tools-content-section {
             padding: 60px 40px 40px;
         }
 
-        .work-header {
+        .tools-header {
             margin-bottom: 40px;
         }
 
-        .work-title {
+        .tools-title {
             font-size: 32px;
             font-weight: 700;
             color: #111827;
             margin-bottom: 8px;
         }
 
-        .work-subtitle {
+        .tools-subtitle {
             font-size: 16px;
             color: #6b7280;
         }
 
-        .teams-grid {
+        .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 24px;
             margin-bottom: 48px;
         }
 
-        .team-card {
+        .tool-card {
             background: #ffffff;
             border-radius: 16px;
             padding: 24px;
@@ -227,53 +74,56 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
-        .team-card:hover {
+        .tool-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
-        .team-card-header {
+        .tool-card-header {
             display: flex;
             align-items: center;
             gap: 16px;
             margin-bottom: 16px;
         }
 
-        .team-avatar {
+        .tool-icon {
             width: 48px;
             height: 48px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ffffff;
-            font-weight: 700;
-            font-size: 20px;
         }
 
-        .team-info {
+        .tool-icon i {
+            width: 24px;
+            height: 24px;
+        }
+
+        .tool-info {
             flex: 1;
         }
 
-        .team-name {
+        .tool-name {
             font-size: 18px;
             font-weight: 700;
             color: #111827;
             margin-bottom: 4px;
         }
 
-        .team-members {
+        .tool-category {
             font-size: 14px;
             color: #6b7280;
         }
 
-        .team-actions {
+        .tool-actions {
             display: flex;
             gap: 8px;
         }
 
-        .team-action-btn {
+        .tool-action-btn {
             width: 32px;
             height: 32px;
             border-radius: 8px;
@@ -287,37 +137,37 @@
             transition: all 0.2s;
         }
 
-        .team-action-btn:hover {
+        .tool-action-btn:hover {
             background: #e5e7eb;
             color: #111827;
         }
 
-        .team-description {
+        .tool-description {
             font-size: 14px;
             color: #6b7280;
             line-height: 1.6;
             margin-bottom: 16px;
         }
 
-        .team-stats {
+        .tool-stats {
             display: flex;
             gap: 24px;
             padding-top: 16px;
             border-top: 1px solid #e5e7eb;
         }
 
-        .team-stat {
+        .tool-stat {
             display: flex;
             flex-direction: column;
         }
 
-        .team-stat-value {
+        .tool-stat-value {
             font-size: 20px;
             font-weight: 700;
             color: #111827;
         }
 
-        .team-stat-label {
+        .tool-stat-label {
             font-size: 12px;
             color: #6b7280;
         }
@@ -330,27 +180,29 @@
             right: 0;
             display: flex;
             justify-content: center;
-            padding: 0 20px 20px 20px;
-            z-index: 1000;
+            padding: 20px 20px 20px 20px;
+            z-index: 10000;
             pointer-events: none;
             overflow: visible;
         }
 
         .dock {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             gap: 16px;
             background: #ffffff;
             border-radius: 24px;
-            padding: 16px;
+            padding: 12px 16px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
             pointer-events: auto;
             max-width: fit-content;
-            min-height: 64px;
+            min-height: auto;
+            height: fit-content;
             overflow-x: auto;
             overflow-y: visible;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            box-sizing: border-box;
         }
 
         .dock::-webkit-scrollbar {
@@ -371,6 +223,11 @@
             flex-shrink: 0;
             will-change: width, height;
             overflow: visible;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            box-sizing: border-box;
+            aspect-ratio: 1 / 1;
         }
 
         .dock-icon {
@@ -383,6 +240,11 @@
             transition: transform 0.2s;
             background: #ffffff;
             border: 2px solid transparent;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            box-sizing: border-box;
+            aspect-ratio: 1 / 1;
         }
 
         .dock-item:hover .dock-icon {
@@ -472,28 +334,28 @@
         }
         
         /* Style work.2.png (Teams) icon */
-        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon {
+        .dock-item:has(img[src="../../Logo's/work.2.png"]) .dock-icon {
             background: #ffffff !important;
             border: 2px solid transparent;
         }
         
-        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
+        .dock-item:has(img[src="../../Logo's/work.2.png"]) .dock-icon img {
             clip-path: inset(6%);
             filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
         }
         
-        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon {
+        .dock-item.active:has(img[src="../../Logo's/work.2.png"]) .dock-icon {
             border: 2px solid #3b82f6;
             background: #ffffff !important;
         }
         
-        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
+        .dock-item.active:has(img[src="../../Logo's/work.2.png"]) .dock-icon img {
             filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
         }
         
         /* Style Oceanbase icon */
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon {
+        .dock-item:has(img[src="../../Logo's/Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item:has(img[src="../../Logo's/oceanbase.1.jpg"]) .dock-icon {
             background: #ffffff !important;
             border: 2px solid transparent !important;
             box-shadow: none !important;
@@ -501,23 +363,23 @@
             overflow: hidden;
         }
         
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon img {
+        .dock-item:has(img[src="../../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../../Logo's/oceanbase.1.jpg"]) .dock-icon img {
             transform: translate(-50%, -50%) scale(1.2);
             filter: grayscale(100%);
             transition: filter 0.15s ease, transform 0.15s ease;
         }
         
-        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]):active .dock-icon img,
-        .dock-item.active:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]):active .dock-icon img {
+        .dock-item.active:has(img[src="../../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../../Logo's/Oceanbase.1.jpg"]):active .dock-icon img,
+        .dock-item.active:has(img[src="../../Logo's/oceanbase.1.jpg"]) .dock-icon img,
+        .dock-item:has(img[src="../../Logo's/oceanbase.1.jpg"]):active .dock-icon img {
             filter: none;
             transform: translate(-50%, -50%) scale(1.2);
         }
         
-        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item.active:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon {
+        .dock-item.active:has(img[src="../../Logo's/Oceanbase.1.jpg"]) .dock-icon,
+        .dock-item.active:has(img[src="../../Logo's/oceanbase.1.jpg"]) .dock-icon {
             border: 2px solid #3b82f6 !important;
             background: #ffffff !important;
             box-shadow: none !important;
@@ -529,7 +391,7 @@
             padding-bottom: 90px;
         }
 
-        /* Header Bar Styles - Copied from Operation.html */
+        /* Header Bar Styles */
         .page-header {
             width: 100vw;
             background: #ffffff;
@@ -977,57 +839,91 @@
             margin-left: 200px !important;
             margin-top: 65px !important;
             padding-bottom: 90px;
+            background: transparent !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            margin: 65px 0 90px 200px !important;
+            padding: 0 !important;
+            min-height: auto !important;
+            max-width: none !important;
+        }
+        
+        .dashboard-container {
+            background: transparent !important;
+            padding: 0 !important;
         }
     </style>
 </head>
 <body class="dashboard-page">
     <!-- Header Bar -->
     <div class="page-header">
-        <div class="page-title">Work</div>
+        <div class="page-title">Tools</div>
         <div class="header-logo">
-            <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
-            <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
+            <img src="../../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
+            <a href="../home.html" class="header-logo-text">INFINIFY SUITE</a>
         </div>
         <div class="header-actions">
+            <button class="header-action-btn" id="windowsBtn">
+                <i data-lucide="square-dashed-mouse-pointer"></i>
+            </button>
             <button class="header-action-btn" id="appsDropdownBtn">
                 <i data-lucide="grid-3x3"></i>
                 <span>App's</span>
             </button>
+            <div class="apps-dropdown" id="windowsDropdown">
+                <div class="apps-section">
+                    <h4 class="apps-section-title">Windows</h4>
+                    <div class="apps-grid">
+                        <div class="app-item" onclick="window.location.href='../home.html'">
+                            <div class="app-icon">
+                                <i data-lucide="square-chart-gantt"></i>
+                            </div>
+                            <p class="app-name">Terminal</p>
+                        </div>
+                        <div class="app-item" onclick="window.location.href='../Operation.html'">
+                            <div class="app-icon">
+                                <i data-lucide="globe"></i>
+                            </div>
+                            <p class="app-name">Web</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="apps-dropdown" id="appsDropdown">
                 <div class="apps-section">
                     <h4 class="apps-section-title">more App's</h4>
                     <div class="apps-grid">
-                        <div class="app-item" onclick="window.location.href='home.html'">
+                        <div class="app-item" onclick="window.location.href='../home.html'">
                             <div class="app-icon">
                                 <i data-lucide="home"></i>
                             </div>
                             <p class="app-name">Home</p>
                         </div>
-                        <div class="app-item" onclick="window.location.href='Operation.html'">
+                        <div class="app-item" onclick="window.location.href='../Operation.html'">
                             <div class="app-icon">
                                 <i data-lucide="hard-hat"></i>
                             </div>
                             <p class="app-name">Operation</p>
                         </div>
-                        <div class="app-item" onclick="window.location.href='work.html'">
+                        <div class="app-item" onclick="window.location.href='../work.html'">
                             <div class="app-icon">
                                 <i data-lucide="users"></i>
                             </div>
                             <p class="app-name">Teams</p>
                         </div>
-                        <div class="app-item" onclick="window.location.href='Agents.html'">
+                        <div class="app-item" onclick="window.location.href='../Agents.html'">
                             <div class="app-icon">
                                 <i data-lucide="cpu"></i>
                             </div>
                             <p class="app-name">Agents</p>
                         </div>
-                        <div class="app-item" onclick="window.location.href='Kreative.html'">
+                        <div class="app-item" onclick="window.location.href='../Kreative.html'">
                             <div class="app-icon">
                                 <i data-lucide="palette"></i>
                             </div>
                             <p class="app-name">Kreative</p>
                         </div>
-                        <div class="app-item" onclick="window.location.href='tools.html'">
+                        <div class="app-item" onclick="window.location.href='../tools.html'">
                             <div class="app-icon">
                                 <i data-lucide="pocket-knife"></i>
                             </div>
@@ -1094,20 +990,23 @@
     <!-- Main Sidebar -->
     <div class="main-sidebar">
         <div class="sidebar-nav">
-            <div class="sidebar-nav-item active">
-                <span>Teams</span>
+            <div class="sidebar-nav-item active" onclick="window.location.href='overview.html'">
+                <span>Overview</span>
             </div>
-            <div class="sidebar-nav-item">
-                <span>Members</span>
+            <div class="sidebar-nav-item" onclick="window.location.href='all-tools.html'">
+                <span>All Tools</span>
             </div>
-            <div class="sidebar-nav-item">
-                <span>Projects</span>
+            <div class="sidebar-nav-item" onclick="window.location.href='agents.html'">
+                <span>Agents</span>
             </div>
-            <div class="sidebar-nav-item">
-                <span>Tasks</span>
+            <div class="sidebar-nav-item" onclick="window.location.href='agent-mapping.html'">
+                <span>Agent-mapping</span>
             </div>
-            <div class="sidebar-nav-item">
-                <span>Settings</span>
+            <div class="sidebar-nav-item" onclick="window.location.href='analytics.html'">
+                <span>Analytics</span>
+            </div>
+            <div class="sidebar-nav-item" onclick="window.location.href='intergrations.html'">
+                <span>intergrations</span>
             </div>
         </div>
     </div>
@@ -1115,208 +1014,254 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
-        </div>
-        
-        <!-- Back Tile (Secondary Sidebar) -->
-        <div class="back-tile">
-            <div class="secondary-sidebar">
-                <div class="secondary-sidebar-header">
-                    <div class="secondary-sidebar-brand">Work</div>
-                    <div class="secondary-sidebar-icon">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="10" height="10" stroke="currentColor" stroke-width="1" fill="none"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="secondary-sidebar-nav">
-                    <div class="secondary-nav-list">
-                        <div class="secondary-nav-back">
-                            <span>Work</span>
-                        </div>
-                        <div class="secondary-nav-item active">
-                            <span>Teams</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Members</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Projects</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Tasks</span>
-                        </div>
-                        <div class="secondary-nav-item">
-                            <span>Settings</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="secondary-sidebar-footer">
-                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13.5 3L16.5 6L13.5 9M4.5 15L1.5 12L4.5 9M1.5 12H16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+            <div class="top-right-bar">
+                <div class="top-right-actions">
+                    <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../../App-select.html'">
+                        <i data-lucide="grid"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <button class="accounts-icon-btn teams-action-btn" title="Profile">
+                        <i data-lucide="user-circle"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-        
-        <!-- Front Tile -->
-        <div class="front-tile">
-            <div class="front-tile-container">
-                <div class="top-right-bar">
-                    <div class="top-right-actions">
-                        <button class="accounts-icon-btn teams-action-btn" title="Apps" onclick="window.location.href='../App-select.html'">
-                            <i data-lucide="grid"></i>
-                        </button>
-                        <button class="accounts-icon-btn teams-action-btn" title="Notifications">
-                            <i data-lucide="bell"></i>
-                        </button>
-                        <button class="accounts-icon-btn teams-action-btn" title="Profile">
-                            <i data-lucide="user-circle"></i>
-                        </button>
+            <div class="tools-content-section">
+                    <div class="tools-header">
+                        <h1 class="tools-title">Tools Overview</h1>
+                        <p class="tools-subtitle">Get an overview of all available tools and their status</p>
+                    </div>
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="code"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Code Editor</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Advanced code editor with syntax highlighting, auto-completion, and debugging support.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v2.1.0</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="database"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Database Manager</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Manage databases, run queries, and monitor performance with our database management tool.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v1.8.5</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="git-branch"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Version Control</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Git integration and version control tools for managing your codebase and collaboration.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v3.0.2</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="test-tube"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Testing Suite</div>
+                                    <div class="tool-category">Development</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Comprehensive testing framework for unit, integration, and end-to-end testing.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v1.5.3</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="package"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Package Manager</div>
+                                    <div class="tool-category">intergrations</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Manage dependencies, install packages, and handle version conflicts efficiently.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v2.4.1</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tool-card">
+                            <div class="tool-card-header">
+                                <div class="tool-icon">
+                                    <i data-lucide="bar-chart"></i>
+                                </div>
+                                <div class="tool-info">
+                                    <div class="tool-name">Analytics Dashboard</div>
+                                    <div class="tool-category">Analytics</div>
+                                </div>
+                                <div class="tool-actions">
+                                    <button class="tool-action-btn" title="More options">
+                                        <i data-lucide="more-horizontal"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="tool-description">
+                                Real-time analytics and performance monitoring for your applications and services.
+                            </div>
+                            <div class="tool-stats">
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">Active</div>
+                                    <div class="tool-stat-label">Status</div>
+                                </div>
+                                <div class="tool-stat">
+                                    <div class="tool-stat-value">v4.2.0</div>
+                                    <div class="tool-stat-label">Version</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="work-content-section">
-                    <div class="work-header">
-                        <h1 class="work-title">Teams</h1>
-                        <p class="work-subtitle">Manage your teams and collaborate with your members</p>
-                    </div>
-                    <div class="teams-grid">
-                        <div class="team-card">
-                            <div class="team-card-header">
-                                <div class="team-avatar">T1</div>
-                                <div class="team-info">
-                                    <div class="team-name">Development Team</div>
-                                    <div class="team-members">12 members</div>
-                                </div>
-                                <div class="team-actions">
-                                    <button class="team-action-btn" title="More options">
-                                        <i data-lucide="more-horizontal"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="team-description">
-                                Core development team working on platform features and improvements.
-                            </div>
-                            <div class="team-stats">
-                                <div class="team-stat">
-                                    <div class="team-stat-value">8</div>
-                                    <div class="team-stat-label">Active Projects</div>
-                                </div>
-                                <div class="team-stat">
-                                    <div class="team-stat-value">24</div>
-                                    <div class="team-stat-label">Tasks</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="team-card">
-                            <div class="team-card-header">
-                                <div class="team-avatar">T2</div>
-                                <div class="team-info">
-                                    <div class="team-name">Design Team</div>
-                                    <div class="team-members">6 members</div>
-                                </div>
-                                <div class="team-actions">
-                                    <button class="team-action-btn" title="More options">
-                                        <i data-lucide="more-horizontal"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="team-description">
-                                Creative team focused on UI/UX design and brand consistency.
-                            </div>
-                            <div class="team-stats">
-                                <div class="team-stat">
-                                    <div class="team-stat-value">5</div>
-                                    <div class="team-stat-label">Active Projects</div>
-                                </div>
-                                <div class="team-stat">
-                                    <div class="team-stat-value">18</div>
-                                    <div class="team-stat-label">Tasks</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="team-card">
-                            <div class="team-card-header">
-                                <div class="team-avatar">T3</div>
-                                <div class="team-info">
-                                    <div class="team-name">Operations Team</div>
-                                    <div class="team-members">10 members</div>
-                                </div>
-                                <div class="team-actions">
-                                    <button class="team-action-btn" title="More options">
-                                        <i data-lucide="more-horizontal"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="team-description">
-                                Operations team managing infrastructure and system maintenance.
-                            </div>
-                            <div class="team-stats">
-                                <div class="team-stat">
-                                    <div class="team-stat-value">3</div>
-                                    <div class="team-stat-label">Active Projects</div>
-                                </div>
-                                <div class="team-stat">
-                                    <div class="team-stat-value">15</div>
-                                    <div class="team-stat-label">Tasks</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     <!-- Dock -->
     <div class="dock-container">
         <div class="dock" id="dock">
-            <div class="dock-item" onclick="window.location.href='home.html'">
+            <div class="dock-item" onclick="window.location.href='../home.html'">
                 <div class="dock-icon">
                     <i data-lucide="home"></i>
                 </div>
                 <div class="dock-label">Home</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='operation.html'">
+            <div class="dock-item" onclick="window.location.href='../operation.html'">
                 <div class="dock-icon">
                     <i data-lucide="hard-hat"></i>
                 </div>
                 <div class="dock-label">Operation</div>
             </div>
-            <div class="dock-item active" onclick="window.location.href='work.html'">
+            <div class="dock-item" onclick="window.location.href='../work.html'">
                 <div class="dock-icon">
-                    <img src="../Logo's/work.2.png" alt="Teams">
+                    <img src="../../Logo's/work.2.png" alt="Teams">
                 </div>
                 <div class="dock-label">Teams</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Tools.html'">
+            <div class="dock-item active" onclick="window.location.href='../tools.html'">
                 <div class="dock-icon">
                     <i data-lucide="pocket-knife"></i>
                 </div>
                 <div class="dock-label">Tools</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
+            <div class="dock-item" onclick="window.location.href='../campaigns.html'">
                 <div class="dock-icon">
                     <i data-lucide="focus"></i>
                 </div>
                 <div class="dock-label">Campaigns</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
+            <div class="dock-item" onclick="window.location.href='../Oceanbase.html'">
                 <div class="dock-icon">
-                    <img src="../Logo's/Oceanbase.1.jpg" alt="Database">
+                    <img src="../../Logo's/Oceanbase.1.jpg" alt="Database">
                 </div>
                 <div class="dock-label">Oceanbase</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
+            <div class="dock-item" onclick="window.location.href='../Online-assets.html'">
                 <div class="dock-icon">
                     <i data-lucide="container"></i>
                 </div>
                 <div class="dock-label">Online Assets</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
+            <div class="dock-item" onclick="window.location.href='../Filebase.html'">
                 <div class="dock-icon">
                     <i data-lucide="folder-tree"></i>
                 </div>
                 <div class="dock-label">Filebase</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
+            <div class="dock-item" onclick="window.location.href='../financial.html'">
                 <div class="dock-icon">
                     <i data-lucide="landmark"></i>
                 </div>
@@ -1327,7 +1272,7 @@
     
     <!-- Circle in bottom right corner -->
     <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
-        <img src="../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <img src="../../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
     </div>
     </main>
 
@@ -1500,6 +1445,7 @@
             }
 
             // Setup dropdowns
+            setupDropdownHover('windowsBtn', 'windowsDropdown');
             setupDropdownHover('appsDropdownBtn', 'appsDropdown');
             setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
             setupDropdownHover('accountDropdownBtn', 'accountDropdown');
@@ -1507,4 +1453,3 @@
     </script>
 </body>
 </html>
-
