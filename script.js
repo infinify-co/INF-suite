@@ -293,15 +293,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        const rate = scrolled * -0.5;
-        hero.style.transform = `translateY(${rate}px)`;
-    }
-});
+// NOTE: Hero parallax on scroll removed for a calmer experience
 
 // Counter animation for stats
 function animateCounters() {

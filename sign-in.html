@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up - Infinify</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- AWS Cognito -->
     <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
-    <script src="cognito-config.js"></script>
-    <script src="cognito-auth.js"></script>
+    <script src="AWS Cognito/cognito-config.js"></script>
+    <script src="AWS Cognito/cognito-auth.js"></script>
     <style>
         * {
             margin: 0;
@@ -28,12 +29,12 @@
             padding: 20px;
         }
 
-        .signup-container {
+        .signin-container {
             width: 100%;
             max-width: 400px;
         }
 
-        .signup-card {
+        .signin-card {
             background: #ffffff;
             border-radius: 12px;
             padding: 40px;
@@ -41,7 +42,7 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .signup-title {
+        .signin-title {
             font-family: 'Open Sans', sans-serif;
             font-size: 28px;
             font-weight: 700;
@@ -50,21 +51,13 @@
             text-align: center;
         }
 
-        .signup-description {
+        .signin-description {
             font-family: 'Open Sans', sans-serif;
             font-size: 15px;
             color: #6b7280;
             margin-bottom: 32px;
             line-height: 1.5;
             text-align: center;
-        }
-
-        .form-semi-header {
-            font-size: 18px;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 20px;
-            text-align: left;
         }
 
         .infinify-button {
@@ -94,7 +87,7 @@
         .infinify-logo {
             width: 20px;
             height: 20px;
-            background-image: url('INF.Asset1.png');
+            background-image: url('Logo\'s/INF.Asset1.png');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -108,6 +101,7 @@
         .divider {
             display: flex;
             align-items: center;
+            margin-top: 24px;
             margin-bottom: 24px;
             color: #9ca3af;
             font-size: 14px;
@@ -130,14 +124,23 @@
             position: relative;
         }
 
+        .form-label-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-left: 5px;
+            margin-bottom: 8px;
+        }
+
         .form-label {
             display: block;
             font-size: 14px;
             font-weight: 500;
             color: #374151;
-            margin-bottom: 3px;
-            margin-left: 5px;
-            margin-top: 10px;
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-top: 0;
         }
 
         .form-input {
@@ -145,11 +148,12 @@
             padding: 12px 16px;
             background: #ffffff;
             border: 1px solid #e5e7eb;
-            border-radius: 999px;
+            border-radius: 12px;
             font-size: 15px;
             color: #1f2937;
             outline: none;
             transition: border-color 0.2s, background-color 0.2s;
+            box-sizing: border-box;
         }
 
         .form-input:focus {
@@ -166,19 +170,19 @@
         }
 
         .error-message {
-            display: none;
+            display: flex;
             align-items: center;
             gap: 6px;
             font-size: 14px;
             color: #ef4444;
-            justify-content: flex-end;
-            position: absolute;
-            top: 12px;
-            right: 0;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
         .error-message.show {
-            display: flex;
+            visibility: visible;
+            opacity: 1;
         }
 
         .error-icon {
@@ -212,6 +216,7 @@
             color: #ffffff;
             cursor: pointer;
             margin-top: 8px;
+            margin-bottom: 10px;
             transition: background-color 0.2s;
         }
 
@@ -219,45 +224,62 @@
             background: #1f2937;
         }
 
-        .signup-footer {
+        .continue-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .forgot-password-link {
+            display: block;
             text-align: center;
-            margin-top: 24px;
             font-size: 14px;
-            color: #374151;
-        }
-
-        .signup-footer a {
-            color: #1f2937;
-            font-weight: 600;
+            color: #3b82f6;
             text-decoration: none;
+            margin-top: 16px;
+            margin-bottom: 24px;
+            transition: color 0.2s;
         }
 
-        .signup-footer a:hover {
+        .forgot-password-link:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .signup-link {
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 24px;
+        }
+
+        .signup-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .signup-link a:hover {
+            color: #2563eb;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="signup-container">
-        <div class="signup-card">
-            <h1 class="signup-title">Sign up</h1>
-            <p class="signup-description">Continue to get smarter responses and keep all your activity in one place.</p>
+    <div class="signin-container">
+        <div class="signin-card">
+            <h1 class="signin-title">Sign up</h1>
+            <p class="signin-description">Create your account to get started.</p>
             
-            <button class="infinify-button" type="button">
-                <div class="infinify-logo"></div>
-                <span>Continue with Infinify</span>
-            </button>
-            
-            <div class="divider">
-                <span>OR</span>
-            </div>
-            
-            <form id="signupForm" novalidate>
+            <!-- Sign In Form -->
+            <form id="signinForm" novalidate>
                 <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <div class="error-message" id="email-error">
-                        <div class="error-icon"></div>
-                        <span>Email is required.</span>
+                    <div class="form-label-container">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="error-message" id="email-error">
+                            <div class="error-icon"></div>
+                            <span>Email is required.</span>
+                        </div>
                     </div>
                     <input 
                         type="email" 
@@ -265,28 +287,17 @@
                         name="email" 
                         class="form-input" 
                         placeholder="Email address"
+                        autocomplete="email"
                     >
                 </div>
+
                 <div class="form-group">
-                    <label for="phone" class="form-label">Phone number</label>
-                    <div class="error-message" id="phone-error">
-                        <div class="error-icon"></div>
-                        <span>Phone number is required.</span>
-                    </div>
-                    <input 
-                        type="tel" 
-                        id="phone" 
-                        name="phone" 
-                        class="form-input" 
-                        placeholder="Enter your phone number"
-                    >
-                </div>
-                
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="error-message" id="password-error">
-                        <div class="error-icon"></div>
-                        <span>Password is required.</span>
+                    <div class="form-label-container">
+                        <label for="password" class="form-label">Create Password</label>
+                        <div class="error-message" id="password-error">
+                            <div class="error-icon"></div>
+                            <span>Password is required.</span>
+                        </div>
                     </div>
                     <input 
                         type="password" 
@@ -294,14 +305,24 @@
                         name="password" 
                         class="form-input" 
                         placeholder="Enter your password"
+                        autocomplete="new-password"
                     >
                 </div>
                 
-                <button type="submit" class="continue-button">Continue</button>
+                <button type="submit" class="continue-button" id="submitButton">Sign up</button>
             </form>
             
-            <div class="signup-footer">
-                Already have an account? <a href="index.html">Log in</a>
+            <div class="divider">
+                <span>OR</span>
+            </div>
+            
+            <button class="infinify-button" type="button" id="infinifyButton">
+                <div class="infinify-logo"></div>
+                <span>Continue with Infinify</span>
+            </button>
+            
+            <div class="signup-link">
+                Already have an account? <a href="Sign in/sign-in.html">Sign in</a>
             </div>
         </div>
     </div>
@@ -332,13 +353,12 @@
         }
 
         // Get form elements
-        const form = document.getElementById('signupForm');
+        const form = document.getElementById('signinForm');
         const emailInput = document.getElementById('email');
-        const phoneInput = document.getElementById('phone');
         const passwordInput = document.getElementById('password');
         const emailError = document.getElementById('email-error');
-        const phoneError = document.getElementById('phone-error');
         const passwordError = document.getElementById('password-error');
+        const submitButton = document.getElementById('submitButton');
 
         // Real-time validation
         emailInput.addEventListener('blur', function() {
@@ -358,10 +378,6 @@
             }
         });
 
-        phoneInput.addEventListener('blur', function() {
-            validateField(this, phoneError, 'Phone number is required.');
-        });
-
         passwordInput.addEventListener('blur', function() {
             validateField(this, passwordError, 'Password is required.');
         });
@@ -374,13 +390,6 @@
             }
         });
 
-        phoneInput.addEventListener('input', function() {
-            if (this.classList.contains('error') && this.value.trim()) {
-                this.classList.remove('error');
-                phoneError.classList.remove('show');
-            }
-        });
-
         passwordInput.addEventListener('input', function() {
             if (this.classList.contains('error') && this.value.trim()) {
                 this.classList.remove('error');
@@ -389,7 +398,7 @@
         });
 
         // Handle form submission
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             let isValid = true;
@@ -412,11 +421,6 @@
                 emailError.classList.remove('show');
             }
             
-            // Validate phone
-            if (!validateField(phoneInput, phoneError, 'Phone number is required.')) {
-                isValid = false;
-            }
-            
             // Validate password
             if (!validateField(passwordInput, passwordError, 'Password is required.')) {
                 isValid = false;
@@ -424,13 +428,11 @@
             
             if (isValid) {
                 // Show loading state
-                const submitButton = form.querySelector('.continue-button');
                 const originalButtonText = submitButton.textContent;
                 submitButton.disabled = true;
-                submitButton.textContent = 'Processing...';
+                submitButton.textContent = 'Signing up...';
                 
                 const email = emailInput.value.trim();
-                const phone = phoneInput.value.trim();
                 const password = passwordInput.value;
                 
                 // Wait for authManager to be available
@@ -447,24 +449,20 @@
                         // Use Cognito auth manager
                         const authMgr = window.cognitoAuthManager || window.authManager;
                         
-                        // Sign up with Cognito
-                        const result = await authMgr.signUp(email, password, phone);
+                        // Sign up
+                        await authMgr.signUp(email, password);
                         
-                        // Create verification session for OTP flow
-                        const sessionToken = authMgr.createVerificationSession(
-                            email, 
-                            'signup'
-                        );
+                        // Store email in localStorage for Step-2
+                        localStorage.setItem('signupData', JSON.stringify({ email: email }));
                         
-                        // Cognito automatically sends verification code, but we'll also use our OTP flow
-                        // Redirect to Auth.html with session token for OTP verification
-                        window.location.href = `Auth.html?token=${sessionToken}&email=${encodeURIComponent(email)}&type=signup`;
+                        // Redirect to Step-2 profile completion
+                        window.location.href = 'sign-in/Step-2.html';
                         
                     } catch (error) {
                         console.error('Sign up error:', error);
                         
                         // Show error message
-                        const errorMessage = error.message || 'An error occurred. Please try again.';
+                        const errorMessage = error.message || 'Unable to create account. Please try again.';
                         const emailErrorText = emailError.querySelector('span');
                         emailInput.classList.add('error');
                         if (emailErrorText) {
@@ -483,7 +481,7 @@
         });
 
         // Handle Infinify button click
-        document.querySelector('.infinify-button').addEventListener('click', function() {
+        document.getElementById('infinifyButton').addEventListener('click', function() {
             // Add your OAuth/SSO logic here
             console.log('Continue with Infinify clicked');
         });

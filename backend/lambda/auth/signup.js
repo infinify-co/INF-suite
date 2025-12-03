@@ -30,7 +30,16 @@ exports.handler = async (event) => {
   try {
     const body = JSON.parse(event.body || '{}');
     // Cognito user ID (sub) and email from Cognito
-    const { cognitoUserId, email, phone, emailVerified } = body;
+    const { 
+      cognitoUserId, 
+      email, 
+      phone, 
+      emailVerified,
+      businessName,
+      businessUsername,
+      businessOperations,
+      jobTitle
+    } = body;
 
     // Validation
     if (!cognitoUserId || !email) {
@@ -73,10 +82,21 @@ exports.handler = async (event) => {
       // Update existing user
       const result = await pool.query(
         `UPDATE users 
-         SET email = $1, phone = $2, email_verified = $3, updated_at = NOW()
+         SET email = $1, phone = $2, email_verified = $3, 
+             business_name = $5, business_username = $6, 
+             business_operations = $7, job_title = $8, updated_at = NOW()
          WHERE cognito_user_id = $4 OR email = $1
-         RETURNING id, email, phone, email_verified, created_at`,
-        [email.toLowerCase(), phone || null, emailVerified || false, cognitoUserId]
+         RETURNING id, email, phone, email_verified, business_name, business_username, business_operations, job_title, created_at`,
+        [
+          email.toLowerCase(), 
+          phone || null, 
+          emailVerified || false, 
+          cognitoUserId,
+          businessName || null,
+          businessUsername || null,
+          businessOperations || null,
+          jobTitle || null
+        ]
       );
 
       return {
@@ -92,10 +112,19 @@ exports.handler = async (event) => {
 
     // Create new user in Aurora (sync from Cognito)
     const result = await pool.query(
-      `INSERT INTO users (cognito_user_id, email, phone, email_verified)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id, email, phone, email_verified, created_at`,
-      [cognitoUserId, email.toLowerCase(), phone || null, emailVerified || false]
+      `INSERT INTO users (cognito_user_id, email, phone, email_verified, business_name, business_username, business_operations, job_title)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+       RETURNING id, email, phone, email_verified, business_name, business_username, business_operations, job_title, created_at`,
+      [
+        cognitoUserId, 
+        email.toLowerCase(), 
+        phone || null, 
+        emailVerified || false,
+        businessName || null,
+        businessUsername || null,
+        businessOperations || null,
+        jobTitle || null
+      ]
     );
 
     const user = result.rows[0];

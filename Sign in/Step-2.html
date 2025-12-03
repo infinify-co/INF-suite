@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Profile - Infinify</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signin-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .signin-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .signin-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .signin-description {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15px;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-label-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-left: 5px;
+            margin-bottom: 8px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-top: 0;
+        }
+
+        .form-label .optional {
+            font-weight: 400;
+            color: #9ca3af;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            color: #1f2937;
+            outline: none;
+            transition: border-color 0.2s, background-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            border-color: #3b82f6;
+            background: #ffffff;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #ef4444;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .error-message.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .error-icon {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 50%;
+            background: #ef4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .error-icon::before {
+            content: '!';
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .continue-button {
+            width: 100%;
+            padding: 14px 16px;
+            background: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+            cursor: pointer;
+            margin-top: 8px;
+            margin-bottom: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .continue-button:hover {
+            background: #1f2937;
+        }
+
+        .continue-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .skip-link {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: color 0.2s;
+        }
+
+        .skip-link:hover {
+            color: #374151;
+            text-decoration: underline;
+        }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            transition: background-color 0.2s;
+        }
+
+        .progress-dot.active {
+            background: #3b82f6;
+        }
+
+        .progress-dot.completed {
+            background: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="signin-card">
+            <div class="progress-indicator">
+                <div class="progress-dot completed"></div>
+                <div class="progress-dot active"></div>
+            </div>
+            
+            <h1 class="signin-title">Complete Your Profile</h1>
+            <p class="signin-description">Tell us a bit more about yourself to personalize your experience.</p>
+            
+            <!-- Profile Form -->
+            <form id="profileForm" novalidate>
+                <div class="form-group">
+                    <div class="form-label-container">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <div class="error-message" id="fullName-error">
+                            <div class="error-icon"></div>
+                            <span>Full name is required.</span>
+                        </div>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="fullName" 
+                        name="fullName" 
+                        class="form-input" 
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label-container">
+                        <label for="phone" class="form-label">Phone Number <span class="optional">(optional)</span></label>
+                        <div class="error-message" id="phone-error">
+                            <div class="error-icon"></div>
+                            <span>Please enter a valid phone number.</span>
+                        </div>
+                    </div>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        class="form-input" 
+                        placeholder="Phone number"
+                        autocomplete="tel"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label-container">
+                        <label for="company" class="form-label">Company/Organization <span class="optional">(optional)</span></label>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="company" 
+                        name="company" 
+                        class="form-input" 
+                        placeholder="Company name"
+                        autocomplete="organization"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <div class="form-label-container">
+                        <label for="jobTitle" class="form-label">Job Title <span class="optional">(optional)</span></label>
+                    </div>
+                    <input 
+                        type="text" 
+                        id="jobTitle" 
+                        name="jobTitle" 
+                        class="form-input" 
+                        placeholder="Your job title or role"
+                        autocomplete="organization-title"
+                    >
+                </div>
+                
+                <button type="submit" class="continue-button" id="submitButton">Continue</button>
+            </form>
+            
+            <a href="../../index.html" class="skip-link">Skip for now</a>
+        </div>
+    </div>
+
+    <script>
+        // Custom validation
+        function validateField(input, errorElement, errorMessage) {
+            const value = input.value.trim();
+            const errorText = errorElement.querySelector('span');
+            
+            if (!value) {
+                input.classList.add('error');
+                if (errorText) {
+                    errorText.textContent = errorMessage;
+                }
+                errorElement.classList.add('show');
+                return false;
+            } else {
+                input.classList.remove('error');
+                errorElement.classList.remove('show');
+                return true;
+            }
+        }
+
+        function validatePhone(phone) {
+            if (!phone || phone.trim() === '') {
+                return true; // Optional field
+            }
+            // Basic phone validation - allows various formats
+            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+            return phoneRegex.test(phone) && phone.replace(/\D/g, '').length >= 10;
+        }
+
+        // Get form elements
+        const form = document.getElementById('profileForm');
+        const fullNameInput = document.getElementById('fullName');
+        const phoneInput = document.getElementById('phone');
+        const fullNameError = document.getElementById('fullName-error');
+        const phoneError = document.getElementById('phone-error');
+        const submitButton = document.getElementById('submitButton');
+
+        // Real-time validation
+        fullNameInput.addEventListener('blur', function() {
+            validateField(this, fullNameError, 'Full name is required.');
+        });
+
+        phoneInput.addEventListener('blur', function() {
+            const value = this.value.trim();
+            if (value && !validatePhone(value)) {
+                this.classList.add('error');
+                const errorText = phoneError.querySelector('span');
+                if (errorText) {
+                    errorText.textContent = 'Please enter a valid phone number.';
+                }
+                phoneError.classList.add('show');
+            } else {
+                this.classList.remove('error');
+                phoneError.classList.remove('show');
+            }
+        });
+
+        // Clear errors on input
+        fullNameInput.addEventListener('input', function() {
+            if (this.classList.contains('error') && this.value.trim()) {
+                this.classList.remove('error');
+                fullNameError.classList.remove('show');
+            }
+        });
+
+        phoneInput.addEventListener('input', function() {
+            if (this.classList.contains('error') && this.value.trim()) {
+                const value = this.value.trim();
+                if (validatePhone(value) || value === '') {
+                    this.classList.remove('error');
+                    phoneError.classList.remove('show');
+                }
+            }
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            
+            // Validate full name (required)
+            if (!validateField(fullNameInput, fullNameError, 'Full name is required.')) {
+                isValid = false;
+            }
+            
+            // Validate phone (optional but must be valid if provided)
+            const phoneValue = phoneInput.value.trim();
+            if (phoneValue && !validatePhone(phoneValue)) {
+                phoneInput.classList.add('error');
+                const errorText = phoneError.querySelector('span');
+                if (errorText) {
+                    errorText.textContent = 'Please enter a valid phone number.';
+                }
+                phoneError.classList.add('show');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Show loading state
+                const originalButtonText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Saving...';
+                
+                // Collect form data
+                const formData = {
+                    fullName: fullNameInput.value.trim(),
+                    phone: phoneValue || null,
+                    company: document.getElementById('company').value.trim() || null,
+                    jobTitle: document.getElementById('jobTitle').value.trim() || null
+                };
+                
+                // Save to localStorage or send to backend
+                try {
+                    // Store in localStorage for now (you can replace this with API call)
+                    const userData = JSON.parse(localStorage.getItem('signupData') || '{}');
+                    Object.assign(userData, formData);
+                    localStorage.setItem('signupData', JSON.stringify(userData));
+                    
+                    // Simulate API call delay
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    
+                    // Redirect to home page
+                    window.location.href = '../../index.html';
+                    
+                } catch (error) {
+                    console.error('Error saving profile:', error);
+                    
+                    // Show error message
+                    const errorMessage = 'Unable to save profile. Please try again.';
+                    const fullNameErrorText = fullNameError.querySelector('span');
+                    fullNameInput.classList.add('error');
+                    if (fullNameErrorText) {
+                        fullNameErrorText.textContent = errorMessage;
+                    }
+                    fullNameError.classList.add('show');
+                    
+                    // Reset button
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

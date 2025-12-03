@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "cd ../aws-infrastructure && ./lambda-deploy.sh"
+    "deploy": "cd ../aws-infrastructure && ./lambda-deploy.sh",
+    "test:db": "node scripts/test-connection.js",
+    "verify:db": "node scripts/verify-database-setup.js"
   },
   "keywords": [
     "aws",
@@ -27,6 +29,7 @@
     "pg": "^8.11.3"
   },
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "nodemon": "^3.0.2"
   }
 }

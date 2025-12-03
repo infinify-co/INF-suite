@@ -2,10 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <!-- iOS Specific Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="INFINIFY">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#111827">
+    <!-- iOS Touch Icons (you can add these later) -->
+    <!-- <link rel="apple-touch-icon" href="Logo's/INF.Asset1.png"> -->
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="Logo's/INF.Asset1.png"> -->
     <title>TechFlow - Advanced Automation Solutions</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- AWS Cognito -->
     <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.0/dist/amazon-cognito-identity.min.js"></script>
@@ -18,52 +28,264 @@
     <header class="landing-header">
         <div class="landing-header-container">
             <div class="landing-header-logo">
-                <a href="#home" class="landing-logo-text">INFINIFY</a>
+                <a href="#home" class="landing-logo-link">
+                    <img src="Logo's/INF.Asset1.png" alt="INF Logo" class="landing-logo-img">
+                    <span class="landing-logo-text">INFINIFY</span>
+                </a>
             </div>
             <nav class="landing-header-nav">
+                <div class="nav-dropdown-wrapper">
                 <a href="services.html" class="landing-nav-link">
                     Features
                     <i data-lucide="chevron-down" class="nav-chevron"></i>
                 </a>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="zap"></i>
+                                </div>
+                                <h4>AI Automation</h4>
+                                <p>Intelligent automation solutions powered by AI</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="bar-chart"></i>
+                                </div>
+                                <h4>Analytics</h4>
+                                <p>Advanced analytics and data insights</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="database"></i>
+                                </div>
+                                <h4>Data Management</h4>
+                                <p>Comprehensive data organization tools</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="shield"></i>
+                                </div>
+                                <h4>Security</h4>
+                                <p>Enterprise-grade security features</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="cloud"></i>
+                                </div>
+                                <h4>Cloud Integration</h4>
+                                <p>Seamless cloud service integration</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="users"></i>
+                                </div>
+                                <h4>Team Collaboration</h4>
+                                <p>Tools for team productivity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-dropdown-wrapper">
                 <a href="services.html" class="landing-nav-link">
                     Solutions
                     <i data-lucide="chevron-down" class="nav-chevron"></i>
                 </a>
-                <a href="#about" class="landing-nav-link">
-                    Resources
-                    <i data-lucide="chevron-down" class="nav-chevron"></i>
-                </a>
-                <a href="suite/work.html" class="landing-nav-link">
-                    For business
-                    <i data-lucide="chevron-down" class="nav-chevron"></i>
-                </a>
-                <a href="sorif.html" class="landing-nav-link">
-                    Sorif
-                    <span class="new-badge">New</span>
-                </a>
-            </nav>
-            <div class="landing-header-actions">
-                <div class="chat-button-wrapper">
-                    <button class="landing-chat-btn" id="chatBtn" title="Ask a question">
-                        <i data-lucide="message-circle"></i>
-                    </button>
-                    <div class="chat-dropdown" id="chatDropdown">
-                        <div class="chat-dropdown-header">
-                            <h4>Ask a question</h4>
-                        </div>
-                        <div class="chat-dropdown-content">
-                            <form id="chatQuestionForm">
-                                <textarea 
-                                    id="chatQuestionInput" 
-                                    placeholder="Type your question here..." 
-                                    rows="3"
-                                    class="chat-input"
-                                ></textarea>
-                                <button type="submit" class="chat-submit-btn">Send</button>
-                            </form>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="briefcase"></i>
+                                </div>
+                                <h4>Enterprise</h4>
+                                <p>Solutions for large organizations</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="building"></i>
+                                </div>
+                                <h4>Small Business</h4>
+                                <p>Tailored solutions for growing businesses</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="code"></i>
+                                </div>
+                                <h4>Developers</h4>
+                                <p>Tools and APIs for developers</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="graduation-cap"></i>
+                                </div>
+                                <h4>Education</h4>
+                                <p>Solutions for educational institutions</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="heart"></i>
+                                </div>
+                                <h4>Healthcare</h4>
+                                <p>Specialized healthcare solutions</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="shopping-cart"></i>
+                                </div>
+                                <h4>E-commerce</h4>
+                                <p>Retail and e-commerce platforms</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="nav-dropdown-wrapper">
+                    <a href="suite/work.html" class="landing-nav-link">
+                        Industries
+                    <i data-lucide="chevron-down" class="nav-chevron"></i>
+                </a>
+                    <div class="nav-dropdown-menu industries-dropdown">
+                        <div class="dropdown-grid industries-grid">
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="building"></i>
+                                </div>
+                                <h4>Technology</h4>
+                                <p>Solutions for tech companies</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="heart"></i>
+                                </div>
+                                <h4>Healthcare</h4>
+                                <p>Healthcare industry solutions</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="graduation-cap"></i>
+                                </div>
+                                <h4>Education</h4>
+                                <p>Educational institution tools</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="shopping-cart"></i>
+                                </div>
+                                <h4>Retail</h4>
+                                <p>E-commerce and retail solutions</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="briefcase"></i>
+                                </div>
+                                <h4>Finance</h4>
+                                <p>Financial services industry</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="package"></i>
+                                </div>
+                                <h4>Manufacturing</h4>
+                                <p>Industrial automation solutions</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="truck"></i>
+                                </div>
+                                <h4>Logistics</h4>
+                                <p>Transportation and logistics</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="store"></i>
+                                </div>
+                                <h4>Food & Beverage</h4>
+                                <p>Restaurant and food services</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="home"></i>
+                                </div>
+                                <h4>Real Estate</h4>
+                                <p>Property management solutions</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="plane"></i>
+                                </div>
+                                <h4>Travel & Hospitality</h4>
+                                <p>Tourism and hotel management</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="film"></i>
+                                </div>
+                                <h4>Media & Entertainment</h4>
+                                <p>Content creation and distribution</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="leaf"></i>
+                                </div>
+                                <h4>Energy & Utilities</h4>
+                                <p>Power and energy management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-dropdown-wrapper">
+                    <a href="#about" class="landing-nav-link">
+                        Our Apps
+                    <i data-lucide="chevron-down" class="nav-chevron"></i>
+                </a>
+                    <div class="nav-dropdown-menu">
+                        <div class="dropdown-grid">
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="briefcase"></i>
+                                </div>
+                                <h4>Work</h4>
+                                <p>Project management and collaboration</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="home"></i>
+                                </div>
+                                <h4>Home</h4>
+                                <p>Your central dashboard</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="wrench"></i>
+                                </div>
+                                <h4>Tools</h4>
+                                <p>Productivity and utility tools</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                        <i data-lucide="message-circle"></i>
+                                </div>
+                                <h4>Chats</h4>
+                                <p>Team communication platform</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="dollar-sign"></i>
+                                </div>
+                                <h4>Financial</h4>
+                                <p>Financial management tools</p>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="dropdown-item-icon">
+                                    <i data-lucide="database"></i>
+                                </div>
+                                <h4>Oceanbase</h4>
+                                <p>Database management system</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="landing-header-actions">
                 <a href="#" class="landing-signup" id="launchAppHeader">Launch App</a>
             </div>
         </div>
@@ -135,437 +357,162 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        
-        <div class="hero-container">
-            <h1 class="hero-title">
-                Scale and manage<br>
-                <span class="gradient-text">Everything in one place.</span>
-            </h1>
-            <p class="hero-description">
-                We help companies streamline operations, reduce costs, and scale efficiently 
-                through cutting-edge automation solutions powered by AI and machine learning.
-            </p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary">Join us</button>
-                <button class="btn btn-secondary">Learn more</button>
-            </div>
-        </div>
+    <section id="home" class="hero-image-section">
+        <img 
+            src="assets/blue-hero-hero.svg" 
+            alt="Scale and manage everything in one place" 
+            class="hero-image"
+        >
     </section>
 
-    <!-- AI Analytics Section (Globe Variant) -->
-    <section class="ai-analytics ai-analytics-alt">
-        <div class="container">
-            <div class="ai-analytics-content">
-                <div class="ai-analytics-text">
-                    <h1 class="ai-analytics-title">
-                        <span class="gradient-text-dark">AI</span>
-                        <span class="gradient-text-light">Analytics</span>
-                    </h1>
-                    <h2 class="ai-analytics-subtitle">Global Intelligence</h2>
-                    <p class="ai-analytics-description">
-                        Advanced analytics platform that transforms raw data into actionable insights. 
-                        Our AI-powered system delivers <strong class="highlight-dark">real-time intelligence</strong> 
-                        and <strong class="highlight-dark">predictive analytics</strong> to drive your business forward 
-                        with precision and accuracy.
-                    </p>
-                    <div class="gradient-separator-analytics"></div>
-                    <button class="ai-analytics-btn">
-                        Learn more <span class="arrow">→</span>
-                    </button>
-                </div>
-                <div class="ai-analytics-visual">
-                    <div class="globe-3d"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Featured Product Rows -->
+    <!-- Second Featured Product Rows section (duplicate) -->
+    <section class="product-picks">
+        <div class="picks-container">
+            <h2 class="picks-heading">
+                <span class="picks-heading-primary">Our app's</span>
+            </h2>
 
-    
+            <div class="product-row">
+                <article class="product-card">
+                    <div class="product-art product-art-secondary product-art-suite">
+                        <img src="assets/Suite.asset8.png" alt="Our Suite card" class="product-art-img">
+                    </div>
+                    <div class="product-body">
+                        <span class="product-pill">New</span>
+                        <h3 class="product-name">Our Suite</h3>
+                        <p class="product-meta">Pre‑built analytics workspace for revenue teams.</p>
+                        <p class="product-price">From $99/month</p>
+                    </div>
+                </article>
 
-    <!-- AI Marketing Section -->
-    <section class="ai-marketing">
-        <div class="container">
-            <div class="ai-marketing-content">
-                <div class="ai-marketing-text">
-                    <h1 class="ai-marketing-title">
-                        <span class="gradient-text-purple">AI</span>
-                        <span class="gradient-text-blue">Marketing</span>
-                    </h1>
-                    <h2 class="ai-marketing-subtitle">Optimized Reach</h2>
-                    <p class="ai-marketing-description">
-                        DOML is a digital media agency powered by AI technology providing real time, 
-                        <strong class="highlight-blue">data-driven insights</strong> on your business and audience. 
-                        The mission of DOML is to create the best experiences for companies through intelligent insights, 
-                        powerful analytics and <strong class="highlight-blue">strategic execution</strong>.
-                    </p>
-                    <div class="gradient-separator"></div>
-                    <button class="ai-marketing-btn">
-                        Learn more <span class="arrow">→</span>
-                    </button>
-                </div>
-                <div class="ai-marketing-visual">
-                    <div class="cube-3d"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+                <article class="product-card">
+                    <div class="product-art product-art-tertiary"></div>
+                    <div class="product-body">
+                        <span class="product-pill">Popular</span>
+                        <h3 class="product-name">Support Automation Kit</h3>
+                        <p class="product-meta">AI agents, macros, and reports for support teams.</p>
+                        <p class="product-price">From $149/month</p>
+                    </div>
+                </article>
 
-    <!-- AI Analytics Section -->
-    <section class="ai-analytics">
-        <div class="container">
-            <div class="ai-analytics-content">
-                <div class="ai-analytics-visual">
-                    <div class="sphere-3d"></div>
-                </div>
-                <div class="ai-analytics-text">
-                    <h1 class="ai-analytics-title">
-                        <span class="gradient-text-dark">AI</span>
-                        <span class="gradient-text-light">Analytics</span>
-                    </h1>
-                    <h2 class="ai-analytics-subtitle">Data Intelligence</h2>
-                    <p class="ai-analytics-description">
-                        Advanced analytics platform that transforms raw data into actionable insights. 
-                        Our AI-powered system delivers <strong class="highlight-dark">real-time intelligence</strong> 
-                        and <strong class="highlight-dark">predictive analytics</strong> to drive your business forward 
-                        with precision and accuracy.
-                    </p>
-                    <div class="gradient-separator-analytics"></div>
-                    <button class="ai-analytics-btn">
-                        Learn more <span class="arrow">→</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Automation Solutions</h2>
-                <p class="section-description">
-                    Comprehensive automation services designed to transform your business operations
-                </p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-cogs"></i>
+                <article class="product-card">
+                    <div class="product-art product-art-neutral"></div>
+                    <div class="product-body">
+                        <span class="product-pill">New</span>
+                        <h3 class="product-name">Finance Control Center</h3>
+                        <p class="product-meta">Cashflow, forecasting, and approvals in one view.</p>
+                        <p class="product-price">From $129/month</p>
                     </div>
-                    <h3 class="service-title">Process Automation</h3>
-                    <p class="service-description">
-                        Automate repetitive tasks and workflows to increase efficiency and reduce human error.
-                    </p>
-                    <ul class="service-features">
-                        <li>Workflow Optimization</li>
-                        <li>Task Automation</li>
-                        <li>Error Reduction</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3 class="service-title">AI Integration</h3>
-                    <p class="service-description">
-                        Leverage artificial intelligence to make intelligent decisions and predictions.
-                    </p>
-                    <ul class="service-features">
-                        <li>Machine Learning</li>
-                        <li>Predictive Analytics</li>
-                        <li>Smart Decision Making</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="service-title">Data Processing</h3>
-                    <p class="service-description">
-                        Automate data collection, processing, and analysis for better insights.
-                    </p>
-                    <ul class="service-features">
-                        <li>Real-time Processing</li>
-                        <li>Data Validation</li>
-                        <li>Automated Reporting</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="service-title">Mobile Automation</h3>
-                    <p class="service-description">
-                        Extend automation capabilities to mobile devices and applications.
-                    </p>
-                    <ul class="service-features">
-                        <li>Mobile App Testing</li>
-                        <li>Cross-platform Automation</li>
-                        <li>Mobile Workflows</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3 class="service-title">Cloud Integration</h3>
-                    <p class="service-description">
-                        Seamlessly integrate with cloud services and platforms for scalable automation.
-                    </p>
-                    <ul class="service-features">
-                        <li>Cloud Migration</li>
-                        <li>API Integration</li>
-                        <li>Scalable Infrastructure</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="service-title">Security Automation</h3>
-                    <p class="service-description">
-                        Automate security processes and threat detection for enhanced protection.
-                    </p>
-                    <ul class="service-features">
-                        <li>Threat Detection</li>
-                        <li>Automated Responses</li>
-                        <li>Compliance Monitoring</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">Why Choose INF?</h2>
-                    <p class="about-description">
-                        With over a decade of experience in automation technology, we've helped 
-                        hundreds of companies transform their operations and achieve unprecedented 
-                        levels of efficiency.
-                    </p>
-                    <div class="about-features">
-                        <div class="feature">
-                            <i class="fas fa-check-circle"></i>
-                            <div class="feature-content">
-                                <h4>Proven Expertise</h4>
-                                <p>3+ years of experience</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-check-circle"></i>
-                            <div class="feature-content">
-                                <h4>Custom Solutions</h4>
-                                <p>Tailored automation strategies for your specific needs</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-check-circle"></i>
-                            <div class="feature-content">
-                                <h4>24/7 Support</h4>
-                                <p>Round-the-clock monitoring and support for your systems</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="tech-stack">
-                        <div class="tech-item">
-                            <i class="fab fa-python"></i>
-                            <span>Python</span>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fab fa-node-js"></i>
-                            <span>Node.js</span>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fab fa-docker"></i>
-                            <span>Docker</span>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fab fa-aws"></i>
-                            <span>AWS</span>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fas fa-database"></i>
-                            <span>MongoDB</span>
-                        </div>
-                        <div class="tech-item">
-                            <i class="fab fa-react"></i>
-                            <span>React</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Corporate Information Section -->
-    <section id="corporate-info" class="corporate-info">
-        <div class="container">
-            <div class="corporate-content">
-                <div class="corporate-overview">
-                    <div class="overview-text">
-                        <h3>Enterprise-Grade Innovation</h3>
-                        <p>INF Corporation stands at the forefront of enterprise automation technology, delivering mission-critical solutions to Fortune 500 companies worldwide. Our comprehensive suite of AI-powered platforms transforms complex business operations into streamlined, intelligent workflows.</p>
-                        
-                        <div class="corporate-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-number">50+</span>
-                                <span class="highlight-text">Fortune 500 Clients</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-number">$2B+</span>
-                                <span class="highlight-text">Cost Savings Delivered</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="highlight-number">99.9%</span>
-                                <span class="highlight-text">Uptime Guarantee</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="corporate-features">
-                        <div class="feature-row">
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-building"></i>
-                                </div>
-                                <div class="feature-content">
-                                    <h4>Enterprise Architecture</h4>
-                                    <p>Scalable, secure infrastructure designed for large-scale enterprise deployments</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-globe"></i>
-                                </div>
-                                <div class="feature-content">
-                                    <h4>Global Operations</h4>
-                                    <p>24/7 support across multiple time zones with dedicated regional teams</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="feature-row">
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-certificate"></i>
-                                </div>
-                                <div class="feature-content">
-                                    <h4>Compliance & Security</h4>
-                                    <p>SOC 2, ISO 27001, and GDPR compliant with enterprise-grade security</p>
-                                </div>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="feature-content">
-                                    <h4>Expert Team</h4>
-                                    <p>500+ certified professionals with deep industry expertise</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </article>
                 
-                <div class="corporate-stats">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-industry"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="stat-number">15</div>
-                                <div class="stat-label">Industries Served</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="stat-number">1000+</div>
-                                <div class="stat-label">Systems Deployed</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-award"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="stat-number">25</div>
-                                <div class="stat-label">Industry Awards</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-handshake"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="stat-number">200+</div>
-                                <div class="stat-label">Strategic Partners</div>
-                            </div>
-                        </div>
+                <!-- Separate card (keeps original gradient style) -->
+                <article class="product-card">
+                    <div class="product-art product-art-secondary"></div>
+                    <div class="product-body">
+                        <span class="product-pill">New</span>
+                        <h3 class="product-name">Customer Insights Playbook</h3>
+                        <p class="product-meta">Pre‑built analytics workspace for revenue teams.</p>
+                        <p class="product-price">From $99/month</p>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="INF.logo2.png" alt="INF Logo" class="inf-logo-img">
+    <div class="section-divider-white"></div>
+
+    <!-- Featured Product Rows (duplicate) -->
+    <section class="product-picks product-picks-bottom">
+        <div class="picks-container">
+            <h2 class="picks-heading">
+                <span class="picks-heading-primary">Custom designed solutions</span>
+            </h2>
+
+            <div class="product-row">
+                <article class="product-card">
+                    <div class="product-art product-art-primary"></div>
+                    <div class="product-body">
+                        <span class="product-pill">New</span>
+                        <h3 class="product-name">Workflow Studio</h3>
+                        <p class="product-meta">Design and automate multi‑step business processes.</p>
+                        <p class="product-price">From $129/month</p>
                     </div>
-                    <p>Transforming businesses through intelligent automation solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+                </article>
+
+                <article class="product-card">
+                    <div class="product-art product-art-blue"></div>
+                    <div class="product-body">
+                        <span class="product-pill">Popular</span>
+                        <h3 class="product-name">Analytics Hub</h3>
+                        <p class="product-meta">Interactive dashboards for operations and finance teams.</p>
+                        <p class="product-price">From $149/month</p>
                     </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#">Process Automation</a></li>
-                        <li><a href="#">AI Integration</a></li>
-                        <li><a href="#">Data Processing</a></li>
-                        <li><a href="#">Cloud Integration</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 TechFlow. All rights reserved.</p>
+                </article>
+                
+                <article class="product-card">
+                    <div class="product-art product-art-purple"></div>
+                    <div class="product-body">
+                        <span class="product-pill">New</span>
+                        <h3 class="product-name">Storage Cloud</h3>
+                        <p class="product-meta">Secure object storage with built‑in versioning and sharing.</p>
+                        <p class="product-price">From $79/month</p>
+                    </div>
+                </article>
+                
+                <article class="product-card">
+                    <div class="product-art product-art-green"></div>
+                    <div class="product-body">
+                        <span class="product-pill">New</span>
+                        <h3 class="product-name">API Gateway</h3>
+                        <p class="product-meta">Manage and secure access to your internal APIs and services.</p>
+                        <p class="product-price">From $99/month</p>
+                    </div>
+                </article>
             </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- Blank white page area -->
+    <section class="blank-white-section"></section>
+
+    <!-- Floating Chat Button -->
+    <button class="floating-chat-button" id="floatingChatButton" aria-label="Ask a question">
+        <div class="chat-button-icon">
+            <i data-lucide="message-circle"></i>
+        </div>
+        <span class="chat-button-text">Ask a Question</span>
+    </button>
+
+    <!-- Chat Popup Modal -->
+    <div class="chat-popup-modal" id="chatPopupModal">
+        <div class="chat-popup-container">
+            <div class="chat-popup-header">
+                <button type="button" class="chat-popup-close" id="chatPopupClose" aria-label="Close chat">
+                    <i data-lucide="minus"></i>
+                </button>
+            </div>
+            <div class="chat-popup-content">
+                <h2 class="chat-popup-title">How can we help?</h2>
+                <div class="chat-popup-message">
+                    <p>Hi! I'm here to answer your questions about our services and help you get started. Ask me anything!</p>
+                </div>
+                <div class="chat-quick-actions">
+                    <button class="quick-action-btn">What services do you offer?</button>
+                    <button class="quick-action-btn">How do I get started?</button>
+                    <button class="quick-action-btn">Contact a sales rep</button>
+                </div>
+            </div>
+            <div class="chat-popup-footer">
+                <div class="chat-input-wrapper">
+                    <input type="text" class="chat-popup-input" id="chatPopupInput" placeholder="Message us..." />
+                    <button class="chat-popup-send" id="chatPopupSend" aria-label="Send message">
+                        <i data-lucide="send"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script>
@@ -573,42 +520,13 @@
             // Initialize Lucide icons
             if (window.lucide) lucide.createIcons();
             
-            // Chat dropdown toggle
-            const chatBtn = document.getElementById('chatBtn');
-            const chatDropdown = document.getElementById('chatDropdown');
-            
-            if (chatBtn && chatDropdown) {
-                chatBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    chatDropdown.classList.toggle('active');
-                    // Reinitialize icons after toggle
+            // Reinitialize icons when dropdowns are shown
+            const dropdownWrappers = document.querySelectorAll('.nav-dropdown-wrapper');
+            dropdownWrappers.forEach(wrapper => {
+                wrapper.addEventListener('mouseenter', () => {
                     if (window.lucide) lucide.createIcons();
                 });
-                
-                // Close dropdown when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!chatBtn.contains(e.target) && !chatDropdown.contains(e.target)) {
-                        chatDropdown.classList.remove('active');
-                    }
-                });
-                
-                // Handle form submission
-                const chatForm = document.getElementById('chatQuestionForm');
-                if (chatForm) {
-                    chatForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        const question = document.getElementById('chatQuestionInput').value;
-                        if (question.trim()) {
-                            // Handle the question submission here
-                            console.log('Question submitted:', question);
-                            // You can add your API call or navigation here
-                            alert('Question submitted: ' + question);
-                            document.getElementById('chatQuestionInput').value = '';
-                            chatDropdown.classList.remove('active');
-                        }
-                    });
-                }
-            }
+            });
 
             // Handle Launch App button clicks
             const launchAppHeader = document.getElementById('launchAppHeader');
@@ -652,6 +570,90 @@
             if (launchAppNav) {
                 launchAppNav.addEventListener('click', handleLaunchApp);
             }
+
+            // Chat popup functionality
+            const floatingChatButton = document.getElementById('floatingChatButton');
+            const chatPopupModal = document.getElementById('chatPopupModal');
+            const chatPopupClose = document.getElementById('chatPopupClose');
+            const chatPopupSend = document.getElementById('chatPopupSend');
+            const chatPopupInput = document.getElementById('chatPopupInput');
+            const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+
+            // Close chat popup function
+            function closeChatPopup(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                if (chatPopupModal) {
+                    chatPopupModal.classList.remove('active');
+                }
+            }
+
+            // Close chat popup
+            if (chatPopupClose) {
+                chatPopupClose.addEventListener('click', closeChatPopup);
+            }
+
+            // Open chat popup
+            if (floatingChatButton) {
+                floatingChatButton.addEventListener('click', () => {
+                    if (chatPopupModal) {
+                        chatPopupModal.classList.add('active');
+                        // Reinitialize icons after showing modal
+                        if (window.lucide) lucide.createIcons();
+                        // Focus on input after a short delay
+                        setTimeout(() => {
+                            if (chatPopupInput) {
+                                chatPopupInput.focus();
+                            }
+                        }, 100);
+                    }
+                });
+            }
+
+            // Close on backdrop click
+            if (chatPopupModal) {
+                chatPopupModal.addEventListener('click', (e) => {
+                    if (e.target === chatPopupModal) {
+                        chatPopupModal.classList.remove('active');
+                    }
+                });
+            }
+
+            // Send message
+            const sendMessage = () => {
+                const message = chatPopupInput.value.trim();
+                if (message) {
+                    // Here you can add logic to handle the message
+                    console.log('Message sent:', message);
+                    // For now, just clear the input
+                    chatPopupInput.value = '';
+                }
+            };
+
+            if (chatPopupSend) {
+                chatPopupSend.addEventListener('click', sendMessage);
+            }
+
+            if (chatPopupInput) {
+                chatPopupInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+
+            // Quick action buttons
+            quickActionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const question = btn.textContent;
+                    chatPopupInput.value = question;
+                    chatPopupInput.focus();
+                    // Optionally auto-send
+                    // sendMessage();
+                });
+            });
         });
     </script>
 </body>

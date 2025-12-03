@@ -3,326 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tools - INF Dashboard</title>
+    <title>Chats - INF Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         * {
             font-family: 'Open Sans', sans-serif !important;
         }
-        /* Back Tile Styles */
-        .back-tile {
-            position: absolute;
-            top: 0;
-            left: 260px;
-            bottom: 0;
-            width: 230px;
-            background: #ffffff;
-            z-index: 998;
-            border-radius: 20px 0 0 20px;
-            overflow: visible;
+        /* Force remove any scrollbar or border lines */
+        html {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            border: none !important;
+            outline: none !important;
+            background: #ffffff !important;
         }
 
-        /* Secondary Sidebar Styles */
-        .secondary-sidebar {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            font-family: 'Open Sans', sans-serif;
-            background: #ffffff;
-            transform: translateX(-250px);
+        body, body.dashboard-page {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100vw !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
         }
 
-        .secondary-sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .secondary-sidebar-brand {
-            font-weight: 700;
-            font-size: 16px;
-            color: #000000;
-            letter-spacing: -0.02em;
-        }
-
-        .secondary-sidebar-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-icon svg {
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-nav {
-            flex: 1;
-            padding: 16px 0;
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .secondary-sidebar-nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .secondary-nav-back {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-back:hover {
-            color: #000000;
-            background-color: #f9fafb;
-        }
-
-        .secondary-nav-back i {
-            width: 16px;
-            height: 16px;
-        }
-
-        .secondary-nav-list {
-            margin-top: 8px;
-        }
-
-        .secondary-nav-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, border-radius 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-item:hover {
-            background-color: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item.active {
-            background-color: #f3f4f6;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item i {
-            width: 14px;
-            height: 14px;
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-footer svg {
-            width: 18px;
-            height: 18px;
-            color: #6b7280;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .secondary-sidebar-footer svg:hover {
-            color: #000000;
-        }
-
-        /* Adjust front tile to account for back tile */
-        .front-tile {
-            left: 270px;
-        }
-
-        /* Scale down content proportionally */
-        .front-tile-container {
-            transform: scale(0.85);
-            transform-origin: top left;
-            width: 117.65%;
-        }
-
-        /* Hide all scrollbars */
-        * {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        *::-webkit-scrollbar {
-            display: none;
-        }
-
-        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        body::-webkit-scrollbar,
+        /* Completely remove all scrollbar elements */
         html::-webkit-scrollbar,
-        main::-webkit-scrollbar,
-        .dashboard-main::-webkit-scrollbar,
-        .front-tile::-webkit-scrollbar,
-        .front-tile-container::-webkit-scrollbar {
-            display: none;
+        body::-webkit-scrollbar,
+        *::-webkit-scrollbar {
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+            display: none !important;
         }
 
-        /* Tools Content Styles */
-        .tools-content-section {
-            padding: 60px 40px 40px;
+        html::-webkit-scrollbar-track,
+        body::-webkit-scrollbar-track,
+        *::-webkit-scrollbar-track {
+            background: transparent !important;
+            display: none !important;
+            width: 0 !important;
         }
 
-        .tools-header {
-            margin-bottom: 40px;
+        html::-webkit-scrollbar-thumb,
+        body::-webkit-scrollbar-thumb,
+        *::-webkit-scrollbar-thumb {
+            background: transparent !important;
+            display: none !important;
+            width: 0 !important;
         }
 
-        .tools-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 8px;
-        }
-
-        .tools-subtitle {
-            font-size: 16px;
-            color: #6b7280;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 48px;
-        }
-
-        .tool-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        .tool-card-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .tool-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-        }
-
-        .tool-icon i {
-            width: 24px;
-            height: 24px;
-        }
-
-        .tool-info {
-            flex: 1;
-        }
-
-        .tool-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 4px;
-        }
-
-        .tool-category {
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        .tool-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .tool-action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            background: #f3f4f6;
-            color: #6b7280;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .tool-action-btn:hover {
-            background: #e5e7eb;
-            color: #111827;
-        }
-
-        .tool-description {
-            font-size: 14px;
-            color: #6b7280;
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .tool-stats {
-            display: flex;
-            gap: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .tool-stat {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tool-stat-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #111827;
-        }
-
-        .tool-stat-label {
-            font-size: 12px;
-            color: #6b7280;
+        html::-webkit-scrollbar-corner,
+        body::-webkit-scrollbar-corner,
+        *::-webkit-scrollbar-corner {
+            background: transparent !important;
+            display: none !important;
         }
 
         /* Dock Styles */
@@ -333,29 +85,27 @@
             right: 0;
             display: flex;
             justify-content: center;
-            padding: 20px 20px 20px 20px;
-            z-index: 10000;
+            padding: 0 20px 20px 20px;
+            z-index: 1000;
             pointer-events: none;
             overflow: visible;
         }
 
         .dock {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             gap: 16px;
             background: #ffffff;
             border-radius: 24px;
-            padding: 12px 16px;
+            padding: 16px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
             pointer-events: auto;
             max-width: fit-content;
-            min-height: auto;
-            height: fit-content;
+            min-height: 64px;
             overflow-x: auto;
             overflow-y: visible;
             scrollbar-width: none;
             -ms-overflow-style: none;
-            box-sizing: border-box;
         }
 
         .dock::-webkit-scrollbar {
@@ -376,11 +126,6 @@
             flex-shrink: 0;
             will-change: width, height;
             overflow: visible;
-            margin: 0;
-            padding: 0;
-            line-height: 1;
-            box-sizing: border-box;
-            aspect-ratio: 1 / 1;
         }
 
         .dock-icon {
@@ -393,11 +138,6 @@
             transition: transform 0.2s;
             background: #ffffff;
             border: 2px solid transparent;
-            margin: 0;
-            padding: 0;
-            line-height: 1;
-            box-sizing: border-box;
-            aspect-ratio: 1 / 1;
         }
 
         .dock-item:hover .dock-icon {
@@ -539,10 +279,6 @@
             border-radius: 12px !important;
         }
 
-        /* Adjust dashboard main to account for bottom nav */
-        .dashboard-main {
-            padding-bottom: 90px;
-        }
 
         /* Header Bar Styles */
         .page-header {
@@ -709,6 +445,12 @@
             font-size: 12px;
             color: #374151;
             font-weight: 500;
+            margin: 0;
+        }
+
+        .apps-divider {
+            height: 1px;
+            background: #e5e7eb;
             margin: 0;
         }
 
@@ -927,7 +669,7 @@
         .main-sidebar {
             position: fixed;
             left: 0;
-            top: 65px;
+            top: 65px; /* Below header */
             bottom: 0;
             width: 200px;
             background: #ffffff;
@@ -960,6 +702,38 @@
 
         .sidebar-nav {
             padding: 120px 16px 20px 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .sidebar-usernames {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .sidebar-username-item {
+            display: block;
+            padding: 10px 0;
+            color: #374151;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+
+        .sidebar-username-item:hover {
+            color: #2563eb;
+        }
+
+        .sidebar-username-item .username {
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .sidebar-username-item:hover .username {
+            color: #2563eb;
         }
 
         .sidebar-nav-item {
@@ -972,6 +746,12 @@
             cursor: pointer;
             transition: color 0.2s;
             text-align: left;
+        }
+        
+        .sidebar-nav-item:first-child {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 12px;
+            margin-top: 0;
         }
         
         .sidebar-nav-item.active {
@@ -987,18 +767,274 @@
             display: block;
         }
 
-        /* Adjust dashboard main to account for sidebar and header */
+
+        /* Main content - clean screen */
         .dashboard-main {
+            margin: 0 !important;
             margin-left: 200px !important;
             margin-top: 65px !important;
-            padding-bottom: 90px;
+            padding: 40px !important;
+            padding-bottom: 150px !important;
+            background: #ffffff !important;
+            min-height: calc(100vh - 65px) !important;
+            max-width: calc(100% - 200px) !important;
+            width: calc(100% - 200px) !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
         }
+
+        /* Override any styles.css rules that might cause borders or margins */
+        body.dashboard-page {
+            background: #ffffff !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Remove any potential border from viewport */
+        html {
+            background: #ffffff !important;
+        }
+
+        /* Content sections */
+        .content-section {
+            padding: 40px;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-header {
+            margin-bottom: 32px;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .dashboard-subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.income {
+            background: #f0fdf4;
+            color: #22c55e;
+        }
+
+        .stat-icon.revenue {
+            background: #f0f9ff;
+            color: #0ea5e9;
+        }
+
+        .stat-icon.invoices {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+
+        .stat-icon.expenses {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .stat-icon.projects {
+            background: #f3e8ff;
+            color: #a855f7;
+        }
+
+        .stat-icon.payments {
+            background: #dbeafe;
+            color: #3b82f6;
+        }
+
+        .stat-icon.profit {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .stat-icon.overdue {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 4px 0;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0 0 8px 0;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive {
+            color: #22c55e;
+        }
+
+        .stat-change.negative {
+            color: #ef4444;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .chart-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 20px 0;
+        }
+
+        .recent-transactions {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 20px 0;
+        }
+
+        .transactions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .transaction-item:hover {
+            background: #f3f4f6;
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0 0 4px 0;
+        }
+
+        .transaction-date {
+            font-size: 12px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .transaction-amount {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .transaction-amount.income {
+            color: #22c55e;
+        }
+
+        .transaction-amount.expense {
+            color: #ef4444;
+        }
+
     </style>
 </head>
 <body class="dashboard-page">
     <!-- Header Bar -->
     <div class="page-header">
-        <div class="page-title">Tools</div>
+        <div class="page-title">Chats</div>
         <div class="header-logo">
             <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
             <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
@@ -1007,77 +1043,9 @@
             <button class="header-action-btn" id="windowsBtn">
                 <i data-lucide="square-dashed-mouse-pointer"></i>
             </button>
-            <div class="apps-dropdown" id="windowsDropdown">
-                <div class="apps-section">
-                    <h4 class="apps-section-title">Windows</h4>
-                    <div class="apps-grid">
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="square"></i>
-                            </div>
-                            <p class="app-name">Window 1</p>
-                        </div>
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="square"></i>
-                            </div>
-                            <p class="app-name">Window 2</p>
-                        </div>
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="square"></i>
-                            </div>
-                            <p class="app-name">Window 3</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <button class="header-action-btn" id="integrateBtn">
                 <i data-lucide="circle-plus"></i>
             </button>
-            <div class="apps-dropdown" id="integrateDropdown">
-                <div class="apps-section">
-                    <h4 class="apps-section-title">Integrations</h4>
-                    <div class="apps-grid">
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="plug"></i>
-                            </div>
-                            <p class="app-name">API</p>
-                        </div>
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="link"></i>
-                            </div>
-                            <p class="app-name">Webhook</p>
-                        </div>
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="database"></i>
-                            </div>
-                            <p class="app-name">Database</p>
-                        </div>
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="cloud"></i>
-                            </div>
-                            <p class="app-name">Cloud</p>
-                        </div>
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="zap"></i>
-                            </div>
-                            <p class="app-name">Automation</p>
-                        </div>
-                        <div class="app-item">
-                            <div class="app-icon">
-                                <i data-lucide="puzzle"></i>
-                            </div>
-                            <p class="app-name">Add New</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <button class="header-action-btn" id="appsDropdownBtn">
                 <i data-lucide="grid-3x3"></i>
                 <span>App's</span>
@@ -1092,7 +1060,7 @@
                             </div>
                             <p class="app-name">Home</p>
                         </div>
-                        <div class="app-item" onclick="window.location.href='Operation.html'">
+                        <div class="app-item" onclick="window.location.href='operation.html'">
                             <div class="app-icon">
                                 <i data-lucide="hard-hat"></i>
                             </div>
@@ -1116,7 +1084,7 @@
                             </div>
                             <p class="app-name">Kreative</p>
                         </div>
-                        <div class="app-item" onclick="window.location.href='tools.html'">
+                        <div class="app-item" onclick="window.location.href='Tools.html'">
                             <div class="app-icon">
                                 <i data-lucide="pocket-knife"></i>
                             </div>
@@ -1183,23 +1151,39 @@
     <!-- Main Sidebar -->
     <div class="main-sidebar">
         <div class="sidebar-nav">
-            <div class="sidebar-nav-item active" onclick="window.location.href='tools/overview.html'">
-                <span>Overview</span>
+            <div class="sidebar-usernames">
+                <div class="sidebar-username-item">
+                    <span>@infinify</span>
+                </div>
+                <div class="sidebar-username-item">
+                    <span>@poolbuilders</span>
+                </div>
+                <div class="sidebar-username-item">
+                    <span>@contractors</span>
+                </div>
+                <div class="sidebar-username-item">
+                    <span>@suppliers</span>
+                </div>
+                <div class="sidebar-username-item">
+                    <span>@clients</span>
+                </div>
             </div>
-            <div class="sidebar-nav-item" onclick="window.location.href='tools/all-tools.html'">
-                <span>All Tools</span>
+            <div class="sidebar-nav-item active">
+                <a href="chats.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;">
+                    <span>Overview</span>
+                </a>
             </div>
-            <div class="sidebar-nav-item" onclick="window.location.href='tools/agents.html'">
-                <span>Agents</span>
+            <div class="sidebar-nav-item">
+                <span>Direct Messages</span>
             </div>
-            <div class="sidebar-nav-item" onclick="window.location.href='tools/agent-mapping.html'">
-                <span>Agent-mapping</span>
+            <div class="sidebar-nav-item">
+                <span>Channels</span>
             </div>
-            <div class="sidebar-nav-item" onclick="window.location.href='tools/analytics.html'">
-                <span>Analytics</span>
+            <div class="sidebar-nav-item">
+                <span>Teams</span>
             </div>
-            <div class="sidebar-nav-item" onclick="window.location.href='tools/intergrations.html'">
-                <span>intergrations</span>
+            <div class="sidebar-nav-item">
+                <span>Settings</span>
             </div>
         </div>
     </div>
@@ -1207,9 +1191,222 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
+            <!-- Overview Content -->
+            <div class="content-section" id="overview-content" style="display: block;">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Chats Dashboard</h1>
+                    <p class="dashboard-subtitle">Manage your conversations and messages</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <!-- Income Today -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Income Generated Today</div>
+                                <div class="stat-value">$8,450</div>
+                                <div class="stat-change positive">
+                                    <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+                                    <span>+12.5% from yesterday</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon income">
+                                <i data-lucide="dollar-sign" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Revenue -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Monthly Revenue</div>
+                                <div class="stat-value">$142,850</div>
+                                <div class="stat-change positive">
+                                    <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+                                    <span>+8.3% from last month</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon revenue">
+                                <i data-lucide="banknote" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outstanding Invoices -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Outstanding Invoices</div>
+                                <div class="stat-value">$67,200</div>
+                                <div class="stat-change negative">
+                                    <i data-lucide="trending-down" style="width: 16px; height: 16px;"></i>
+                                    <span>23 pending invoices</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon invoices">
+                                <i data-lucide="file-text" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expenses This Month -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Expenses This Month</div>
+                                <div class="stat-value">$89,340</div>
+                                <div class="stat-change negative">
+                                    <i data-lucide="arrow-up" style="width: 16px; height: 16px;"></i>
+                                    <span>+5.2% from last month</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon expenses">
+                                <i data-lucide="minus-circle" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Projects -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Active Projects</div>
+                                <div class="stat-value">14</div>
+                                <div class="stat-change positive">
+                                    <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+                                    <span>$425K in progress</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon projects">
+                                <i data-lucide="clipboard-list" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Payments -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Pending Payments</div>
+                                <div class="stat-value">$34,800</div>
+                                <div class="stat-change">
+                                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                    <span>12 payments due</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon payments">
+                                <i data-lucide="credit-card" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Net Profit -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Net Profit (This Month)</div>
+                                <div class="stat-value">$53,510</div>
+                                <div class="stat-change positive">
+                                    <i data-lucide="trending-up" style="width: 16px; height: 16px;"></i>
+                                    <span>37.5% profit margin</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon profit">
+                                <i data-lucide="chart-line" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overdue Invoices -->
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div>
+                                <div class="stat-label">Overdue Invoices</div>
+                                <div class="stat-value">$12,400</div>
+                                <div class="stat-change negative">
+                                    <i data-lucide="alert-circle" style="width: 16px; height: 16px;"></i>
+                                    <span>7 overdue</span>
+                                </div>
+                            </div>
+                            <div class="stat-icon overdue">
+                                <i data-lucide="alert-triangle" style="width: 24px; height: 24px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <div class="recent-transactions">
+                    <h2 class="section-title">Recent Transactions</h2>
+                    <div class="transactions-list">
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: #f0fdf4; color: #22c55e;">
+                                    <i data-lucide="arrow-down-circle" style="width: 20px; height: 20px;"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <div class="transaction-name">Pool Installation - Johnson Residence</div>
+                                    <div class="transaction-date">Today at 2:30 PM</div>
+                                </div>
+                            </div>
+                            <div class="transaction-amount income">+$15,000</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: #fee2e2; color: #ef4444;">
+                                    <i data-lucide="arrow-up-circle" style="width: 20px; height: 20px;"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <div class="transaction-name">Equipment Purchase - Pool Supplies Co.</div>
+                                    <div class="transaction-date">Today at 10:15 AM</div>
+                                </div>
+                            </div>
+                            <div class="transaction-amount expense">-$3,450</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: #f0fdf4; color: #22c55e;">
+                                    <i data-lucide="arrow-down-circle" style="width: 20px; height: 20px;"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <div class="transaction-name">Pool Maintenance Contract - Smith Family</div>
+                                    <div class="transaction-date">Yesterday at 4:45 PM</div>
+                                </div>
+                            </div>
+                            <div class="transaction-amount income">+$850</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: #fee2e2; color: #ef4444;">
+                                    <i data-lucide="arrow-up-circle" style="width: 20px; height: 20px;"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <div class="transaction-name">Material Costs - Concrete & Tile</div>
+                                    <div class="transaction-date">Yesterday at 11:20 AM</div>
+                                </div>
+                            </div>
+                            <div class="transaction-amount expense">-$8,750</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon" style="background: #f0fdf4; color: #22c55e;">
+                                    <i data-lucide="arrow-down-circle" style="width: 20px; height: 20px;"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <div class="transaction-name">Pool Renovation - Martinez Project</div>
+                                    <div class="transaction-date">2 days ago at 3:00 PM</div>
+                                </div>
+                            </div>
+                            <div class="transaction-amount income">+$22,500</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        
+    </main>
+
     <!-- Dock -->
     <div class="dock-container">
         <div class="dock" id="dock">
@@ -1231,7 +1428,7 @@
                 </div>
                 <div class="dock-label">Teams</div>
             </div>
-            <div class="dock-item active" onclick="window.location.href='Tools.html'">
+            <div class="dock-item" onclick="window.location.href='Tools.html'">
                 <div class="dock-icon">
                     <i data-lucide="pocket-knife"></i>
                 </div>
@@ -1267,7 +1464,7 @@
                 </div>
                 <div class="dock-label">Financials</div>
             </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
+            <div class="dock-item active" onclick="window.location.href='chats.html'">
                 <div class="dock-icon">
                     <i data-lucide="message-square"></i>
                 </div>
@@ -1275,12 +1472,11 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Circle in bottom right corner -->
     <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
         <img src="../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
     </div>
-    </main>
 
     <script>
         // Dock magnification effect with smoother animations
@@ -1434,7 +1630,7 @@
                     button.addEventListener('mouseleave', hideDropdown);
                     dropdown.addEventListener('mouseleave', hideDropdown);
                     
-                    // Clear all notifications handler
+                    // Handle clear all button if provided
                     if (clearAllBtnId) {
                         const clearAllBtn = document.getElementById(clearAllBtnId);
                         if (clearAllBtn) {
@@ -1451,8 +1647,6 @@
             }
 
             // Setup dropdowns
-            setupDropdownHover('windowsBtn', 'windowsDropdown');
-            setupDropdownHover('integrateBtn', 'integrateDropdown');
             setupDropdownHover('appsDropdownBtn', 'appsDropdown');
             setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
             setupDropdownHover('accountDropdownBtn', 'accountDropdown');
