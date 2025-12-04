@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wavecode - Create amazing projects with AI">
+    <meta name="theme-color" content="#2196F3">
+    <title>Wavecode</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        html, body {
+            background: #ffffff !important;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="icon-192.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <!-- Navigation Icons -->
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" data-page="home" title="Home">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </button>
+                    <button class="nav-item" data-page="search" title="Search">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.4 8.9a.7.7 0 0 1-.572 1.1Z"/>
+                            <rect x="3" y="14" width="7" height="7" rx="1"/>
+                            <circle cx="17.5" cy="17.5" r="3.5"/>
+                        </svg>
+                    </button>
+                    <button class="nav-item" data-page="apps" title="Apps">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </button>
+                    <button class="nav-item" data-page="explore" title="Explore">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                        </svg>
+                    </button>
+                    <button class="nav-item" data-page="assets" title="Assets">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/>
+                        </svg>
+                    </button>
+                    <button class="nav-item" data-page="documents" title="Documents">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                        </svg>
+                    </button>
+                    <button class="nav-item" data-page="team" title="Team">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </button>
+                </nav>
+
+                <!-- Bottom Actions -->
+                <div class="sidebar-bottom">
+                    <button class="nav-item notification" title="Notifications">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button class="nav-item" data-page="messages" title="Messages">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="top-right-buttons">
+                <button class="sign-in-btn" id="signInBtn" style="display: none;">
+                    Sign In
+                </button>
+                <button class="install-app-btn" id="installAppBtn" style="display: none;">
+                    Install App
+                </button>
+            </div>
+            <div class="content-wrapper">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <h1 class="hero-title">The world needs your ideas.</h1>
+                    
+                    <!-- Input Field -->
+                    <div class="input-container-wrapper">
+                    <div class="input-container">
+                        <div class="input-left-buttons">
+                            <div class="dropdown-wrapper">
+                                <button class="input-action-btn" title="Add" id="addBtn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu" id="addDropdown">
+                                    <div class="dropdown-item">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+                                            <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+                                            <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                                            <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+                                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+                                        </svg>
+                                        <span>Colours</span>
+                                    </div>
+                                    <div class="dropdown-item">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+                                        <span>Documents</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="input-action-btn" title="Attach">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                                </svg>
+                            </button>
+                            <button class="input-action-btn" title="New">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 10v4"></path>
+                                    <path d="M6 6v12"></path>
+                                    <path d="M10 3v18"></path>
+                                    <path d="M14 8v8"></path>
+                                    <path d="M18 5v14"></path>
+                                    <path d="M22 10v4"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <textarea 
+                            class="main-input" 
+                            placeholder="Build anything ..."
+                            id="projectInput"
+                            rows="3"
+                        ></textarea>
+                        <div class="input-right-actions">
+                            <button class="input-action-btn" title="Voice Input" id="voiceBtn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 8L22 12L18 16"></path>
+                                    <path d="M2 12H22"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="projects-section">
+                    <div class="projects-header">
+                        <div class="projects-tabs">
+                            <button class="tab-btn active" data-tab="recent">Recent projects</button>
+                        </div>
+                        <button class="browse-all-btn">
+                            Browse all
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="projects-grid" id="projectsGrid">
+                        <!-- Projects will be dynamically added here -->
+                    </div>
+                    <div class="section-divider"></div>
+                    
+                    <!-- Create Project Section -->
+                    <div class="create-project-section">
+                        <div class="create-project-header">
+                            <h2 class="section-heading active-heading">Create a project</h2>
+                        </div>
+                        <div class="create-project-grid" id="createProjectGrid">
+                            <!-- Create project cards will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Project Creation Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Project</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="projectName">Project Name</label>
+                <input type="text" id="projectName" placeholder="Enter project name" class="modal-input">
+                <label for="projectDescription">Description (optional)</label>
+                <textarea id="projectDescription" placeholder="Describe your project" class="modal-textarea" rows="3"></textarea>
+                <label for="projectType">Project Type</label>
+                <select id="projectType" class="modal-select">
+                    <option value="web">Web Application</option>
+                    <option value="mobile">Mobile App</option>
+                    <option value="api">API</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelBtn">Cancel</button>
+                <button class="btn-primary" id="createBtn">Create Project</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

@@ -1017,6 +1017,1319 @@
             margin-top: 65px !important;
             padding-bottom: 90px;
         }
+
+        /* Planner and Todo Container */
+        .planner-todo-container {
+            display: flex;
+            gap: 24px;
+            padding: 40px;
+            min-height: calc(100vh - 65px);
+            background: #ffffff;
+        }
+
+        /* Adjust for three panels */
+        .planner-todo-container.three-panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* Panel Styles */
+        .planner-panel,
+        .todos-panel {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-height: calc(100vh - 445px);
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.08),
+                -8px -8px 16px rgba(255, 255, 255, 1);
+        }
+
+        .planner-panel::-webkit-scrollbar,
+        .todos-panel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .panel-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        /* Planner Navigation */
+        .planner-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .planner-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f5f5f5;
+            color: #6b7280;
+            box-shadow: 
+                inset 4px 4px 8px rgba(0, 0, 0, 0.06),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+        }
+
+        .planner-nav-item.active {
+            background: #ffffff;
+            color: #111827;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.08),
+                -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+
+        .planner-nav-item i {
+            width: 18px;
+            height: 18px;
+            color: inherit;
+        }
+
+        .planner-nav-item span:not(.nav-badge) {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-badge {
+            background: #d1d5db;
+            color: #111827;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .nav-arrow {
+            width: 16px !important;
+            height: 16px !important;
+        }
+
+        /* Time and Date Widget */
+        .time-date-widget {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 
+                6px 6px 12px rgba(0, 0, 0, 0.08),
+                -6px -6px 12px rgba(255, 255, 255, 1);
+        }
+
+        .clock-face {
+            flex-shrink: 0;
+        }
+
+        .clock-svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .time-date-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .time-text {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1;
+        }
+
+        .date-text {
+            font-size: 14px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* Calendar Widget */
+        .calendar-widget {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 
+                6px 6px 12px rgba(0, 0, 0, 0.08),
+                -6px -6px 12px rgba(255, 255, 255, 1);
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .calendar-month {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .calendar-nav-btn {
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            transition: all 0.2s;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        .calendar-nav-btn:hover {
+            color: #111827;
+            background: #ffffff;
+            box-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.08),
+                -2px -2px 4px rgba(255, 255, 255, 1);
+        }
+
+        .calendar-nav-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f5f5f5;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        .calendar-day:hover {
+            background: #ffffff;
+            box-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.08),
+                -2px -2px 4px rgba(255, 255, 255, 1);
+        }
+
+        .calendar-day.other-month {
+            color: #9ca3af;
+        }
+
+        .calendar-day.current {
+            background: #ffffff;
+            color: #111827;
+            font-weight: 600;
+            box-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.1),
+                -3px -3px 6px rgba(255, 255, 255, 1);
+        }
+
+        .calendar-day.selected {
+            background: #f5f5f5;
+            color: #111827;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        /* Todo Input Section */
+        .todo-input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .todo-input-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        .todo-input-label i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .todo-input-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.08),
+                -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+
+        .todo-add-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: #3b82f6;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 
+                3px 3px 6px rgba(59, 130, 246, 0.3),
+                -3px -3px 6px rgba(255, 255, 255, 0.5);
+        }
+
+        .todo-add-btn:hover {
+            background: #2563eb;
+            box-shadow: 
+                4px 4px 8px rgba(37, 99, 235, 0.4),
+                -4px -4px 8px rgba(255, 255, 255, 0.6);
+        }
+
+        .todo-add-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .todo-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            color: #111827;
+            outline: none;
+        }
+
+        .todo-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .enter-icon {
+            width: 18px;
+            height: 18px;
+            color: #9ca3af;
+        }
+
+        /* Todo Sections */
+        .todo-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .todo-section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-toggle {
+            width: 16px;
+            height: 16px;
+            color: #6b7280;
+        }
+
+        .section-title {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .section-count {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .todo-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .todo-section.collapsed .todo-items {
+            display: none;
+        }
+
+        /* Todo Items */
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #ffffff;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.08),
+                -3px -3px 6px rgba(255, 255, 255, 1);
+        }
+
+        .todo-item:hover {
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+
+        .todo-item.active {
+            background: #f5f5f5;
+            box-shadow: 
+                inset 3px 3px 6px rgba(0, 0, 0, 0.06),
+                inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .drag-handle {
+            width: 16px;
+            height: 16px;
+            color: #9ca3af;
+            cursor: grab;
+        }
+
+        .todo-check {
+            width: 20px;
+            height: 20px;
+            color: #10b981;
+            cursor: pointer;
+        }
+
+        .todo-check:not(.checked) {
+            color: #d1d5db;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 14px;
+            color: #111827;
+        }
+
+        /* Action Buttons */
+        .todo-action-buttons {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #ffffff;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.08),
+                -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+
+        .action-btn:hover {
+            color: #111827;
+            box-shadow: 
+                5px 5px 10px rgba(0, 0, 0, 0.1),
+                -5px -5px 10px rgba(255, 255, 255, 1);
+        }
+
+        .action-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .todos-panel {
+            position: relative;
+        }
+
+        /* Monthly Usage Dashboard Styles */
+        .monthly-usage-panel {
+            background: #f5f5f5;
+        }
+
+        .usage-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .usage-share-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: #ffffff;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.08),
+                -3px -3px 6px rgba(255, 255, 255, 1);
+        }
+
+        .usage-share-btn:hover {
+            color: #111827;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+
+        .usage-share-btn i {
+            width: 18px;
+            height: 18px;
+        }
+
+        .usage-calendar-card {
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 
+                6px 6px 12px rgba(0, 0, 0, 0.08),
+                -6px -6px 12px rgba(255, 255, 255, 1);
+        }
+
+        .usage-calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .usage-weekday {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: #9ca3af;
+        }
+
+        .usage-calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .usage-calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #111827;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #f5f5f5;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .usage-calendar-day:hover {
+            background: #ffffff;
+            box-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.08),
+                -2px -2px 4px rgba(255, 255, 255, 1);
+        }
+
+        .usage-calendar-day.other-month {
+            color: #9ca3af;
+        }
+
+        .usage-calendar-day.current {
+            background: #e5e7eb;
+            color: #111827;
+            font-weight: 600;
+            box-shadow: 
+                3px 3px 6px rgba(0, 0, 0, 0.1),
+                -3px -3px 6px rgba(255, 255, 255, 1);
+        }
+
+        .usage-dots {
+            display: flex;
+            gap: 3px;
+            justify-content: center;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+        }
+
+        .dot.orange {
+            background: #f97316;
+        }
+
+        .dot.blue {
+            background: #3b82f6;
+        }
+
+        .dot.yellow {
+            background: #eab308;
+        }
+
+        .usage-summary-card {
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 
+                6px 6px 12px rgba(0, 0, 0, 0.08),
+                -6px -6px 12px rgba(255, 255, 255, 1);
+        }
+
+        .summary-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .summary-divider {
+            width: 1px;
+            height: 40px;
+            background: #e5e7eb;
+        }
+
+        .usage-breakdown-card {
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 
+                6px 6px 12px rgba(0, 0, 0, 0.08),
+                -6px -6px 12px rgba(255, 255, 255, 1);
+        }
+
+        .usage-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .usage-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .usage-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        .usage-icon i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .usage-icon.electricity i {
+            color: #eab308;
+        }
+
+        .usage-icon.water i {
+            color: #3b82f6;
+        }
+
+        .usage-icon.gas i {
+            color: #f97316;
+        }
+
+        .usage-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .usage-name {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .usage-amount {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .usage-percentage {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            min-width: 45px;
+            text-align: right;
+        }
+
+        .usage-bar {
+            position: absolute;
+            bottom: -8px;
+            left: 56px;
+            right: 0;
+            height: 6px;
+            background: #f5f5f5;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        .usage-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .usage-bar-fill.electricity {
+            background: #eab308;
+        }
+
+        .usage-bar-fill.water {
+            background: #3b82f6;
+        }
+
+        .usage-bar-fill.gas {
+            background: #f97316;
+        }
+
+        /* Events Card Styles */
+        .events-panel {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-height: calc(100vh - 445px);
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.08),
+                -8px -8px 16px rgba(255, 255, 255, 1);
+        }
+
+        .events-panel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .events-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .events-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        .events-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .events-filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .events-filter-btn:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        .events-filter-btn i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .events-filter-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            z-index: 100;
+            display: none;
+            min-width: 180px;
+            overflow: hidden;
+        }
+
+        .events-filter-dropdown.active {
+            display: block;
+        }
+
+        .events-filter-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .events-filter-option:hover {
+            background-color: #f9fafb;
+        }
+
+        .events-filter-option i {
+            width: 16px;
+            height: 16px;
+            color: #10b981;
+        }
+
+        .events-add-btn {
+            padding: 8px 16px;
+            background: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .events-add-btn:hover {
+            background: #374151;
+        }
+
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .event-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .event-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: #d1d5db;
+        }
+
+        .event-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .event-date-number {
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .event-date-day {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        .event-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .event-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .event-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 0;
+        }
+
+        .event-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .event-status.upcoming {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .event-status.pending {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        .event-status.completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .event-status.cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .event-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .event-detail i {
+            width: 16px;
+            height: 16px;
+            color: #9ca3af;
+        }
+
+        /* Activity Card Styles */
+        .activity-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 0 32px 32px 32px;
+            margin: 110px 40px 24px 40px;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.08),
+                -8px -8px 16px rgba(255, 255, 255, 1);
+        }
+
+        .activity-card-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .activity-section {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .activity-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin: 20px 0 24px 20px;
+        }
+
+        /* Worked Today Card - Card in Card */
+        .worked-today-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.06),
+                -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+
+        .worked-today-content {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .worked-today-metrics {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .worked-today-metric {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .worked-today-metric:last-child {
+            border-bottom: none;
+        }
+
+        .worked-today-metric-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .worked-today-metric-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #374151;
+            text-align: right;
+        }
+
+        .circular-progress-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            flex-shrink: 0;
+        }
+
+        .circular-progress-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .circular-progress-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .circular-progress-bg {
+            fill: none;
+            stroke: #f3f4f6;
+            stroke-width: 16;
+        }
+
+        .circular-progress-fill {
+            fill: none;
+            stroke: #10b981;
+            stroke-width: 16;
+            stroke-linecap: round;
+            transition: stroke-dasharray 0.8s ease;
+        }
+
+        .circular-progress-stripe {
+            fill: none;
+            stroke: url(#stripePattern);
+            stroke-width: 16;
+            stroke-linecap: round;
+        }
+
+        .circular-progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .circular-progress-time {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .circular-progress-target {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .timesheets-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            height: 120px;
+        }
+
+        .timesheet-day {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timesheet-day-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #111827;
+            margin-bottom: auto;
+        }
+
+        .timesheet-bar-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .timesheet-bar {
+            width: 100%;
+            background: #3b82f6;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 4px;
+        }
+
+        .timesheet-bar-stripe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                #f3f4f6,
+                #f3f4f6 3px,
+                transparent 3px,
+                transparent 6px
+            );
+            background-size: 8px 8px;
+        }
+
+        .timesheet-bar.empty {
+            background: #f3f4f6;
+            background-image: repeating-linear-gradient(
+                45deg,
+                #e5e7eb,
+                #e5e7eb 3px,
+                transparent 3px,
+                transparent 6px
+            );
+            background-size: 8px 8px;
+        }
+
+        .timesheet-bar.partial .timesheet-bar-stripe {
+            bottom: 0;
+        }
+
+        .timesheet-time {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* Weekly Calendar Styles */
+        .weekly-calendar-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.06),
+                -4px -4px 8px rgba(255, 255, 255, 1);
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 208px;
+        }
+
+        .weekly-calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+        }
+
+        .weekly-calendar-dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            flex: 1;
+            min-height: 160px;
+        }
+
+        .calendar-date-box {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            aspect-ratio: 1;
+            width: 100%;
+            max-width: 60px;
+            box-shadow: 
+                inset 2px 2px 4px rgba(0, 0, 0, 0.06),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .calendar-date-box:hover {
+            box-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.08),
+                -2px -2px 4px rgba(255, 255, 255, 1);
+        }
+
+        .calendar-date-number {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .calendar-date-dots {
+            display: flex;
+            gap: 3px;
+            justify-content: center;
+        }
+
+        .calendar-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+        }
+
+        .calendar-dot.orange {
+            background: #f97316;
+        }
+
+        .calendar-dot.blue {
+            background: #3b82f6;
+        }
+
+        .calendar-dot.yellow {
+            background: #eab308;
+        }
+
+        .calendar-date-tags {
+            margin-top: auto;
+            padding-top: 8px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+        }
     </style>
 </head>
 <body class="dashboard-page">
@@ -1156,6 +2469,538 @@
 
     <!-- Main Content -->
     <main class="dashboard-main">
+        <!-- Activity Card -->
+        <div class="activity-card">
+            <div class="activity-card-content">
+                <!-- Worked Today Section -->
+                <div class="activity-section">
+                    <h3 class="activity-section-title">Today's Work</h3>
+                    <div class="worked-today-card">
+                        <div class="worked-today-content">
+                            <div class="worked-today-metrics">
+                                <div class="worked-today-metric">
+                                    <span class="worked-today-metric-label">Activity</span>
+                                    <span class="worked-today-metric-value" id="activityPercent">68%</span>
+                                </div>
+                                <div class="worked-today-metric">
+                                    <span class="worked-today-metric-label">Projects</span>
+                                    <span class="worked-today-metric-value" id="projectsCount">3</span>
+                                </div>
+                                <div class="worked-today-metric">
+                                    <span class="worked-today-metric-label">Tasks done</span>
+                                    <span class="worked-today-metric-value" id="tasksDone">8</span>
+                                </div>
+                            </div>
+                            <div class="circular-progress-container">
+                                <div class="circular-progress-wrapper">
+                                    <svg class="circular-progress-svg" viewBox="0 0 160 160">
+                                        <defs>
+                                            <pattern id="stripePattern" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                                <rect width="6" height="6" fill="#f3f4f6"/>
+                                                <line x1="0" y1="0" x2="6" y2="6" stroke="#e5e7eb" stroke-width="1"/>
+                                            </pattern>
+                                        </defs>
+                                        <circle class="circular-progress-bg" cx="80" cy="80" r="70"></circle>
+                                        <circle class="circular-progress-fill" id="progressFill" cx="80" cy="80" r="70" stroke-dasharray="330 440"></circle>
+                                        <circle class="circular-progress-stripe" id="progressStripe" cx="80" cy="80" r="70" stroke-dasharray="110 440" stroke-dashoffset="-330"></circle>
+                                    </svg>
+                                    <div class="circular-progress-text">
+                                        <div class="circular-progress-time" id="workedTime">06:24</div>
+                                        <div class="circular-progress-target">/8h</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- This Week Timesheets Section -->
+                <div class="activity-section">
+                    <h3 class="activity-section-title">This weeks Calander</h3>
+                    <div class="weekly-calendar-card">
+                        <div class="weekly-calendar-header">
+                            <div class="calendar-day-header">Mo</div>
+                            <div class="calendar-day-header">Tu</div>
+                            <div class="calendar-day-header">We</div>
+                            <div class="calendar-day-header">Th</div>
+                            <div class="calendar-day-header">Fr</div>
+                            <div class="calendar-day-header">Sa</div>
+                            <div class="calendar-day-header">Su</div>
+                        </div>
+                        <div class="weekly-calendar-dates">
+                            <div class="calendar-date-box">
+                                <div class="calendar-date-number">31</div>
+                                <div class="calendar-date-dots">
+                                    <div class="calendar-dot orange"></div>
+                                    <div class="calendar-dot blue"></div>
+                                    <div class="calendar-dot yellow"></div>
+                                </div>
+                            </div>
+                            <div class="calendar-date-box">
+                                <div class="calendar-date-number">1</div>
+                                <div class="calendar-date-dots">
+                                    <div class="calendar-dot orange"></div>
+                                    <div class="calendar-dot blue"></div>
+                                    <div class="calendar-dot yellow"></div>
+                                </div>
+                            </div>
+                            <div class="calendar-date-box">
+                                <div class="calendar-date-number">2</div>
+                                <div class="calendar-date-dots">
+                                    <div class="calendar-dot orange"></div>
+                                    <div class="calendar-dot blue"></div>
+                                    <div class="calendar-dot yellow"></div>
+                                </div>
+                            </div>
+                            <div class="calendar-date-box">
+                                <div class="calendar-date-number">3</div>
+                                <div class="calendar-date-dots">
+                                    <div class="calendar-dot orange"></div>
+                                    <div class="calendar-dot blue"></div>
+                                    <div class="calendar-dot yellow"></div>
+                                </div>
+                            </div>
+                            <div class="calendar-date-box">
+                                <div class="calendar-date-number">4</div>
+                                <div class="calendar-date-dots">
+                                    <div class="calendar-dot orange"></div>
+                                    <div class="calendar-dot blue"></div>
+                                    <div class="calendar-dot yellow"></div>
+                                </div>
+                            </div>
+                            <div class="calendar-date-box">
+                                <div class="calendar-date-number">5</div>
+                                <div class="calendar-date-dots">
+                                    <div class="calendar-dot orange"></div>
+                                    <div class="calendar-dot blue"></div>
+                                    <div class="calendar-dot yellow"></div>
+                                </div>
+                            </div>
+                            <div class="calendar-date-box">
+                                <div class="calendar-date-number">6</div>
+                                <div class="calendar-date-dots">
+                                    <div class="calendar-dot orange"></div>
+                                    <div class="calendar-dot blue"></div>
+                                    <div class="calendar-dot yellow"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planner and Todo Content -->
+        <div class="planner-todo-container three-panels">
+            <!-- Left Panel: Monthly Usage -->
+            <div class="planner-panel monthly-usage-panel">
+                <div class="usage-header">
+                    <h2 class="panel-title">Monthly usage</h2>
+                    <button class="usage-share-btn">
+                        <i data-lucide="external-link"></i>
+                    </button>
+                </div>
+                
+                <!-- Calendar Section -->
+                <div class="usage-calendar-card">
+                    <div class="usage-calendar-weekdays">
+                        <div class="usage-weekday">Mo</div>
+                        <div class="usage-weekday">Tu</div>
+                        <div class="usage-weekday">We</div>
+                        <div class="usage-weekday">Th</div>
+                        <div class="usage-weekday">Fr</div>
+                        <div class="usage-weekday">Sa</div>
+                        <div class="usage-weekday">Su</div>
+                    </div>
+                    <div class="usage-calendar-days">
+                        <div class="usage-calendar-day other-month">
+                            <span>31</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day other-month">
+                            <span>1</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day other-month">
+                            <span>2</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day other-month">
+                            <span>3</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day other-month">
+                            <span>4</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day other-month">
+                            <span>5</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day other-month">
+                            <span>6</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day other-month">
+                            <span>7</span>
+                            <div class="usage-dots">
+                                <span class="dot orange"></span>
+                                <span class="dot blue"></span>
+                                <span class="dot yellow"></span>
+                            </div>
+                        </div>
+                        <div class="usage-calendar-day current">
+                            <span>8</span>
+                        </div>
+                        <div class="usage-calendar-day">9</div>
+                        <div class="usage-calendar-day">10</div>
+                        <div class="usage-calendar-day">11</div>
+                        <div class="usage-calendar-day">12</div>
+                        <div class="usage-calendar-day">13</div>
+                        <div class="usage-calendar-day">14</div>
+                        <div class="usage-calendar-day">15</div>
+                        <div class="usage-calendar-day">16</div>
+                        <div class="usage-calendar-day">17</div>
+                        <div class="usage-calendar-day">18</div>
+                        <div class="usage-calendar-day">19</div>
+                        <div class="usage-calendar-day">20</div>
+                        <div class="usage-calendar-day">21</div>
+                        <div class="usage-calendar-day">22</div>
+                        <div class="usage-calendar-day">23</div>
+                        <div class="usage-calendar-day">24</div>
+                        <div class="usage-calendar-day">25</div>
+                        <div class="usage-calendar-day">26</div>
+                        <div class="usage-calendar-day">27</div>
+                        <div class="usage-calendar-day">28</div>
+                        <div class="usage-calendar-day">29</div>
+                        <div class="usage-calendar-day">30</div>
+                        <div class="usage-calendar-day other-month">1</div>
+                        <div class="usage-calendar-day other-month">2</div>
+                        <div class="usage-calendar-day other-month">3</div>
+                        <div class="usage-calendar-day other-month">4</div>
+                    </div>
+                </div>
+
+                <!-- Summary Statistics -->
+                <div class="usage-summary-card">
+                    <div class="summary-item">
+                        <div class="summary-label">Usage Time</div>
+                        <div class="summary-value">5h 10m</div>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                        <div class="summary-label">Idle Avg</div>
+                        <div class="summary-value">13h 45m</div>
+                    </div>
+                    <div class="summary-divider"></div>
+                    <div class="summary-item">
+                        <div class="summary-label">Savings Day</div>
+                        <div class="summary-value">Sunday</div>
+                    </div>
+                </div>
+
+                <!-- Usage Breakdown -->
+                <div class="usage-breakdown-card">
+                    <!-- Electricity -->
+                    <div class="usage-item">
+                        <div class="usage-icon electricity">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div class="usage-info">
+                            <div class="usage-name">Electricity usage</div>
+                            <div class="usage-amount">120 / 200 kWh</div>
+                        </div>
+                        <div class="usage-percentage">60%</div>
+                        <div class="usage-bar">
+                            <div class="usage-bar-fill electricity" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <!-- Water -->
+                    <div class="usage-item">
+                        <div class="usage-icon water">
+                            <i data-lucide="droplet"></i>
+                        </div>
+                        <div class="usage-info">
+                            <div class="usage-name">Water usage</div>
+                            <div class="usage-amount">80 / 150 L</div>
+                        </div>
+                        <div class="usage-percentage">53%</div>
+                        <div class="usage-bar">
+                            <div class="usage-bar-fill water" style="width: 53%"></div>
+                        </div>
+                    </div>
+                    <!-- Gas -->
+                    <div class="usage-item">
+                        <div class="usage-icon gas">
+                            <i data-lucide="flame"></i>
+                        </div>
+                        <div class="usage-info">
+                            <div class="usage-name">Gas usage</div>
+                            <div class="usage-amount">32 / 40 m³</div>
+                        </div>
+                        <div class="usage-percentage">85%</div>
+                        <div class="usage-bar">
+                            <div class="usage-bar-fill gas" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Todo's -->
+            <div class="todos-panel">
+                <h2 class="panel-title">Todo's</h2>
+                
+                <!-- Todo Input -->
+                <div class="todo-input-section">
+                    <div class="todo-input-label">
+                        <i data-lucide="check-square"></i>
+                        <span>ToDo Unplanned</span>
+                    </div>
+                    <div class="todo-input-container">
+                        <button class="todo-add-btn">
+                            <i data-lucide="plus"></i>
+                        </button>
+                        <input type="text" class="todo-input" placeholder="Add todo, press ENTER to save">
+                        <i data-lucide="corner-down-left" class="enter-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Unplanned Section -->
+                <div class="todo-section expanded">
+                    <div class="todo-section-header">
+                        <i data-lucide="chevron-up" class="section-toggle"></i>
+                        <span class="section-title">Unplanned</span>
+                        <span class="section-count">2</span>
+                    </div>
+                    <div class="todo-items">
+                        <div class="todo-item active">
+                            <i data-lucide="grip-vertical" class="drag-handle"></i>
+                            <i data-lucide="check-circle" class="todo-check checked"></i>
+                            <span class="todo-text">HI-1</span>
+                        </div>
+                        <div class="todo-item">
+                            <i data-lucide="grip-vertical" class="drag-handle"></i>
+                            <i data-lucide="circle" class="todo-check"></i>
+                            <span class="todo-text">HI-1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Without Project Section -->
+                <div class="todo-section expanded">
+                    <div class="todo-section-header">
+                        <i data-lucide="chevron-up" class="section-toggle"></i>
+                        <span class="section-title">Without Project</span>
+                    </div>
+                    <div class="todo-items">
+                        <div class="todo-item active">
+                            <i data-lucide="grip-vertical" class="drag-handle"></i>
+                            <i data-lucide="check-circle" class="todo-check checked"></i>
+                            <span class="todo-text">HI-1</span>
+                        </div>
+                        <div class="todo-item">
+                            <i data-lucide="grip-vertical" class="drag-handle"></i>
+                            <i data-lucide="circle" class="todo-check"></i>
+                            <span class="todo-text">HI-1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collapsed Sections -->
+                <div class="todo-section collapsed">
+                    <div class="todo-section-header">
+                        <i data-lucide="chevron-down" class="section-toggle"></i>
+                        <span class="section-title">Todo's</span>
+                        <span class="section-count">0</span>
+                    </div>
+                </div>
+                <div class="todo-section collapsed">
+                    <div class="todo-section-header">
+                        <i data-lucide="chevron-down" class="section-toggle"></i>
+                        <span class="section-title">Scheduled</span>
+                        <span class="section-count">0</span>
+                    </div>
+                </div>
+                <div class="todo-section collapsed">
+                    <div class="todo-section-header">
+                        <i data-lucide="chevron-down" class="section-toggle"></i>
+                        <span class="section-title">Done</span>
+                        <span class="section-count">0</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="todo-action-buttons">
+                    <button class="action-btn" title="Expand">
+                        <i data-lucide="maximize-2"></i>
+                    </button>
+                    <button class="action-btn" title="Refresh">
+                        <i data-lucide="refresh-cw"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Events Panel -->
+            <div class="events-panel">
+                <div class="events-header">
+                    <h2 class="events-title">Your events</h2>
+                    <div class="events-header-actions">
+                        <div style="position: relative;">
+                            <button class="events-filter-btn" id="eventsFilterBtn">
+                                <span id="filterBtnText">All</span>
+                                <i data-lucide="chevron-down"></i>
+                            </button>
+                            <div class="events-filter-dropdown" id="eventsFilterDropdown">
+                                <div class="events-filter-option" data-filter="all">
+                                    <span>All</span>
+                                    <i data-lucide="check"></i>
+                                </div>
+                                <div class="events-filter-option" data-filter="upcoming">
+                                    <span>Upcoming</span>
+                                </div>
+                                <div class="events-filter-option" data-filter="pending">
+                                    <span>Pending</span>
+                                </div>
+                                <div class="events-filter-option" data-filter="completed">
+                                    <span>Completed</span>
+                                </div>
+                                <div class="events-filter-option" data-filter="cancelled">
+                                    <span>Cancelled</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="events-add-btn">Add new</button>
+                    </div>
+                </div>
+
+                <div class="events-list">
+                    <!-- Event 1: Global Summit -->
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-number">20</div>
+                            <div class="event-date-day">FRI</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-title-row">
+                                <h3 class="event-title">Global Summit 20:</h3>
+                                <span class="event-status upcoming">Upcoming</span>
+                            </div>
+                            <div class="event-details">
+                                <div class="event-detail">
+                                    <i data-lucide="calendar"></i>
+                                    <span>Dec 20</span>
+                                </div>
+                                <div class="event-detail">
+                                    <i data-lucide="map-pin"></i>
+                                    <span>plar Dr.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 2: Elite Athlete Invita -->
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-number">22</div>
+                            <div class="event-date-day">SUN</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-title-row">
+                                <h3 class="event-title">Elite Athlete Invita</h3>
+                                <span class="event-status cancelled">Cancelled</span>
+                            </div>
+                            <div class="event-details">
+                                <div class="event-detail">
+                                    <i data-lucide="calendar"></i>
+                                    <span>Dec 22</span>
+                                </div>
+                                <div class="event-detail">
+                                    <i data-lucide="map-pin"></i>
+                                    <span>Green Rd.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 3: World Design Challenge -->
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-number">25</div>
+                            <div class="event-date-day">WED</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-title-row">
+                                <h3 class="event-title">World Design Challenge</h3>
+                                <span class="event-status pending">Pending</span>
+                            </div>
+                            <div class="event-details">
+                                <div class="event-detail">
+                                    <i data-lucide="calendar"></i>
+                                    <span>Dec 25 at 12:10 am</span>
+                                </div>
+                                <div class="event-detail">
+                                    <i data-lucide="map-pin"></i>
+                                    <span>775 Rolling Green Rd.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event 4: Ultimate Development Showdown -->
+                    <div class="event-item">
+                        <div class="event-date">
+                            <div class="event-date-number">03</div>
+                            <div class="event-date-day">Mon</div>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-title-row">
+                                <h3 class="event-title">Ultimate Development Showdown</h3>
+                                <span class="event-status completed">Completed</span>
+                            </div>
+                            <div class="event-details">
+                                <div class="event-detail">
+                                    <i data-lucide="calendar"></i>
+                                    <span>Oct 03 at 08:05 am</span>
+                                </div>
+                                <div class="event-detail">
+                                    <i data-lucide="map-pin"></i>
+                                    <span>8080 Railroad St.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <!-- Dock -->
     <div class="dock-container">
         <div class="dock" id="dock">
@@ -1309,6 +3154,48 @@
                 lucide.createIcons();
             }
 
+            // Todo section toggle functionality
+            const sectionHeaders = document.querySelectorAll('.todo-section-header');
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const section = header.closest('.todo-section');
+                    const toggle = header.querySelector('.section-toggle');
+                    
+                    if (section.classList.contains('expanded')) {
+                        section.classList.remove('expanded');
+                        section.classList.add('collapsed');
+                        toggle.setAttribute('data-lucide', 'chevron-down');
+                    } else {
+                        section.classList.remove('collapsed');
+                        section.classList.add('expanded');
+                        toggle.setAttribute('data-lucide', 'chevron-up');
+                    }
+                    
+                    if (window.lucide) {
+                        lucide.createIcons();
+                    }
+                });
+            });
+
+            // Todo item checkbox toggle
+            const todoChecks = document.querySelectorAll('.todo-check');
+            todoChecks.forEach(check => {
+                check.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isChecked = check.classList.contains('checked');
+                    if (isChecked) {
+                        check.classList.remove('checked');
+                        check.setAttribute('data-lucide', 'circle');
+                    } else {
+                        check.classList.add('checked');
+                        check.setAttribute('data-lucide', 'check-circle');
+                    }
+                    if (window.lucide) {
+                        lucide.createIcons();
+                    }
+                });
+            });
+
             // Force reload images to ensure they display and apply styles
             const dockImages = document.querySelectorAll('.dock-icon img');
             dockImages.forEach(img => {
@@ -1398,6 +3285,152 @@
             setupDropdownHover('appsDropdownBtn', 'appsDropdown');
             setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
             setupDropdownHover('accountDropdownBtn', 'accountDropdown');
+
+            // Dynamic Circular Progress for Worked Today
+            function updateWorkedTodayProgress() {
+                const progressFill = document.getElementById('progressFill');
+                const progressStripe = document.getElementById('progressStripe');
+                const workedTimeEl = document.getElementById('workedTime');
+                const activityPercentEl = document.getElementById('activityPercent');
+                const tasksDoneEl = document.getElementById('tasksDone');
+                
+                if (!progressFill || !progressStripe) return;
+                
+                // Get completed tasks count
+                const completedTasks = document.querySelectorAll('.todo-check.checked').length;
+                const totalTasks = document.querySelectorAll('.todo-check').length;
+                
+                // Calculate progress (0-100%)
+                const progressPercent = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+                
+                // Calculate worked time (based on progress, max 8 hours)
+                const targetHours = 8;
+                const workedHours = (progressPercent / 100) * targetHours;
+                const hours = Math.floor(workedHours);
+                const minutes = Math.floor((workedHours - hours) * 60);
+                const workedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+                
+                // Update worked time display
+                if (workedTimeEl) {
+                    workedTimeEl.textContent = workedTime;
+                }
+                
+                // Update activity percentage
+                if (activityPercentEl) {
+                    activityPercentEl.textContent = `${Math.round(progressPercent)}%`;
+                }
+                
+                // Update tasks done
+                if (tasksDoneEl) {
+                    tasksDoneEl.textContent = completedTasks;
+                }
+                
+                // Calculate circumference (2 * π * radius)
+                const radius = 70;
+                const circumference = 2 * Math.PI * radius;
+                
+                // Calculate filled and remaining portions
+                const filledLength = (progressPercent / 100) * circumference;
+                const remainingLength = circumference - filledLength;
+                
+                // Update progress fill (green portion)
+                progressFill.setAttribute('stroke-dasharray', `${filledLength} ${circumference}`);
+                
+                // Update stripe (for remaining portion with diagonal lines)
+                if (remainingLength > 0) {
+                    progressStripe.setAttribute('stroke-dasharray', `${remainingLength} ${circumference}`);
+                    progressStripe.setAttribute('stroke-dashoffset', `-${filledLength}`);
+                    progressStripe.style.display = 'block';
+                    progressStripe.style.opacity = '1';
+                } else {
+                    progressStripe.style.display = 'none';
+                }
+            }
+            
+            // Initialize progress
+            updateWorkedTodayProgress();
+            
+            // Update progress when todo items are checked/unchecked
+            const todoChecks = document.querySelectorAll('.todo-check');
+            todoChecks.forEach(check => {
+                check.addEventListener('click', () => {
+                    setTimeout(updateWorkedTodayProgress, 100);
+                });
+            });
+            
+            // Watch for new todo items being added
+            const todoObserver = new MutationObserver(() => {
+                updateWorkedTodayProgress();
+                // Re-attach event listeners to new todo items
+                const newTodoChecks = document.querySelectorAll('.todo-check');
+                newTodoChecks.forEach(check => {
+                    if (!check.hasAttribute('data-progress-listener')) {
+                        check.setAttribute('data-progress-listener', 'true');
+                        check.addEventListener('click', () => {
+                            setTimeout(updateWorkedTodayProgress, 100);
+                        });
+                    }
+                });
+            });
+            
+            const todosPanel = document.querySelector('.todos-panel');
+            if (todosPanel) {
+                todoObserver.observe(todosPanel, { childList: true, subtree: true });
+            }
+
+            // Events filter dropdown
+            const eventsFilterBtn = document.getElementById('eventsFilterBtn');
+            const eventsFilterDropdown = document.getElementById('eventsFilterDropdown');
+            
+            if (eventsFilterBtn && eventsFilterDropdown) {
+                let filterTimeout;
+                
+                eventsFilterBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    eventsFilterDropdown.classList.toggle('active');
+                });
+                
+                document.addEventListener('click', (e) => {
+                    if (!eventsFilterBtn.contains(e.target) && !eventsFilterDropdown.contains(e.target)) {
+                        eventsFilterDropdown.classList.remove('active');
+                    }
+                });
+                
+                // Filter option selection
+                const filterOptions = eventsFilterDropdown.querySelectorAll('.events-filter-option');
+                filterOptions.forEach(option => {
+                    option.addEventListener('click', () => {
+                        const filterValue = option.getAttribute('data-filter');
+                        const filterText = option.querySelector('span').textContent;
+                        
+                        // Update button text
+                        const filterBtnText = document.getElementById('filterBtnText');
+                        if (filterBtnText) {
+                            filterBtnText.textContent = filterText;
+                        }
+                        
+                        // Update checkmarks
+                        filterOptions.forEach(opt => {
+                            const icon = opt.querySelector('i');
+                            if (opt === option) {
+                                if (!icon) {
+                                    const checkIcon = document.createElement('i');
+                                    checkIcon.setAttribute('data-lucide', 'check');
+                                    opt.appendChild(checkIcon);
+                                }
+                            } else {
+                                if (icon) icon.remove();
+                            }
+                        });
+                        
+                        if (window.lucide) {
+                            lucide.createIcons();
+                        }
+                        
+                        eventsFilterDropdown.classList.remove('active');
+                    });
+                });
+            }
         });
     </script>
 </body>
