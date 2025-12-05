@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Plan - Kreative</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="kreative-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i data-lucide="palette"></i>
+                <span>Kreative</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Home</a>
+                <a href="apps.html" class="nav-link">Apps</a>
+                <a href="projects.html" class="nav-link">Files</a>
+                <a href="create.html" class="nav-link">Create</a>
+                <a href="content-plan.html" class="nav-link active">Content plan</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Search content plan">
+            </div>
+            <button class="view-plans-btn">View plans</button>
+            <button class="nav-icon-btn"><i data-lucide="sliders-horizontal"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="help-circle"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="bell"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="cloud-download"></i></button>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-btn">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </a>
+        <a href="apps.html" class="sidebar-btn">
+            <i data-lucide="grid-2x2"></i>
+            <span>Apps</span>
+        </a>
+        <a href="projects.html" class="sidebar-btn">
+            <i data-lucide="folder"></i>
+            <span>Files</span>
+        </a>
+        <a href="create.html" class="sidebar-btn">
+            <i data-lucide="plus-circle"></i>
+            <span>Create</span>
+        </a>
+        <a href="content-plan.html" class="sidebar-btn active">
+            <i data-lucide="calendar-check"></i>
+            <span>Content plan</span>
+        </a>
+        <a href="analyse.html" class="sidebar-btn">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Analyse</span>
+        </a>
+        <a href="ecosystem.html" class="sidebar-btn">
+            <i data-lucide="network"></i>
+            <span>Ecosystem</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <a href="whats-new.html" class="sidebar-btn">
+            <i data-lucide="gift"></i>
+            <span>What's new</span>
+        </a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section style="margin-bottom: 30px;">
+            <h1 style="font-size: 32px; color: var(--text-primary); margin-bottom: 10px;">Content Plan</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">Plan, schedule, and manage your content calendar</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop" alt="Calendar View">
+                    </div>
+                    <h3>Calendar View</h3>
+                    <p>Visualize your content schedule at a glance</p>
+                    <button class="feature-btn">View Calendar</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=600&h=400&fit=crop" alt="Scheduled Posts">
+                    </div>
+                    <h3>Scheduled Posts</h3>
+                    <p>Manage all your upcoming content in one place</p>
+                    <button class="feature-btn">View Schedule</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=400&fit=crop" alt="Content Ideas">
+                    </div>
+                    <h3>Content Ideas</h3>
+                    <p>Brainstorm and organize content concepts</p>
+                    <button class="feature-btn">Explore Ideas</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" alt="Team Collaboration">
+                    </div>
+                    <h3>Team Collaboration</h3>
+                    <p>Work together on content planning</p>
+                    <button class="feature-btn">Invite Team</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="user-info">
+            <div class="user-avatar-large">
+                <i data-lucide="user"></i>
+            </div>
+            <h3>Lockz FC</h3>
+            <a href="#" class="manage-account">Manage account</a>
+        </div>
+    </aside>
+
+    <script src="kreative-app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

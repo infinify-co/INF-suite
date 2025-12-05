@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecosystem - Kreative</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="kreative-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="ecosystem-page">
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i data-lucide="palette"></i>
+                <span>Kreative</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Home</a>
+                <a href="apps.html" class="nav-link">Apps</a>
+                <a href="projects.html" class="nav-link">Files</a>
+                <a href="create.html" class="nav-link">Create</a>
+                <a href="content-plan.html" class="nav-link">Content plan</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Search ecosystem">
+            </div>
+            <button class="view-plans-btn">View plans</button>
+            <button class="nav-icon-btn"><i data-lucide="sliders-horizontal"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="help-circle"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="bell"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="cloud-download"></i></button>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-btn">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </a>
+        <a href="apps.html" class="sidebar-btn">
+            <i data-lucide="grid-2x2"></i>
+            <span>Apps</span>
+        </a>
+        <a href="projects.html" class="sidebar-btn">
+            <i data-lucide="folder"></i>
+            <span>Files</span>
+        </a>
+        <a href="create.html" class="sidebar-btn">
+            <i data-lucide="plus-circle"></i>
+            <span>Create</span>
+        </a>
+        <a href="content-plan.html" class="sidebar-btn">
+            <i data-lucide="calendar-check"></i>
+            <span>Content plan</span>
+        </a>
+        <a href="analyse.html" class="sidebar-btn">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Analyse</span>
+        </a>
+        <a href="ecosystem.html" class="sidebar-btn active">
+            <i data-lucide="network"></i>
+            <span>Ecosystem</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <a href="whats-new.html" class="sidebar-btn">
+            <i data-lucide="gift"></i>
+            <span>What's new</span>
+        </a>
+    </aside>
+
+    <!-- Category Header -->
+    <div class="category-header">
+        <div class="category-tab active">Discover</div>
+        <div class="category-tab">Social Media</div>
+        <div class="category-tab">Cloud Storage</div>
+        <div class="category-tab">Team Tools</div>
+        <div class="category-tab">E-commerce</div>
+        <div class="category-tab">Analytics</div>
+        <div class="category-tab">Payment</div>
+        <div class="category-tab">Marketing</div>
+        <div class="category-tab">Communication</div>
+        <div class="category-tab">Productivity</div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" style="margin-left: 70px; padding: 0;">
+        <!-- Compact Grid -->
+        <div class="compact-grid">
+            <!-- Item 1 - Twitter -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=450&fit=crop" alt="Twitter Integration" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar" style="background: linear-gradient(135deg, #1DA1F2, #0d8bd9);">
+                            <i data-lucide="twitter" style="width: 12px; height: 12px;"></i>
+                        </div>
+                        <span class="compact-card-name">Twitter</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 78</span>
+                        <span><i data-lucide="eye"></i> 6.8k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 - Slack -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=450&fit=crop" alt="Slack" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">SL</div>
+                        <span class="compact-card-name">Slack Team</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 95</span>
+                        <span><i data-lucide="eye"></i> 12.3k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 - Instagram -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=450&fit=crop" alt="Instagram" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar" style="background: linear-gradient(135deg, #E4405F, #d62976);">
+                            <i data-lucide="instagram" style="width: 12px; height: 12px;"></i>
+                        </div>
+                        <span class="compact-card-name">Instagram</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 84</span>
+                        <span><i data-lucide="eye"></i> 9.2k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 - Google Drive -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=450&fit=crop" alt="Google Drive" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">GD</div>
+                        <span class="compact-card-name">Google Drive</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 126</span>
+                        <span><i data-lucide="eye"></i> 18.4k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 - Mailchimp -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=450&fit=crop" alt="Mailchimp" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">MC</div>
+                        <span class="compact-card-name">Mailchimp</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 63</span>
+                        <span><i data-lucide="eye"></i> 7.1k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 - YouTube -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="YouTube" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar" style="background: linear-gradient(135deg, #FF0000, #cc0000);">
+                            <i data-lucide="youtube" style="width: 12px; height: 12px;"></i>
+                        </div>
+                        <span class="compact-card-name">YouTube</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 112</span>
+                        <span><i data-lucide="eye"></i> 15.8k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 7 - Shopify -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=450&fit=crop" alt="Shopify" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">SH</div>
+                        <span class="compact-card-name">Shopify</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 98</span>
+                        <span><i data-lucide="eye"></i> 13.6k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 8 - Dropbox -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=450&fit=crop" alt="Dropbox" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">DB</div>
+                        <span class="compact-card-name">Dropbox</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 76</span>
+                        <span><i data-lucide="eye"></i> 10.2k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 9 - Trello -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=450&fit=crop" alt="Trello" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">TR</div>
+                        <span class="compact-card-name">Trello</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 105</span>
+                        <span><i data-lucide="eye"></i> 14.7k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 10 - Facebook -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=450&fit=crop" alt="Facebook" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar" style="background: linear-gradient(135deg, #4267B2, #365899);">
+                            <i data-lucide="facebook" style="width: 12px; height: 12px;"></i>
+                        </div>
+                        <span class="compact-card-name">Facebook</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 67</span>
+                        <span><i data-lucide="eye"></i> 8.9k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 11 - Google Analytics -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=450&fit=crop" alt="Analytics" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">GA</div>
+                        <span class="compact-card-name">Google Analytics</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 143</span>
+                        <span><i data-lucide="eye"></i> 21.5k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 12 - Stripe -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=450&fit=crop" alt="Stripe" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">ST</div>
+                        <span class="compact-card-name">Stripe</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 118</span>
+                        <span><i data-lucide="eye"></i> 17.3k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 13 - Discord -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=600&h=450&fit=crop" alt="Discord" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">DC</div>
+                        <span class="compact-card-name">Discord</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 92</span>
+                        <span><i data-lucide="eye"></i> 11.8k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 14 - Asana -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=450&fit=crop" alt="Asana" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">AS</div>
+                        <span class="compact-card-name">Asana</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 81</span>
+                        <span><i data-lucide="eye"></i> 9.7k</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 15 - Notion -->
+            <div class="compact-card">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=450&fit=crop" alt="Notion" class="compact-card-image">
+                <div class="compact-card-footer">
+                    <div class="compact-card-creator">
+                        <div class="compact-card-avatar">NO</div>
+                        <span class="compact-card-name">Notion</span>
+                        <span class="compact-card-badge">TEAM</span>
+                    </div>
+                    <div class="compact-card-stats">
+                        <span><i data-lucide="heart"></i> 134</span>
+                        <span><i data-lucide="eye"></i> 19.6k</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="kreative-app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

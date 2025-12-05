@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create - Kreative</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="kreative-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i data-lucide="palette"></i>
+                <span>Kreative</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Home</a>
+                <a href="apps.html" class="nav-link">Apps</a>
+                <a href="projects.html" class="nav-link">Files</a>
+                <a href="create.html" class="nav-link active">Create</a>
+                <a href="content-plan.html" class="nav-link">Content plan</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Search Kreative">
+            </div>
+            <button class="view-plans-btn">View plans</button>
+            <button class="nav-icon-btn"><i data-lucide="sliders-horizontal"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="help-circle"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="bell"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="cloud-download"></i></button>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-btn">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </a>
+        <a href="apps.html" class="sidebar-btn">
+            <i data-lucide="grid-2x2"></i>
+            <span>Apps</span>
+        </a>
+        <a href="projects.html" class="sidebar-btn">
+            <i data-lucide="folder"></i>
+            <span>Files</span>
+        </a>
+        <a href="create.html" class="sidebar-btn active">
+            <i data-lucide="plus-circle"></i>
+            <span>Create</span>
+        </a>
+        <a href="content-plan.html" class="sidebar-btn">
+            <i data-lucide="calendar-check"></i>
+            <span>Content plan</span>
+        </a>
+        <a href="analyse.html" class="sidebar-btn">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Analyse</span>
+        </a>
+        <a href="ecosystem.html" class="sidebar-btn">
+            <i data-lucide="network"></i>
+            <span>Ecosystem</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <a href="whats-new.html" class="sidebar-btn">
+            <i data-lucide="gift"></i>
+            <span>What's new</span>
+        </a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section style="margin-bottom: 30px;">
+            <h1 style="font-size: 32px; color: var(--text-primary); margin-bottom: 10px;">Create New Project</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">Choose a template to get started</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i data-lucide="cloud-upload" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <p>Start from your content</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview instagram">
+                        <div class="preview-shape"></div>
+                    </div>
+                    <p>Instagram square post</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview flyer">
+                        <div class="flyer-design">
+                            <div class="flyer-badge"></div>
+                            <div class="flyer-lines"></div>
+                        </div>
+                    </div>
+                    <p>Flyer</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview story">
+                        <div class="story-design"></div>
+                    </div>
+                    <p>Instagram story</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview tiktok">
+                        <div class="tiktok-design"></div>
+                    </div>
+                    <p>TikTok video</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview youtube">
+                        <div class="youtube-design"></div>
+                    </div>
+                    <p>YouTube thumbnail</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="user-info">
+            <div class="user-avatar-large">
+                <i data-lucide="user"></i>
+            </div>
+            <h3>Lockz FC</h3>
+            <a href="#" class="manage-account">Manage account</a>
+        </div>
+    </aside>
+
+    <script src="kreative-app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

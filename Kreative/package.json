@@ -1,0 +1,29 @@
+{
+  "name": "kreative-dashboard",
+  "version": "1.0.0",
+  "description": "Creative tools and project management dashboard PWA",
+  "main": "dashboard.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080",
+    "generate-icons": "node generate-icons.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pwa",
+    "creative",
+    "dashboard",
+    "design",
+    "productivity"
+  ],
+  "author": "INF",
+  "license": "MIT",
+  "devDependencies": {},
+  "pwa": {
+    "name": "Kreative Dashboard",
+    "short_name": "Kreative",
+    "theme_color": "#000000",
+    "background_color": "#f5f5f5"
+  }
+}
+

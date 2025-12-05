@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - Kreative</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="kreative-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i data-lucide="palette"></i>
+                <span>Kreative</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Home</a>
+                <a href="apps.html" class="nav-link">Apps</a>
+                <a href="projects.html" class="nav-link active">Files</a>
+                <a href="create.html" class="nav-link">Create</a>
+                <a href="content-plan.html" class="nav-link">Content plan</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Search projects">
+            </div>
+            <button class="view-plans-btn">View plans</button>
+            <button class="nav-icon-btn"><i data-lucide="sliders-horizontal"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="help-circle"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="bell"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="cloud-download"></i></button>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-btn">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </a>
+        <a href="apps.html" class="sidebar-btn">
+            <i data-lucide="grid-2x2"></i>
+            <span>Apps</span>
+        </a>
+        <a href="projects.html" class="sidebar-btn active">
+            <i data-lucide="folder"></i>
+            <span>Files</span>
+        </a>
+        <a href="create.html" class="sidebar-btn">
+            <i data-lucide="plus-circle"></i>
+            <span>Create</span>
+        </a>
+        <a href="content-plan.html" class="sidebar-btn">
+            <i data-lucide="calendar-check"></i>
+            <span>Content plan</span>
+        </a>
+        <a href="analyse.html" class="sidebar-btn">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Analyse</span>
+        </a>
+        <a href="ecosystem.html" class="sidebar-btn">
+            <i data-lucide="network"></i>
+            <span>Ecosystem</span>
+        </a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section style="margin-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h1 style="font-size: 32px; color: var(--text-primary);">My Projects</h1>
+                <button class="feature-btn" style="padding: 12px 24px; background: var(--accent-blue); color: white; border: none;">
+                    <i data-lucide="plus"></i> New Project
+                </button>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div style="display: flex; gap: 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 30px;">
+                <button class="tab-btn active" style="padding: 12px 20px; border: none; background: none; color: var(--accent-blue); font-weight: 600; border-bottom: 2px solid var(--accent-blue); cursor: pointer;">
+                    All Projects
+                </button>
+                <button class="tab-btn" style="padding: 12px 20px; border: none; background: none; color: var(--text-secondary); cursor: pointer;">
+                    Recent
+                </button>
+                <button class="tab-btn" style="padding: 12px 20px; border: none; background: none; color: var(--text-secondary); cursor: pointer;">
+                    Shared
+                </button>
+                <button class="tab-btn" style="padding: 12px 20px; border: none; background: none; color: var(--text-secondary); cursor: pointer;">
+                    Archived
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="features-grid">
+                <!-- Project 1 -->
+                <div class="feature-card">
+                    <div class="feature-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
+                        <i data-lucide="image"></i>
+                    </div>
+                    <h3>Brand Design Project</h3>
+                    <p style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+                        <i data-lucide="clock"></i> Modified 2 hours ago
+                    </p>
+                    <div style="display: flex; gap: 8px; padding: 0 15px 15px;">
+                        <button class="feature-btn" style="flex: 1;">Open</button>
+                        <button class="feature-btn" style="width: 40px; padding: 8px;">
+                            <i data-lucide="more-vertical"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="feature-card">
+                    <div class="feature-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
+                        <i data-lucide="video"></i>
+                    </div>
+                    <h3>Marketing Campaign</h3>
+                    <p style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+                        <i data-lucide="clock"></i> Modified yesterday
+                    </p>
+                    <div style="display: flex; gap: 8px; padding: 0 15px 15px;">
+                        <button class="feature-btn" style="flex: 1;">Open</button>
+                        <button class="feature-btn" style="width: 40px; padding: 8px;">
+                            <i data-lucide="more-vertical"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="feature-card">
+                    <div class="feature-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
+                        <i data-lucide="palette"></i>
+                    </div>
+                    <h3>UI Design System</h3>
+                    <p style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+                        <i data-lucide="clock"></i> Modified 3 days ago
+                    </p>
+                    <div style="display: flex; gap: 8px; padding: 0 15px 15px;">
+                        <button class="feature-btn" style="flex: 1;">Open</button>
+                        <button class="feature-btn" style="width: 40px; padding: 8px;">
+                            <i data-lucide="more-vertical"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="feature-card">
+                    <div class="feature-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
+                        <i data-lucide="file-text"></i>
+                    </div>
+                    <h3>Social Media Content</h3>
+                    <p style="display: flex; align-items: center; gap: 8px; font-size: 12px;">
+                        <i data-lucide="clock"></i> Modified 1 week ago
+                    </p>
+                    <div style="display: flex; gap: 8px; padding: 0 15px 15px;">
+                        <button class="feature-btn" style="flex: 1;">Open</button>
+                        <button class="feature-btn" style="width: 40px; padding: 8px;">
+                            <i data-lucide="more-vertical"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Project Card -->
+                <div class="feature-card" style="cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 300px; background: var(--hover-bg);">
+                    <div style="text-align: center;">
+                        <i data-lucide="plus-circle" style="font-size: 48px; color: var(--text-secondary); margin-bottom: 15px;"></i>
+                        <h3 style="color: var(--text-secondary);">Create New Project</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="user-info">
+            <div class="user-avatar-large">
+                <i data-lucide="user"></i>
+            </div>
+            <h3>Lockz FC</h3>
+            <a href="#" class="manage-account">Manage account</a>
+        </div>
+        <div class="plan-info">
+            <h4>Storage</h4>
+            <div style="margin: 10px 0;">
+                <div style="background: var(--border-color); height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 35%; height: 100%; background: var(--accent-blue);"></div>
+                </div>
+                <p style="margin-top: 8px; font-size: 12px; color: var(--text-secondary);">3.5 GB of 10 GB used</p>
+            </div>
+        </div>
+    </aside>
+
+    <script src="kreative-app.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

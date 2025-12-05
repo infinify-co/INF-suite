@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse - Kreative</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="kreative-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i data-lucide="palette"></i>
+                <span>Kreative</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Home</a>
+                <a href="apps.html" class="nav-link">Apps</a>
+                <a href="projects.html" class="nav-link">Files</a>
+                <a href="create.html" class="nav-link">Create</a>
+                <a href="content-plan.html" class="nav-link">Content plan</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Search analytics">
+            </div>
+            <button class="view-plans-btn">View plans</button>
+            <button class="nav-icon-btn"><i data-lucide="sliders-horizontal"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="help-circle"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="bell"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="cloud-download"></i></button>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-btn">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </a>
+        <a href="apps.html" class="sidebar-btn">
+            <i data-lucide="grid-2x2"></i>
+            <span>Apps</span>
+        </a>
+        <a href="projects.html" class="sidebar-btn">
+            <i data-lucide="folder"></i>
+            <span>Files</span>
+        </a>
+        <a href="create.html" class="sidebar-btn">
+            <i data-lucide="plus-circle"></i>
+            <span>Create</span>
+        </a>
+        <a href="content-plan.html" class="sidebar-btn">
+            <i data-lucide="calendar-check"></i>
+            <span>Content plan</span>
+        </a>
+        <a href="analyse.html" class="sidebar-btn active">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Analyse</span>
+        </a>
+        <a href="ecosystem.html" class="sidebar-btn">
+            <i data-lucide="network"></i>
+            <span>Ecosystem</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <a href="whats-new.html" class="sidebar-btn">
+            <i data-lucide="gift"></i>
+            <span>What's new</span>
+        </a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section style="margin-bottom: 30px;">
+            <h1 style="font-size: 32px; color: var(--text-primary); margin-bottom: 10px;">Analytics & Insights</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">Track performance and gain insights into your content</p>
+
+            <!-- Stats Cards -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
+                <div style="background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <i data-lucide="eye" style="width: 20px; height: 20px; color: var(--accent-blue);"></i>
+                        <h3 style="font-size: 14px; color: var(--text-secondary);">Total Views</h3>
+                    </div>
+                    <p style="font-size: 28px; font-weight: 700; color: var(--text-primary);">125.4K</p>
+                    <p style="font-size: 12px; color: #10b981;">↑ 12.5% from last month</p>
+                </div>
+
+                <div style="background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <i data-lucide="heart" style="width: 20px; height: 20px; color: #ec4899;"></i>
+                        <h3 style="font-size: 14px; color: var(--text-secondary);">Engagement</h3>
+                    </div>
+                    <p style="font-size: 28px; font-weight: 700; color: var(--text-primary);">8.2K</p>
+                    <p style="font-size: 12px; color: #10b981;">↑ 8.3% from last month</p>
+                </div>
+
+                <div style="background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <i data-lucide="users" style="width: 20px; height: 20px; color: var(--accent-purple);"></i>
+                        <h3 style="font-size: 14px; color: var(--text-secondary);">Followers</h3>
+                    </div>
+                    <p style="font-size: 28px; font-weight: 700; color: var(--text-primary);">15.6K</p>
+                    <p style="font-size: 12px; color: #10b981;">↑ 5.2% from last month</p>
+                </div>
+
+                <div style="background: var(--secondary-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                        <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #10b981;"></i>
+                        <h3 style="font-size: 14px; color: var(--text-secondary);">Growth Rate</h3>
+                    </div>
+                    <p style="font-size: 28px; font-weight: 700; color: var(--text-primary);">24.8%</p>
+                    <p style="font-size: 12px; color: #10b981;">↑ 3.1% from last month</p>
+                </div>
+            </div>
+
+            <!-- Analytics Features -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Performance Dashboard">
+                    </div>
+                    <h3>Performance Dashboard</h3>
+                    <p>Real-time analytics and performance metrics</p>
+                    <button class="feature-btn">View Dashboard</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="Audience Insights">
+                    </div>
+                    <h3>Audience Insights</h3>
+                    <p>Understand your audience demographics and behavior</p>
+                    <button class="feature-btn">View Insights</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&h=400&fit=crop" alt="Content Performance">
+                    </div>
+                    <h3>Content Performance</h3>
+                    <p>Track which content resonates most with your audience</p>
+                    <button class="feature-btn">View Reports</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?w=600&h=400&fit=crop" alt="Competitor Analysis">
+                    </div>
+                    <h3>Competitor Analysis</h3>
+                    <p>Benchmark against competitors and industry trends</p>
+                    <button class="feature-btn">Analyze</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Custom Reports">
+                    </div>
+                    <h3>Custom Reports</h3>
+                    <p>Create and schedule custom analytics reports</p>
+                    <button class="feature-btn">Create Report</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=600&h=400&fit=crop" alt="AI Recommendations">
+                    </div>
+                    <h3>AI Recommendations</h3>
+                    <p>Get AI-powered suggestions to improve performance</p>
+                    <button class="feature-btn">Get Insights</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="kreative-app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

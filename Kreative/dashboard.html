@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreative Dashboard</title>
+    <meta name="description" content="Kreative Creative Dashboard">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="stylesheet" href="kreative-styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i data-lucide="palette"></i>
+                <span>Kreative</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link active">Home</a>
+                <a href="apps.html" class="nav-link">Apps</a>
+                <a href="projects.html" class="nav-link">Files</a>
+                <a href="create.html" class="nav-link">Create</a>
+                <a href="content-plan.html" class="nav-link">Content plan</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-bar">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Search Kreative">
+            </div>
+            <button class="view-plans-btn">View plans</button>
+            <button class="nav-icon-btn"><i data-lucide="sliders-horizontal"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="help-circle"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="bell"></i></button>
+            <button class="nav-icon-btn"><i data-lucide="cloud-download"></i></button>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a href="dashboard.html" class="sidebar-btn active">
+            <i data-lucide="home"></i>
+            <span>Home</span>
+        </a>
+        <a href="apps.html" class="sidebar-btn">
+            <i data-lucide="grid-2x2"></i>
+            <span>Apps</span>
+        </a>
+        <a href="projects.html" class="sidebar-btn">
+            <i data-lucide="folder"></i>
+            <span>Files</span>
+        </a>
+        <a href="create.html" class="sidebar-btn">
+            <i data-lucide="plus-circle"></i>
+            <span>Create</span>
+        </a>
+        <a href="content-plan.html" class="sidebar-btn">
+            <i data-lucide="calendar-check"></i>
+            <span>Content plan</span>
+        </a>
+        <a href="analyse.html" class="sidebar-btn">
+            <i data-lucide="bar-chart-3"></i>
+            <span>Analyse</span>
+        </a>
+        <a href="ecosystem.html" class="sidebar-btn">
+            <i data-lucide="network"></i>
+            <span>Ecosystem</span>
+        </a>
+        <div class="sidebar-divider"></div>
+        <a href="whats-new.html" class="sidebar-btn">
+            <i data-lucide="gift"></i>
+            <span>What's new</span>
+        </a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Promotional Banner -->
+        <section class="promo-banner">
+            <div class="promo-content">
+                <div class="promo-text">
+                    <h2>Get more with Premium Pro</h2>
+                    <p>Access premium features including cloud storage, advanced tools, and collaborative features.</p>
+                    <div class="promo-price">
+                        <span class="old-price">$113.49/mo</span>
+                        <span class="new-price">$56.49/mo</span>
+                    </div>
+                    <button class="save-btn">Save now</button>
+                </div>
+                <div class="promo-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop" alt="Creative artwork">
+                </div>
+            </div>
+            <button class="close-banner"><i class="fas fa-times"></i></button>
+        </section>
+
+        <!-- Additional Promo Card -->
+        <section class="promo-card">
+            <div class="promo-card-content">
+                <p>Save big and unlock premium tools and exclusive content that will help you get the most out of your membership.</p>
+                <button class="promo-btn">Browse photos</button>
+            </div>
+            <button class="close-card"><i class="fas fa-times"></i></button>
+        </section>
+
+        <!-- Explore Section -->
+        <section class="explore-section">
+            <h2>Explore new ways to create with Kreative AI</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=400&fit=crop" alt="AI Boards">
+                    </div>
+                    <h3>AI Boards</h3>
+                    <p>Moodboard, explore, and bring concepts into focus with generative AI.</p>
+                    <button class="feature-btn">Open</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop" alt="Partner models">
+                    </div>
+                    <h3>Partner models</h3>
+                    <p>Create with the industry's top models, right in Kreative.</p>
+                    <button class="feature-btn">Open</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=600&h=400&fit=crop" alt="Text to image">
+                    </div>
+                    <h3>Text to image</h3>
+                    <p>Generate high-quality images using text with latest Image Model 4.</p>
+                    <button class="feature-btn">Open</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=600&h=400&fit=crop" alt="Text to video">
+                    </div>
+                    <h3>Text to video</h3>
+                    <p>Generate video clips from a detailed description.</p>
+                    <button class="feature-btn">Open</button>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-image">
+                        <img src="https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=600&h=400&fit=crop" alt="Style transfer">
+                    </div>
+                    <h3>Style transfer</h3>
+                    <p>Apply artistic styles to your images instantly.</p>
+                    <button class="feature-btn">Open</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start Projects -->
+        <section class="quick-start-section">
+            <div class="section-header">
+                <h2>Start a project on Kreative Express</h2>
+                <a href="#" class="view-more">View more <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-cloud-arrow-up"></i>
+                    </div>
+                    <p>Start from your content</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview instagram">
+                        <i class="fab fa-instagram"></i>
+                        <div class="preview-shape"></div>
+                    </div>
+                    <p>Instagram square post</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview flyer">
+                        <div class="flyer-design">
+                            <div class="flyer-badge"></div>
+                            <div class="flyer-lines"></div>
+                        </div>
+                    </div>
+                    <p>Flyer</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview story">
+                        <i class="fab fa-instagram"></i>
+                        <div class="story-design"></div>
+                    </div>
+                    <p>Instagram story</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        <div class="tiktok-design"></div>
+                    </div>
+                    <p>TikTok video</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-preview youtube">
+                        <i class="fab fa-youtube"></i>
+                        <div class="youtube-design"></div>
+                    </div>
+                    <p>YouTube thumbnail</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creative Tools Section -->
+        <section class="tools-section">
+            <h2>Start creating with Kreative Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon photoshop">
+                        <span>Ps</span>
+                    </div>
+                    <div class="tool-info">
+                        <h3>Photoshop</h3>
+                        <p>Image editing and design</p>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon illustrator">
+                        <span>Ai</span>
+                    </div>
+                    <div class="tool-info">
+                        <h3>Illustrator</h3>
+                        <p>Vector graphics and illustration</p>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon premiere">
+                        <span>Pr</span>
+                    </div>
+                    <div class="tool-info">
+                        <h3>Premiere Pro</h3>
+                        <p>Video editing and production</p>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon aftereffects">
+                        <span>Ae</span>
+                    </div>
+                    <div class="tool-info">
+                        <h3>After Effects</h3>
+                        <p>Motion graphics and VFX</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-links">
+                <a href="#">Help</a>
+                <a href="#">Terms</a>
+                <a href="#">Privacy</a>
+            </div>
+            <p class="footer-text">© 2025 Kreative. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <!-- Right Sidebar for User Info -->
+    <aside class="right-sidebar">
+        <div class="user-info">
+            <div class="user-avatar-large">
+                <i data-lucide="user"></i>
+            </div>
+            <h3>Lockz FC</h3>
+            <a href="#" class="manage-account">Manage account</a>
+        </div>
+        <div class="plan-info">
+            <h4>Your plan</h4>
+            <p class="plan-name">Free membership</p>
+            <button class="view-all-plans">View all plans</button>
+        </div>
+        <div class="quick-actions">
+            <h4>Apps</h4>
+            <p>View your apps</p>
+        </div>
+        <div class="quick-actions">
+            <h4>Adobe Stock</h4>
+            <p>View free assets</p>
+        </div>
+        <div class="quick-actions">
+            <h4>Tutorials</h4>
+            <p>Tutorials for all apps</p>
+        </div>
+    </aside>
+
+    <script src="kreative-app.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

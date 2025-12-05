@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kreative Icon Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c2c2c;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #6e6e6e;
+            margin-bottom: 30px;
+        }
+        .preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .preview-item {
+            text-align: center;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        canvas {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .size-label {
+            font-size: 12px;
+            color: #6e6e6e;
+            margin-top: 5px;
+        }
+        .instructions {
+            background: #f0f7ff;
+            border-left: 4px solid #0d66d0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #0d66d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kreative Icon Generator</h1>
+        <p class="subtitle">Generate PWA icons in all required sizes</p>
+
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>Click "Generate All Icons" to create icons in all sizes</li>
+                <li>Right-click on each canvas and select "Save Image As"</li>
+                <li>Save with the filename shown below each icon (e.g., icon-72.png)</li>
+                <li>Save all icons to the <code>icons/</code> folder</li>
+            </ol>
+        </div>
+
+        <button onclick="generateAllIcons()">Generate All Icons</button>
+        <button onclick="downloadAll()">Download All (as ZIP)</button>
+
+        <div class="preview" id="preview"></div>
+    </div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            canvas.width = size;
+            canvas.height = size;
+
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#667eea');
+            gradient.addColorStop(1, '#764ba2');
+
+            // Draw rounded rectangle background
+            const cornerRadius = size * 0.225; // 22.5% for iOS-style rounded corners
+            ctx.fillStyle = gradient;
+            roundRect(ctx, 0, 0, size, size, cornerRadius);
+            ctx.fill();
+
+            // Draw K letter (simplified creative logo)
+            ctx.fillStyle = 'white';
+            ctx.globalAlpha = 0.9;
+
+            // Scale factor for drawing
+            const scale = size / 512;
+
+            // Draw vertical line of K
+            ctx.fillRect(150 * scale, 150 * scale, 30 * scale, 212 * scale);
+
+            // Draw diagonal parts of K
+            ctx.save();
+            ctx.translate(180 * scale, 256 * scale);
+            ctx.rotate(-Math.PI / 4);
+            ctx.fillRect(0, -15 * scale, 120 * scale, 30 * scale);
+            ctx.restore();
+
+            ctx.save();
+            ctx.translate(180 * scale, 256 * scale);
+            ctx.rotate(Math.PI / 4);
+            ctx.fillRect(0, -15 * scale, 120 * scale, 30 * scale);
+            ctx.restore();
+
+            // Draw accent circle
+            ctx.beginPath();
+            ctx.arc(380 * scale, 380 * scale, 35 * scale, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.globalAlpha = 1;
+        }
+
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function generateAllIcons() {
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+
+            sizes.forEach(size => {
+                const div = document.createElement('div');
+                div.className = 'preview-item';
+
+                const canvas = document.createElement('canvas');
+                drawIcon(canvas, size);
+
+                const label = document.createElement('div');
+                label.className = 'size-label';
+                label.textContent = `icon-${size}.png`;
+
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = 'Download';
+                downloadBtn.style.fontSize = '12px';
+                downloadBtn.style.padding = '8px 16px';
+                downloadBtn.onclick = () => downloadIcon(canvas, size);
+
+                div.appendChild(canvas);
+                div.appendChild(label);
+                div.appendChild(downloadBtn);
+                preview.appendChild(div);
+            });
+        }
+
+        function downloadIcon(canvas, size) {
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        function downloadAll() {
+            alert('To download all icons:\n\n1. Click "Generate All Icons"\n2. Click "Download" button under each icon\n3. Save each file to the icons/ folder\n\nFor automated ZIP download, you would need a library like JSZip.');
+        }
+
+        // Generate icons on page load
+        window.addEventListener('load', generateAllIcons);
+    </script>
+</body>
+</html>
+
