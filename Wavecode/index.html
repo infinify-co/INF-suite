@@ -21,7 +21,7 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Left Sidebar -->
+        <!-- Right Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-content">
                 <!-- Navigation Icons -->
@@ -98,9 +98,6 @@
         <!-- Main Content Area -->
         <main class="main-content">
             <div class="top-right-buttons">
-                <button class="sign-in-btn" id="signInBtn" style="display: none;">
-                    Sign In
-                </button>
                 <button class="install-app-btn" id="installAppBtn" style="display: none;">
                     Install App
                 </button>
@@ -108,7 +105,7 @@
             <div class="content-wrapper">
                 <!-- Hero Section -->
                 <div class="hero-section">
-                    <h1 class="hero-title">The world needs your ideas.</h1>
+                    <h1 class="hero-title">Build something great.</h1>
                     
                     <!-- Input Field -->
                     <div class="input-container-wrapper">
@@ -177,6 +174,7 @@
 
                 <!-- Projects Section -->
                 <div class="projects-section">
+                    <div class="section-divider"></div>
                     <div class="projects-header">
                         <div class="projects-tabs">
                             <button class="tab-btn active" data-tab="recent">Recent projects</button>
@@ -198,6 +196,12 @@
                     <div class="create-project-section">
                         <div class="create-project-header">
                             <h2 class="section-heading active-heading">Create a project</h2>
+                            <button class="browse-all-btn">
+                                Browse all
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"></polyline>
+                                </svg>
+                            </button>
                         </div>
                         <div class="create-project-grid" id="createProjectGrid">
                             <!-- Create project cards will be dynamically added here -->

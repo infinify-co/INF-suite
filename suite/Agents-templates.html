@@ -164,9 +164,249 @@
                 max-width: 100%;
             }
         }
+    
+        
+        /* Main Sidebar Styles */
+        .main-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 200px;
+            background: #ffffff;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 70px 16px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        /* Right Sidebar Styles */
+        .right-sidebar {
+            width: 64px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100vh;
+            z-index: 1000;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .right-sidebar-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .right-sidebar-top-logo {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 8px;
+            margin-top: -10px;
+        }
+
+        .right-sidebar-logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .right-sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            align-items: center;
+            width: 100%;
+            padding-top: 5px;
+        }
+
+        .right-nav-item {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .right-nav-item img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        .right-nav-item i,
+        .right-nav-item svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            visibility: visible;
+        }
+
+        .right-nav-item:hover {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .right-nav-item.active {
+            background: rgba(0, 0, 0, 0.1);
+            color: #1a1a1a;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .right-nav-item.right-notification {
+            position: relative;
+        }
+
+        .right-notification-dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background: #ff4444;
+            border-radius: 50%;
+            border: 1.5px solid #ffffff;
+        }
+
+        .right-nav-item-label {
+            position: absolute;
+            right: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 10001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .right-nav-item-label::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #1a1a1a;
+        }
+
+        .right-nav-item:hover .right-nav-item-label {
+            opacity: 1;
+            transform: translateY(-50%) translateX(-4px);
+        }
+
+        .right-sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .right-sidebar-divider {
+            width: 32px;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+            margin-bottom: 4px;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Main Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item"><a href="operation.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Overview</span></a></div>
+            <div class="sidebar-nav-item"><a href="operation-clients.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Clients</span></a></div>
+            <div class="sidebar-nav-item"><a href="operation-legal.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Your Legal</span></a></div>
+            <div class="sidebar-nav-item"><span>Atlas</span></div>
+            <div class="sidebar-nav-item"><span>GPTs</span></div>
+        </div>
+    </div>
+
+
     <div class="templates-container">
     </div>
 

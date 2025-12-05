@@ -165,7 +165,8 @@
             margin-left: 230px !important;
             position: relative !important;
             padding-bottom: 150px !important;
-        }
+                    margin-right: 64px !important;
+}
 
         /* Ensure body doesn't have padding that causes content to show behind sidebar */
         body.dashboard-page {
@@ -187,187 +188,231 @@
             pointer-events: none;
         }
 
-        /* Dock Styles */
-        .dock-container {
+        /* Main Sidebar Styles */
+        .main-sidebar {
             position: fixed;
-            bottom: 0;
             left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            padding: 0 20px 20px 20px;
-            z-index: 1000;
-            pointer-events: none;
-            overflow: visible;
-        }
-
-        .dock {
-            display: flex;
-            align-items: flex-end;
-            gap: 16px;
+            top: 0;
+            bottom: 0;
+            width: 200px;
             background: #ffffff;
-            border-radius: 24px;
-            padding: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-            pointer-events: auto;
-            max-width: fit-content;
-            min-height: 64px;
-            overflow-x: auto;
-            overflow-y: visible;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .dock::-webkit-scrollbar {
-            display: none;
-        }
-
-        .dock-item {
-            position: relative;
+            border-right: 1px solid #e5e7eb;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
+            flex-direction: column;
+            font-family: 'Open Sans', sans-serif;
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .main-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        .sidebar-nav {
+            padding: 70px 16px 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
             cursor: pointer;
-            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            flex-shrink: 0;
-            will-change: width, height;
-            overflow: visible;
+            transition: color 0.2s;
+            text-align: left;
+        }
+        
+        .sidebar-nav-item.active {
+            font-weight: 600;
+            color: #2563eb;
         }
 
-        .dock-icon {
-            width: 100%;
+        .sidebar-nav-item:hover {
+            color: #374151;
+        }
+
+        .sidebar-nav-item span {
+            display: block;
+        }
+
+        /* Right Sidebar Styles */
+        .right-sidebar {
+            width: 64px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100vh;
+            z-index: 1000;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .right-sidebar-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             height: 100%;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .right-sidebar-top-logo {
+            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            transition: transform 0.2s;
+            width: 100%;
+            margin-bottom: 8px;
+            margin-top: -10px;
         }
 
-        .dock-item:hover .dock-icon {
-            transform: scale(1.1);
+        .right-sidebar-logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
         }
 
-        .dock-label {
+        .right-sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            align-items: center;
+            width: 100%;
+            padding-top: 5px;
+        }
+
+        .right-nav-item {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .right-nav-item img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        .right-nav-item i,
+        .right-nav-item svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            visibility: visible;
+        }
+
+        .right-nav-item:hover {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .right-nav-item.active {
+            background: rgba(0, 0, 0, 0.1);
+            color: #1a1a1a;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .right-nav-item.right-notification {
+            position: relative;
+        }
+
+        .right-notification-dot {
             position: absolute;
-            bottom: calc(100% + 12px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: #f3f4f6;
-            border: 1px solid #e5e7eb;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background: #ff4444;
+            border-radius: 50%;
+            border: 1.5px solid #ffffff;
+        }
+
+        .right-nav-item-label {
+            position: absolute;
+            right: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 6px 10px;
             border-radius: 6px;
-            padding: 4px 8px;
             font-size: 12px;
-            color: #374151;
+            font-weight: 500;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.2s, transform 0.2s;
-            z-index: 1001;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 10001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
-        .dock-item:hover .dock-label {
+        .right-nav-item-label::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #1a1a1a;
+        }
+
+        .right-nav-item:hover .right-nav-item-label {
             opacity: 1;
-            transform: translateX(-50%) translateY(-4px);
+            transform: translateY(-50%) translateX(-4px);
         }
 
-        .dock-icon i,
-        .dock-icon svg {
-            width: 60%;
-            height: 60%;
-            color: #ffffff;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .right-sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
         }
 
-        .dock-icon img {
-            width: 60%;
-            height: 60%;
-            object-fit: contain;
-            border-radius: 6px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .right-sidebar-divider {
+            width: 32px;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+            margin-bottom: 4px;
         }
 
-        /* Blue shades for dock buttons */
-        .blue-shade-1 { background: #38bdf8; }
-        .blue-shade-2 { background: #60a5fa; }
-        .blue-shade-3 { background: #0ea5e9; }
-        .blue-shade-4 { background: #3b82f6; }
-        .blue-shade-5 { background: #0284c7; }
-        .blue-shade-6 { background: #2563eb; }
-        .blue-shade-7 { background: #1d4ed8; }
-        .blue-shade-8 { background: #1e40af; }
-
-        /* Style Oceanbase icon (Oceanbase.1.jpg) */
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
-            background: #ffffff !important;
-            border: 2px solid transparent !important;
-            box-shadow: none !important;
-            border-radius: 12px !important;
-            overflow: hidden;
-        }
-        
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../oceanbase.1.jpg"]) .dock-icon img {
-            transform: translate(-50%, -50%) scale(1.2);
-            filter: grayscale(100%);
-            transition: filter 0.15s ease, transform 0.15s ease;
-        }
-        
-        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]):active .dock-icon img,
-        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../oceanbase.1.jpg"]):active .dock-icon img {
-            filter: none;
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-        
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]):active .dock-icon img,
-        .dock-item:has(img[src="../oceanbase.1.jpg"]):active .dock-icon img {
-            transform: translate(-50%, -50%) scale(1.15);
-        }
-        
-        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item.active:has(img[src="../oceanbase.1.jpg"]) .dock-icon {
-            border: 2px solid #3b82f6 !important;
-            background: #ffffff !important;
-            box-shadow: none !important;
-            border-radius: 12px !important;
-        }
-
-        /* Hide all scrollbars */
-        * {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        *::-webkit-scrollbar {
-            display: none;
-        }
-
-        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        body::-webkit-scrollbar,
-        html::-webkit-scrollbar,
-        main::-webkit-scrollbar,
-        .dashboard-main::-webkit-scrollbar,
-        .front-tile::-webkit-scrollbar,
-        .front-tile-container::-webkit-scrollbar {
-            display: none;
-        }
     </style>
 </head>
 <body class="dashboard-page">
@@ -439,6 +484,135 @@
             </div>
         </div>
         
+    <!-- Main Content -->
+            <!-- Main Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item"><a href="operation.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Overview</span></a></div>
+            <div class="sidebar-nav-item"><a href="operation-clients.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Clients</span></a></div>
+            <div class="sidebar-nav-item"><a href="operation-legal.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Your Legal</span></a></div>
+            <div class="sidebar-nav-item"><span>Atlas</span></div>
+            <div class="sidebar-nav-item"><span>GPTs</span></div>
+        </div>
+    </div>
+
+
+<!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="right-sidebar-content">
+            <!-- Top Logo -->
+            <div class="right-sidebar-top-logo">
+                <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="right-sidebar-logo-img">
+            </div>
+            <!-- Navigation Icons -->
+            <nav class="right-sidebar-nav">
+                <button class="right-nav-item " title="Home" onclick="window.location.href='home.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="right-nav-item-label">Home</span>
+                </button>
+                <button class="right-nav-item " title="Operation" onclick="window.location.href='operation.html'">
+                                        <i data-lucide="monitor-cog" aria-hidden="true"></i>
+                    <span class="right-nav-item-label">Operation</span>
+                </button>
+                <button class="right-nav-item " title="Teams" onclick="window.location.href='work.html'">
+                    <img src="../Logo's/work.2.png" alt="Teams" style="width: 16px; height: 16px; object-fit: contain;">
+                    <span class="right-nav-item-label">Teams</span>
+                </button>
+                <button class="right-nav-item " title="Tools" onclick="window.location.href='Tools.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Tools</span>
+                </button>
+                <button class="right-nav-item " title="Campaigns" onclick="window.location.href='campaigns.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <span class="right-nav-item-label">Campaigns</span>
+                </button>
+                <button class="right-nav-item " title="Online Assets" onclick="window.location.href='Online-assets.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Online Assets</span>
+                </button>
+                <button class="right-nav-item " title="Filebase" onclick="window.location.href='Filebase.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path>
+                        <path d="M20 21H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2z"></path>
+                        <line x1="10" y1="14" x2="14" y2="14"></line>
+                    </svg>
+                    <span class="right-nav-item-label">Filebase</span>
+                </button>
+                <button class="right-nav-item " title="Financials" onclick="window.location.href='financial.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Financials</span>
+                </button>
+                <button class="right-nav-item " title="Chats" onclick="window.location.href='chats.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Chats</span>
+                </button>
+            </nav>
+
+            <!-- Bottom Actions -->
+            <div class="right-sidebar-bottom">
+                <div class="right-sidebar-divider"></div>
+                <button class="right-nav-item" title="Grid">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span class="right-nav-item-label">Grid</span>
+                </button>
+                <button class="right-nav-item" title="Add">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    <span class="right-nav-item-label">Add</span>
+                </button>
+                <div class="right-sidebar-divider"></div>
+                <button class="right-nav-item right-notification" title="Notifications">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="right-notification-dot"></span>
+                    <span class="right-nav-item-label">Notifications</span>
+                </button>
+                <button class="right-nav-item" title="User">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="right-nav-item-label">User</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+
     <!-- Main Content -->
     <main class="dashboard-main" style="padding: 40px; min-height: 100vh; background: #ffffff;">
         <!-- Client Table content -->
@@ -577,16 +751,7 @@
         </div>
     </main>
         
-    <!-- Dock -->
-    <div class="dock-container">
-        <div class="dock" id="dock">
-            <div class="dock-item" onclick="window.location.href='home.html'">
-                <div class="dock-icon blue-shade-4">
-                    <i data-lucide="home"></i>
-                </div>
-                <div class="dock-label">Home</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='operation.html'">
+    <div class="dock-item" onclick="window.location.href='operation.html'">
                 <div class="dock-icon blue-shade-5">
                     <i data-lucide="hard-hat"></i>
                 </div>
@@ -643,10 +808,7 @@
         </div>
     </div>
 
-    <!-- Circle in bottom right corner -->
-    <div style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden;">
-        <img src="../sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

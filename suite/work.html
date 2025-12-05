@@ -322,592 +322,6 @@
             color: #6b7280;
         }
 
-        /* Dock Styles */
-        .dock-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            padding: 0 20px 20px 20px;
-            z-index: 1000;
-            pointer-events: none;
-            overflow: visible;
-        }
-
-        .dock {
-            display: flex;
-            align-items: flex-end;
-            gap: 16px;
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-            pointer-events: auto;
-            max-width: fit-content;
-            min-height: 64px;
-            overflow-x: auto;
-            overflow-y: visible;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .dock::-webkit-scrollbar {
-            display: none;
-        }
-
-        .dock-item {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            transition: width 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                        height 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            flex-shrink: 0;
-            will-change: width, height;
-            overflow: visible;
-        }
-
-        .dock-icon {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            transition: transform 0.2s;
-            background: #ffffff;
-            border: 2px solid transparent;
-        }
-
-        .dock-item:hover .dock-icon {
-            transform: scale(1.1);
-        }
-
-        .dock-item.active .dock-icon {
-            border: 2px solid #3b82f6;
-            box-shadow: none !important;
-            filter: none !important;
-        }
-
-        .dock-item.active {
-            box-shadow: none !important;
-            filter: none !important;
-            background: transparent !important;
-        }
-
-        .dock-item.active::after {
-            display: none !important;
-            content: none !important;
-            background: none !important;
-        }
-
-        .dock-item.active::before {
-            display: none !important;
-            content: none !important;
-            background: none !important;
-        }
-
-        .dock-item.active img {
-            box-shadow: none !important;
-        }
-
-        .dock-label {
-            position: absolute;
-            bottom: calc(100% + 12px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: #f3f4f6;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            padding: 4px 8px;
-            font-size: 12px;
-            color: #374151;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s, transform 0.2s;
-            z-index: 1001;
-        }
-
-        .dock-item:hover .dock-label {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-4px);
-        }
-
-        .dock-icon i,
-        .dock-icon svg {
-            width: 60%;
-            height: 60%;
-            color: #374151;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .dock-item.active .dock-icon i,
-        .dock-item.active .dock-icon svg {
-            color: #3b82f6;
-        }
-
-        .dock-icon img {
-            width: 70%;
-            height: 70%;
-            object-fit: contain;
-            border-radius: 8px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .dock-item.chats .dock-icon {
-            background: #ffffff;
-        }
-        
-        /* Style work.2.png (Teams) icon */
-        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon {
-            background: #ffffff !important;
-            border: 2px solid transparent;
-        }
-        
-        .dock-item:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
-            clip-path: inset(6%);
-            filter: brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-        }
-        
-        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon {
-            border: 2px solid #3b82f6;
-            background: #ffffff !important;
-        }
-        
-        .dock-item.active:has(img[src="../Logo's/work.2.png"]) .dock-icon img {
-            filter: brightness(0) saturate(100%) invert(37%) sepia(96%) saturate(2000%) hue-rotate(200deg) brightness(1) contrast(1);
-        }
-        
-        /* Style Oceanbase icon */
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon {
-            background: #ffffff !important;
-            border: 2px solid transparent !important;
-            box-shadow: none !important;
-            border-radius: 12px !important;
-            overflow: hidden;
-        }
-        
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon img {
-            transform: translate(-50%, -50%) scale(1.2);
-            filter: grayscale(100%);
-            transition: filter 0.15s ease, transform 0.15s ease;
-        }
-        
-        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../Logo's/Oceanbase.1.jpg"]):active .dock-icon img,
-        .dock-item.active:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon img,
-        .dock-item:has(img[src="../Logo's/oceanbase.1.jpg"]):active .dock-icon img {
-            filter: none;
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-        
-        .dock-item.active:has(img[src="../Logo's/Oceanbase.1.jpg"]) .dock-icon,
-        .dock-item.active:has(img[src="../Logo's/oceanbase.1.jpg"]) .dock-icon {
-            border: 2px solid #3b82f6 !important;
-            background: #ffffff !important;
-            box-shadow: none !important;
-            border-radius: 12px !important;
-        }
-
-        /* Adjust dashboard main to account for bottom nav */
-        .dashboard-main {
-            padding-bottom: 90px;
-        }
-
-        /* Header Bar Styles - Copied from Operation.html */
-        .page-header {
-            width: 100vw;
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 16px 40px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-sizing: border-box;
-            height: auto;
-            min-height: 65px;
-        }
-
-        .page-title {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-            color: #000000;
-            margin-top: 5px !important;
-            margin-left: -20px;
-            position: relative;
-            top: 5px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-        }
-
-        .header-action-btn {
-            height: 40px;
-            padding: 0 12px;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-family: 'Open Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            color: #374151;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            position: relative;
-            white-space: nowrap;
-        }
-
-        .header-action-btn:hover {
-            background: #f9fafb;
-            border-color: #d1d5db;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
-
-        .header-action-btn i,
-        .header-action-btn svg {
-            width: 16px !important;
-            height: 16px !important;
-            color: #374151;
-        }
-
-        .header-logo {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .header-logo-image {
-            height: 36px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        .header-logo-text {
-            font-size: 18px;
-            font-weight: 700;
-            color: #000000;
-            text-decoration: none;
-        }
-
-        /* Apps Dropdown Styles */
-        .apps-dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            width: 380px;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            z-index: 1002;
-            display: none;
-            overflow: hidden;
-        }
-
-        .apps-dropdown.active {
-            display: block;
-        }
-
-        .apps-section {
-            padding: 16px 20px;
-        }
-
-        .apps-section-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin: 0 0 12px 0;
-        }
-
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .app-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: center;
-        }
-
-        .app-item:hover {
-            background-color: #f9fafb;
-        }
-
-        .app-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
-            background: #f3f4f6;
-        }
-
-        .app-icon i {
-            width: 20px;
-            height: 20px;
-            color: #374151;
-        }
-
-        .app-name {
-            font-size: 12px;
-            color: #374151;
-            font-weight: 500;
-            margin: 0;
-        }
-
-        /* Notifications Dropdown Styles */
-        .notifications-dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            width: 380px;
-            max-height: 500px;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            z-index: 1002;
-            display: none;
-            overflow: hidden;
-        }
-
-        .notifications-dropdown.active {
-            display: block;
-        }
-
-        .notifications-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .notifications-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #111827;
-            margin: 0;
-        }
-
-        .notifications-clear-all {
-            font-size: 14px;
-            color: #2563eb;
-            text-decoration: none;
-            cursor: pointer;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .notifications-clear-all:hover {
-            color: #1d4ed8;
-        }
-
-        .notifications-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .notification-item {
-            display: flex;
-            gap: 12px;
-            padding: 16px 20px;
-            border-bottom: 1px solid #f3f4f6;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .notification-item:hover {
-            background-color: #f9fafb;
-        }
-
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .notification-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .notification-icon.success {
-            background: #10b981;
-        }
-
-        .notification-icon.info {
-            background: #3b82f6;
-        }
-
-        .notification-icon i {
-            width: 20px;
-            height: 20px;
-            color: #ffffff;
-        }
-
-        .notification-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .notification-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #111827;
-            margin: 0 0 4px 0;
-        }
-
-        .notification-description {
-            font-size: 13px;
-            color: #6b7280;
-            margin: 0 0 4px 0;
-            line-height: 1.4;
-        }
-
-        .notification-time {
-            font-size: 12px;
-            color: #9ca3af;
-            margin: 0;
-        }
-
-        /* Account Dropdown Styles */
-        .account-dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            width: 280px;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            z-index: 1002;
-            display: none;
-            overflow: hidden;
-        }
-
-        .account-dropdown.active {
-            display: block;
-        }
-
-        .account-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .account-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .account-info {
-            flex: 1;
-        }
-
-        .account-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: #111827;
-            margin: 0 0 2px 0;
-        }
-
-        .account-email {
-            font-size: 12px;
-            color: #6b7280;
-            margin: 0;
-        }
-
-        .account-menu {
-            padding: 8px 0;
-        }
-
-        .account-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            color: #374151;
-            text-decoration: none;
-            transition: background-color 0.2s;
-            cursor: pointer;
-        }
-
-        .account-menu-item:hover {
-            background-color: #f9fafb;
-        }
-
-        .account-menu-item i {
-            width: 18px;
-            height: 18px;
-            color: #6b7280;
-        }
-
-        .account-menu-item span {
-            font-size: 14px;
-        }
-
-        .account-divider {
-            height: 1px;
-            background: #e5e7eb;
-            margin: 8px 0;
-        }
-
         /* Main Sidebar Styles */
         .main-sidebar {
             position: fixed;
@@ -975,142 +389,297 @@
         /* Adjust dashboard main to account for sidebar and header */
         .dashboard-main {
             margin-left: 200px !important;
+            margin-right: 64px !important;
             margin-top: 65px !important;
             padding-bottom: 90px;
+        }
+
+        /* Right Sidebar Styles */
+        .right-sidebar {
+            width: 64px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100vh;
+            z-index: 1000;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .right-sidebar-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .right-sidebar-top-logo {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 8px;
+            margin-top: -10px;
+        }
+
+        .right-sidebar-logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .right-sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            align-items: center;
+            width: 100%;
+            padding-top: 5px;
+        }
+
+        .right-nav-item {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .right-nav-item img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        .right-nav-item i,
+        .right-nav-item svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            visibility: visible;
+        }
+
+        .right-nav-item:hover {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .right-nav-item.active {
+            background: rgba(0, 0, 0, 0.1);
+            color: #1a1a1a;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .right-nav-item.right-notification {
+            position: relative;
+        }
+
+        .right-notification-dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background: #ff4444;
+            border-radius: 50%;
+            border: 1.5px solid #ffffff;
+        }
+
+        .right-nav-item-label {
+            position: absolute;
+            right: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 10001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .right-nav-item-label::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #1a1a1a;
+        }
+
+        .right-nav-item:hover .right-nav-item-label {
+            opacity: 1;
+            transform: translateY(-50%) translateX(-4px);
+        }
+
+        .right-sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .right-sidebar-divider {
+            width: 32px;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+            margin-bottom: 4px;
         }
     </style>
 </head>
 <body class="dashboard-page">
-    <!-- Header Bar -->
-    <div class="page-header">
-        <div class="page-title">Work</div>
-        <div class="header-logo">
-            <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="header-logo-image">
-            <a href="home.html" class="header-logo-text">INFINIFY SUITE</a>
-        </div>
-        <div class="header-actions">
-            <button class="header-action-btn" id="appsDropdownBtn">
-                <i data-lucide="grid-3x3"></i>
-                <span>App's</span>
-            </button>
-            <div class="apps-dropdown" id="appsDropdown">
-                <div class="apps-section">
-                    <h4 class="apps-section-title">more App's</h4>
-                    <div class="apps-grid">
-                        <div class="app-item" onclick="window.location.href='home.html'">
-                            <div class="app-icon">
-                                <i data-lucide="home"></i>
-                            </div>
-                            <p class="app-name">Home</p>
-                        </div>
-                        <div class="app-item" onclick="window.location.href='Operation.html'">
-                            <div class="app-icon">
-                                <i data-lucide="hard-hat"></i>
-                            </div>
-                            <p class="app-name">Operation</p>
-                        </div>
-                        <div class="app-item" onclick="window.location.href='work.html'">
-                            <div class="app-icon">
-                                <i data-lucide="users"></i>
-                            </div>
-                            <p class="app-name">Teams</p>
-                        </div>
-                        <div class="app-item" onclick="window.location.href='Agents.html'">
-                            <div class="app-icon">
-                                <i data-lucide="cpu"></i>
-                            </div>
-                            <p class="app-name">Agents</p>
-                        </div>
-                        <div class="app-item" onclick="window.location.href='Kreative.html'">
-                            <div class="app-icon">
-                                <i data-lucide="palette"></i>
-                            </div>
-                            <p class="app-name">Kreative</p>
-                        </div>
-                        <div class="app-item" onclick="window.location.href='tools.html'">
-                            <div class="app-icon">
-                                <i data-lucide="pocket-knife"></i>
-                            </div>
-                            <p class="app-name">Tools</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="header-action-btn" id="bellDropdownBtn">
-                <i data-lucide="bell"></i>
-            </button>
-            <div class="notifications-dropdown" id="bellDropdown">
-                <div class="notifications-header">
-                    <h3 class="notifications-title">Notifications</h3>
-                    <a href="#" class="notifications-clear-all" id="clearAllBellNotifications">Clear All</a>
-                </div>
-                <div class="notifications-list">
-                    <div class="notification-item">
-                        <div class="notification-icon success">
-                            <i data-lucide="check-circle"></i>
-                        </div>
-                        <div class="notification-content">
-                            <h4 class="notification-title">System Update</h4>
-                            <p class="notification-description">Your data has been backed up successfully</p>
-                            <p class="notification-time">10d ago</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="header-action-btn" id="accountDropdownBtn">
-                <i data-lucide="user"></i>
-            </button>
-            <div class="account-dropdown" id="accountDropdown">
-                <div class="account-header">
-                    <div class="account-avatar">JD</div>
-                    <div class="account-info">
-                        <h4 class="account-name">John Doe</h4>
-                        <p class="account-email">john.doe@example.com</p>
-                    </div>
-                </div>
-                <div class="account-menu">
-                    <a href="#" class="account-menu-item">
-                        <i data-lucide="user"></i>
-                        <span>Profile</span>
-                    </a>
-                    <a href="#" class="account-menu-item">
-                        <i data-lucide="settings"></i>
-                        <span>Settings</span>
-                    </a>
-                    <a href="#" class="account-menu-item">
-                        <i data-lucide="credit-card"></i>
-                        <span>Billing</span>
-                    </a>
-                    <div class="account-divider"></div>
-                    <a href="#" class="account-menu-item">
-                        <i data-lucide="log-out"></i>
-                        <span>Sign out</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Main Sidebar -->
     <div class="main-sidebar">
         <div class="sidebar-nav">
-            <div class="sidebar-nav-item active">
-                <span>Teams</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Members</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Projects</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Tasks</span>
-            </div>
-            <div class="sidebar-nav-item">
-                <span>Settings</span>
-            </div>
+            <div class="sidebar-nav-item"><a href="operation.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Overview</span></a></div>
+            <div class="sidebar-nav-item"><a href="operation-clients.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Clients</span></a></div>
+            <div class="sidebar-nav-item"><a href="operation-legal.html" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%;"><span>Your Legal</span></a></div>
+            <div class="sidebar-nav-item"><span>Atlas</span></div>
+            <div class="sidebar-nav-item"><span>GPTs</span></div>
         </div>
     </div>
+
+
+<!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="right-sidebar-content">
+            <!-- Top Logo -->
+            <div class="right-sidebar-top-logo">
+                <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="right-sidebar-logo-img">
+            </div>
+            <!-- Navigation Icons -->
+            <nav class="right-sidebar-nav">
+                <button class="right-nav-item" title="Home" onclick="window.location.href='home.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="right-nav-item-label">Home</span>
+                </button>
+                <button class="right-nav-item" title="Operation" onclick="window.location.href='operation.html'">
+                                        <i data-lucide="monitor-cog" aria-hidden="true"></i>
+                    <span class="right-nav-item-label">Operation</span>
+                </button>
+                <button class="right-nav-item active" title="Teams" onclick="window.location.href='work.html'">
+                    <img src="../Logo's/work.2.png" alt="Teams" style="width: 16px; height: 16px; object-fit: contain;">
+                    <span class="right-nav-item-label">Teams</span>
+                </button>
+                <button class="right-nav-item" title="Tools" onclick="window.location.href='Tools.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Tools</span>
+                </button>
+                <button class="right-nav-item" title="Campaigns" onclick="window.location.href='campaigns.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <span class="right-nav-item-label">Campaigns</span>
+                </button>
+                <button class="right-nav-item" title="Online Assets" onclick="window.location.href='Online-assets.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Online Assets</span>
+                </button>
+                <button class="right-nav-item" title="Filebase" onclick="window.location.href='Filebase.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path>
+                        <path d="M20 21H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2z"></path>
+                        <line x1="10" y1="14" x2="14" y2="14"></line>
+                    </svg>
+                    <span class="right-nav-item-label">Filebase</span>
+                </button>
+                <button class="right-nav-item" title="Financials" onclick="window.location.href='financial.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Financials</span>
+                </button>
+                <button class="right-nav-item" title="Chats" onclick="window.location.href='chats.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Chats</span>
+                </button>
+            </nav>
+
+            <!-- Bottom Actions -->
+            <div class="right-sidebar-bottom">
+                <div class="right-sidebar-divider"></div>
+                <button class="right-nav-item" title="Grid">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span class="right-nav-item-label">Grid</span>
+                </button>
+                <button class="right-nav-item" title="Add">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    <span class="right-nav-item-label">Add</span>
+                </button>
+                <div class="right-sidebar-divider"></div>
+                <button class="right-nav-item right-notification" title="Notifications">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="right-notification-dot"></span>
+                    <span class="right-nav-item-label">Notifications</span>
+                </button>
+                <button class="right-nav-item" title="User">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="right-nav-item-label">User</span>
+                </button>
+            </div>
+        </div>
+    </aside>
 
     <!-- Main Content -->
     <main class="dashboard-main">
@@ -1265,153 +834,9 @@
                 </div>
             </div>
         </div>
-    <!-- Dock -->
-    <div class="dock-container">
-        <div class="dock" id="dock">
-            <div class="dock-item" onclick="window.location.href='home.html'">
-                <div class="dock-icon">
-                    <i data-lucide="home"></i>
-                </div>
-                <div class="dock-label">Home</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='operation.html'">
-                <div class="dock-icon">
-                    <i data-lucide="hard-hat"></i>
-                </div>
-                <div class="dock-label">Operation</div>
-            </div>
-            <div class="dock-item active" onclick="window.location.href='work.html'">
-                <div class="dock-icon">
-                    <img src="../Logo's/work.2.png" alt="Teams">
-                </div>
-                <div class="dock-label">Teams</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Tools.html'">
-                <div class="dock-icon">
-                    <i data-lucide="pocket-knife"></i>
-                </div>
-                <div class="dock-label">Tools</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='campaigns.html'">
-                <div class="dock-icon">
-                    <i data-lucide="focus"></i>
-                </div>
-                <div class="dock-label">Campaigns</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Oceanbase.html'">
-                <div class="dock-icon">
-                    <img src="../Logo's/Oceanbase.1.jpg" alt="Database">
-                </div>
-                <div class="dock-label">Oceanbase</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Online-assets.html'">
-                <div class="dock-icon">
-                    <i data-lucide="container"></i>
-                </div>
-                <div class="dock-label">Online Assets</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='Filebase.html'">
-                <div class="dock-icon">
-                    <i data-lucide="folder-tree"></i>
-                </div>
-                <div class="dock-label">Filebase</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='financial.html'">
-                <div class="dock-icon">
-                    <i data-lucide="landmark"></i>
-                </div>
-                <div class="dock-label">Financials</div>
-            </div>
-            <div class="dock-item" onclick="window.location.href='chats.html'">
-                <div class="dock-icon">
-                    <i data-lucide="message-square"></i>
-                </div>
-                <div class="dock-label">Chats</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Circle in bottom right corner -->
-    <div style="position: fixed; bottom: 80px; right: 20px; width: 45px; height: 45px; border-radius: 50%; box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); z-index: 1000; overflow: hidden; background: #ffffff;">
-        <img src="../Logo's/sorif.1.jpg" alt="Sorif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-    </div>
-    </main>
+        </main>
 
     <script>
-        // Dock magnification effect with smoother animations
-        const dock = document.getElementById('dock');
-        const dockItems = Array.from(dock.querySelectorAll('.dock-item'));
-        
-        let mouseX = Infinity;
-        let isHovered = false;
-        const distance = 150;
-        const magnification = 56;
-        const defaultSize = 40;
-        let animationFrameId = null;
-        let lastUpdateTime = 0;
-        const throttleMs = 16;
-
-        // Smooth easing function
-        function easeOutCubic(t) {
-            return 1 - Math.pow(1 - t, 3);
-        }
-
-        function updateDockItems() {
-            const now = performance.now();
-            if (now - lastUpdateTime < throttleMs && animationFrameId) {
-                return;
-            }
-            lastUpdateTime = now;
-
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-
-            animationFrameId = requestAnimationFrame(() => {
-                dockItems.forEach((item) => {
-                    const rect = item.getBoundingClientRect();
-                    const itemCenterX = rect.left + rect.width / 2;
-                    const distanceFromMouse = Math.abs(mouseX - itemCenterX);
-                    
-                    if (isHovered && distanceFromMouse < distance) {
-                        const normalizedDistance = distanceFromMouse / distance;
-                        const easedDistance = easeOutCubic(1 - normalizedDistance);
-                        const scale = 1 + (magnification / defaultSize - 1) * easedDistance;
-                        const newSize = defaultSize * scale;
-                        item.style.width = `${newSize}px`;
-                        item.style.height = `${newSize}px`;
-                    } else {
-                        item.style.width = `${defaultSize}px`;
-                        item.style.height = `${defaultSize}px`;
-                    }
-                });
-            });
-        }
-
-        dock.addEventListener('mousemove', (e) => {
-            isHovered = true;
-            mouseX = e.pageX;
-            updateDockItems();
-        });
-
-        dock.addEventListener('mouseleave', () => {
-            isHovered = false;
-            mouseX = Infinity;
-            dockItems.forEach((item) => {
-                item.style.width = `${defaultSize}px`;
-                item.style.height = `${defaultSize}px`;
-            });
-        });
-
-        // Continuous smooth updates
-        function smoothUpdate() {
-            if (isHovered) {
-                updateDockItems();
-            }
-            requestAnimationFrame(smoothUpdate);
-        }
-        smoothUpdate();
-
         // Initialize Lucide icons and ensure images load
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) {
@@ -1419,42 +844,6 @@
             }
 
             // Force reload images to ensure they display and apply styles
-            const dockImages = document.querySelectorAll('.dock-icon img');
-            dockImages.forEach(img => {
-                if (img.src) {
-                    // Force reload
-                    const originalSrc = img.src;
-                    img.src = '';
-                    img.src = originalSrc;
-                    
-                    // Ensure visibility
-                    img.style.display = 'block';
-                    img.style.opacity = '1';
-                    img.style.visibility = 'visible';
-                    
-                    // Apply specific styles based on image
-                    const alt = img.alt || '';
-                    const src = img.src || '';
-                    
-                    if (src.includes('work.2.png') || alt === 'Teams') {
-                        img.style.clipPath = 'inset(6%)';
-                        img.style.filter = 'brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)';
-                    } else if (src.includes('Kreative.png') || alt === 'Kreative') {
-                        img.style.filter = 'brightness(0) saturate(100%) invert(27%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)';
-                    } else if (src.includes('Oceanbase') || alt === 'Database') {
-                        img.style.filter = 'grayscale(100%)';
-                        img.style.transform = 'translate(-50%, -50%) scale(1.2)';
-                    }
-                }
-            });
-            
-            // Apply styles to dock icons containing images
-            const dockIconsWithImages = document.querySelectorAll('.dock-icon:has(img)');
-            dockIconsWithImages.forEach(icon => {
-                icon.style.background = '#ffffff';
-                icon.style.border = '2px solid transparent';
-            });
-
             // Dropdown hover functionality
             function setupDropdownHover(buttonId, dropdownId, clearAllBtnId = null) {
                 const button = document.getElementById(buttonId);

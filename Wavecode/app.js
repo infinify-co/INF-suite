@@ -56,10 +56,9 @@ function loadCreateProjectCards() {
     
     // Define project templates/types
     const projectTemplates = [
-        { name: 'Blank Project', type: 'web', icon: 'file' },
+        { name: 'Blank Website', type: 'web', icon: 'file' },
         { name: 'Web App', type: 'web', icon: 'globe' },
-        { name: 'Mobile App', type: 'mobile', icon: 'smartphone' },
-        { name: 'Document', type: 'document', icon: 'file-text' }
+        { name: 'Mobile App', type: 'mobile', icon: 'smartphone' }
     ];
     
     grid.innerHTML = projectTemplates.map((template, index) => `
@@ -100,7 +99,12 @@ function loadCreateProjectCards() {
                 </div>
             </div>
             <div class="project-cover">
-                <div class="project-cover-placeholder"></div>
+                <div class="project-cover-placeholder">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="placeholder-plus-icon">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </div>
             </div>
             <div class="project-meta">
                 <span>New</span>
