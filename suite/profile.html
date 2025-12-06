@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - INFINIFY SUITE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Left Sidebar */
+        .main-sidebar {
+            width: 200px;
+            background: #ffffff;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        .sidebar-nav {
+            padding: 120px 16px 20px 16px;
+        }
+
+        .sidebar-nav-item {
+            display: block;
+            padding: 12px 0;
+            color: #000000;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-nav-item:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-nav-item.active {
+            background: rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            width: 64px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 100vh;
+            z-index: 1000;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .right-sidebar-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 15px;
+        }
+
+        .right-sidebar-top-logo {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 8px;
+            margin-top: -10px;
+        }
+
+        .right-sidebar-logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .right-sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            align-items: center;
+            width: 100%;
+            padding-top: 5px;
+        }
+
+        .right-nav-item {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            min-height: 36px;
+            max-width: 36px;
+            max-height: 36px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.2s ease;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .right-nav-item img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        .teams-icon-img {
+            width: 22px !important;
+            height: 22px !important;
+            min-width: 22px !important;
+            min-height: 22px !important;
+            max-width: 22px !important;
+            max-height: 22px !important;
+            object-fit: contain;
+        }
+
+        .right-nav-item i,
+        .right-nav-item svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            visibility: visible;
+        }
+
+        .right-nav-item:hover {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .right-nav-item.active {
+            background: rgba(0, 0, 0, 0.1);
+            color: #1a1a1a;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .right-nav-item.right-notification {
+            position: relative;
+        }
+
+        .right-notification-dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 6px;
+            height: 6px;
+            background: #ff4444;
+            border-radius: 50%;
+            border: 1.5px solid #ffffff;
+        }
+
+        .right-nav-item-label {
+            position: absolute;
+            right: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 10001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .right-nav-item-label::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #1a1a1a;
+        }
+
+        .right-nav-item:hover .right-nav-item-label {
+            opacity: 1;
+            transform: translateY(-50%) translateX(-4px);
+        }
+
+        .right-sidebar-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .right-sidebar-divider {
+            width: 32px;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.1);
+            margin-bottom: 4px;
+        }
+
+        /* Main Content */
+        .dashboard-main {
+            margin-left: 200px;
+            margin-right: 64px;
+            margin-top: 0;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        /* Profile Content */
+        .profile-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 600;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .profile-info .profile-email {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .profile-stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .profile-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .profile-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .profile-section h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            color: #1a1a1a;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #1a1a1a;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: #ffffff;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .activity-item {
+            padding: 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 12px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon svg {
+            width: 20px;
+            height: 20px;
+            color: #666;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .activity-description {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .preference-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .preference-item:last-child {
+            border-bottom: none;
+        }
+
+        .preference-info h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .preference-info p {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 24px;
+            transition: 0.3s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: #3b82f6;
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+
+    <!-- Left Sidebar -->
+    <div class="main-sidebar">
+        <div class="sidebar-nav">
+            <div class="sidebar-nav-item active">
+                <span>Profile</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Account</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Security</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Preferences</span>
+            </div>
+            <div class="sidebar-nav-item">
+                <span>Billing</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+        <div class="right-sidebar-content">
+            <!-- Top Logo -->
+            <div class="right-sidebar-top-logo">
+                <img src="../Logo's/INF.Asset1.png" alt="INFINIFY" class="right-sidebar-logo-img">
+            </div>
+            
+            <!-- Navigation Icons -->
+            <nav class="right-sidebar-nav">
+                <button class="right-nav-item " title="Home" onclick="window.location.href='home.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span class="right-nav-item-label">Home</span>
+                </button>
+                <button class="right-nav-item " title="Operation" onclick="window.location.href='operation.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 17v4"></path>
+                        <path d="m14.305 7.53.923-.382"></path>
+                        <path d="m15.228 4.852-.923-.383"></path>
+                        <path d="m16.852 3.228-.383-.924"></path>
+                        <path d="m16.852 8.772-.383.923"></path>
+                        <path d="m19.148 3.228.383-.924"></path>
+                        <path d="m19.53 9.696-.382-.924"></path>
+                        <path d="m20.772 4.852.924-.383"></path>
+                        <path d="m20.772 7.148.924.383"></path>
+                        <path d="M22 13v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                        <path d="M8 21h8"></path>
+                        <circle cx="18" cy="6" r="3"></circle>
+                    </svg>
+                    <span class="right-nav-item-label">Operation</span>
+                </button>
+                <button class="right-nav-item teams-icon-btn" title="Teams" onclick="window.location.href='work.html'">
+                    <img src="../Logo's/work.2.png" alt="Teams" class="teams-icon-img">
+                    <span class="right-nav-item-label">Teams</span>
+                </button>
+                <button class="right-nav-item " title="Tools" onclick="window.location.href='Tools.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"></path>
+                        <path d="m18 15 4-4"></path>
+                        <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Tools</span>
+                </button>
+                <button class="right-nav-item " title="Campaigns" onclick="window.location.href='campaigns.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+                        <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+                        <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+                        <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Campaigns</span>
+                </button>
+                <button class="right-nav-item " title="Online Assets" onclick="window.location.href='Online-assets.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                        <path d="m3.3 7 8.7 5 8.7-5"></path>
+                        <path d="M12 22V12"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Online Assets</span>
+                </button>
+                <button class="right-nav-item " title="Filebase" onclick="window.location.href='Filebase.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Filebase</span>
+                </button>
+                <button class="right-nav-item " title="Financials" onclick="window.location.href='financial.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 18v-7"></path>
+                        <path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"></path>
+                        <path d="M14 18v-7"></path>
+                        <path d="M18 18v-7"></path>
+                        <path d="M3 22h18"></path>
+                        <path d="M6 18v-7"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Financials</span>
+                </button>
+                <button class="right-nav-item " title="Chats" onclick="window.location.href='chats.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span class="right-nav-item-label">Chats</span>
+                </button>
+            </nav>
+
+            <!-- Bottom Actions -->
+            <div class="right-sidebar-bottom">
+                <div class="right-sidebar-divider"></div>
+                <button class="right-nav-item" title="Apps" onclick="window.location.href='Apps.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span class="right-nav-item-label">Apps</span>
+                </button>
+                <button class="right-nav-item" title="Extensions" onclick="window.location.href='extensions.html'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    <span class="right-nav-item-label">Extensions</span>
+                </button>
+                <div class="right-sidebar-divider"></div>
+                <button class="right-nav-item right-notification" title="Notifications">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="right-notification-dot"></span>
+                    <span class="right-nav-item-label">Notifications</span>
+                </button>
+                <button class="right-nav-item active" title="Profile">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="right-nav-item-label">Profile</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">JD</div>
+                <div class="profile-info">
+                    <h1>John Doe</h1>
+                    <p class="profile-email">john.doe@example.com</p>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">42</div>
+                            <div class="profile-stat-label">Projects</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">1,248</div>
+                            <div class="profile-stat-label">Tasks</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value">89%</div>
+                            <div class="profile-stat-label">Completion</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Sections -->
+            <div class="profile-sections">
+                <!-- Personal Information -->
+                <div class="profile-section">
+                    <h2>Personal Information</h2>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" value="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" value="john.doe@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" value="+1 (555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea placeholder="Tell us about yourself...">Product designer and developer passionate about creating beautiful user experiences.</textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary">Save Changes</button>
+                        <button class="btn btn-secondary">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="profile-section">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="file-text"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Created new document</div>
+                            <div class="activity-description">Q4 Marketing Strategy.pdf</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Joined team meeting</div>
+                            <div class="activity-description">Product Design Review</div>
+                            <div class="activity-time">5 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Completed task</div>
+                            <div class="activity-description">Update homepage design</div>
+                            <div class="activity-time">Yesterday</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i data-lucide="message-square"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Posted comment</div>
+                            <div class="activity-description">Mobile App Redesign project</div>
+                            <div class="activity-time">2 days ago</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="profile-section">
+                    <h2>Account Settings</h2>
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" value="INFINIFY">
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select>
+                            <option>Administrator</option>
+                            <option>Manager</option>
+                            <option>Team Member</option>
+                            <option>Guest</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Time Zone</label>
+                        <select>
+                            <option>UTC-8:00 Pacific Time</option>
+                            <option>UTC-5:00 Eastern Time</option>
+                            <option>UTC+0:00 London</option>
+                            <option>UTC+1:00 Paris</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Language</label>
+                        <select>
+                            <option>English</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                            <option>German</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-primary">Update Settings</button>
+                    </div>
+                </div>
+
+                <!-- Preferences -->
+                <div class="profile-section">
+                    <h2>Preferences</h2>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h3>Email Notifications</h3>
+                            <p>Receive email updates about activity</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h3>Desktop Notifications</h3>
+                            <p>Show desktop notifications for updates</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h3>Auto-save</h3>
+                            <p>Automatically save changes</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="preference-item">
+                        <div class="preference-info">
+                            <h3>Dark Mode</h3>
+                            <p>Enable dark theme interface</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="profile-section" style="margin-top: 24px;">
+                <h2>Danger Zone</h2>
+                <p style="font-size: 13px; color: #666; margin-bottom: 16px;">
+                    Once you delete your account, there is no going back. Please be certain.
+                </p>
+                <button class="btn btn-danger">Delete Account</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
+

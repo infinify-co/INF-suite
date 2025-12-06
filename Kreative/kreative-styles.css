@@ -232,7 +232,7 @@ body {
 /* Main Content */
 .main-content {
     margin-left: 70px;
-    margin-right: 280px;
+    margin-right: 0px;
     margin-top: 60px;
     padding: 30px;
     min-height: calc(100vh - 60px);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work - Teams - INF Dashboard</title>
+    <title>Tools Overview - INF Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,314 +13,6 @@
     <style>
         * {
             font-family: 'Open Sans', sans-serif !important;
-            box-sizing: border-box;
-        }
-        /* Back Tile Styles */
-        .back-tile {
-            position: absolute;
-            top: 0;
-            left: 260px;
-            bottom: 0;
-            width: 230px;
-            background: #ffffff;
-            z-index: 998;
-            border-radius: 20px 0 0 20px;
-            overflow: visible;
-        }
-
-        /* Secondary Sidebar Styles */
-        .secondary-sidebar {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            font-family: 'Open Sans', sans-serif;
-            background: #ffffff;
-            transform: translateX(-250px);
-        }
-
-        .secondary-sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .secondary-sidebar-brand {
-            font-weight: 700;
-            font-size: 16px;
-            color: #000000;
-            letter-spacing: -0.02em;
-        }
-
-        .secondary-sidebar-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-icon svg {
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-nav {
-            flex: 1;
-            padding: 16px 0;
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .secondary-sidebar-nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .secondary-nav-back {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-back:hover {
-            color: #000000;
-            background-color: #f9fafb;
-        }
-
-        .secondary-nav-back i {
-            width: 16px;
-            height: 16px;
-        }
-
-        .secondary-nav-list {
-            margin-top: 8px;
-        }
-
-        .secondary-nav-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 24px;
-            color: #000000;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.2s, border-radius 0.2s;
-            position: relative;
-            border-radius: 8px;
-            margin: 0 8px;
-        }
-
-        .secondary-nav-item:hover {
-            background-color: #f9fafb;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item.active {
-            background-color: #f3f4f6;
-            border-radius: 8px;
-        }
-
-        .secondary-nav-item i {
-            width: 14px;
-            height: 14px;
-            color: #6b7280;
-        }
-
-        .secondary-sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .secondary-sidebar-footer svg {
-            width: 18px;
-            height: 18px;
-            color: #6b7280;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .secondary-sidebar-footer svg:hover {
-            color: #000000;
-        }
-
-        /* Adjust front tile to account for back tile */
-        .front-tile {
-            left: 270px;
-        }
-
-        /* Scale down content proportionally */
-        .front-tile-container {
-            transform: scale(0.85);
-            transform-origin: top left;
-            width: 117.65%;
-        }
-
-        /* Hide all scrollbars */
-        * {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        *::-webkit-scrollbar {
-            display: none;
-        }
-
-        body, html, main, .dashboard-main, .front-tile, .front-tile-container {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        body::-webkit-scrollbar,
-        html::-webkit-scrollbar,
-        main::-webkit-scrollbar,
-        .dashboard-main::-webkit-scrollbar,
-        .front-tile::-webkit-scrollbar,
-        .front-tile-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Work/Teams Content Styles */
-        .work-content-section {
-            padding: 60px 40px 40px;
-        }
-
-        .work-header {
-            margin-bottom: 40px;
-        }
-
-        .work-title {
-            font-size: 32px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 8px;
-        }
-
-        .work-subtitle {
-            font-size: 16px;
-            color: #6b7280;
-        }
-
-        .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 24px;
-            margin-bottom: 48px;
-        }
-
-        .team-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .team-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        .team-card-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .team-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 20px;
-        }
-
-        .team-info {
-            flex: 1;
-        }
-
-        .team-name {
-            font-size: 18px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 4px;
-        }
-
-        .team-members {
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        .team-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .team-action-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: none;
-            background: #f3f4f6;
-            color: #6b7280;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .team-action-btn:hover {
-            background: #e5e7eb;
-            color: #111827;
-        }
-
-        .team-description {
-            font-size: 14px;
-            color: #6b7280;
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .team-stats {
-            display: flex;
-            gap: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .team-stat {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .team-stat-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #111827;
-        }
-
-        .team-stat-label {
-            font-size: 12px;
-            color: #6b7280;
         }
 
         /* Main Sidebar Styles */
@@ -387,15 +79,15 @@
         }
 
         .sidebar-nav {
-            padding: 0px 0px 20px 0px;
-            margin-top: -380px;
+            padding: 0px 16px 20px 16px;
+            margin-top: -440px;
         }
 
         .sidebar-nav-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 16px;
+            padding: 12px 0;
             color: #000000;
             font-family: 'Open Sans', sans-serif;
             font-size: 14px;
@@ -411,12 +103,7 @@
         }
 
         .sidebar-nav-item.active i,
-        .sidebar-nav-item.active svg,
-        .sidebar-nav-item.active a {
-            color: #2563eb;
-        }
-
-        .sidebar-nav-item.active a span {
+        .sidebar-nav-item.active svg {
             color: #2563eb;
         }
 
@@ -439,11 +126,12 @@
         /* Adjust dashboard main to account for sidebar and header */
         .dashboard-main {
             margin-left: 200px !important;
-            margin-right: 64px !important;
-            margin-top: 0 !important;
+            margin-top: 65px !important;
+            padding: 40px !important;
             padding-bottom: 90px;
+            margin-right: 64px !important;
         }
-
+    
         /* Right Sidebar Styles */
         .right-sidebar {
             width: 64px;
@@ -498,8 +186,10 @@
         }
 
         .right-nav-item {
-            width: 36px;
-            height: 36px;
+            width: 36px !important;
+            height: 36px !important;
+            min-width: 36px !important;
+            min-height: 36px !important;
             border: none;
             background: transparent;
             border-radius: 8px;
@@ -607,27 +297,26 @@
             background: rgba(0, 0, 0, 0.1);
             margin-bottom: 4px;
         }
+
     </style>
 </head>
 <body class="dashboard-page">
 
     <!-- Main Sidebar -->
     <div class="main-sidebar">
-        <h2 class="sidebar-heading">STAFF</h2>
+        <h2 class="sidebar-heading">TOOLS</h2>
         <div class="sidebar-divider"></div>
         <div class="sidebar-nav">
-            <div class="sidebar-nav-item active"><i data-lucide="layout-dashboard"></i><span>Overview</span></div>
-            <div class="sidebar-nav-item"><i data-lucide="file-text"></i><span>Reports</span></div>
-            <div class="sidebar-nav-item"><i data-lucide="folder"></i><span>Documents</span></div>
-            <div class="sidebar-nav-item"><i data-lucide="calendar"></i><span>Calendar</span></div>
-            <div class="sidebar-nav-item"><i data-lucide="check-square"></i><span>Tasks</span></div>
-            <div class="sidebar-nav-item"><i data-lucide="bar-chart-3"></i><span>Analytics</span></div>
-            <div class="sidebar-nav-item"><i data-lucide="trophy"></i><span>Competition</span></div>
+            <div class="sidebar-nav-item active"><a href="tools-overview.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; width: 100%; height: 100%;"><i data-lucide="layout-dashboard"></i><span>Overview</span></a></div>
+            <div class="sidebar-nav-item"><a href="tools-my-tools.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; width: 100%; height: 100%;"><i data-lucide="wrench"></i><span>My tools</span></a></div>
+            <div class="sidebar-nav-item"><a href="tools-my-agents.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; width: 100%; height: 100%;"><i data-lucide="bot"></i><span>My agents</span></a></div>
+            <div class="sidebar-nav-item"><a href="tools-explore.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; width: 100%; height: 100%;"><i data-lucide="compass"></i><span>Explore</span></a></div>
+            <div class="sidebar-nav-item"><a href="tools-integrations.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 12px; width: 100%; height: 100%;"><i data-lucide="plug"></i><span>Integrations</span></a></div>
+            <div class="sidebar-divider-bottom"></div>
         </div>
     </div>
 
-
-<!-- Right Sidebar -->
+    <!-- Right Sidebar -->
     <aside class="right-sidebar">
         <div class="right-sidebar-content">
             <!-- Top Logo -->
@@ -660,11 +349,11 @@
                     </svg>
                     <span class="right-nav-item-label">Operation</span>
                 </button>
-                <button class="right-nav-item active teams-icon-btn" title="Teams" onclick="window.location.href='work.html'">
+                <button class="right-nav-item teams-icon-btn" title="Teams" onclick="window.location.href='work.html'">
                     <img src="../Logo's/work.2.png" alt="Teams" class="teams-icon-img">
                     <span class="right-nav-item-label">Teams</span>
                 </button>
-                <button class="right-nav-item" title="Tools" onclick="window.location.href='Tools.html'">
+                <button class="right-nav-item active" title="Tools" onclick="window.location.href='Tools.html'">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"></path>
                         <path d="m18 15 4-4"></path>
@@ -757,71 +446,17 @@
     <!-- Main Content -->
     <main class="dashboard-main">
         <div class="dashboard-container">
+            <h1>Tools Overview</h1>
+            <p>Welcome to the Tools Overview page.</p>
         </div>
     </main>
 
     <script>
-        // Initialize Lucide icons and ensure images load
+        // Initialize Lucide icons
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) {
                 lucide.createIcons();
             }
-
-            // Force reload images to ensure they display and apply styles
-            // Dropdown hover functionality
-            function setupDropdownHover(buttonId, dropdownId, clearAllBtnId = null) {
-                const button = document.getElementById(buttonId);
-                const dropdown = document.getElementById(dropdownId);
-                
-                if (button && dropdown) {
-                    let hoverTimeout;
-                    
-                    // Show dropdown on hover
-                    button.addEventListener('mouseenter', () => {
-                        clearTimeout(hoverTimeout);
-                        dropdown.classList.add('active');
-                        // Reinitialize icons after showing
-                        if (window.lucide) {
-                            setTimeout(() => lucide.createIcons(), 50);
-                        }
-                    });
-                    
-                    // Keep dropdown open when hovering over it
-                    dropdown.addEventListener('mouseenter', () => {
-                        clearTimeout(hoverTimeout);
-                        dropdown.classList.add('active');
-                    });
-                    
-                    // Hide dropdown when mouse leaves button or dropdown
-                    const hideDropdown = () => {
-                        hoverTimeout = setTimeout(() => {
-                            dropdown.classList.remove('active');
-                        }, 150); // Small delay to prevent flickering
-                    };
-                    
-                    button.addEventListener('mouseleave', hideDropdown);
-                    dropdown.addEventListener('mouseleave', hideDropdown);
-                    
-                    // Clear all notifications handler
-                    if (clearAllBtnId) {
-                        const clearAllBtn = document.getElementById(clearAllBtnId);
-                        if (clearAllBtn) {
-                            clearAllBtn.addEventListener('click', (e) => {
-                                e.preventDefault();
-                                const notificationsList = dropdown.querySelector('.notifications-list');
-                                if (notificationsList) {
-                                    notificationsList.innerHTML = '<div style="padding: 20px; text-align: center; color: #6b7280;">No notifications</div>';
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-
-            // Setup dropdowns
-            setupDropdownHover('appsDropdownBtn', 'appsDropdown');
-            setupDropdownHover('bellDropdownBtn', 'bellDropdown', 'clearAllBellNotifications');
-            setupDropdownHover('accountDropdownBtn', 'accountDropdown');
         });
     </script>
 </body>
